@@ -114,7 +114,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_profile:
                 swapFragment(new ProfileFragment());
                 break;
-
+            case R.id.nav_helpq:
+                swapFragment(new HelpQFragment());
+                break;
         }
     }
 
