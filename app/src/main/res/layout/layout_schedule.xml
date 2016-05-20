@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="Home"
+        android:text="Schedule"
         android:textSize="30sp"
         android:layout_marginTop="10dp"
         android:layout_gravity="center_horizontal"

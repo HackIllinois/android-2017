@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 /**
  * Created by tommypacker for HackIllinois' 2016 Clue Hunt
  */
-public class HomeFragment extends Fragment {
+public class AnnouncementFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.layout_home, parent, false);
+        View view = inflater.inflate(R.layout.layout_announcements, parent, false);
         return view;
     }
 }

@@ -4,14 +4,11 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -32,9 +29,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        int permissionCheck = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION);
         checkPerms();
 
         setContentView(R.layout.activity_main);
@@ -51,7 +45,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         fragmentManager = getSupportFragmentManager();
-        swapFragment(new HomeFragment());
+        swapFragment(new ScheduleFragment());
     }
 
     @Override
@@ -105,17 +99,25 @@ public class MainActivity extends AppCompatActivity
     private void selectDrawerItem(MenuItem item){
         final int selectedID = item.getItemId();
         switch (selectedID){
-            case R.id.nav_home:
-                swapFragment(new HomeFragment());
+            case R.id.nav_schedule:
+                swapFragment(new ScheduleFragment());
+                setTitle("Schedule");
+                break;
+            case R.id.nav_announcements:
+                swapFragment(new AnnouncementFragment());
+                setTitle("Announcements");
                 break;
             case R.id.nav_map:
                 swapFragment(new MapFragment());
+                setTitle("Map");
                 break;
             case R.id.nav_profile:
                 swapFragment(new ProfileFragment());
+                setTitle("Profile");
                 break;
             case R.id.nav_helpq:
                 swapFragment(new HelpQFragment());
+                setTitle("HelpQ");
                 break;
         }
     }
