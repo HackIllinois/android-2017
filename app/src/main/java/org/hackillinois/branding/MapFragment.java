@@ -76,7 +76,9 @@ public class MapFragment extends Fragment {
                                     .target(new LatLng(location.getLatitude(), location.getLongitude()))      // Sets the center of the map to location user
                                     .zoom(19)                   // Sets the zoom
                                     .build();                   // Creates a CameraPosition from the builder
-                            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                            //googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                            LatLng curLoc = new LatLng(location.getLatitude(), location.getLongitude());
+                            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curLoc, 18.0f));
 
                         }
 
