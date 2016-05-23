@@ -27,4 +27,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:9.0.0'
     compile 'com.google.android.gms:play-services-location:9.0.0'
     compile 'com.akexorcist:googledirectionlibrary:1.0.4'
+    compile 'com.github.clans:fab:1.6.3'
 }

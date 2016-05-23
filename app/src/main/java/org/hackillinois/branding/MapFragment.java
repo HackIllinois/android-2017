@@ -45,15 +45,6 @@ public class MapFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.layout_map, parent, false);
 
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         mSupportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapFrame);
         if (mSupportMapFragment == null) {
             FragmentManager fragmentManager = getChildFragmentManager();
@@ -78,7 +69,7 @@ public class MapFragment extends Fragment {
                                     .build();                   // Creates a CameraPosition from the builder
                             //googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                             LatLng curLoc = new LatLng(location.getLatitude(), location.getLongitude());
-                            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curLoc, 18.0f));
+                            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curLoc, 18.5f));
 
                         }
 
