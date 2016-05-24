@@ -51,28 +51,27 @@ public class MapFragment extends Fragment implements DirectionCallback{
     private GoogleMap mMap;
     private LatLng userLocation;
     private LatLng endLocation;
-    private SupportMapFragment mSupportMapFragment;
-    private com.github.clans.fab.FloatingActionButton siebelButton;
-    private com.github.clans.fab.FloatingActionButton ecebButton;
-    private com.github.clans.fab.FloatingActionButton unionButton;
 
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            String location = "";
             switch (v.getId()){
                 case R.id.siebel:
-                    endLocation = new LatLng(10, 10);
-                    requestDirection(userLocation, endLocation);
+                    location = "Siebel Center";
+                    endLocation = new LatLng(40.114026, -88.224807);
                     break;
                 case R.id.eceb:
-                    endLocation = new LatLng(10, 10);
-                    requestDirection(userLocation, endLocation);
+                    location = "Electrical and Computer Engineering Building";
+                    endLocation = new LatLng(40.114918, -88.228253);
                     break;
                 case R.id.union:
-                    endLocation = new LatLng(10, 10);
-                    requestDirection(userLocation, endLocation);
+                    location = "Illini Union";
+                    endLocation = new LatLng(40.109387, -88.227246);
                     break;
             }
+            Toast.makeText(getContext(), "Getting directions to " + location, Toast.LENGTH_SHORT).show();
+            requestDirection(findCurrentLocation(), endLocation);
         }
     };
 
@@ -80,7 +79,7 @@ public class MapFragment extends Fragment implements DirectionCallback{
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.layout_map, parent, false);
 
-        mSupportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapFrame);
+        SupportMapFragment mSupportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapFrame);
         if (mSupportMapFragment == null) {
             FragmentManager fragmentManager = getChildFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -103,7 +102,6 @@ public class MapFragment extends Fragment implements DirectionCallback{
                                     .target(new LatLng(location.getLatitude(), location.getLongitude()))      // Sets the center of the map to location user
                                     .zoom(19)                   // Sets the zoom
                                     .build();                   // Creates a CameraPosition from the builder
-                            //googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                             userLocation = new LatLng(location.getLatitude(), location.getLongitude());
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 17.5f));
 
@@ -119,18 +117,26 @@ public class MapFragment extends Fragment implements DirectionCallback{
                 }
             });
 
-            siebelButton = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.siebel);
+            com.github.clans.fab.FloatingActionButton siebelButton = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.siebel);
             siebelButton.setOnClickListener(clickListener);
-            ecebButton = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.eceb);
+            com.github.clans.fab.FloatingActionButton ecebButton = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.eceb);
             ecebButton.setOnClickListener(clickListener);
-            unionButton = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.union);
+            com.github.clans.fab.FloatingActionButton unionButton = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.union);
             unionButton.setOnClickListener(clickListener);
         }
         return view;
     }
 
+    private LatLng findCurrentLocation(){
+        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+
+        Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
+        return new LatLng(location.getLatitude(), location.getLongitude());
+    }
+
     private void requestDirection(LatLng current, LatLng destination){
-        GoogleDirection.withServerKey(getResources().getString(R.string.google_maps_key))
+        GoogleDirection.withServerKey(getResources().getString(R.string.google_maps_server_key))
                 .from(current)
                 .to(destination)
                 .transportMode(TransportMode.WALKING)
@@ -145,6 +151,8 @@ public class MapFragment extends Fragment implements DirectionCallback{
 
             ArrayList<LatLng> directionPositionList = direction.getRouteList().get(0).getLegList().get(0).getDirectionPoint();
             mMap.addPolyline(DirectionConverter.createPolyline(this.getContext(), directionPositionList, 5, Color.RED));
+        }else{
+            Toast.makeText(getContext(), "You're not in a valid location", Toast.LENGTH_SHORT).show();
         }
     }
 
