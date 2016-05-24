@@ -3,6 +3,7 @@ package org.hackillinois.branding;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -20,6 +21,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.akexorcist.googledirection.DirectionCallback;
+import com.akexorcist.googledirection.GoogleDirection;
+import com.akexorcist.googledirection.constant.TransportMode;
+import com.akexorcist.googledirection.model.Direction;
+import com.akexorcist.googledirection.util.DirectionConverter;
+import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -34,12 +41,40 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 /**
  * Created by tommypacker for HackIllinois' 2016 Clue Hunt
  */
-public class MapFragment extends Fragment {
+public class MapFragment extends Fragment implements DirectionCallback{
 
+    private GoogleMap mMap;
+    private LatLng userLocation;
+    private LatLng endLocation;
     private SupportMapFragment mSupportMapFragment;
+    private com.github.clans.fab.FloatingActionButton siebelButton;
+    private com.github.clans.fab.FloatingActionButton ecebButton;
+    private com.github.clans.fab.FloatingActionButton unionButton;
+
+    private View.OnClickListener clickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.siebel:
+                    endLocation = new LatLng(10, 10);
+                    requestDirection(userLocation, endLocation);
+                    break;
+                case R.id.eceb:
+                    endLocation = new LatLng(10, 10);
+                    requestDirection(userLocation, endLocation);
+                    break;
+                case R.id.union:
+                    endLocation = new LatLng(10, 10);
+                    requestDirection(userLocation, endLocation);
+                    break;
+            }
+        }
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
@@ -56,6 +91,7 @@ public class MapFragment extends Fragment {
                 @Override
                 public void onMapReady(GoogleMap googleMap) {
                     if (googleMap != null) {
+                        mMap = googleMap;
 
                         LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
                         Criteria criteria = new Criteria();
@@ -68,12 +104,12 @@ public class MapFragment extends Fragment {
                                     .zoom(19)                   // Sets the zoom
                                     .build();                   // Creates a CameraPosition from the builder
                             //googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-                            LatLng curLoc = new LatLng(location.getLatitude(), location.getLongitude());
-                            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curLoc, 18.5f));
+                            userLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 17.5f));
 
                         }
 
-                        googleMap.getUiSettings().setAllGesturesEnabled(true);
+                        mMap.getUiSettings().setAllGesturesEnabled(true);
                         if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
                                 == PackageManager.PERMISSION_GRANTED) {
                             googleMap.setMyLocationEnabled(true);
@@ -82,7 +118,38 @@ public class MapFragment extends Fragment {
 
                 }
             });
+
+            siebelButton = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.siebel);
+            siebelButton.setOnClickListener(clickListener);
+            ecebButton = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.eceb);
+            ecebButton.setOnClickListener(clickListener);
+            unionButton = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.union);
+            unionButton.setOnClickListener(clickListener);
         }
         return view;
+    }
+
+    private void requestDirection(LatLng current, LatLng destination){
+        GoogleDirection.withServerKey(getResources().getString(R.string.google_maps_key))
+                .from(current)
+                .to(destination)
+                .transportMode(TransportMode.WALKING)
+                .execute(this);
+    }
+
+    @Override
+    public void onDirectionSuccess(Direction direction, String rawBody) {
+        if (direction.isOK()) {
+            mMap.addMarker(new MarkerOptions().position(userLocation));
+            mMap.addMarker(new MarkerOptions().position(endLocation));
+
+            ArrayList<LatLng> directionPositionList = direction.getRouteList().get(0).getLegList().get(0).getDirectionPoint();
+            mMap.addPolyline(DirectionConverter.createPolyline(this.getContext(), directionPositionList, 5, Color.RED));
+        }
+    }
+
+    @Override
+    public void onDirectionFailure(Throwable t) {
+        Toast.makeText(getContext(), "Failure", Toast.LENGTH_SHORT).show();
     }
 }
