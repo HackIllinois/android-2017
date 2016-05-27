@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity
 
     private FragmentManager fragmentManager;
     private MenuItem menuItem;
+    private MapFragment mMapFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         fragmentManager = getSupportFragmentManager();
+        mMapFragment = new MapFragment();
         swapFragment(new ScheduleFragment());
     }
 
@@ -92,7 +94,7 @@ public class MainActivity extends AppCompatActivity
             public void run() {
                 selectDrawerItem(menuItem); // your fragment transactions go here
             }
-        }, 300);
+        }, 350);
         return true;
     }
 
@@ -108,7 +110,7 @@ public class MainActivity extends AppCompatActivity
                 setTitle("Announcements");
                 break;
             case R.id.nav_map:
-                swapFragment(new MapFragment());
+                swapFragment(mMapFragment);
                 setTitle("Map");
                 break;
             case R.id.nav_profile:
