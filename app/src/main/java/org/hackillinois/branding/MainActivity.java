@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity
             public void run() {
                 selectDrawerItem(menuItem); // your fragment transactions go here
             }
-        }, 250);
+        }, 300);
         return true;
     }
 

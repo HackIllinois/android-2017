@@ -42,6 +42,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Created by tommypacker for HackIllinois' 2016 Clue Hunt
@@ -54,11 +55,13 @@ public class MapFragment extends Fragment implements DirectionCallback{
     private static final LatLng ECEB = new LatLng(40.114918, -88.228253);
     private static final LatLng SIEBEL = new LatLng(40.114026, -88.224807);
     private static final LatLng UNION = new LatLng(40.109387, -88.227246);
+    private HashSet<LatLng> visited = new HashSet<>();
 
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             String location = "";
+            LatLng currentLocation = findCurrentLocation();
             switch (v.getId()){
                 case R.id.siebel:
                     location = "Siebel Center";
@@ -73,8 +76,14 @@ public class MapFragment extends Fragment implements DirectionCallback{
                     endLocation = UNION;
                     break;
             }
-            Toast.makeText(getContext(), "Getting directions to " + location, Toast.LENGTH_SHORT).show();
-            requestDirection(findCurrentLocation(), endLocation);
+            System.out.println(visited.contains(endLocation));
+            if(!visited.contains(endLocation)){
+                Toast.makeText(getContext(), "Getting directions to " + location, Toast.LENGTH_SHORT).show();
+                requestDirection(currentLocation, endLocation);
+                visited.add(endLocation);
+            }else{
+                Toast.makeText(getContext(), "You already requested this location", Toast.LENGTH_SHORT).show();
+            }
         }
     };
 
@@ -153,7 +162,7 @@ public class MapFragment extends Fragment implements DirectionCallback{
             if(endLocation == SIEBEL){
                 directionColor = Color.RED;
             }else if(endLocation == ECEB){
-                directionColor = Color.BLUE;
+                directionColor = Color.BLACK;
             }else{
                 directionColor = Color.GREEN;
             }
