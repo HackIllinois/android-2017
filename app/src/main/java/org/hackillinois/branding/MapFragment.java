@@ -51,6 +51,9 @@ public class MapFragment extends Fragment implements DirectionCallback{
     private GoogleMap mMap;
     private LatLng userLocation;
     private LatLng endLocation;
+    private static final LatLng ECEB = new LatLng(40.114918, -88.228253);
+    private static final LatLng SIEBEL = new LatLng(40.114026, -88.224807);
+    private static final LatLng UNION = new LatLng(40.109387, -88.227246);
 
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
@@ -59,15 +62,15 @@ public class MapFragment extends Fragment implements DirectionCallback{
             switch (v.getId()){
                 case R.id.siebel:
                     location = "Siebel Center";
-                    endLocation = new LatLng(40.114026, -88.224807);
+                    endLocation = SIEBEL;
                     break;
                 case R.id.eceb:
                     location = "Electrical and Computer Engineering Building";
-                    endLocation = new LatLng(40.114918, -88.228253);
+                    endLocation = ECEB;
                     break;
                 case R.id.union:
                     location = "Illini Union";
-                    endLocation = new LatLng(40.109387, -88.227246);
+                    endLocation = UNION;
                     break;
             }
             Toast.makeText(getContext(), "Getting directions to " + location, Toast.LENGTH_SHORT).show();
@@ -103,7 +106,7 @@ public class MapFragment extends Fragment implements DirectionCallback{
                                     .zoom(19)                   // Sets the zoom
                                     .build();                   // Creates a CameraPosition from the builder
                             userLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 17.5f));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 18.0f));
 
                         }
 
@@ -146,11 +149,20 @@ public class MapFragment extends Fragment implements DirectionCallback{
     @Override
     public void onDirectionSuccess(Direction direction, String rawBody) {
         if (direction.isOK()) {
+            int directionColor;
+            if(endLocation == SIEBEL){
+                directionColor = Color.RED;
+            }else if(endLocation == ECEB){
+                directionColor = Color.BLUE;
+            }else{
+                directionColor = Color.GREEN;
+            }
+
             mMap.addMarker(new MarkerOptions().position(userLocation));
             mMap.addMarker(new MarkerOptions().position(endLocation));
 
             ArrayList<LatLng> directionPositionList = direction.getRouteList().get(0).getLegList().get(0).getDirectionPoint();
-            mMap.addPolyline(DirectionConverter.createPolyline(this.getContext(), directionPositionList, 5, Color.RED));
+            mMap.addPolyline(DirectionConverter.createPolyline(this.getContext(), directionPositionList, 5, directionColor));
         }else{
             Toast.makeText(getContext(), "You're not in a valid location", Toast.LENGTH_SHORT).show();
         }
