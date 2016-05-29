@@ -47,7 +47,7 @@ public class ScheduleFragment extends Fragment {
         tabLayout.addTab(saturday, 1);
         tabLayout.addTab(sunday, 2);
 
-        tabLayout.setTabTextColors(ContextCompat.getColorStateList(this.getContext(), R.color.icons));
+        tabLayout.setTabTextColors(ContextCompat.getColorStateList(this.getContext(), R.drawable.tab_selector));
         tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(this.getContext(), R.color.accent));
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
