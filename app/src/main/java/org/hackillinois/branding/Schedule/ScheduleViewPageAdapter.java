@@ -1,4 +1,4 @@
-package org.hackillinois.branding;
+package org.hackillinois.branding.Schedule;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,9 +11,9 @@ import org.hackillinois.branding.Schedule.SundayFragment;
 /**
  * Created by tommypacker for HackIllinois' 2016 Clue Hunt
  */
-public class ViewPagerAdapter extends FragmentStatePagerAdapter {
+public class ScheduleViewPageAdapter extends FragmentStatePagerAdapter {
 
-    public ViewPagerAdapter(FragmentManager fm) {
+    public ScheduleViewPageAdapter(FragmentManager fm) {
         super(fm);
     }
 

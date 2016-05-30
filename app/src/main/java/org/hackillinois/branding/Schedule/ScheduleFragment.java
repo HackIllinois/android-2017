@@ -1,17 +1,16 @@
-package org.hackillinois.branding;
+package org.hackillinois.branding.Schedule;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.hackillinois.branding.Schedule.ScheduleAdapter;
+import org.hackillinois.branding.R;
 
 /**
  * Created by tommypacker for HackIllinois' 2016 Clue Hunt
@@ -23,7 +22,7 @@ public class ScheduleFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private ViewPagerAdapter viewPagerAdapter;
+    private ScheduleViewPageAdapter scheduleViewPageAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
@@ -32,8 +31,8 @@ public class ScheduleFragment extends Fragment {
         tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         viewPager = (ViewPager) view.findViewById(R.id.viewpager);
 
-        viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
-        viewPager.setAdapter(viewPagerAdapter);
+        scheduleViewPageAdapter = new ScheduleViewPageAdapter(getChildFragmentManager());
+        viewPager.setAdapter(scheduleViewPageAdapter);
 
         final TabLayout.Tab friday = tabLayout.newTab();
         final TabLayout.Tab saturday = tabLayout.newTab();
