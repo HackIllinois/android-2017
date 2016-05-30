@@ -55,7 +55,7 @@ public class MapFragment extends Fragment implements DirectionCallback{
     private static final LatLng ECEB = new LatLng(40.114918, -88.228253);
     private static final LatLng SIEBEL = new LatLng(40.114026, -88.224807);
     private static final LatLng UNION = new LatLng(40.109387, -88.227246);
-    private HashSet<LatLng> visited = new HashSet<>();
+    private HashSet<LatLng> visited;
 
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
@@ -90,6 +90,7 @@ public class MapFragment extends Fragment implements DirectionCallback{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.layout_map, parent, false);
+        visited = new HashSet<>();
 
         SupportMapFragment mSupportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapFrame);
         if (mSupportMapFragment == null) {
