@@ -34,6 +34,20 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         checkPerms();
 
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    MapFragment mapFragment = new MapFragment();
+                    mapFragment.onCreateView(null, null, null);
+                    mapFragment.onPause();
+                    mapFragment.onDestroy();
+                }catch (Exception ignored){
+
+                }
+            }
+        }).start();
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
