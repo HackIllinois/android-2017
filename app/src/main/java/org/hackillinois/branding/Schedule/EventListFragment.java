@@ -13,7 +13,7 @@ import org.hackillinois.branding.R;
 /**
  * Created by tommypacker for HackIllinois' 2016 Clue Hunt
  */
-public class FridayFragment extends Fragment {
+public class EventListFragment extends Fragment {
 
     private Event[] events;
     private RecyclerView mRecyclerView;
@@ -22,7 +22,7 @@ public class FridayFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.friday_schedule, parent, false);
+        View view = inflater.inflate(R.layout.event_list_layout, parent, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
 
         events = new Event[2];

@@ -4,10 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import org.hackillinois.branding.Schedule.FridayFragment;
-import org.hackillinois.branding.Schedule.SaturdayFragment;
-import org.hackillinois.branding.Schedule.SundayFragment;
-
 /**
  * Created by tommypacker for HackIllinois' 2016 Clue Hunt
  */
@@ -21,11 +17,11 @@ public class ScheduleViewPageAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new FridayFragment();
+                return new EventListFragment();
             case 1:
-                return new SaturdayFragment();
+                return new EventListFragment();
             default:
-                return new SundayFragment();
+                return new EventListFragment();
         }
     }
 
