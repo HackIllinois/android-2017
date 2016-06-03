@@ -44,15 +44,11 @@ public class EventListFragment extends Fragment {
                 break;
         }
 
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
 
-        // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        // specify an adapter (see also next example)
         mAdapter = new ScheduleAdapter(events);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -63,6 +59,10 @@ public class EventListFragment extends Fragment {
         ArrayList<Event> toReturn = new ArrayList<>();
         toReturn.add(new Event("Buses Arrive/Check-in", "Siebel Atrium", 900));
         toReturn.add(new Event("Career Fair", "Siebel/ECEB", 1000));
+        toReturn.add(new Event("Opening Ceremony", "Union", 1000));
+        toReturn.add(new Event("Dinner", "Siebel/ECEB", 1000));
+        toReturn.add(new Event("Hacking Begins", "Siebel/ECEB", 1000));
+        toReturn.add(new Event("Microsoft Tech Talk", "Grainger Auditorium (ECEB)", 1000));
         return toReturn.toArray(new Event[toReturn.size()]);
     }
 
