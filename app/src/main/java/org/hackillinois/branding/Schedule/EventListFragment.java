@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 
 import org.hackillinois.branding.R;
 
+import java.util.ArrayList;
+
 /**
  * Created by tommypacker for HackIllinois' 2016 Clue Hunt
  */
@@ -25,9 +27,23 @@ public class EventListFragment extends Fragment {
         View view = inflater.inflate(R.layout.event_list_layout, parent, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
 
-        events = new Event[2];
-        events[0] = new Event("Title", "Location", 900);
-        events[1] = new Event("Title 2", "Location 2", 1000);
+        Bundle extras = getArguments();
+        int whichDay = extras.getInt("day");
+        switch (whichDay){
+            case 0:
+                events = getFridayEvents();
+                break;
+            case 1:
+                events = getSaturdayEvents();
+                break;
+            case 2:
+                events = getSundayEvents();
+                break;
+            default:
+                events = getFridayEvents();
+                break;
+        }
+
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
@@ -41,5 +57,26 @@ public class EventListFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
 
         return view;
+    }
+
+    private Event[] getFridayEvents(){
+        ArrayList<Event> toReturn = new ArrayList<>();
+        toReturn.add(new Event("Buses Arrive/Check-in", "Siebel Atrium", 900));
+        toReturn.add(new Event("Career Fair", "Siebel/ECEB", 1000));
+        return toReturn.toArray(new Event[toReturn.size()]);
+    }
+
+    private Event[] getSaturdayEvents(){
+        ArrayList<Event> toReturn = new ArrayList<>();
+        toReturn.add(new Event("Midnight Snack", "Siebel/ECEB", 900));
+        toReturn.add(new Event("Web-dev & API Workshop", "ECEB", 1000));
+        return toReturn.toArray(new Event[toReturn.size()]);
+    }
+
+    private Event[] getSundayEvents(){
+        ArrayList<Event> toReturn = new ArrayList<>();
+        toReturn.add(new Event("Hacking Ends", "Siebel/ECEB", 900));
+        toReturn.add(new Event("Lunch", "Siebel/ECEB", 1000));
+        return toReturn.toArray(new Event[toReturn.size()]);
     }
 }

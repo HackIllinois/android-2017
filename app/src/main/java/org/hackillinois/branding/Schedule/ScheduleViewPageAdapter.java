@@ -1,5 +1,6 @@
 package org.hackillinois.branding.Schedule;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -15,14 +16,11 @@ public class ScheduleViewPageAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        switch (position){
-            case 0:
-                return new EventListFragment();
-            case 1:
-                return new EventListFragment();
-            default:
-                return new EventListFragment();
-        }
+        EventListFragment toReturn = new EventListFragment();
+        Bundle extras = new Bundle();
+        extras.putInt("day", position);
+        toReturn.setArguments(extras);
+        return toReturn;
     }
 
     @Override
