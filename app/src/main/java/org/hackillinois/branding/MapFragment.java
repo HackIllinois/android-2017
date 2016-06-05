@@ -124,15 +124,10 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
                 public void onMapReady(GoogleMap googleMap) {
                     if (googleMap != null) {
                         mMap = googleMap;
-
-                        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-                        Criteria criteria = new Criteria();
-
-                        Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
-                        if (location != null)
+                        if (userLocation != null)
                         {
                             CameraPosition cameraPosition = new CameraPosition.Builder()
-                                    .target(new LatLng(location.getLatitude(), location.getLongitude()))      // Sets the center of the map to location user
+                                    .target(userLocation)      // Sets the center of the map to location user
                                     .zoom(19)                   // Sets the zoom
                                     .build();                   // Creates a CameraPosition from the builder
                             //userLocation = new LatLng(location.getLatitude(), location.getLongitude());
