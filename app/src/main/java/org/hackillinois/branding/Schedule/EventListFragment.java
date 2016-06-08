@@ -57,26 +57,26 @@ public class EventListFragment extends Fragment {
 
     private Event[] getFridayEvents(){
         ArrayList<Event> toReturn = new ArrayList<>();
-        toReturn.add(new Event("Buses Arrive/Check-in", "Siebel Atrium", 900));
-        toReturn.add(new Event("Career Fair", "Siebel/ECEB", 1000));
-        toReturn.add(new Event("Opening Ceremony", "Union", 1000));
-        toReturn.add(new Event("Dinner", "Siebel/ECEB", 1000));
-        toReturn.add(new Event("Hacking Begins", "Siebel/ECEB", 1000));
-        toReturn.add(new Event("Microsoft Tech Talk", "Grainger Auditorium (ECEB)", 1000));
+        toReturn.add(new Event("Buses Arrive/Check-in", "Siebel Atrium", 12, 30, true));
+        toReturn.add(new Event("Career Fair", "Siebel/ECEB", 2, 30, true));
+        toReturn.add(new Event("Opening Ceremony", "Union", 7, 0, true));
+        toReturn.add(new Event("Dinner", "Siebel/ECEB", 10, 0, true));
+        toReturn.add(new Event("Hacking Begins", "Siebel/ECEB", 12, 30, false));
+        toReturn.add(new Event("Microsoft Tech Talk", "Grainger Auditorium (ECEB)", 4, 0, false));
         return toReturn.toArray(new Event[toReturn.size()]);
     }
 
     private Event[] getSaturdayEvents(){
         ArrayList<Event> toReturn = new ArrayList<>();
-        toReturn.add(new Event("Midnight Snack", "Siebel/ECEB", 900));
-        toReturn.add(new Event("Web-dev & API Workshop", "ECEB", 1000));
+        toReturn.add(new Event("Midnight Snack", "Siebel/ECEB", 9, 30, true));
+        toReturn.add(new Event("Web-dev & API Workshop", "ECEB", 12, 15, false));
         return toReturn.toArray(new Event[toReturn.size()]);
     }
 
     private Event[] getSundayEvents(){
         ArrayList<Event> toReturn = new ArrayList<>();
-        toReturn.add(new Event("Hacking Ends", "Siebel/ECEB", 900));
-        toReturn.add(new Event("Lunch", "Siebel/ECEB", 1000));
+        toReturn.add(new Event("Hacking Ends", "Siebel/ECEB", 8, 45, true));
+        toReturn.add(new Event("Lunch", "Siebel/ECEB", 4, 0, false));
         return toReturn.toArray(new Event[toReturn.size()]);
     }
 }

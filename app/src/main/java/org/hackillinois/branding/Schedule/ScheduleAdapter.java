@@ -19,10 +19,12 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
         // each data item is just a string in this case
         public TextView locationTextView;
         public TextView titleTextView;
+        public TextView timeTextView;
         public ViewHolder(View v) {
             super(v);
             titleTextView = (TextView) v.findViewById(R.id.eventName);
             locationTextView = (TextView) v.findViewById(R.id.eventLocation);
+            timeTextView = (TextView) v.findViewById(R.id.eventTime);
         }
     }
 
@@ -41,6 +43,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.locationTextView.setText(dataset[position].getLocation());
         holder.titleTextView.setText(dataset[position].getTitle());
+        holder.timeTextView.setText(dataset[position].getTime());
     }
 
     @Override

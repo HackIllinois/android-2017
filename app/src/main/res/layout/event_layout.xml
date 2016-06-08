@@ -19,8 +19,9 @@
         <TextView
             android:id="@+id/eventName"
             android:text="EVENT NAME"
+            android:textStyle="bold"
             android:textSize="20sp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="6dp"
             android:gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -29,7 +30,16 @@
             android:id="@+id/eventLocation"
             android:text="EVENT LOCATION"
             android:textSize="18sp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="7dp"
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/eventTime"
+            android:text="EVENT TIME"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp"
             android:gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
