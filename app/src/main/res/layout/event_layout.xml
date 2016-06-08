@@ -30,7 +30,7 @@
             android:id="@+id/eventLocation"
             android:text="EVENT LOCATION"
             android:textSize="18sp"
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="5dp"
             android:gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -39,7 +39,7 @@
             android:id="@+id/eventTime"
             android:text="EVENT TIME"
             android:textSize="16sp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="6dp"
             android:gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

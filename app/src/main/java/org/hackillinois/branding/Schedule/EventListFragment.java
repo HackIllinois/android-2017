@@ -69,14 +69,19 @@ public class EventListFragment extends Fragment {
     private Event[] getSaturdayEvents(){
         ArrayList<Event> toReturn = new ArrayList<>();
         toReturn.add(new Event("Midnight Snack", "Siebel/ECEB", 9, 30, true));
-        toReturn.add(new Event("Web-dev & API Workshop", "ECEB", 12, 15, false));
+        toReturn.add(new Event("Brunch", "Siebel/ECEB", 10, 0, true));
+        toReturn.add(new Event("Apple Tech Talk", "Grainger Auditorium (ECEB)", 12, 0, false));
+        toReturn.add(new Event("Raspberry Pi Workshop", "ECEB", 12, 15, false));
+        toReturn.add(new Event("Nerf Wars", "Kenny Gym", 8, 30, false));
         return toReturn.toArray(new Event[toReturn.size()]);
     }
 
     private Event[] getSundayEvents(){
         ArrayList<Event> toReturn = new ArrayList<>();
         toReturn.add(new Event("Hacking Ends", "Siebel/ECEB", 8, 45, true));
-        toReturn.add(new Event("Lunch", "Siebel/ECEB", 4, 0, false));
+        toReturn.add(new Event("Lunch", "Siebel/ECEB", 12, 0, false));
+        toReturn.add(new Event("Awards Ceremony", "Union", 2, 0, false));
+        toReturn.add(new Event("Buses Leave", "Siebel/ECEB", 4, 0, false));
         return toReturn.toArray(new Event[toReturn.size()]);
     }
 }
