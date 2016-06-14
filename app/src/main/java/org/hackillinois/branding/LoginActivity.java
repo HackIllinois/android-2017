@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,14 +39,17 @@ public class LoginActivity extends AppCompatActivity {
                 authorize(emailField.getText().toString(), passwordField.getText().toString());
             }
         });
+
+        setTitle("Login");
     }
 
     private void authorize(String email, String password){
-        if(email.equals("hackillinois") && password.equals("2017")){
+        /*if(email.equals("hackillinois") && password.equals("2017")){
             moveOn();
         }else{
             Toast.makeText(getApplicationContext(), "Sorry, Incorrect Credentials", Toast.LENGTH_SHORT).show();
-        }
+        }*/
+        moveOn();
     }
 
     private void moveOn(){
