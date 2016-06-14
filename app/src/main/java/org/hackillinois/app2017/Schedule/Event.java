@@ -1,6 +1,4 @@
-package org.hackillinois.branding.Schedule;
-
-import java.util.Date;
+package org.hackillinois.app2017.Schedule;
 
 /**
  * Created by tommypacker for HackIllinois' 2016 Clue Hunt

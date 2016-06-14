@@ -1,4 +1,4 @@
-package org.hackillinois.branding;
+package org.hackillinois.app2017;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -18,7 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import org.hackillinois.branding.Schedule.ScheduleFragment;
+import org.hackillinois.app2017.Schedule.ScheduleFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

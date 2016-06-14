@@ -1,4 +1,4 @@
-package org.hackillinois.branding;
+package org.hackillinois.app2017;
 
 import org.junit.Test;
 

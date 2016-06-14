@@ -1,4 +1,4 @@
-package org.hackillinois.branding.Schedule;
+package org.hackillinois.app2017.Schedule;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
