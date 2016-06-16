@@ -1,4 +1,4 @@
-package org.hackillinois.app2017;
+package org.hackillinois.app2017.Login;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import org.hackillinois.app2017.MainActivity;
+import org.hackillinois.app2017.R;
 
 /**
  * Created by tommypacker for HackIllinois' 2016 Clue Hunt
