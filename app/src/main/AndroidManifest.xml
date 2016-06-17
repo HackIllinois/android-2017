@@ -21,7 +21,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Login.LoginActivity">
+            android:name=".Login.LoginActivity"
+            android:parentActivityName=".Login.SplashScreen">
         </activity>
         <activity
             android:name="org.hackillinois.app2017.MainActivity"
