@@ -17,9 +17,6 @@ import org.hackillinois.app2017.R;
  */
 public class ScheduleFragment extends Fragment {
 
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ScheduleViewPageAdapter scheduleViewPageAdapter;

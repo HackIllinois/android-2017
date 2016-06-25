@@ -18,7 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import org.hackillinois.app2017.Announcement.AnnouncementFragment;
+import org.hackillinois.app2017.Announcement.AnnouncementListFragment;
 import org.hackillinois.app2017.Schedule.ScheduleFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity
                 setTitle("Schedule");
                 break;
             case R.id.nav_announcements:
-                swapFragment(new AnnouncementFragment());
+                swapFragment(new AnnouncementListFragment());
                 setTitle("Announcements");
                 break;
             case R.id.nav_map:
