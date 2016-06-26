@@ -31,6 +31,10 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".HelpQ.NewTicketActivity"
+            android:label="New HelpQ Ticket"
+            />
     </application>
 
 </manifest>

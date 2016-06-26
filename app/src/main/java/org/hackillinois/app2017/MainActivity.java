@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import org.hackillinois.app2017.Announcement.AnnouncementListFragment;
+import org.hackillinois.app2017.HelpQ.HelpQFragment;
 import org.hackillinois.app2017.Schedule.ScheduleFragment;
 
 public class MainActivity extends AppCompatActivity

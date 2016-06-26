@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                // this takes the user 'back', as if they pressed the left-facing triangle icon on the main android toolbar.
+                // this takes the user 'back', as if they pressed the left-facing triangle icon on the main android login_toolbar.
                 onBackPressed();
                 return true;
             default:
