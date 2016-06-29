@@ -17,11 +17,10 @@ public class NewTicketActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_ticket_layout);
 
-        setTitle("New Ticket");
         Toolbar toolbar = (Toolbar) findViewById(R.id.genericToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Login");
+        getSupportActionBar().setTitle("New Ticket");
     }
 
     @Override
