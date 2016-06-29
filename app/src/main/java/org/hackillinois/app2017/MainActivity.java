@@ -175,6 +175,7 @@ public class MainActivity extends AppCompatActivity
                 } else {
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
+                    this.finish();
                 }
                 return;
             }
