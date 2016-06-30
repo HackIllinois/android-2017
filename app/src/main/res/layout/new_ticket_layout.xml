@@ -6,7 +6,7 @@
     <include layout="@layout/generic_toolbar" />
 
     <TextView
-        android:text="Title"
+        android:text="Issue"
         android:textSize="30sp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp"
@@ -14,14 +14,18 @@
         android:layout_height="wrap_content" />
 
     <EditText
-        android:id="@+id/ticketTitle"
-        android:hint="Title"
-        android:layout_marginTop="15dp"
+        android:id="@+id/ticketIssue"
+        android:hint="Describe Your Issue"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:minLines="1"
+        android:maxLines="2"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        android:inputType="textMultiLine" />
 
     <TextView
-        android:text="Issue"
+        android:text="Your Location"
         android:textSize="30sp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
@@ -29,13 +33,24 @@
         android:layout_height="wrap_content" />
 
     <EditText
-        android:id="@+id/et"
+        android:id="@+id/ticketLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:hint="Enter your issue"
-        android:minLines="2"
-        android:maxLines="10"
-        android:scrollbars="vertical"
-        android:inputType="textMultiLine" />
+        android:hint="Where Can We Find You" />
+
+    <TextView
+        android:text="Your Phone Number"
+        android:textSize="30sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/tickerPhoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:hint="Number To Contact You By" />
 </LinearLayout>
