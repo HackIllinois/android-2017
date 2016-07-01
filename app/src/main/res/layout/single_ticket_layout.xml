@@ -17,7 +17,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tickIssue"
+            android:id="@+id/ticketIssue"
             android:text="Issue"
             android:textStyle="bold"
             android:textSize="20sp"
