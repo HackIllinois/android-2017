@@ -15,7 +15,7 @@
         android:layout_height="wrap_content" />
 
     <EditText
-        android:id="@+id/ticketIssue"
+        android:id="@+id/newTicketIssue"
         android:hint="Describe Your Issue"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content" />
 
     <EditText
-        android:id="@+id/ticketLocation"
+        android:id="@+id/newTicketLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Where Can We Find You" />
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content" />
 
     <EditText
-        android:id="@+id/tickerPhoneNumber"
+        android:id="@+id/newTicketPhoneNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
