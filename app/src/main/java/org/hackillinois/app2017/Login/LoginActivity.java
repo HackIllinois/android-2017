@@ -15,23 +15,29 @@ import android.widget.Toast;
 import org.hackillinois.app2017.MainActivity;
 import org.hackillinois.app2017.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * Created by tommypacker for HackIllinois' 2016 Clue Hunt
  */
 public class LoginActivity extends AppCompatActivity {
 
-    private Button loginButton;
-    private EditText emailField;
-    private EditText passwordField;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
+
+    @BindView(R.id.loginToolbar) Toolbar toolbar;
+    @BindView(R.id.emailField) EditText emailField;
+    @BindView(R.id.passwordField) EditText passwordField;
+    @BindView(R.id.loginButton) Button loginButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
+        ButterKnife.bind(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.loginToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Login");
@@ -39,9 +45,6 @@ public class LoginActivity extends AppCompatActivity {
         sharedPreferences = this.getSharedPreferences("settings", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
-        emailField = (EditText) findViewById(R.id.emailField);
-        passwordField = (EditText) findViewById(R.id.passwordField);
-        loginButton = (Button) findViewById(R.id.loginButton);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

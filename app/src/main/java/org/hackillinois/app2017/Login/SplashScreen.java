@@ -8,26 +8,30 @@ import android.widget.Button;
 
 import org.hackillinois.app2017.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by tommypacker for HackIllinois' 2016 Clue Hunt
  */
 public class SplashScreen extends AppCompatActivity {
 
+    @BindView(R.id.splashButton) Button splashButton;
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_splash);
+        ButterKnife.bind(this);
+
         setTitle("HackIllinois 2017");
 
-        Button splashButton = (Button) findViewById(R.id.splashButton);
-        if (splashButton != null) {
-            splashButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    moveOn();
-                }
-            });
-        }
+        splashButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                moveOn();
+            }
+        });
     }
 
     private void moveOn(){

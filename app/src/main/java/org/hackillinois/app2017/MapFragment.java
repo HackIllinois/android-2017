@@ -24,6 +24,7 @@ import com.akexorcist.googledirection.GoogleDirection;
 import com.akexorcist.googledirection.constant.TransportMode;
 import com.akexorcist.googledirection.model.Direction;
 import com.akexorcist.googledirection.util.DirectionConverter;
+import com.github.clans.fab.FloatingActionButton;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -37,6 +38,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by tommypacker for HackIllinois' 2016 Clue Hunt
@@ -82,9 +86,15 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
         }
     };
 
+    @BindView(R.id.siebel) FloatingActionButton siebelButton;
+    @BindView(R.id.eceb) FloatingActionButton ecebButton;
+    @BindView(R.id.union) FloatingActionButton unionButton;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.layout_map, parent, false);
+        ButterKnife.bind(this, view);
+
         visited = new HashSet<>();
 
         if (mGoogleApiClient == null) {
@@ -94,14 +104,11 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
                     .addApi(LocationServices.API)
                     .build();
         }
-        //setupMap();
 
-        com.github.clans.fab.FloatingActionButton siebelButton = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.siebel);
         siebelButton.setOnClickListener(clickListener);
-        com.github.clans.fab.FloatingActionButton ecebButton = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.eceb);
         ecebButton.setOnClickListener(clickListener);
-        com.github.clans.fab.FloatingActionButton unionButton = (com.github.clans.fab.FloatingActionButton) view.findViewById(R.id.union);
         unionButton.setOnClickListener(clickListener);
+
         return view;
     }
 

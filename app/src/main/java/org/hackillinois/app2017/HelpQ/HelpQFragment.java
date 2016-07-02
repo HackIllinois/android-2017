@@ -16,6 +16,8 @@ import org.hackillinois.app2017.R;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+
 /**
  * Created by tommypacker for HackIllinois' 2016 Clue Hunt
  */
