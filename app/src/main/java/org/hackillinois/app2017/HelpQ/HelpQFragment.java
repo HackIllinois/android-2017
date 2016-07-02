@@ -17,22 +17,23 @@ import org.hackillinois.app2017.R;
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by tommypacker for HackIllinois' 2016 Clue Hunt
  */
 public class HelpQFragment extends Fragment {
 
-    private FloatingActionButton newTicketButton;
-    private RecyclerView recyclerView;
     private TicketAdapter adapter;
     private ArrayList<Ticket> openTickets = new ArrayList<>();
+
+    @BindView(R.id.ticketList) RecyclerView recyclerView;
+    @BindView(R.id.helpqFab) FloatingActionButton newTicketButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.layout_helpq, parent, false);
-
-        recyclerView = (RecyclerView) view.findViewById(R.id.ticketList);
+        ButterKnife.bind(this, view);
 
         adapter = new TicketAdapter(openTickets);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -42,7 +43,6 @@ public class HelpQFragment extends Fragment {
 
         inflateTickets();
 
-        newTicketButton = (FloatingActionButton) view.findViewById(R.id.helpqFab);
         newTicketButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

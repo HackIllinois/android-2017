@@ -10,6 +10,9 @@ import org.hackillinois.app2017.R;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by tommypacker for HackIllinois' 2016 Clue Hunt
  */
@@ -18,13 +21,13 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapte
     private ArrayList<Announcement> announcements;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
-        public TextView titleTextView;
-        public TextView messageTextView;
+
+        @BindView(R.id.announcementTitle) TextView titleTextView;
+        @BindView(R.id.announcementMessage) TextView messageTextView;
+
         public ViewHolder(View v) {
             super(v);
-            titleTextView = (TextView) v.findViewById(R.id.announcementTitle);
-            messageTextView = (TextView) v.findViewById(R.id.announcementMessage);
+            ButterKnife.bind(this, v);
         }
     }
 

@@ -12,23 +12,23 @@ import android.view.ViewGroup;
 
 import org.hackillinois.app2017.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by tommypacker for HackIllinois' 2016 Clue Hunt
  */
 public class ScheduleFragment extends Fragment {
 
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private ScheduleViewPageAdapter scheduleViewPageAdapter;
+    @BindView(R.id.tabs) TabLayout tabLayout;
+    @BindView(R.id.viewpager) ViewPager viewPager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.layout_schedule, parent, false);
+        ButterKnife.bind(this, view);
 
-        tabLayout = (TabLayout) view.findViewById(R.id.tabs);
-        viewPager = (ViewPager) view.findViewById(R.id.viewpager);
-
-        scheduleViewPageAdapter = new ScheduleViewPageAdapter(getChildFragmentManager());
+        ScheduleViewPageAdapter scheduleViewPageAdapter = new ScheduleViewPageAdapter(getChildFragmentManager());
         viewPager.setAdapter(scheduleViewPageAdapter);
 
         final TabLayout.Tab friday = tabLayout.newTab();

@@ -8,6 +8,9 @@ import android.widget.TextView;
 
 import org.hackillinois.app2017.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by tommypacker for HackIllinois' 2016 Clue Hunt
  */
@@ -16,15 +19,14 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
     private Event[] dataset;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
-        public TextView locationTextView;
-        public TextView titleTextView;
-        public TextView timeTextView;
+
+        @BindView(R.id.eventName) TextView locationTextView;
+        @BindView(R.id.eventLocation) TextView titleTextView;
+        @BindView(R.id.eventTime) TextView timeTextView;
+
         public ViewHolder(View v) {
             super(v);
-            titleTextView = (TextView) v.findViewById(R.id.eventName);
-            locationTextView = (TextView) v.findViewById(R.id.eventLocation);
-            timeTextView = (TextView) v.findViewById(R.id.eventTime);
+            ButterKnife.bind(this, v);
         }
     }
 

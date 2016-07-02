@@ -12,20 +12,22 @@ import org.hackillinois.app2017.R;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by tommypacker for HackIllinois' 2016 Clue Hunt
  */
 public class EventListFragment extends Fragment {
 
     private Event[] events;
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+
+    @BindView(R.id.my_recycler_view) RecyclerView mRecyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.event_list_layout, parent, false);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
+        ButterKnife.bind(this, view);
 
         Bundle extras = getArguments();
         int whichDay = extras.getInt("day");
@@ -46,10 +48,10 @@ public class EventListFragment extends Fragment {
 
         mRecyclerView.setHasFixedSize(true);
 
-        mLayoutManager = new LinearLayoutManager(getContext());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new ScheduleAdapter(events);
+        RecyclerView.Adapter mAdapter = new ScheduleAdapter(events);
         mRecyclerView.setAdapter(mAdapter);
 
         return view;

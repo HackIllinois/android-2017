@@ -13,20 +13,23 @@ import org.hackillinois.app2017.R;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by tommypacker for HackIllinois' 2016 Clue Hunt
  */
 public class AnnouncementListFragment extends Fragment {
 
     private ArrayList<Announcement> announcements =  new ArrayList<>();
-    private RecyclerView recyclerView;
     private AnnouncementAdapter adapter;
+
+    @BindView(R.id.announcementList) RecyclerView recyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.layout_announcements, parent, false);
-
-        recyclerView = (RecyclerView) view.findViewById(R.id.announcementList);
+        ButterKnife.bind(this, view);
 
         adapter = new AnnouncementAdapter(announcements);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
