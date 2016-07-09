@@ -5,7 +5,7 @@
     android:layout_height="100dp"
     card_view:cardCornerRadius="2dp"
     card_view:cardElevation="3dp"
-    android:layout_marginTop="5dp"
+    android:layout_marginTop="7dp"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     android:layout_marginBottom="5dp"
@@ -13,6 +13,7 @@
 
     <LinearLayout
         android:orientation="vertical"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -21,7 +22,6 @@
             android:text="Issue"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:layout_marginTop="6dp"
             android:gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

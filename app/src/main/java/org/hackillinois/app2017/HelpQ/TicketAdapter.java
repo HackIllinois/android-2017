@@ -1,10 +1,12 @@
 package org.hackillinois.app2017.HelpQ;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.hackillinois.app2017.R;
 
@@ -18,16 +20,29 @@ import butterknife.ButterKnife;
  */
 public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.ViewHolder>{
 
-    ArrayList<Ticket> tickets;
+    private ArrayList<Ticket> tickets;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.ticketIssue) TextView issueTextView;
         @BindView(R.id.ticketName) TextView userNameTextView;
+        private clickListener listener;
 
-        public ViewHolder(View v) {
+        public ViewHolder(View v, clickListener listener) {
             super(v);
             ButterKnife.bind(this, v);
+            v.setOnClickListener(this);
+            this.listener = listener;
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getLayoutPosition();
+            listener.onItemClick(position);
+        }
+
+        public interface clickListener{
+            void onItemClick(int position);
         }
     }
 
@@ -36,9 +51,17 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.ViewHolder
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_ticket_layout, parent, false);
-        return new ViewHolder(view);
+        ViewHolder vh = new ViewHolder(view, new ViewHolder.clickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Ticket ticket = tickets.get(position);
+                Toast.makeText(parent.getContext(), ticket.getIssue(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        return vh;
     }
 
     @Override
