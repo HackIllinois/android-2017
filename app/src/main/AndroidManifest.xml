@@ -36,9 +36,6 @@
             android:label="New HelpQ Ticket"
             android:windowSoftInputMode="adjustPan">
         </activity>
-        <activity
-            android:name=".HelpQ.TicketDetailActivity">
-        </activity>
     </application>
 
 </manifest>

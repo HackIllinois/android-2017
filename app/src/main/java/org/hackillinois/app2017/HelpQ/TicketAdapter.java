@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.ViewHolder
 
         @BindView(R.id.ticketIssue) TextView issueTextView;
         @BindView(R.id.ticketName) TextView userNameTextView;
+        @BindView(R.id.claimTicketButton) Button claimTicketButton;
         private clickListener listener;
 
         public ViewHolder(View v, clickListener listener) {
@@ -34,12 +36,15 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.ViewHolder
             ButterKnife.bind(this, v);
             v.setOnClickListener(this);
             this.listener = listener;
+            claimTicketButton.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
             int position = getLayoutPosition();
-            listener.onItemClick(position);
+            if(v.getId() == claimTicketButton.getId()){
+                listener.onItemClick(position);
+            }
         }
 
         public interface clickListener{
@@ -57,10 +62,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.ViewHolder
         ViewHolder vh = new ViewHolder(view, new ViewHolder.clickListener() {
             @Override
             public void onItemClick(int position) {
-                Ticket ticket = tickets.get(position);
-                Intent intent = new Intent(parent.getContext(), TicketDetailActivity.class);
-                parent.getContext().startActivity(intent);
-                Toast.makeText(parent.getContext(), ticket.getIssue(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(parent.getContext(), "Button Clicked " + position, Toast.LENGTH_SHORT).show();
             }
         });
 
