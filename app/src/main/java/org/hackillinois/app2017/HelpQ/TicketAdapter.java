@@ -1,6 +1,7 @@
 package org.hackillinois.app2017.HelpQ;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,6 +58,8 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.ViewHolder
             @Override
             public void onItemClick(int position) {
                 Ticket ticket = tickets.get(position);
+                Intent intent = new Intent(parent.getContext(), TicketDetailActivity.class);
+                parent.getContext().startActivity(intent);
                 Toast.makeText(parent.getContext(), ticket.getIssue(), Toast.LENGTH_SHORT).show();
             }
         });

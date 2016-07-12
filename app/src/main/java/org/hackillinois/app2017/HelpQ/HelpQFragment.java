@@ -57,6 +57,13 @@ public class HelpQFragment extends Fragment {
     private void inflateTickets(){
         Ticket test = new Ticket("Thomas Yu", "MySQL", "123-456-7890");
         openTickets.add(test);
+
+        Ticket test2 = new Ticket("Thomas Yu", "Postgres", "123-456-7890");
+        openTickets.add(test2);
+
+        Ticket test3 = new Ticket("Thomas Yu", "Mongo", "123-456-7890");
+        openTickets.add(test3);
+
         adapter.notifyDataSetChanged();
     }
 }
