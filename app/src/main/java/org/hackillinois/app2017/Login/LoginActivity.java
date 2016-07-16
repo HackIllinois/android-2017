@@ -47,8 +47,6 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Login");
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,18 +55,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        setTitle("Login");
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        setTitle("HackIllinois");
     }
 
     private void authorize(String email, String password){
@@ -81,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void moveOn(){
-        editor.putBoolean("hasAuthed", true).apply();
+        //editor.putBoolean("hasAuthed", true).apply(); Disabled for now just for testing
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         this.finish();
