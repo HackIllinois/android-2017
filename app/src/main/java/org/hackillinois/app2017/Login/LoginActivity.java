@@ -35,15 +35,20 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        sharedPreferences = this.getSharedPreferences(MainActivity.sharedPrefsName, Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
+        if(sharedPreferences.getBoolean("hasAuthed", false)){
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            this.finish();
+        }
         setContentView(R.layout.login_activity);
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Login");
-
-        sharedPreferences = this.getSharedPreferences("settings", Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override

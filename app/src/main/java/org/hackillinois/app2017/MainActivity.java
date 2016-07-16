@@ -28,6 +28,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static final String sharedPrefsName = "AppPrefs";
     private static final int REQUEST_CODE = 12;
 
     private FragmentManager fragmentManager;

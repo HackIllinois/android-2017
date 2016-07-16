@@ -16,14 +16,14 @@
             android:value="@string/google_maps_key" />
         <activity android:name=".Login.SplashScreen"
             android:theme="@style/AppThemeAlternative">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Login.LoginActivity"
             android:parentActivityName=".Login.SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="org.hackillinois.app2017.MainActivity"
