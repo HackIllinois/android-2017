@@ -1,4 +1,4 @@
-package org.hackillinois.app2017.HelpQ;
+package org.hackillinois.app2017.HackerHelp;
 
 /**
  * Created by tommypacker for HackIllinois' 2016 Clue Hunt

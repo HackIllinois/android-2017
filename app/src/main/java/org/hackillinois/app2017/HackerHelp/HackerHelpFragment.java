@@ -1,4 +1,4 @@
-package org.hackillinois.app2017.HelpQ;
+package org.hackillinois.app2017.HackerHelp;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import org.hackillinois.app2017.R;
 
@@ -22,7 +21,7 @@ import butterknife.ButterKnife;
 /**
  * Created by tommypacker for HackIllinois' 2016 Clue Hunt
  */
-public class HelpQFragment extends Fragment {
+public class HackerHelpFragment extends Fragment {
 
     private TicketAdapter adapter;
     private ArrayList<Ticket> openTickets = new ArrayList<>();

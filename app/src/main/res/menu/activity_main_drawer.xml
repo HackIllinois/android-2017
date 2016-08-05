@@ -19,9 +19,9 @@
             android:icon="@drawable/ic_person_black_36dp"
             android:title="Profile" />
         <item
-            android:id="@+id/nav_helpq"
+            android:id="@+id/nav_hacker_help"
             android:icon="@drawable/ic_help_outline_black_36dp"
-            android:title="HelpQ" />
+            android:title="Hacker Help" />
     </group>
 
 </menu>

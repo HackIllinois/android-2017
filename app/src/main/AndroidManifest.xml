@@ -32,7 +32,7 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".HelpQ.NewTicketActivity"
+            android:name=".HackerHelp.NewTicketActivity"
             android:label="New HelpQ Ticket"
             android:windowSoftInputMode="adjustPan">
         </activity>

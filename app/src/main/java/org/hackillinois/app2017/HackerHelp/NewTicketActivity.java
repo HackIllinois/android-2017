@@ -1,4 +1,4 @@
-package org.hackillinois.app2017.HelpQ;
+package org.hackillinois.app2017.HackerHelp;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
