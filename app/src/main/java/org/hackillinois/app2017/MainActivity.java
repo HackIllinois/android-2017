@@ -24,6 +24,7 @@ import org.hackillinois.app2017.Schedule.ScheduleFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+// Hi Arnav
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
