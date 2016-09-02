@@ -12,6 +12,7 @@ public class Announcement {
     public Announcement(String title, String message){
         this.title = title;
         this.message = message;
+        this.category = 1;
     }
 
     public Announcement(String title, String message, int category){
