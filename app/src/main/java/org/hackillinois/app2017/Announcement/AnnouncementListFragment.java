@@ -46,7 +46,7 @@ public class AnnouncementListFragment extends Fragment {
         Announcement announcement = new Announcement("Yoooo", "This is a test message bruh");
         announcements.add(announcement);
 
-        announcement = new Announcement("Yoooo", "This is a test message bruh");
+        announcement = new Announcement("Food", "Dinner in ECEB very soon", 0);
         announcements.add(announcement);
 
         announcement = new Announcement("Yoooo", "This is a test message bruh");
