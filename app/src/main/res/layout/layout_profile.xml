@@ -40,8 +40,11 @@
 
                 <ImageView
                     android:id="@+id/personIcon"
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
+                    android:src="@drawable/ic_person_black_36dp"
+                    android:tint="@color/accent"
+                    android:padding="15dp"
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
@@ -51,7 +54,9 @@
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/personIcon"
                     android:layout_toRightOf="@+id/personIcon"
-                    android:layout_centerVertical="true">
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginLeft="15dp">
 
                     <TextView
                         android:id="@+id/nameText"
@@ -90,8 +95,11 @@
 
                     <ImageView
                         android:id="@+id/schoolIcon"
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
+                        android:layout_width="85dp"
+                        android:layout_height="85dp"
+                        android:padding="15dp"
+                        android:src="@drawable/ic_domain_black_36dp"
+                        android:tint="@color/accent"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true" />
@@ -101,7 +109,9 @@
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@+id/schoolIcon"
                         android:layout_toRightOf="@+id/schoolIcon"
-                        android:layout_centerVertical="true">
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp">
 
                         <TextView
                             android:id="@+id/schoolText"
@@ -128,8 +138,11 @@
 
                     <ImageView
                         android:id="@+id/gradIcon"
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
+                        android:layout_width="85dp"
+                        android:layout_height="85dp"
+                        android:padding="15dp"
+                        android:src="@drawable/ic_school_black_36dp"
+                        android:tint="@color/accent"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true" />
@@ -139,7 +152,9 @@
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@+id/gradIcon"
                         android:layout_toRightOf="@+id/gradIcon"
-                        android:layout_centerVertical="true">
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp">
 
                         <TextView
                             android:id="@+id/gradText"
@@ -182,8 +197,11 @@
 
                 <ImageView
                     android:id="@+id/dietIcon"
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    android:padding="15dp"
+                    android:src="@drawable/ic_restaurant_black_36dp"
+                    android:tint="@color/accent"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
@@ -193,7 +211,9 @@
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/dietIcon"
                     android:layout_toRightOf="@+id/dietIcon"
-                    android:layout_centerVertical="true">
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginLeft="15dp">
 
                     <TextView
                         android:id="@+id/dietText"
@@ -227,11 +247,40 @@
             android:layout_marginRight="16dp"
             android:layout_marginBottom="5dp">
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="85dp"
+                android:orientation="horizontal">
 
-            </RelativeLayout>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:src="@drawable/linkedin" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:src="@drawable/github" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:src="@drawable/resume" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:src="@drawable/personalsite" />
+
+            </LinearLayout>
 
         </android.support.v7.widget.CardView>
 
