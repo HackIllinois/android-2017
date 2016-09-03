@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.hackillinois.app2017.R;
+import org.hackillinois.app2017.Utils.Constants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -72,7 +73,8 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapte
 
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            String filterString = constraint.toString().toLowerCase();
+            String filterString = constraint.toString().toUpperCase();
+            int filterCategory = Constants.filterMap.get(filterString);
             FilterResults results =  new FilterResults();
             final ArrayList<Announcement> list = announcements;
             int count = list.size();
@@ -80,7 +82,7 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapte
 
             for(int i = 0; i<count; i++){
                 Announcement cur = list.get(i);
-                if(cur.getCategory() == 0){
+                if(cur.getCategory() == filterCategory || filterCategory == Constants.ALL_CATEGORY){
                     newList.add(cur);
                 }
             }

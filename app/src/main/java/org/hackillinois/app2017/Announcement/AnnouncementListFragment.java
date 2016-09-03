@@ -1,7 +1,6 @@
 package org.hackillinois.app2017.Announcement;
 
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,12 +11,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import org.hackillinois.app2017.R;
+import org.hackillinois.app2017.Utils.Constants;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,7 +56,7 @@ public class AnnouncementListFragment extends Fragment implements AdapterView.On
         Announcement announcement = new Announcement("Yoooo", "This is a test message bruh");
         announcements.add(announcement);
 
-        announcement = new Announcement("Food", "Dinner in ECEB very soon", 0);
+        announcement = new Announcement("Food", "Dinner in ECEB very soon", Constants.FOOD_CATEGORY);
         announcements.add(announcement);
 
         announcement = new Announcement("Yoooo", "This is a test message bruh");
