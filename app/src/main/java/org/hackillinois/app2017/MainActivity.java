@@ -1,6 +1,7 @@
 package org.hackillinois.app2017;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,6 +22,8 @@ import org.hackillinois.app2017.Announcements.AnnouncementListFragment;
 import org.hackillinois.app2017.HackerHelp.HackerHelpFragment;
 import org.hackillinois.app2017.Profile.ProfileFragment;
 import org.hackillinois.app2017.Schedule.ScheduleFragment;
+import org.hackillinois.app2017.Settings.PrefsActivity;
+import org.hackillinois.app2017.Settings.PrefsFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -106,6 +109,11 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_hacker_help:
                 swapFragment(new HackerHelpFragment());
                 setTitle("Hacker Help");
+                break;
+            case R.id.nav_settings:
+                Intent intent = new Intent(this, PrefsActivity.class);
+                startActivity(intent);
+                setTitle(item.getTitle());
                 break;
         }
     }
