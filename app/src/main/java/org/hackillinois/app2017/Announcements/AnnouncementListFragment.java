@@ -1,4 +1,4 @@
-package org.hackillinois.app2017.Announcement;
+package org.hackillinois.app2017.Announcements;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

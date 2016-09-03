@@ -17,7 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import org.hackillinois.app2017.Announcement.AnnouncementListFragment;
+import org.hackillinois.app2017.Announcements.AnnouncementListFragment;
 import org.hackillinois.app2017.HackerHelp.HackerHelpFragment;
 import org.hackillinois.app2017.Profile.ProfileFragment;
 import org.hackillinois.app2017.Schedule.ScheduleFragment;

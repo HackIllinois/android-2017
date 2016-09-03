@@ -42,7 +42,7 @@
                     android:id="@+id/personIcon"
                     android:src="@drawable/ic_person_black_36dp"
                     android:tint="@color/accent"
-                    android:padding="15dp"
+                    android:padding="17dp"
                     android:layout_width="85dp"
                     android:layout_height="85dp"
                     android:layout_alignParentTop="true"
@@ -55,8 +55,8 @@
                     android:layout_toEndOf="@+id/personIcon"
                     android:layout_toRightOf="@+id/personIcon"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginLeft="15dp">
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp">
 
                     <TextView
                         android:id="@+id/nameText"
@@ -97,7 +97,7 @@
                         android:id="@+id/schoolIcon"
                         android:layout_width="85dp"
                         android:layout_height="85dp"
-                        android:padding="15dp"
+                        android:padding="17dp"
                         android:src="@drawable/ic_domain_black_36dp"
                         android:tint="@color/accent"
                         android:layout_alignParentTop="true"
@@ -110,8 +110,8 @@
                         android:layout_toEndOf="@+id/schoolIcon"
                         android:layout_toRightOf="@+id/schoolIcon"
                         android:layout_centerVertical="true"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginLeft="15dp">
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp">
 
                         <TextView
                             android:id="@+id/schoolText"
@@ -140,7 +140,7 @@
                         android:id="@+id/gradIcon"
                         android:layout_width="85dp"
                         android:layout_height="85dp"
-                        android:padding="15dp"
+                        android:padding="17dp"
                         android:src="@drawable/ic_school_black_36dp"
                         android:tint="@color/accent"
                         android:layout_alignParentTop="true"
@@ -153,8 +153,8 @@
                         android:layout_toEndOf="@+id/gradIcon"
                         android:layout_toRightOf="@+id/gradIcon"
                         android:layout_centerVertical="true"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginLeft="15dp">
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp">
 
                         <TextView
                             android:id="@+id/gradText"
@@ -199,7 +199,7 @@
                     android:id="@+id/dietIcon"
                     android:layout_width="85dp"
                     android:layout_height="85dp"
-                    android:padding="15dp"
+                    android:padding="17dp"
                     android:src="@drawable/ic_restaurant_black_36dp"
                     android:tint="@color/accent"
                     android:layout_alignParentTop="true"
@@ -212,8 +212,8 @@
                     android:layout_toEndOf="@+id/dietIcon"
                     android:layout_toRightOf="@+id/dietIcon"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginLeft="15dp">
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp">
 
                     <TextView
                         android:id="@+id/dietText"

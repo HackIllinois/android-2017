@@ -1,4 +1,4 @@
-package org.hackillinois.app2017.Announcement;
+package org.hackillinois.app2017.Announcements;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,14 +7,12 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.hackillinois.app2017.R;
 import org.hackillinois.app2017.Utils.Constants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
