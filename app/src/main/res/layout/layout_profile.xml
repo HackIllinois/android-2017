@@ -20,7 +20,8 @@
             android:layout_width="wrap_content"
             android:paddingEnd="20dp"
             android:paddingStart="20dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:contentDescription="Barcode" />
 
         <android.support.v7.widget.CardView
             android:id="@+id/userInfoCardOne"
@@ -253,32 +254,40 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/linkedin_link"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_weight="1"
                     android:layout_gravity="center"
-                    android:src="@drawable/linkedin" />
+                    android:src="@drawable/linkedin"
+                    android:contentDescription="LinkedIn" />
 
                 <ImageView
+                    android:id="@+id/github_link"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:src="@drawable/github" />
+                    android:src="@drawable/github"
+                    android:contentDescription="Github" />
 
                 <ImageView
+                    android:id="@+id/resume_link"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:src="@drawable/resume" />
+                    android:src="@drawable/resume"
+                    android:contentDescription="Resume" />
 
                 <ImageView
+                    android:id="@+id/portfolio_link"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:src="@drawable/personalsite" />
+                    android:src="@drawable/personalsite"
+                    android:contentDescription="PortfolioSite" />
 
             </LinearLayout>
 
