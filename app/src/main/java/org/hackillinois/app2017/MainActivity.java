@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity
 
     public static final String sharedPrefsName = "AppPrefs";
     private static final int REQUEST_CODE = 12;
+    private static int lastSelected = 0;
 
     private FragmentManager fragmentManager;
     private MenuItem menuItem;
@@ -80,6 +81,9 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         menuItem = item;
+        if(menuItem.getItemId() == lastSelected){
+            return true;
+        }
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -96,22 +100,27 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_schedule:
                 swapFragment(new ScheduleFragment());
                 setTitle("Schedule");
+                lastSelected = selectedID;
                 break;
             case R.id.nav_announcements:
                 swapFragment(new AnnouncementListFragment());
                 setTitle("Announcements");
+                lastSelected = selectedID;
                 break;
             case R.id.nav_map:
                 swapFragment(mMapFragment);
                 setTitle("Map");
+                lastSelected = selectedID;
                 break;
             case R.id.nav_profile:
                 swapFragment(new ProfileFragment());
                 setTitle("Profile");
+                lastSelected = selectedID;
                 break;
             case R.id.nav_hacker_help:
                 swapFragment(new HackerHelpFragment());
                 setTitle("Hacker Help");
+                lastSelected = selectedID;
                 break;
             case R.id.nav_settings:
                 Intent intent = new Intent(this, PrefsActivity.class);
