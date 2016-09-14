@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity
 
     public static final String sharedPrefsName = "AppPrefs";
     private static final int REQUEST_CODE = 12;
-    private static int lastSelected = 0;
+    private static int lastSelected;
 
     private FragmentManager fragmentManager;
     private MenuItem menuItem;
@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity
         fragmentManager = getSupportFragmentManager();
         mMapFragment = new MapFragment();
 
+        lastSelected = 0;
         //Set default fragment to schedule fragment
         fragmentManager.beginTransaction()
                 .replace(R.id.content_holder, new ScheduleFragment()).commit();
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity
             }
         }, 350);
         drawer.closeDrawer(GravityCompat.START);
-        return true;
+        return menuItem.getItemId() != R.id.nav_settings;
     }
 
     private void selectDrawerItem(MenuItem item){
@@ -107,6 +108,7 @@ public class MainActivity extends AppCompatActivity
                 setTitle("Announcements");
                 lastSelected = selectedID;
                 break;
+            //TODO: Create and display a loading fragment so map can load in the background
             case R.id.nav_map:
                 swapFragment(mMapFragment);
                 setTitle("Map");
@@ -156,12 +158,8 @@ public class MainActivity extends AppCompatActivity
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
-
                 } else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
+                    // TODO: Display popup to tell user that we need location for maps
                     this.finish();
                 }
                 return;
