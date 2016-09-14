@@ -60,7 +60,10 @@ public class MainActivity extends AppCompatActivity
 
         fragmentManager = getSupportFragmentManager();
         mMapFragment = new MapFragment();
-        swapFragment(new ScheduleFragment());
+
+        //Set default fragment to schedule fragment
+        fragmentManager.beginTransaction()
+                .replace(R.id.content_holder, new ScheduleFragment()).commit();
     }
 
     @Override
@@ -77,13 +80,13 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         menuItem = item;
-        drawer.closeDrawer(GravityCompat.START);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 selectDrawerItem(menuItem); // your fragment transactions go here
             }
         }, 350);
+        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
@@ -113,7 +116,6 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_settings:
                 Intent intent = new Intent(this, PrefsActivity.class);
                 startActivity(intent);
-                setTitle(item.getTitle());
                 break;
         }
     }
