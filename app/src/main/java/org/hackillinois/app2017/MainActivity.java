@@ -20,6 +20,7 @@ import android.view.MenuItem;
 
 import org.hackillinois.app2017.Announcements.AnnouncementListFragment;
 import org.hackillinois.app2017.HackerHelp.HackerHelpFragment;
+import org.hackillinois.app2017.Profile.LoadingFragment;
 import org.hackillinois.app2017.Profile.ProfileFragment;
 import org.hackillinois.app2017.Schedule.ScheduleFragment;
 import org.hackillinois.app2017.Settings.PrefsActivity;
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity
         //Set default fragment to schedule fragment
         fragmentManager.beginTransaction()
                 .replace(R.id.content_holder, new ScheduleFragment()).commit();
+        setTitle("Schedule");
     }
 
     @Override
@@ -85,12 +87,9 @@ public class MainActivity extends AppCompatActivity
         if(menuItem.getItemId() == lastSelected){
             return true;
         }
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                selectDrawerItem(menuItem); // your fragment transactions go here
-            }
-        }, 350);
+
+        selectDrawerItem(menuItem);
+
         drawer.closeDrawer(GravityCompat.START);
         return menuItem.getItemId() != R.id.nav_settings;
     }
@@ -131,13 +130,22 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void swapFragment(Fragment fragment) {
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.setCustomAnimations(android.R.anim.fade_in,
-                0,
-                0,
-                android.R.anim.fade_out);
-        transaction.replace(R.id.content_holder, fragment).commit();
+    private void swapFragment(final Fragment fragment) {
+        // Load our LoadingFragment first
+        fragmentManager.beginTransaction().replace(R.id.content_holder, new LoadingFragment()).commit();
+
+        // Wait for the NavDrawer to close before loading our fragments
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.setCustomAnimations(android.R.anim.fade_in,
+                        0,
+                        0,
+                        android.R.anim.fade_out);
+                transaction.replace(R.id.content_holder, fragment).commit();
+            }
+        }, 300);
     }
 
     private void checkPerms(){
