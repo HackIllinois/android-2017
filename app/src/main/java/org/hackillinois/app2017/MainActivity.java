@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity
         //Set default fragment to schedule fragment
         fragmentManager.beginTransaction()
                 .replace(R.id.content_holder, new ScheduleFragment()).commit();
+        setTitle("Schedule");
     }
 
     @Override
