@@ -1,6 +1,7 @@
 package org.hackillinois.app2017.Schedule;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -16,12 +17,8 @@ import org.hackillinois.app2017.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by tommypacker for HackIllinois' 2016 Clue Hunt
- */
 public class ScheduleFragment extends Fragment {
 
-    @BindView(R.id.tabs) TabLayout tabLayout;
     @BindView(R.id.viewpager) ViewPager viewPager;
 
     @Override
@@ -32,21 +29,7 @@ public class ScheduleFragment extends Fragment {
         ScheduleViewPageAdapter scheduleViewPageAdapter = new ScheduleViewPageAdapter(getChildFragmentManager());
         viewPager.setAdapter(scheduleViewPageAdapter);
 
-        final TabLayout.Tab friday = tabLayout.newTab();
-        final TabLayout.Tab saturday = tabLayout.newTab();
-        final TabLayout.Tab sunday = tabLayout.newTab();
-
-        friday.setText("Friday");
-        saturday.setText("Saturday");
-        sunday.setText("Sunday");
-
-        tabLayout.addTab(friday, 0);
-        tabLayout.addTab(saturday, 1);
-        tabLayout.addTab(sunday, 2);
-
-        tabLayout.setTabTextColors(ContextCompat.getColorStateList(this.getContext(), R.drawable.tab_selector));
-        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(this.getContext(), R.color.accent));
-
+        TabLayout tabLayout = (TabLayout)getActivity().findViewById(R.id.tabs);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener(){
 

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,18 +12,17 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import com.google.android.gms.maps.MapsInitializer;
 
 import org.hackillinois.app2017.Announcements.AnnouncementListFragment;
 import org.hackillinois.app2017.Home.HomeFragment;
 import org.hackillinois.app2017.Profile.LoadingFragment;
 import org.hackillinois.app2017.Profile.ProfileFragment;
 import org.hackillinois.app2017.Schedule.ScheduleFragment;
-import org.hackillinois.app2017.Settings.PrefsActivity;
-import org.hackillinois.app2017.Settings.PrefsFragment;
-import org.hackillinois.app2017.UI.CenteredToolbar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private MapFragment mMapFragment;
 
     @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.tabs) TabLayout tabLayout;
     @BindView(R.id.bottom_navigation) AHBottomNavigation bottomNavigation;
 
     @Override
@@ -44,12 +45,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        mMapFragment = new MapFragment();
         checkPerms();
         setSupportActionBar(toolbar);
         setUpBottomNavigationBar();
+        setUpTabBar();
 
         fragmentManager = getSupportFragmentManager();
-        mMapFragment = new MapFragment();
 
         // Set default fragment to schedule fragment
         fragmentManager.beginTransaction()
@@ -60,6 +62,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // TODO: What should happen when onBackPressed?
+    }
+
+    private void setUpTabBar() {
+        final TabLayout.Tab friday = tabLayout.newTab();
+        final TabLayout.Tab saturday = tabLayout.newTab();
+        final TabLayout.Tab sunday = tabLayout.newTab();
+
+        friday.setText("Friday");
+        saturday.setText("Saturday");
+        sunday.setText("Sunday");
+
+        tabLayout.addTab(friday, 0);
+        tabLayout.addTab(saturday, 1);
+        tabLayout.addTab(sunday, 2);
+
+        tabLayout.setTabTextColors(ContextCompat.getColorStateList(this, R.drawable.tab_selector));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.accent));
     }
 
     private void setUpBottomNavigationBar() {
@@ -90,26 +109,31 @@ public class MainActivity extends AppCompatActivity {
                     case 0:
                         // Home
                         swapFragment(new HomeFragment());
+                        tabLayout.setVisibility(View.GONE);
                         setTitle("Home");
                         break;
                     case 1:
                         // Schedule
                         swapFragment(new ScheduleFragment());
+                        tabLayout.setVisibility(View.VISIBLE);
                         setTitle("Schedule");
                         break;
                     case 2:
                         // Maps
                         swapFragment(mMapFragment);
+                        tabLayout.setVisibility(View.GONE);
                         setTitle("Map");
                         break;
                     case 3:
                         // Notifications
                         swapFragment(new AnnouncementListFragment());
+                        tabLayout.setVisibility(View.GONE);
                         setTitle("Announcements");
                         break;
                     case 4:
                         // Profile
                         swapFragment(new ProfileFragment());
+                        tabLayout.setVisibility(View.GONE);
                         setTitle("Profile");
                         break;
                 }
@@ -118,47 +142,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-//    private void selectDrawerItem(MenuItem item){
-//        final int selectedID = item.getItemId();
-//        switch (selectedID){
-//            case R.id.nav_schedule:
-//                swapFragment(new ScheduleFragment());
-//                setTitle("Schedule");
-//                lastSelected = selectedID;
-//                break;
-//            case R.id.nav_announcements:
-//                swapFragment(new AnnouncementListFragment());
-//                setTitle("Announcements");
-//                lastSelected = selectedID;
-//                break;
-//            case R.id.nav_map:
-//                swapFragment(mMapFragment);
-//                setTitle("Map");
-//                lastSelected = selectedID;
-//                break;
-//            case R.id.nav_profile:
-//                swapFragment(new ProfileFragment());
-//                setTitle("Profile");
-//                lastSelected = selectedID;
-//                break;
-//            case R.id.nav_hacker_help:
-//                swapFragment(new HackerHelpFragment());
-//                setTitle("Hacker Help");
-//                lastSelected = selectedID;
-//                break;
-//            case R.id.nav_settings:
-//                Intent intent = new Intent(this, PrefsActivity.class);
-//                startActivity(intent);
-//                break;
-//        }
-//    }
-
     private void swapFragment(final Fragment fragment) {
         // Load our LoadingFragment first if we're switching to maps
         if(fragment.equals(mMapFragment)) {
             fragmentManager.beginTransaction().replace(R.id.content_holder, new LoadingFragment()).commit();
 
-            // Wait for the NavDrawer to close before loading our fragments
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -176,7 +164,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkPerms(){
-        String[] PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION};
+        String[] PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION,
+                                Manifest.permission.INTERNET};
         for(String permission:PERMISSIONS) {
             if(ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED){
                 ActivityCompat.requestPermissions(this, new String[]{permission}, REQUEST_CODE);
