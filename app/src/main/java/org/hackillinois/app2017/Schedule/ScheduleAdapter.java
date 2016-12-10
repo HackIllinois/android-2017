@@ -20,8 +20,8 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.eventName) TextView locationTextView;
-        @BindView(R.id.eventLocation) TextView titleTextView;
+        @BindView(R.id.eventName) TextView titleTextView;
+        @BindView(R.id.eventLocation) TextView locationTextView;
         @BindView(R.id.eventTime) TextView timeTextView;
 
         public ViewHolder(View v) {

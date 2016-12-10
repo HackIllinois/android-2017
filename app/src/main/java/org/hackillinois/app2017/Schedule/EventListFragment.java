@@ -2,6 +2,7 @@ package org.hackillinois.app2017.Schedule;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -53,6 +54,9 @@ public class EventListFragment extends Fragment {
 
         RecyclerView.Adapter mAdapter = new ScheduleAdapter(events);
         mRecyclerView.setAdapter(mAdapter);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(), 1);
+        mRecyclerView.addItemDecoration(dividerItemDecoration);
 
         return view;
     }

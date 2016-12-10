@@ -16,6 +16,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
 import org.hackillinois.app2017.Announcements.AnnouncementListFragment;
+import org.hackillinois.app2017.Home.HomeFragment;
 import org.hackillinois.app2017.Profile.LoadingFragment;
 import org.hackillinois.app2017.Profile.ProfileFragment;
 import org.hackillinois.app2017.Schedule.ScheduleFragment;
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Set default fragment to schedule fragment
         fragmentManager.beginTransaction()
-                .replace(R.id.content_holder, new ScheduleFragment()).commit();
+                .replace(R.id.content_holder, new HomeFragment()).commit();
         setTitle("Schedule");
     }
 
@@ -62,10 +63,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpBottomNavigationBar() {
-        // Set stuff
-        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
-        //bottomNavigation.setColored(true);
-
         // Create Items
         AHBottomNavigationItem home = new AHBottomNavigationItem(R.string.home_item, R.drawable.ic_home_white_24dp, R.color.primary);
         AHBottomNavigationItem schedule = new AHBottomNavigationItem(R.string.schedule_item, R.drawable.ic_today_white_24dp, R.color.primary);
@@ -80,6 +77,11 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigation.addItem(notifications);
         bottomNavigation.addItem(profile);
 
+        // Set custom settings
+        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
+        //bottomNavigation.setColored(true);
+        bottomNavigation.setCurrentItem(0);
+
         // Set listeners
         bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
@@ -87,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
                 switch(position) {
                     case 0:
                         // Home
+                        swapFragment(new HomeFragment());
+                        setTitle("Home");
                         break;
                     case 1:
                         // Schedule

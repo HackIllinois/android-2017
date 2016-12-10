@@ -9,8 +9,7 @@
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:elevation="0dp">
+        android:layout_height="wrap_content">
 
         <org.hackillinois.app2017.UI.CenteredToolbar
             android:id="@+id/toolbar"
