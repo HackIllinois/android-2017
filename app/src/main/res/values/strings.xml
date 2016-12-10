@@ -1,9 +1,6 @@
 <resources>
     <string name="app_name">HackIllinois</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_settings">Settings</string>
 
     <string-array name="filters">
@@ -13,5 +10,12 @@
         <item>Hacking</item>
         <item>Prizes</item>
     </string-array>
+
+    <!-- Bottom Navigation Bar -->
+    <string name="home_item">Home</string>
+    <string name="schedule_item">Schedule</string>
+    <string name="maps_item">Maps</string>
+    <string name="notifications_item">Notifications</string>
+    <string name="profile_item">Profile</string>
 
 </resources>

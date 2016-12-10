@@ -1,7 +1,6 @@
 package org.hackillinois.app2017;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,61 +9,48 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
+
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
 import org.hackillinois.app2017.Announcements.AnnouncementListFragment;
-import org.hackillinois.app2017.HackerHelp.HackerHelpFragment;
 import org.hackillinois.app2017.Profile.LoadingFragment;
 import org.hackillinois.app2017.Profile.ProfileFragment;
 import org.hackillinois.app2017.Schedule.ScheduleFragment;
 import org.hackillinois.app2017.Settings.PrefsActivity;
 import org.hackillinois.app2017.Settings.PrefsFragment;
+import org.hackillinois.app2017.UI.CenteredToolbar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-// Hi Arnav
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
     public static final String sharedPrefsName = "AppPrefs";
     private static final int REQUEST_CODE = 12;
-    private static int lastSelected;
 
     private FragmentManager fragmentManager;
-    private MenuItem menuItem;
     private MapFragment mMapFragment;
 
     @BindView(R.id.toolbar) Toolbar toolbar;
-    @BindView(R.id.drawer_layout) DrawerLayout drawer;
-    @BindView(R.id.nav_view) NavigationView navigationView;
+    @BindView(R.id.bottom_navigation) AHBottomNavigation bottomNavigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
         checkPerms();
-
         setSupportActionBar(toolbar);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        navigationView.setNavigationItemSelectedListener(this);
+        setUpBottomNavigationBar();
 
         fragmentManager = getSupportFragmentManager();
         mMapFragment = new MapFragment();
 
-        lastSelected = 0;
-        //Set default fragment to schedule fragment
+        // Set default fragment to schedule fragment
         fragmentManager.beginTransaction()
                 .replace(R.id.content_holder, new ScheduleFragment()).commit();
         setTitle("Schedule");
@@ -72,80 +58,117 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+        // TODO: What should happen when onBackPressed?
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        menuItem = item;
-        if(menuItem.getItemId() == lastSelected){
-            return true;
-        }
+    private void setUpBottomNavigationBar() {
+        // Set stuff
+        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
+        //bottomNavigation.setColored(true);
 
-        selectDrawerItem(menuItem);
+        // Create Items
+        AHBottomNavigationItem home = new AHBottomNavigationItem(R.string.home_item, R.drawable.ic_home_white_24dp, R.color.primary);
+        AHBottomNavigationItem schedule = new AHBottomNavigationItem(R.string.schedule_item, R.drawable.ic_today_white_24dp, R.color.primary);
+        AHBottomNavigationItem maps = new AHBottomNavigationItem(R.string.maps_item, R.drawable.ic_map_black_36dp, R.color.primary);
+        AHBottomNavigationItem notifications = new AHBottomNavigationItem(R.string.notifications_item, R.drawable.ic_notifications_white_24dp, R.color.primary);
+        AHBottomNavigationItem profile = new AHBottomNavigationItem(R.string.profile_item, R.drawable.ic_person_black_36dp, R.color.primary);
 
-        drawer.closeDrawer(GravityCompat.START);
-        return menuItem.getItemId() != R.id.nav_settings;
+        // Add Items
+        bottomNavigation.addItem(home);
+        bottomNavigation.addItem(schedule);
+        bottomNavigation.addItem(maps);
+        bottomNavigation.addItem(notifications);
+        bottomNavigation.addItem(profile);
+
+        // Set listeners
+        bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
+            @Override
+            public boolean onTabSelected(int position, boolean wasSelected) {
+                switch(position) {
+                    case 0:
+                        // Home
+                        break;
+                    case 1:
+                        // Schedule
+                        swapFragment(new ScheduleFragment());
+                        setTitle("Schedule");
+                        break;
+                    case 2:
+                        // Maps
+                        swapFragment(mMapFragment);
+                        setTitle("Map");
+                        break;
+                    case 3:
+                        // Notifications
+                        swapFragment(new AnnouncementListFragment());
+                        setTitle("Announcements");
+                        break;
+                    case 4:
+                        // Profile
+                        swapFragment(new ProfileFragment());
+                        setTitle("Profile");
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
-    private void selectDrawerItem(MenuItem item){
-        final int selectedID = item.getItemId();
-        switch (selectedID){
-            case R.id.nav_schedule:
-                swapFragment(new ScheduleFragment());
-                setTitle("Schedule");
-                lastSelected = selectedID;
-                break;
-            case R.id.nav_announcements:
-                swapFragment(new AnnouncementListFragment());
-                setTitle("Announcements");
-                lastSelected = selectedID;
-                break;
-            //TODO: Create and display a loading fragment so map can load in the background
-            case R.id.nav_map:
-                swapFragment(mMapFragment);
-                setTitle("Map");
-                lastSelected = selectedID;
-                break;
-            case R.id.nav_profile:
-                swapFragment(new ProfileFragment());
-                setTitle("Profile");
-                lastSelected = selectedID;
-                break;
-            case R.id.nav_hacker_help:
-                swapFragment(new HackerHelpFragment());
-                setTitle("Hacker Help");
-                lastSelected = selectedID;
-                break;
-            case R.id.nav_settings:
-                Intent intent = new Intent(this, PrefsActivity.class);
-                startActivity(intent);
-                break;
-        }
-    }
+//    private void selectDrawerItem(MenuItem item){
+//        final int selectedID = item.getItemId();
+//        switch (selectedID){
+//            case R.id.nav_schedule:
+//                swapFragment(new ScheduleFragment());
+//                setTitle("Schedule");
+//                lastSelected = selectedID;
+//                break;
+//            case R.id.nav_announcements:
+//                swapFragment(new AnnouncementListFragment());
+//                setTitle("Announcements");
+//                lastSelected = selectedID;
+//                break;
+//            case R.id.nav_map:
+//                swapFragment(mMapFragment);
+//                setTitle("Map");
+//                lastSelected = selectedID;
+//                break;
+//            case R.id.nav_profile:
+//                swapFragment(new ProfileFragment());
+//                setTitle("Profile");
+//                lastSelected = selectedID;
+//                break;
+//            case R.id.nav_hacker_help:
+//                swapFragment(new HackerHelpFragment());
+//                setTitle("Hacker Help");
+//                lastSelected = selectedID;
+//                break;
+//            case R.id.nav_settings:
+//                Intent intent = new Intent(this, PrefsActivity.class);
+//                startActivity(intent);
+//                break;
+//        }
+//    }
 
     private void swapFragment(final Fragment fragment) {
-        // Load our LoadingFragment first
-        fragmentManager.beginTransaction().replace(R.id.content_holder, new LoadingFragment()).commit();
+        // Load our LoadingFragment first if we're switching to maps
+        if(fragment.equals(mMapFragment)) {
+            fragmentManager.beginTransaction().replace(R.id.content_holder, new LoadingFragment()).commit();
 
-        // Wait for the NavDrawer to close before loading our fragments
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.setCustomAnimations(android.R.anim.fade_in,
-                        0,
-                        0,
-                        android.R.anim.fade_out);
-                transaction.replace(R.id.content_holder, fragment).commit();
-            }
-        }, 300);
+            // Wait for the NavDrawer to close before loading our fragments
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    FragmentTransaction transaction = fragmentManager.beginTransaction();
+                    transaction.setCustomAnimations(android.R.anim.fade_in,
+                            0,
+                            0,
+                            android.R.anim.fade_out);
+                    transaction.replace(R.id.content_holder, fragment).commit();
+                }
+            }, 300);
+        } else {
+            fragmentManager.beginTransaction().replace(R.id.content_holder, fragment).commit();
+        }
     }
 
     private void checkPerms(){
