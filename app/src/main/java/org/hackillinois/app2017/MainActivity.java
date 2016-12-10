@@ -16,7 +16,6 @@ import android.view.View;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
-import com.google.android.gms.maps.MapsInitializer;
 
 import org.hackillinois.app2017.Announcements.AnnouncementListFragment;
 import org.hackillinois.app2017.Home.HomeFragment;
