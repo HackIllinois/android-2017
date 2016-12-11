@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/bottom_navigation_height"
     tools:context="org.hackillinois.app2017.MainActivity">
 
     <fragment
