@@ -2,6 +2,7 @@ package org.hackillinois.app2017;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
@@ -97,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         // Set custom settings
         bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
         //bottomNavigation.setColored(true);
+        bottomNavigation.setAccentColor(Color.parseColor("#FF5722"));
         bottomNavigation.setCurrentItem(0);
 
         // Set listeners
