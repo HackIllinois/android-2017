@@ -19,7 +19,6 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
 import org.hackillinois.app2017.Announcements.AnnouncementListFragment;
 import org.hackillinois.app2017.Home.HomeFragment;
-import org.hackillinois.app2017.Profile.LoadingFragment;
 import org.hackillinois.app2017.Profile.ProfileFragment;
 import org.hackillinois.app2017.Schedule.ScheduleFragment;
 
