@@ -1,7 +1,6 @@
 package org.hackillinois.app2017.Profile;
 
 import android.content.Intent;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,9 +11,6 @@ import android.widget.ImageView;
 
 import org.hackillinois.app2017.R;
 
-/**
- * Created by tommypacker for HackIllinois' 2016 Clue Hunt
- */
 public class ProfileFragment extends Fragment {
 
     private View.OnClickListener listener = new View.OnClickListener() {
@@ -22,16 +18,16 @@ public class ProfileFragment extends Fragment {
         public void onClick(View v) {
             int id = v.getId();
             switch (id){
-                case R.id.linkedin_link:
+                case R.id.image_profile_linkedin:
                     openLink("http://www.linkedin.com");
                     break;
-                case R.id.github_link:
+                case R.id.image_profile_github:
                     openLink("http://github.com");
                     break;
-                case R.id.resume_link:
+                case R.id.image_profile_resume:
                     openLink("resume");
                     break;
-                case R.id.portfolio_link:
+                case R.id.image_profile_site:
                     openLink("portfolio");
                     break;
             }
@@ -42,13 +38,13 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.layout_profile, parent, false);
 
-        ImageView linkedin = (ImageView) view.findViewById(R.id.linkedin_link);
+        ImageView linkedin = (ImageView) view.findViewById(R.id.image_profile_linkedin);
         linkedin.setOnClickListener(listener);
-        ImageView github = (ImageView) view.findViewById(R.id.github_link);
+        ImageView github = (ImageView) view.findViewById(R.id.image_profile_github);
         github.setOnClickListener(listener);
-        ImageView resume = (ImageView) view.findViewById(R.id.resume_link);
+        ImageView resume = (ImageView) view.findViewById(R.id.image_profile_resume);
         resume.setOnClickListener(listener);
-        ImageView portfolio = (ImageView) view.findViewById(R.id.portfolio_link);
+        ImageView portfolio = (ImageView) view.findViewById(R.id.image_profile_site);
         portfolio.setOnClickListener(listener);
 
         return view;
