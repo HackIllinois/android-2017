@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                         // Notifications
                         swapFragment(new AnnouncementListFragment());
                         tabLayout.setVisibility(View.GONE);
-                        setTitle("Announcements");
+                        setTitle("Notifications");
                         break;
                     case 4:
                         // Profile
