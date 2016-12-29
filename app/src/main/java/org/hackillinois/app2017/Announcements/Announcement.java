@@ -3,9 +3,6 @@ package org.hackillinois.app2017.Announcements;
 
 import org.hackillinois.app2017.Utils.Constants;
 
-/**
- * Created by tommypacker for HackIllinois' 2016 Clue Hunt
- */
 public class Announcement {
 
     private String title;

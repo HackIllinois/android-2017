@@ -3,6 +3,7 @@ package org.hackillinois.app2017.Announcements;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -39,6 +40,9 @@ public class AnnouncementListFragment extends Fragment implements AdapterView.On
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), 1);
+        recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setAdapter(adapter);
         testData();
 
@@ -53,13 +57,13 @@ public class AnnouncementListFragment extends Fragment implements AdapterView.On
     }
 
     private void testData(){
-        Announcement announcement = new Announcement("Yoooo", "This is a test message bruh");
+        Announcement announcement = new Announcement("Yoooo", "To the owner of the white van that is parked outside of Siebel, please stop selling soylent to people. It is not encouraged behavior.");
         announcements.add(announcement);
 
-        announcement = new Announcement("Food", "Dinner in ECEB very soon", Constants.FOOD_CATEGORY);
+        announcement = new Announcement("Food", "The dinner in ECEB starts very soon. Be there or be square.", Constants.FOOD_CATEGORY);
         announcements.add(announcement);
 
-        announcement = new Announcement("Yoooo", "This is a test message bruh");
+        announcement = new Announcement("Yoooo", "Hella narwhal Cosby sweater McSweeney's salvia kitsch before they sold out High Life.");
         announcements.add(announcement);
 
         announcement = new Announcement("Yoooo", "This is a test message bruh");
