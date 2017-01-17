@@ -21,9 +21,6 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by tommypacker for HackIllinois' 2016 Clue Hunt
- */
 public class AnnouncementListFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private ArrayList<Announcement> announcements =  new ArrayList<>();

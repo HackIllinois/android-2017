@@ -16,9 +16,6 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by tommypacker for HackIllinois' 2016 Clue Hunt
- */
 public class EventListFragment extends Fragment {
 
     private Event[] events;
