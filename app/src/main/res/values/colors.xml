@@ -7,6 +7,18 @@
   <color name="primary_text">#212121</color>
   <color name="secondary_text">#727272</color>
   <color name="icons">#FFFFFF</color>
-  <color name="divider">#B6B6B6</color>
+
+  <color name="dark_blue_grey">#142442</color>
+  <color name="dark_slate_blue">#1c325a</color>
+  <color name="dark_slate_blue_two">#2d4673</color>
+  <color name="dusky_blue">#4e6094</color>
+  <color name="faded_blue">#808fc4</color>
+  <color name="cloudy_blue">#b7bedc</color>
+  <color name="pale_grey">#f5fafc</color>
+  <color name="dark_green_blue">#266771</color>
+  <color name="sea">#409baa</color>
+  <color name="seafoam_blue">#5dc8db</color>
+  <color name="light_periwinkle">#d0d9ff</color>
+  <color name="faded_orange">#f08462</color>
 
 </resources>

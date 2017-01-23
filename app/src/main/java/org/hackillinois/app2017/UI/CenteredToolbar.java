@@ -2,10 +2,13 @@ package org.hackillinois.app2017.UI;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.widget.TextView;
+
+import org.hackillinois.app2017.R;
 
 public class CenteredToolbar extends Toolbar {
     private TextView titleView;
@@ -42,6 +45,7 @@ public class CenteredToolbar extends Toolbar {
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
         titleView.setX((getWidth() - titleView.getWidth())/2);
+        titleView.setTextColor(Color.WHITE);
     }
 
     @Override

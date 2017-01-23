@@ -52,10 +52,10 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentManager = getSupportFragmentManager();
 
-        // Set default fragment to schedule fragment
+        // Set default fragment to Home fragment
         fragmentManager.beginTransaction()
                 .replace(R.id.content_holder, new HomeFragment()).commit();
-        setTitle("Schedule");
+        setTitle("Home");
     }
 
     @Override
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(sunday, 2);
 
         tabLayout.setTabTextColors(ContextCompat.getColorStateList(this, R.drawable.tab_selector));
-        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.accent));
+        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.seafoam_blue));
     }
 
     private void setUpBottomNavigationBar() {
@@ -97,8 +97,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Set custom settings
         bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
-        //bottomNavigation.setColored(true);
-        bottomNavigation.setAccentColor(Color.parseColor("#FF5722"));
+        bottomNavigation.setDefaultBackgroundResource(R.color.dark_slate_blue);
+        bottomNavigation.setAccentColor(ContextCompat.getColor(this, R.color.light_periwinkle));
+        bottomNavigation.setInactiveColor(ContextCompat.getColor(this, R.color.faded_blue));
         bottomNavigation.setCurrentItem(0);
 
         // Set listeners
