@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/dark_blue_grey"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/home_time_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
+        android:text="Hacking Starts In..."
+        android:textAlignment="center"
+        android:textColor="@color/pale_grey"
+        android:textSize="24sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:paddingLeft="45dp"
+        android:paddingRight="45dp">
+
+        <TextView
+            android:id="@+id/home_time_hour"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="000"
+            android:textAlignment="center"
+            android:textColor="@color/seafoam_blue"
+            android:textSize="48sp" />
+
+        <TextView
+            android:id="@+id/home_time_minute"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="00"
+            android:textAlignment="center"
+            android:textColor="@color/seafoam_blue"
+            android:textSize="48sp" />
+
+        <TextView
+            android:id="@+id/home_time_second"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="00"
+            android:textAlignment="center"
+            android:textColor="@color/seafoam_blue"
+            android:textSize="48sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:paddingLeft="55dp"
+        android:paddingRight="55dp">
+
+        <TextView
+            android:id="@+id/home_text_hour"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="hours"
+            android:textAlignment="center"
+            android:textColor="@color/seafoam_blue"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/home_text_minute"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="minutes"
+            android:textAlignment="center"
+            android:textColor="@color/seafoam_blue"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/home_text_second"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="seconds"
+            android:textAlignment="center"
+            android:textColor="@color/seafoam_blue"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/home_target_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:text="\@ Friday 9:00 pm"
+        android:textColor="@color/seafoam_blue"
+        android:textAlignment="center"
+        android:textSize="18sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/dusky_blue" />
+
+    <TextView
+        android:id="@+id/home_happening_now"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="Happening Now"
+        android:textColor="@color/cloudy_blue"
+        android:textSize="24sp" />
+</LinearLayout>

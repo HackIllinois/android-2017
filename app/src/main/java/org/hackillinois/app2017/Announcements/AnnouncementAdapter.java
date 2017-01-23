@@ -20,7 +20,6 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private ArrayList<Notification> notifications;
 
-
     public static class AnnouncementViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.notificationType) TextView typeTextView;
@@ -76,7 +75,7 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = null;
+        View view;
 
         if (viewType == 0) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.announcement_layout, parent, false);

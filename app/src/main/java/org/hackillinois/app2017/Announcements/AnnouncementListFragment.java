@@ -24,13 +24,14 @@ import butterknife.ButterKnife;
 
 public class AnnouncementListFragment extends Fragment {
 
-    private ArrayList<Notification> announcements =  new ArrayList<>();
+    private ArrayList<Notification> announcements;
     private AnnouncementAdapter adapter;
 
     @BindView(R.id.announcementList) RecyclerView recyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
+        announcements =  new ArrayList<>();
         View view = inflater.inflate(R.layout.layout_announcements, parent, false);
         ButterKnife.bind(this, view);
 

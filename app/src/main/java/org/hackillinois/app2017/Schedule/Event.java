@@ -1,8 +1,5 @@
 package org.hackillinois.app2017.Schedule;
 
-/**
- * Created by tommypacker for HackIllinois' 2016 Clue Hunt
- */
 public class Event {
 
     private String title;
