@@ -12,9 +12,6 @@ import org.hackillinois.app2017.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by tommypacker for HackIllinois' 2016 Clue Hunt
- */
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
 
     private Event[] dataset;
