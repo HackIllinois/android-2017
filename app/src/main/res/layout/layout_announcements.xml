@@ -3,16 +3,8 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Spinner
-        android:id="@+id/filterMenu"
-        android:layout_width="match_parent"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:layout_height="40dp"/>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/announcementList"
-        android:layout_marginTop="1dp"
         android:scrollbars="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

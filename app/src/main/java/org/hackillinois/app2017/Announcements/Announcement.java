@@ -1,32 +1,21 @@
 package org.hackillinois.app2017.Announcements;
 
-import org.hackillinois.app2017.Utils.Constants;
-
-public class Announcement {
-
-    private String title;
+public class Announcement implements Notification {
     private String message;
-    private int category; // Will denote each category by a const int
+    private String time;
 
-    public Announcement(String title, String message){
-        this.title = title;
+    public Announcement(String message, String time){
         this.message = message;
-        this.category = Constants.ALL_CATEGORY;
+        this.time = time;
     }
 
-    public Announcement(String title, String message, int category){
-        this.title = title;
-        this.message = message;
-        this.category = category;
-    }
-
-    public String getTitle(){
-        return title;
-    }
-
+    @Override
     public String getMessage(){
         return message;
     }
 
-    public int getCategory(){return category;}
+    @Override
+    public String getTime() {
+        return time;
+    }
 }

@@ -1,100 +1,105 @@
 package org.hackillinois.app2017.Announcements;
 
+
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.TextView;
 
 import org.hackillinois.app2017.R;
-import org.hackillinois.app2017.Utils.Constants;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by tommypacker for HackIllinois' 2016 Clue Hunt
- */
-public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapter.ViewHolder> implements Filterable {
+public class AnnouncementAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private ArrayList<Announcement> announcements;
-    private ArrayList<Announcement> filteredAnnouncements;
-    private HashMap<String, Integer> filterMap;
-    private ItemFilter mFilter = new ItemFilter();
+    private ArrayList<Notification> notifications;
 
-    @Override
-    public Filter getFilter() {
-        return mFilter;
-    }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class AnnouncementViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.announcementTitle) TextView titleTextView;
-        @BindView(R.id.announcementMessage) TextView messageTextView;
+        @BindView(R.id.notificationType) TextView typeTextView;
+        @BindView(R.id.notificationMessage) TextView messageTextView;
+        @BindView(R.id.notificationTime) TextView timeTextView;
 
-        public ViewHolder(View v) {
+        public AnnouncementViewHolder(View v) {
             super(v);
             ButterKnife.bind(this, v);
         }
     }
 
-    public AnnouncementAdapter(ArrayList<Announcement> announcements){
-        this.announcements = announcements;
-        this.filteredAnnouncements = announcements;
+    public static class ReminderViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.notificationType) TextView typeTextView;
+        @BindView(R.id.notificationMessage) TextView messageTextView;
+        @BindView(R.id.notificationTime) TextView timeTextView;
+        @BindView(R.id.notificationLocation) TextView locationTextView;
+
+        public ReminderViewHolder(View v) {
+            super(v);
+            ButterKnife.bind(this, v);
+        }
+    }
+
+    public AnnouncementAdapter(ArrayList<Notification> notifications) {
+        this.notifications = notifications;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_announcement_layout, parent, false);
-        return new ViewHolder(view);
+    public int getItemViewType(int position) {
+        if (notifications.get(position) instanceof Reminder) {
+            return 1;
+        }
+
+        return 0;
     }
 
+
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        Announcement curAnnouncement = filteredAnnouncements.get(position);
-        holder.titleTextView.setText(curAnnouncement.getTitle());
-        holder.messageTextView.setText(curAnnouncement.getMessage());
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        View view = null;
+
+        if (viewType == 0) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.announcement_layout, parent, false);
+            return new AnnouncementViewHolder(view);
+        }
+
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.reminder_layout, parent, false);
+        return new ReminderViewHolder(view);
+    }
+
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        // 0 = Announcement
+        // 1 = Reminder
+        Notification notification = notifications.get(position);
+
+        switch (holder.getItemViewType()) {
+            case 0:
+                AnnouncementViewHolder announcementHolder = (AnnouncementViewHolder)holder;
+                announcementHolder.typeTextView.setText("Announcement");
+                announcementHolder.messageTextView.setText(notification.getMessage());
+                announcementHolder.timeTextView.setText(notification.getTime());
+                break;
+            case 1:
+                ReminderViewHolder reminderHolder = (ReminderViewHolder)holder;
+                Reminder myReminder = (Reminder)notification;
+                reminderHolder.typeTextView.setText("Reminder");
+                reminderHolder.messageTextView.setText(myReminder.getMessage());
+                reminderHolder.timeTextView.setText(myReminder.getTime());
+                reminderHolder.locationTextView.setText(myReminder.getLocation());
+                break;
+        }
     }
 
     @Override
     public int getItemCount() {
-        return filteredAnnouncements.size();
+        return notifications.size();
     }
-
-
-    private class ItemFilter extends Filter{
-
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            String filterString = constraint.toString().toUpperCase();
-            int filterCategory = Constants.filterMap.get(filterString);
-            FilterResults results =  new FilterResults();
-            final ArrayList<Announcement> list = announcements;
-            int count = list.size();
-            final ArrayList<Announcement> newList =  new ArrayList<>(count);
-
-            for(int i = 0; i<count; i++){
-                Announcement cur = list.get(i);
-                if(cur.getCategory() == filterCategory || filterCategory == Constants.ALL_CATEGORY){
-                    newList.add(cur);
-                }
-            }
-            results.values = newList;
-            results.count = newList.size();
-
-            return results;
-        }
-
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            filteredAnnouncements = (ArrayList<Announcement>) results.values;
-            notifyDataSetChanged();
-        }
-    }
-
 }

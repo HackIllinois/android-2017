@@ -2,6 +2,7 @@ package org.hackillinois.app2017.Announcements;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,9 +22,9 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class AnnouncementListFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class AnnouncementListFragment extends Fragment {
 
-    private ArrayList<Announcement> announcements =  new ArrayList<>();
+    private ArrayList<Notification> announcements =  new ArrayList<>();
     private AnnouncementAdapter adapter;
 
     @BindView(R.id.announcementList) RecyclerView recyclerView;
@@ -39,47 +40,30 @@ public class AnnouncementListFragment extends Fragment implements AdapterView.On
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), 1);
+        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider));
         recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setAdapter(adapter);
         testData();
-
-        Spinner filterMenu = (Spinner) view.findViewById(R.id.filterMenu);
-        ArrayAdapter<CharSequence> filterAdapter = ArrayAdapter.createFromResource(this.getContext(),
-                R.array.filters, android.R.layout.simple_spinner_item);
-        filterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        filterMenu.setAdapter(filterAdapter);
-        filterMenu.setOnItemSelectedListener(this);
 
         return view;
     }
 
     private void testData(){
-        Announcement announcement = new Announcement("Yoooo", "To the owner of the white van that is parked outside of Siebel, please stop selling soylent to people. It is not encouraged behavior.");
+        Announcement announcement = new Announcement("To the owner of the white van that is parked outside of Siebel, please stop selling soylent to people. It is not encouraged behavior.", "a few seconds ago");
         announcements.add(announcement);
 
-        announcement = new Announcement("Food", "The dinner in ECEB starts very soon. Be there or be square.", Constants.FOOD_CATEGORY);
+        Reminder reminder = new Reminder("Lunch will be in 10 minutes.", "a few seconds ago", "ECEB");
+        announcements.add(reminder);
+
+        announcement = new Announcement("Hella narwhal Cosby sweater McSweeney's salvia kitsch before they sold out High Life.", "an hour ago");
         announcements.add(announcement);
 
-        announcement = new Announcement("Yoooo", "Hella narwhal Cosby sweater McSweeney's salvia kitsch before they sold out High Life.");
+        announcement = new Announcement("Tousled food truck polaroid, salvia bespoke small batch Pinterest Marfa.", "an hour ago");
         announcements.add(announcement);
 
-        announcement = new Announcement("Yoooo", "This is a test message bruh");
-        announcements.add(announcement);
-
-        announcement = new Announcement("Yoooo", "This is a test message bruh");
+        announcement = new Announcement("This is a test message bruh", "yesterday");
         announcements.add(announcement);
 
         adapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String filter = parent.getItemAtPosition(position).toString();
-        adapter.getFilter().filter(filter);
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
     }
 }
