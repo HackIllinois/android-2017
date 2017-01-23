@@ -63,7 +63,7 @@
         android:background="@drawable/custom_button" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/hackillinnois"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -78,6 +78,27 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:textColor="@color/pale_grey" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Incorrect E-mail or Password"
+        android:ems="10"
+        android:id="@+id/incorrectEmailOrPassword"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/emailField"
+        android:textIsSelectable="false"
+        android:textColor="@color/lipstick"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:singleLine="true"
+        android:textSize="18sp"
+        android:layout_marginBottom="4dp" />
 
 
 </android.support.constraint.ConstraintLayout>
