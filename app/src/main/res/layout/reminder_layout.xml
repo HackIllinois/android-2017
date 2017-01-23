@@ -24,7 +24,7 @@
             android:gravity="left|center_vertical"
             android:text="Reminder"
             android:textColor="@color/cloudy_blue"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:textStyle="bold" />
 
         <TextView

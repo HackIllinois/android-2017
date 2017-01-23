@@ -3,6 +3,7 @@ package org.hackillinois.app2017.UI;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
@@ -25,6 +26,9 @@ public class CenteredToolbar extends Toolbar {
         super(context, attrs, defStyleAttr);
 
         titleView = new TextView(getContext());
+
+        Typeface tf = Typeface.createFromAsset(context.getAssets(), "fonts/Brandon_med.otf");
+        titleView.setTypeface(tf);
 
         int textAppearanceStyleResId;
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs,

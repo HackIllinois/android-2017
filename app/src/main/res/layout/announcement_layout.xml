@@ -23,7 +23,7 @@
             android:layout_weight="1"
             android:gravity="left|center_vertical"
             android:text="Announcement"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:textStyle="bold"
             android:textColor="@color/cloudy_blue" />
 
@@ -46,7 +46,7 @@
         android:layout_marginTop="6dp"
         android:gravity="start"
         android:text="Announcement Message"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:textColor="@color/pale_grey"
         android:textAlignment="textStart" />
 

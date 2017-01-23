@@ -1,5 +1,6 @@
 package org.hackillinois.app2017.Schedule;
 
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,11 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
         public ViewHolder(View v) {
             super(v);
             ButterKnife.bind(this, v);
+            Typeface brandon_med = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Brandon_med.otf");
+
+            titleTextView.setTypeface(brandon_med);
+            locationTextView.setTypeface(brandon_med);
+            timeTextView.setTypeface(brandon_med);
         }
     }
 

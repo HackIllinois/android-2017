@@ -1,6 +1,7 @@
 package org.hackillinois.app2017.Announcements;
 
 
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,12 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         public AnnouncementViewHolder(View v) {
             super(v);
             ButterKnife.bind(this, v);
+            Typeface brandon_reg = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Brandon_reg.otf");
+            Typeface brandon_med = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Brandon_med.otf");
+
+            typeTextView.setTypeface(brandon_med);
+            messageTextView.setTypeface(brandon_reg);
+            timeTextView.setTypeface(brandon_reg);
         }
     }
 
@@ -42,6 +49,13 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         public ReminderViewHolder(View v) {
             super(v);
             ButterKnife.bind(this, v);
+            Typeface brandon_reg = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Brandon_reg.otf");
+            Typeface brandon_med = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Brandon_med.otf");
+
+            typeTextView.setTypeface(brandon_med);
+            messageTextView.setTypeface(brandon_reg);
+            timeTextView.setTypeface(brandon_reg);
+            locationTextView.setTypeface(brandon_med);
         }
     }
 
@@ -83,14 +97,14 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         switch (holder.getItemViewType()) {
             case 0:
                 AnnouncementViewHolder announcementHolder = (AnnouncementViewHolder)holder;
-                announcementHolder.typeTextView.setText("Announcement");
+                announcementHolder.typeTextView.setText("ANNOUNCEMENT");
                 announcementHolder.messageTextView.setText(notification.getMessage());
                 announcementHolder.timeTextView.setText(notification.getTime());
                 break;
             case 1:
                 ReminderViewHolder reminderHolder = (ReminderViewHolder)holder;
                 Reminder myReminder = (Reminder)notification;
-                reminderHolder.typeTextView.setText("Reminder");
+                reminderHolder.typeTextView.setText("REMINDER");
                 reminderHolder.messageTextView.setText(myReminder.getMessage());
                 reminderHolder.timeTextView.setText(myReminder.getTime());
                 reminderHolder.locationTextView.setText(myReminder.getLocation());
