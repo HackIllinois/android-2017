@@ -16,7 +16,7 @@ public class HomeTime {
         long epoch = targetTime.getTimeInMillis();
         long epochNow = new GregorianCalendar().getTimeInMillis();
         long calculatedEpoch = epoch - epochNow;
-        Log.i("Time", calculatedEpoch + "");
+
         return (int)(calculatedEpoch / 3600000);
     }
     public int getMinutes() {
