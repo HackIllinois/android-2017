@@ -82,11 +82,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void setUpBottomNavigationBar() {
         // Create Items
-        AHBottomNavigationItem home = new AHBottomNavigationItem(R.string.home_item, R.drawable.ic_home_white_24dp, R.color.primary);
-        AHBottomNavigationItem schedule = new AHBottomNavigationItem(R.string.schedule_item, R.drawable.ic_today_white_24dp, R.color.primary);
-        AHBottomNavigationItem maps = new AHBottomNavigationItem(R.string.maps_item, R.drawable.ic_map_black_36dp, R.color.primary);
-        AHBottomNavigationItem notifications = new AHBottomNavigationItem(R.string.notifications_item, R.drawable.ic_notifications_white_24dp, R.color.primary);
-        AHBottomNavigationItem profile = new AHBottomNavigationItem(R.string.profile_item, R.drawable.ic_person_black_36dp, R.color.primary);
+        AHBottomNavigationItem home = new AHBottomNavigationItem(R.string.home_item, R.drawable.home_off, R.color.primary);
+        AHBottomNavigationItem schedule = new AHBottomNavigationItem(R.string.schedule_item, R.drawable.schedule_off, R.color.primary);
+        AHBottomNavigationItem maps = new AHBottomNavigationItem(R.string.maps_item, R.drawable.maps_off, R.color.primary);
+        AHBottomNavigationItem notifications = new AHBottomNavigationItem(R.string.notifications_item, R.drawable.notifications_off, R.color.primary);
+        AHBottomNavigationItem profile = new AHBottomNavigationItem(R.string.profile_item, R.drawable.profile_off, R.color.primary);
 
         // Add Items
         bottomNavigation.addItem(home);
