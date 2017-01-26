@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigation.addItem(profile);
 
         // Set custom settings
-        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
+        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_HIDE);
         bottomNavigation.setDefaultBackgroundResource(R.color.dark_slate_blue);
         bottomNavigation.setAccentColor(ContextCompat.getColor(this, R.color.light_periwinkle));
         bottomNavigation.setInactiveColor(ContextCompat.getColor(this, R.color.faded_blue));
