@@ -42,7 +42,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void addData() {
-        events.add(new HomeTime(new GregorianCalendar(2017, Calendar.FEBRUARY, 17, 21, 0)));
+        events.add(new HomeTime(new GregorianCalendar(2017, Calendar.FEBRUARY, 24, 21, 0)));
         homeAdapter.notifyDataSetChanged();
     }
 }
