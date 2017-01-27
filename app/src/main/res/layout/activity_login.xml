@@ -16,7 +16,7 @@
         android:layout_marginLeft="55dp"
         android:layout_marginRight="55dp"
         android:layout_marginStart="55dp"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="315dp"
         android:background="@drawable/custom_edittext"
         android:hint="Email"
         android:inputType="textEmailAddress"
