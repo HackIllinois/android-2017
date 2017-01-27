@@ -1,5 +1,5 @@
 package org.hackillinois.app2017.Backend;
 
 public class APIHelper {
-    public static String serverAddress = "";
+    public static String serverAddress = "https://api.hackillinois.org/";
 }
