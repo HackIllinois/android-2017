@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,12 +38,9 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
-    @BindView(R.id.emailField)
-    EditText emailField;
-    @BindView(R.id.passwordField)
-    EditText passwordField;
-    @BindView(R.id.loginButton)
-    Button loginButton;
+    @BindView(R.id.emailField) EditText emailField;
+    @BindView(R.id.passwordField) EditText passwordField;
+    @BindView(R.id.loginButton) Button loginButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         // TODO: Handle Response
+                        Log.i("Login", response.toString());
                         requestQueue.stop();
                     }
                 },
