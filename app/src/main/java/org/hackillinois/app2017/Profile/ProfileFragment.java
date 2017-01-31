@@ -64,9 +64,9 @@ public class ProfileFragment extends Fragment {
         github.setOnClickListener(listener);
         resume.setOnClickListener(listener);
 
-        Typeface brandon_med = Typeface.createFromAsset(view.getContext().getAssets(), "Brandon_med");
-        Typeface brandon_reg = Typeface.createFromAsset(view.getContext().getAssets(), "Brandon_reg");
-        Typeface gotham_med = Typeface.createFromAsset(view.getContext().getAssets(), "Gotham-Medium");
+        Typeface brandon_med = Typeface.createFromAsset(view.getContext().getAssets(), "fonts/Brandon_med.otf");
+        Typeface brandon_reg = Typeface.createFromAsset(view.getContext().getAssets(), "fonts/Brandon_reg.otf");
+        Typeface gotham_med = Typeface.createFromAsset(view.getContext().getAssets(), "fonts/Gotham-Medium.otf");
 
         name.setTypeface(gotham_med);
         diet.setTypeface(brandon_med);
