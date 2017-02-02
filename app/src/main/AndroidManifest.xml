@@ -15,17 +15,19 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+
         <activity android:name=".Login.SplashScreen"
-            android:theme="@style/AppThemeAlternative">
-        </activity>
-        <activity
-            android:name=".Login.LoginActivity"
-            android:parentActivityName=".Login.SplashScreen">
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".Login.LoginActivity">
+        </activity>
+
         <activity
             android:name="org.hackillinois.app2017.MainActivity"
             android:label="@string/app_name"
