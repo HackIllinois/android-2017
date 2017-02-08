@@ -52,9 +52,22 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     class EventViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.home_event_title) TextView title;
+        @BindView(R.id.home_event_location) TextView location;
+        @BindView(R.id.home_event_time) TextView time;
+        @BindView(R.id.home_event_qr_button) TextView qrButton;
+
         public EventViewHolder(View v) {
             super(v);
             ButterKnife.bind(this, v);
+
+            Typeface brandon_med = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Brandon_med.otf");
+            Typeface brandon_reg = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Brandon_reg.otf");
+
+            title.setTypeface(brandon_reg);
+            time.setTypeface(brandon_reg);
+            location.setTypeface(brandon_med);
+            qrButton.setTypeface(brandon_med);
         }
     }
 

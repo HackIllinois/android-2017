@@ -1,7 +1,5 @@
 package org.hackillinois.app2017.Home;
 
-import android.util.Log;
-
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
