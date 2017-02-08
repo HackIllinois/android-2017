@@ -25,6 +25,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import org.hackillinois.app2017.Backend.APIHelper;
+import org.hackillinois.app2017.Backend.RequestManager;
 import org.hackillinois.app2017.MainActivity;
 import org.hackillinois.app2017.R;
 import org.json.JSONObject;
@@ -40,10 +41,14 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
-    @BindView(R.id.emailField) EditText emailField;
-    @BindView(R.id.passwordField) EditText passwordField;
-    @BindView(R.id.loginButton) Button loginButton;
-    @BindView(R.id.incorrectEmailOrPassword) TextView incorrectText;
+    @BindView(R.id.emailField)
+    EditText emailField;
+    @BindView(R.id.passwordField)
+    EditText passwordField;
+    @BindView(R.id.loginButton)
+    Button loginButton;
+    @BindView(R.id.incorrectEmailOrPassword)
+    TextView incorrectText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,8 +83,7 @@ public class LoginActivity extends AppCompatActivity {
         params.put("email", email);
         params.put("password", password);
 
-        final RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.start();
+        RequestManager requestManager = RequestManager.getInstance(this);
 
         LoginRequest loginRequest = new LoginRequest(Request.Method.POST, APIHelper.serverAddress, params,
                 new Response.Listener<JSONObject>() {
@@ -87,19 +91,37 @@ public class LoginActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         // TODO: Handle Response
                         Log.i("Login", response.toString());
-                        requestQueue.stop();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // TODO: Handle Error
-                        requestQueue.stop();
+                        Log.i("Login", error.networkResponse + "");
                     }
-                });
-        requestQueue.add(loginRequest);
+                }
+        );
 
-        moveOn();
+//        JsonObjectRequest loginRequest = new JsonObjectRequest(Request.Method.POST,
+//                APIHelper.serverAddress, null,
+//                new Response.Listener<JSONObject>() {
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                        Log.i("Login", response.toString());
+//                    }
+//                },
+//
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        Log.e("Login", "what");
+//                    }
+//                }
+//        );
+
+        requestManager.addToRequestQueue(loginRequest);
+
+        // moveOn();
     }
 
     private void moveOn() {

@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManager;
     private MapFragment mMapFragment;
+    private HomeFragment mHomeFragment;
+    private ProfileFragment mProfileFragment;
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.tabs) TabLayout tabLayout;
@@ -45,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         mMapFragment = new MapFragment();
+        mHomeFragment = new HomeFragment();
+        mProfileFragment = new ProfileFragment();
+
         checkPerms();
         setSupportActionBar(toolbar);
         setUpBottomNavigationBar();
@@ -109,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 switch(position) {
                     case 0:
                         // Home
-                        swapFragment(new HomeFragment());
+                        swapFragment(mHomeFragment);
                         tabLayout.setVisibility(View.GONE);
                         setTitle("Home");
                         break;
@@ -133,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 4:
                         // Profile
-                        swapFragment(new ProfileFragment());
+                        swapFragment(mProfileFragment);
                         tabLayout.setVisibility(View.GONE);
                         setTitle("Profile");
                         break;

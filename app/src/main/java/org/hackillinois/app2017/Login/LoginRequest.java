@@ -17,23 +17,23 @@ public class LoginRequest extends Request<JSONObject> {
     private Map<String, String> params;
 
     public LoginRequest(String url, Map<String, String> params,
-                         Response.Listener<JSONObject> reponseListener, Response.ErrorListener errorListener) {
+                         Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
         super(Method.GET, url, errorListener);
-        this.listener = reponseListener;
+        this.listener = responseListener;
         this.params = params;
     }
 
     public LoginRequest(int method, String url, Map<String, String> params,
-                         Response.Listener<JSONObject> reponseListener, Response.ErrorListener errorListener) {
+                         Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
         super(method, url, errorListener);
-        this.listener = reponseListener;
+        this.listener = responseListener;
         this.params = params;
     }
 
     protected Map<String, String> getParams()
             throws com.android.volley.AuthFailureError {
         return params;
-    };
+    }
 
     @Override
     protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
