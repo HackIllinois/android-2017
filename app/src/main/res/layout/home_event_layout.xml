@@ -1,6 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:background="@drawable/home_event_background"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp">
 
+    <TextView
+        android:text="Check In"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/home_event_title"
+        android:textSize="24sp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/pale_grey" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp">
+
+        <TextView
+            android:text="4:30 pm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/home_event_time"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:textColor="@color/cloudy_blue" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
+
+        <TextView
+            android:text="East Entrance, Siebel Center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/home_event_location"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:textColor="@color/seafoam_blue" />
+    </LinearLayout>
+
+    <TextView
+        android:text="Click to Open QR Code for Scanning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/home_event_qr_button"
+        android:textSize="18sp"
+        android:textAlignment="center"
+        android:textColor="@color/pale_grey"
+        android:background="@drawable/home_event_qr_button"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp" />
 </LinearLayout>

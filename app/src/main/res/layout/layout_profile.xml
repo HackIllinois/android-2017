@@ -53,28 +53,25 @@
             android:id="@+id/linearLayout">
 
             <ImageView
-                app:srcCompat="@drawable/git"
+                app:srcCompat="@drawable/github"
                 android:id="@+id/image_profile_github"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="50dp"
-                android:padding="9dp" />
+                android:layout_height="50dp" />
 
             <ImageView
                 app:srcCompat="@drawable/resume"
                 android:id="@+id/image_profile_resume"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:padding="9dp" />
+                android:layout_height="50dp" />
 
             <ImageView
                 app:srcCompat="@drawable/linkedin"
                 android:id="@+id/image_profile_linkedin"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:padding="9dp" />
+                android:layout_height="50dp" />
 
         </LinearLayout>
 
