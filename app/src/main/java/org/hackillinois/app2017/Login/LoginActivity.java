@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
 
         RequestManager requestManager = RequestManager.getInstance(this);
 
-        LoginRequest loginRequest = new LoginRequest(Request.Method.POST, APIHelper.serverAddress, params,
+        LoginRequest loginRequest = new LoginRequest(Request.Method.POST, APIHelper.authEndpoint, params,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // TODO: Handle Error
-                        Log.i("Login", error.networkResponse + "");
+                        Log.i("Login", error.networkResponse.statusCode + "");
                     }
                 }
         );
