@@ -34,7 +34,7 @@
         <activity
             android:name=".Settings.PrefsActivity"
             android:label="Settings" />
-        <activity android:name=".EventsActivity"></activity>
+        <activity android:name=".EventActivity"></activity>
     </application>
 
 </manifest>

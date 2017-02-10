@@ -1,5 +1,6 @@
 package org.hackillinois.app2017.Schedule;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.hackillinois.app2017.EventActivity;
 import org.hackillinois.app2017.R;
 
 import butterknife.BindView;
@@ -21,7 +23,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
         @BindView(R.id.eventName) TextView titleTextView;
         @BindView(R.id.eventLocation) TextView locationTextView;
         @BindView(R.id.eventTime) TextView timeTextView;
-        @BindView(R.id.event_button_remind_me) TextView remindMeTextView;
+        // @BindView(R.id.event_button_remind_me) TextView remindMeTextView;
 
         public ViewHolder(View v) {
             super(v);
@@ -31,7 +33,19 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
             titleTextView.setTypeface(brandon_med);
             locationTextView.setTypeface(brandon_med);
             timeTextView.setTypeface(brandon_med);
-            remindMeTextView.setTypeface(brandon_med);
+            // remindMeTextView.setTypeface(brandon_med);
+
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(v.getContext(), EventActivity.class);
+                    i.putExtra("title", titleTextView.getText());
+                    i.putExtra("location", locationTextView.getText());
+                    i.putExtra("starttime", timeTextView.getText());
+
+                    v.getContext().startActivity(i);
+                }
+            });
         }
     }
 
