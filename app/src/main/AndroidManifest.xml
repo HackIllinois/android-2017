@@ -25,16 +25,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Login.LoginActivity"></activity>
+        <activity
+            android:name=".Login.LoginActivity"
+            android:windowSoftInputMode="stateUnchanged"/>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Settings.PrefsActivity"
             android:label="Settings" />
-        <activity android:name=".EventActivity"></activity>
+        <activity android:name=".EventActivity" />
     </application>
 
 </manifest>
