@@ -1,36 +1,67 @@
 package org.hackillinois.app2017.Schedule;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.hackillinois.app2017.R;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 
+import org.hackillinois.app2017.Backend.APIHelper;
+import org.hackillinois.app2017.Backend.RequestManager;
+import org.hackillinois.app2017.R;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class EventListFragment extends Fragment {
 
-    private Event[] events;
+    private ArrayList<Event> events;
 
-    @BindView(R.id.my_recycler_view) RecyclerView mRecyclerView;
+    @BindView(R.id.my_recycler_view)
+    RecyclerView mRecyclerView;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        events = EventManager.getInstance().getEvents();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.event_list_layout, parent, false);
         ButterKnife.bind(this, view);
 
         Bundle extras = getArguments();
         int whichDay = extras.getInt("day");
-        switch (whichDay){
+        Log.i("Which Day", whichDay + "");
+        switch (whichDay) {
             case 0:
                 events = getFridayEvents();
                 break;
@@ -60,33 +91,39 @@ public class EventListFragment extends Fragment {
         return view;
     }
 
-    private Event[] getFridayEvents(){
+    private ArrayList<Event> getFridayEvents() {
         ArrayList<Event> toReturn = new ArrayList<>();
-        toReturn.add(new Event("Buses Arrive/Check-in", "Siebel Atrium", 12, 30, true));
-        toReturn.add(new Event("Career Fair", "Siebel/ECEB", 2, 30, true));
-        toReturn.add(new Event("Opening Ceremony", "Union", 7, 0, true));
-        toReturn.add(new Event("Dinner", "Siebel/ECEB", 10, 0, true));
-        toReturn.add(new Event("Hacking Begins", "Siebel/ECEB", 12, 30, false));
-        toReturn.add(new Event("Microsoft Tech Talk", "Grainger Auditorium (ECEB)", 4, 0, false));
-        return toReturn.toArray(new Event[toReturn.size()]);
+
+        for (Event e : events) {
+            if (e.getStartDay() == 5) {
+                toReturn.add(e);
+            }
+        }
+
+        return toReturn;
     }
 
-    private Event[] getSaturdayEvents(){
+    private ArrayList<Event> getSaturdayEvents() {
         ArrayList<Event> toReturn = new ArrayList<>();
-        toReturn.add(new Event("Midnight Snack", "Siebel/ECEB", 9, 30, true));
-        toReturn.add(new Event("Brunch", "Siebel/ECEB", 10, 0, true));
-        toReturn.add(new Event("Apple Tech Talk", "Grainger Auditorium (ECEB)", 12, 0, false));
-        toReturn.add(new Event("Raspberry Pi Workshop", "ECEB", 12, 15, false));
-        toReturn.add(new Event("Nerf Wars", "Kenny Gym", 8, 30, false));
-        return toReturn.toArray(new Event[toReturn.size()]);
+
+        for (Event e : events) {
+            if (e.getStartDay() == 6) {
+                toReturn.add(e);
+            }
+        }
+
+        return toReturn;
     }
 
-    private Event[] getSundayEvents(){
+    private ArrayList<Event> getSundayEvents() {
         ArrayList<Event> toReturn = new ArrayList<>();
-        toReturn.add(new Event("Hacking Ends", "Siebel/ECEB", 8, 45, true));
-        toReturn.add(new Event("Lunch", "Siebel/ECEB", 12, 0, false));
-        toReturn.add(new Event("Awards Ceremony", "Union", 2, 0, false));
-        toReturn.add(new Event("Buses Leave", "Siebel/ECEB", 4, 0, false));
-        return toReturn.toArray(new Event[toReturn.size()]);
+
+        for (Event e : events) {
+            if (e.getStartDay() == 0) {
+                toReturn.add(e);
+            }
+        }
+
+        return toReturn;
     }
 }

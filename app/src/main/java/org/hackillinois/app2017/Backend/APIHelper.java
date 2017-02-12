@@ -1,7 +1,7 @@
 package org.hackillinois.app2017.Backend;
 
 public class APIHelper {
-    public static String serverAddress = "https://api.hackillinois.org";
+    private static String serverAddress = "https://api.hackillinois.org";
 
     public static String authEndpoint = serverAddress + "/v1/auth";
     public static String userEndpoint = serverAddress + "/v1/registration/attendee";

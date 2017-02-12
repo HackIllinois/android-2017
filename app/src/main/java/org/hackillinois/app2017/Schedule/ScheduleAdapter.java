@@ -11,12 +11,14 @@ import android.widget.TextView;
 import org.hackillinois.app2017.EventActivity;
 import org.hackillinois.app2017.R;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
 
-    private Event[] dataset;
+    private ArrayList<Event> mDataset;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -49,8 +51,8 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
         }
     }
 
-    public ScheduleAdapter(Event[] data){
-        dataset = data;
+    public ScheduleAdapter(ArrayList<Event> data){
+        mDataset = data;
     }
 
     @Override
@@ -62,13 +64,13 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.locationTextView.setText(dataset[position].getLocation());
-        holder.titleTextView.setText(dataset[position].getTitle());
-        holder.timeTextView.setText(dataset[position].getTime());
+        holder.locationTextView.setText(mDataset.get(position).getLocation());
+        holder.titleTextView.setText(mDataset.get(position).getName());
+        holder.timeTextView.setText(mDataset.get(position).getStartTime());
     }
 
     @Override
     public int getItemCount() {
-        return dataset.length;
+        return mDataset.size();
     }
 }

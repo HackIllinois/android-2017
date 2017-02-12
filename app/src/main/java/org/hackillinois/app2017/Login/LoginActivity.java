@@ -21,16 +21,25 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 
 import org.hackillinois.app2017.Backend.APIHelper;
 import org.hackillinois.app2017.Backend.RequestManager;
 import org.hackillinois.app2017.MainActivity;
 import org.hackillinois.app2017.R;
+import org.hackillinois.app2017.Schedule.Event;
+import org.hackillinois.app2017.Schedule.EventManager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
+    private RequestManager requestManager;
 
     @BindView(R.id.emailField)
     EditText emailField;
@@ -54,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestManager = RequestManager.getInstance(this);
         sharedPreferences = this.getSharedPreferences(MainActivity.sharedPrefsName, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
@@ -74,7 +85,9 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                authorize(emailField.getText().toString(), passwordField.getText().toString());
+                //authorize(emailField.getText().toString(), passwordField.getText().toString());
+                loadEvents();
+                // TODO: Uncomment authorize, delete loadEvents() call
             }
         });
     }
@@ -87,36 +100,34 @@ public class LoginActivity extends AppCompatActivity {
 
         incorrectText.setVisibility(View.INVISIBLE);
 
-        final RequestManager requestManager = RequestManager.getInstance(this);
-
         final JsonObjectRequest userRequest = new JsonObjectRequest(Request.Method.GET,
                 APIHelper.userEndpoint, null, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONObject data = response.getJSONObject("data");
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONObject data = response.getJSONObject("data");
 
-                            Log.i("UserData", data.getString("firstName"));
-                            editor.putString("firstName", data.getString("firstName"));
-                            editor.putString("lastName", data.getString("lastName"));
-                            editor.putString("diet", data.getString("diet"));
-                            editor.putString("age", data.getString("age"));
-                            editor.putString("graduationYear", data.getString("graduationYear"));
-                            editor.putString("school", data.getString("school"));
-                            editor.putString("major", data.getString("major"));
-                            editor.putString("github", data.getString("github"));
-                            editor.putString("linkedin", data.getString("linkedin"));
-                            editor.putString("resumeKey", data.getJSONObject("resume").getString("key"));
+                    Log.i("UserData", data.getString("firstName"));
+                    editor.putString("firstName", data.getString("firstName"));
+                    editor.putString("lastName", data.getString("lastName"));
+                    editor.putString("diet", data.getString("diet"));
+                    editor.putString("age", data.getString("age"));
+                    editor.putString("graduationYear", data.getString("graduationYear"));
+                    editor.putString("school", data.getString("school"));
+                    editor.putString("major", data.getString("major"));
+                    editor.putString("github", data.getString("github"));
+                    editor.putString("linkedin", data.getString("linkedin"));
+                    editor.putString("resumeKey", data.getJSONObject("resume").getString("key"));
 
-                            editor.apply();
+                    editor.apply();
 
-                            moveOn();
+                    loadEvents();
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
@@ -169,5 +180,33 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         this.finish();
+    }
+
+    private void loadEvents() {
+        final JsonObjectRequest eventsRequest = new JsonObjectRequest(Request.Method.GET,
+                APIHelper.eventsEndpoint, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Type listType = new TypeToken<ArrayList<Event>>() {
+                }.getType();
+                GsonBuilder gsonBuilder = new GsonBuilder();
+                gsonBuilder.setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                Gson gson = gsonBuilder.create();
+
+                JsonParser jsonParser = new JsonParser();
+                JsonArray jsonEvents = jsonParser.parse(response.toString()).getAsJsonObject().getAsJsonArray("data");
+
+                EventManager.getInstance().setEvents((ArrayList) gson.fromJson(jsonEvents.toString(), listType));
+
+                moveOn();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // TODO: Handle error
+            }
+        });
+
+        requestManager.addToRequestQueue(eventsRequest);
     }
 }
