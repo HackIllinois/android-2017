@@ -1,8 +1,5 @@
 package org.hackillinois.app2017.Home;
 
-import android.support.v7.app.AppCompatActivity;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Handler;
@@ -13,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.hackillinois.app2017.EventActivity;
-import org.hackillinois.app2017.Profile.ProfileFragment;
 import org.hackillinois.app2017.R;
 
 import java.util.ArrayList;
