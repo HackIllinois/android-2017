@@ -5,4 +5,5 @@ public class APIHelper {
 
     public static String authEndpoint = serverAddress + "/v1/auth";
     public static String userEndpoint = serverAddress + "/v1/registration/attendee";
+    public static String eventsEndpoint = serverAddress + "/v1/events";
 }
