@@ -86,7 +86,49 @@ public class LoginActivity extends AppCompatActivity {
 
         incorrectText.setVisibility(View.INVISIBLE);
 
-        RequestManager requestManager = RequestManager.getInstance(this);
+        final RequestManager requestManager = RequestManager.getInstance(this);
+
+        final JsonObjectRequest userRequest = new JsonObjectRequest(Request.Method.GET,
+                APIHelper.userEndpoint, null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONObject data = response.getJSONObject("data");
+
+                            Log.i("UserData", data.getString("firstName"));
+                            editor.putString("firstName", data.getString("firstName"));
+                            editor.putString("lastName", data.getString("lastName"));
+                            editor.putString("diet", data.getString("diet"));
+                            editor.putString("age", data.getString("age"));
+                            editor.putString("graduationYear", data.getString("graduationYear"));
+                            editor.putString("school", data.getString("school"));
+                            editor.putString("major", data.getString("major"));
+                            editor.putString("github", data.getString("github"));
+                            editor.putString("linkedin", data.getString("linkedin"));
+                            editor.putString("resumeKey", data.getJSONObject("resume").getString("key"));
+
+                            editor.apply();
+
+                            moveOn();
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: RIP
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", sharedPreferences.getString("auth", ""));
+                return headers;
+            }
+        };
 
         JsonObjectRequest loginRequest = new JsonObjectRequest(Request.Method.POST,
                 APIHelper.authEndpoint, new JSONObject(params),
@@ -95,9 +137,11 @@ public class LoginActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try {
                             String authKey = response.getJSONObject("data").getString("auth");
+
                             editor.putString("auth", authKey);
                             editor.apply();
-                            moveOn();
+
+                            requestManager.addToRequestQueue(userRequest);
                         } catch (JSONException e) {
                             e.printStackTrace();
                             // TODO Do something here.

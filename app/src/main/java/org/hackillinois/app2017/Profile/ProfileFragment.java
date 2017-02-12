@@ -1,9 +1,12 @@
 package org.hackillinois.app2017.Profile;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.constraint.solver.SolverVariable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.hackillinois.app2017.MainActivity;
 import org.hackillinois.app2017.R;
 import org.w3c.dom.Text;
 
@@ -36,6 +40,7 @@ public class ProfileFragment extends Fragment {
     @BindView(R.id.profile_yearofgraduation) TextView yearOfGraduation;
     @BindView(R.id.profile_yearofgraduation_title) TextView yearOfGraduationTitle;
 
+    private SharedPreferences sharedPreferences;
 
     private View.OnClickListener listener = new View.OnClickListener() {
         @Override
@@ -43,10 +48,10 @@ public class ProfileFragment extends Fragment {
             int id = v.getId();
             switch (id){
                 case R.id.image_profile_linkedin:
-                    openLink("http://www.linkedin.com");
+                    openLink("http://www.linkedin.com/" + sharedPreferences.getString("linkedin", ""));
                     break;
                 case R.id.image_profile_github:
-                    openLink("http://github.com");
+                    openLink("http://github.com/" + sharedPreferences.getString("github", ""));
                     break;
                 case R.id.image_profile_resume:
                     openLink("resume");
@@ -54,6 +59,12 @@ public class ProfileFragment extends Fragment {
             }
         }
     };
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        sharedPreferences = getContext().getSharedPreferences(MainActivity.sharedPrefsName, Context.MODE_PRIVATE);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
@@ -76,6 +87,12 @@ public class ProfileFragment extends Fragment {
         major.setTypeface(brandon_reg);
         yearOfGraduationTitle.setTypeface(brandon_reg);
         yearOfGraduation.setTypeface(brandon_reg);
+
+        name.setText(sharedPreferences.getString("firstName", "N/A") + " " + sharedPreferences.getString("lastName", "N/A"));
+        // TODO: Set Diet
+        university.setText(sharedPreferences.getString("school", "Error"));
+        major.setText(sharedPreferences.getString("major", "Error"));
+        yearOfGraduation.setText(sharedPreferences.getString("graduationYear", "Error"));
 
         return view;
     }
