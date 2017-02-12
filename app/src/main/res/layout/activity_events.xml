@@ -22,10 +22,10 @@
 
 
     <TextView
-        android:text="5:00 pm"
+        android:text="Sponsorship Fair"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/event_start_time"
+        android:id="@+id/event_title"
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
         android:textColor="@color/pale_grey"
@@ -33,10 +33,10 @@
         android:layout_marginEnd="20dp" />
 
     <TextView
-        android:text="Sponsorship Fair"
+        android:text="5:00 pm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/event_title"
+        android:id="@+id/event_start_time"
         android:textSize="18sp"
         android:textColor="@color/cloudy_blue"
         android:layout_marginTop="4dp"
