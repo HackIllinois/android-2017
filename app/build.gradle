@@ -32,6 +32,7 @@ dependencies {
     compile 'com.akexorcist:googledirectionlibrary:1.0.4'
     compile 'com.github.clans:fab:1.6.3'
     compile 'com.android.volley:volley:1.0.0'
+    compile 'com.google.code.gson:gson:2.4'
     compile 'com.jakewharton:butterknife:8.1.0'
     apt 'com.jakewharton:butterknife-compiler:8.1.0'
 
