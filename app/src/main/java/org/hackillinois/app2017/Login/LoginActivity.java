@@ -28,6 +28,7 @@ import org.hackillinois.app2017.Backend.APIHelper;
 import org.hackillinois.app2017.Backend.RequestManager;
 import org.hackillinois.app2017.MainActivity;
 import org.hackillinois.app2017.R;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -83,41 +84,34 @@ public class LoginActivity extends AppCompatActivity {
         params.put("email", email);
         params.put("password", password);
 
+        incorrectText.setVisibility(View.INVISIBLE);
+
         RequestManager requestManager = RequestManager.getInstance(this);
 
-        LoginRequest loginRequest = new LoginRequest(Request.Method.POST, APIHelper.authEndpoint, params,
+        JsonObjectRequest loginRequest = new JsonObjectRequest(Request.Method.POST,
+                APIHelper.authEndpoint, new JSONObject(params),
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        // TODO: Handle Response
-                        Log.i("Login", response.toString());
+                        try {
+                            String authKey = response.getJSONObject("data").getString("auth");
+                            editor.putString("auth", authKey);
+                            editor.apply();
+                            moveOn();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            // TODO Do something here.
+                        }
                     }
                 },
+
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // TODO: Handle Error
-                        Log.i("Login", error.networkResponse.statusCode + "");
+                        incorrectText.setVisibility(View.VISIBLE);
                     }
                 }
         );
-
-//        JsonObjectRequest loginRequest = new JsonObjectRequest(Request.Method.POST,
-//                APIHelper.serverAddress, null,
-//                new Response.Listener<JSONObject>() {
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        Log.i("Login", response.toString());
-//                    }
-//                },
-//
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        Log.e("Login", "what");
-//                    }
-//                }
-//        );
 
         requestManager.addToRequestQueue(loginRequest);
 

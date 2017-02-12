@@ -16,8 +16,13 @@ public class LoginRequest extends Request<JSONObject> {
     private Response.Listener<JSONObject> listener;
     private Map<String, String> params;
 
+    @Override
+    public String getBodyContentType() {
+        return "application/json; charset=utf-8";
+    }
+
     public LoginRequest(String url, Map<String, String> params,
-                         Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
+                        Response.Listener<JSONObject> responseListener, Response.ErrorListener errorListener) {
         super(Method.GET, url, errorListener);
         this.listener = responseListener;
         this.params = params;
@@ -30,8 +35,7 @@ public class LoginRequest extends Request<JSONObject> {
         this.params = params;
     }
 
-    protected Map<String, String> getParams()
-            throws com.android.volley.AuthFailureError {
+    protected Map<String, String> getParams() throws com.android.volley.AuthFailureError {
         return params;
     }
 
