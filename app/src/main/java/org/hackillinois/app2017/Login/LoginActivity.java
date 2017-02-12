@@ -80,6 +80,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void authorize(final String email, final String password) {
+        loginButton.setClickable(false);
         Map<String, String> params = new HashMap<>();
         params.put("email", email);
         params.put("password", password);
@@ -120,6 +121,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // TODO: RIP
+                        loginButton.setClickable(true);
                     }
                 }) {
             @Override
@@ -145,6 +147,7 @@ public class LoginActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                             // TODO Do something here.
+                            loginButton.setClickable(true);
                         }
                     }
                 },
@@ -153,13 +156,12 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         incorrectText.setVisibility(View.VISIBLE);
+                        loginButton.setClickable(true);
                     }
                 }
         );
 
         requestManager.addToRequestQueue(loginRequest);
-
-        // moveOn();
     }
 
     private void moveOn() {
