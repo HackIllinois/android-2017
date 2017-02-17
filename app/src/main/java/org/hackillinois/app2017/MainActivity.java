@@ -3,6 +3,7 @@ package org.hackillinois.app2017;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
@@ -14,6 +15,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
@@ -39,6 +42,12 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.tabs) TabLayout tabLayout;
     @BindView(R.id.bottom_navigation) AHBottomNavigation bottomNavigation;
+    @BindView(R.id.map_bar) LinearLayout mapBar;
+
+    @BindView(R.id.map_DCL) TextView mapDCLText;
+    @BindView(R.id.map_Siebel) TextView mapSiebelText;
+    @BindView(R.id.map_ECEB) TextView mapECEBText;
+    @BindView(R.id.map_Union) TextView mapUnionText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
         setUpBottomNavigationBar();
         setUpTabBar();
 
+        changeFonts();
+
         fragmentManager = getSupportFragmentManager();
 
         // Set default fragment to Home fragment
@@ -66,6 +77,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // TODO: What should happen when onBackPressed?
+    }
+
+    public void setMapDCLOnClickListener(View.OnClickListener o) {
+        mapDCLText.setOnClickListener(o);
+    }
+
+    public void setMapSiebelOnClickListener(View.OnClickListener o) {
+        mapSiebelText.setOnClickListener(o);
+    }
+
+    public void setMapECEBOnClickListener(View.OnClickListener o) {
+        mapECEBText.setOnClickListener(o);
+    }
+
+    public void setMapUnionOnClickListener(View.OnClickListener o) {
+        mapUnionText.setOnClickListener(o);
     }
 
     private void setUpTabBar() {
@@ -116,30 +143,35 @@ public class MainActivity extends AppCompatActivity {
                         // Home
                         swapFragment(mHomeFragment);
                         tabLayout.setVisibility(View.GONE);
+                        mapBar.setVisibility(View.GONE);
                         setTitle("Home");
                         break;
                     case 1:
                         // Schedule
                         swapFragment(new ScheduleFragment());
                         tabLayout.setVisibility(View.VISIBLE);
+                        mapBar.setVisibility(View.GONE);
                         setTitle("Schedule");
                         break;
                     case 2:
                         // Maps
                         swapFragment(mMapFragment);
                         tabLayout.setVisibility(View.GONE);
-                        setTitle("Map");
+                        mapBar.setVisibility(View.VISIBLE);
+                        setTitle("Maps");
                         break;
                     case 3:
                         // Notifications
                         swapFragment(new AnnouncementListFragment());
                         tabLayout.setVisibility(View.GONE);
+                        mapBar.setVisibility(View.GONE);
                         setTitle("Notifications");
                         break;
                     case 4:
                         // Profile
                         swapFragment(mProfileFragment);
                         tabLayout.setVisibility(View.GONE);
+                        mapBar.setVisibility(View.GONE);
                         setTitle("Profile");
                         break;
                 }
@@ -177,6 +209,15 @@ public class MainActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(this, new String[]{permission}, REQUEST_CODE);
             }
         }
+    }
+
+    private void changeFonts() {
+        Typeface brandon_med = Typeface.createFromAsset(getAssets(), "fonts/Brandon_med.otf");
+
+        mapDCLText.setTypeface(brandon_med);
+        mapSiebelText.setTypeface(brandon_med);
+        mapECEBText.setTypeface(brandon_med);
+        mapUnionText.setTypeface(brandon_med);
     }
 
     @Override

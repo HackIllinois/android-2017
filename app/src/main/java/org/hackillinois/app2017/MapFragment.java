@@ -4,12 +4,15 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -17,6 +20,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akexorcist.googledirection.DirectionCallback;
@@ -24,14 +28,15 @@ import com.akexorcist.googledirection.GoogleDirection;
 import com.akexorcist.googledirection.constant.TransportMode;
 import com.akexorcist.googledirection.model.Direction;
 import com.akexorcist.googledirection.util.DirectionConverter;
-import com.github.clans.fab.FloatingActionButton;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -62,33 +67,47 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
             String location = "";
             LatLng currentLocation = (userLocation != null ? userLocation : findCurrentLocation());
             switch (v.getId()){
-                case R.id.siebel:
+                case R.id.map_DCL:
+                    toggle(v);
+                    name.setText("Digital Computer Laboratory");
+                    location = "DCL";
+                    break;
+                case R.id.map_Siebel:
+                    toggle(v);
+                    name.setText("Thomas Siebel Center for Computer Science");
                     location = "Siebel Center";
                     endLocation = SIEBEL;
                     break;
-                case R.id.eceb:
+                case R.id.map_ECEB:
+                    toggle(v);
+                    name.setText("Electrical Computer Engineering Building");
                     location = "Electrical and Computer Engineering Building";
                     endLocation = ECEB;
                     break;
-                case R.id.union:
+                case R.id.map_Union:
+                    toggle(v);
+                    name.setText("Illini Union");
                     location = "Illini Union";
                     endLocation = UNION;
                     break;
             }
-            System.out.println(visited.contains(endLocation));
-            if(!visited.contains(endLocation)){
-                Toast.makeText(getContext(), "Getting directions to " + location, Toast.LENGTH_SHORT).show();
+            
+            if (!visited.contains(endLocation)){
+                // Toast.makeText(getContext(), "Getting directions to " + location, Toast.LENGTH_SHORT).show();
                 requestDirection(currentLocation, endLocation);
                 visited.add(endLocation);
-            }else{
+            } else {
                 Toast.makeText(getContext(), "You already requested this location", Toast.LENGTH_SHORT).show();
             }
         }
     };
 
-    @BindView(R.id.siebel) FloatingActionButton siebelButton;
-    @BindView(R.id.eceb) FloatingActionButton ecebButton;
-    @BindView(R.id.union) FloatingActionButton unionButton;
+    private BottomSheetBehavior mBottomSheetBehavior;
+    @BindView(R.id.map_fab_location) FloatingActionButton fab;
+    @BindView(R.id.map_bottomsheet_name) TextView name;
+    @BindView(R.id.map_bottomsheet_time) TextView time;
+    @BindView(R.id.map_bottomsheet_indoormap) TextView indoorMap;
+    @BindView(R.id.map_bottomsheet_distance) TextView distance;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
@@ -105,11 +124,53 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
                     .build();
         }
 
-        siebelButton.setOnClickListener(clickListener);
-        ecebButton.setOnClickListener(clickListener);
-        unionButton.setOnClickListener(clickListener);
+        Typeface brandonReg = Typeface.createFromAsset(getContext().getAssets(), "fonts/Brandon_reg.otf");
+        Typeface brandonMeg = Typeface.createFromAsset(getContext().getAssets(), "fonts/Brandon_med.otf");
+        name.setTypeface(brandonReg);
+        distance.setTypeface(brandonReg);
+        time.setTypeface(brandonReg);
+        indoorMap.setTypeface(brandonMeg);
+
+        ((MainActivity)getActivity()).setMapDCLOnClickListener(clickListener);
+        ((MainActivity)getActivity()).setMapECEBOnClickListener(clickListener);
+        ((MainActivity)getActivity()).setMapSiebelOnClickListener(clickListener);
+        ((MainActivity)getActivity()).setMapUnionOnClickListener(clickListener);
+
+        fab = (FloatingActionButton) view.findViewById(R.id.map_fab_location);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getMyLocation();
+            }
+        });
+
+        View bottomSheet = view.findViewById(R.id.map_bottomsheet);
+        mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        mBottomSheetBehavior.setHideable(true);
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+
+
 
         return view;
+    }
+
+    private void toggle(View v) {
+        TextView union = ((MainActivity)getActivity()).mapUnionText;
+        TextView dcl = ((MainActivity)getActivity()).mapDCLText;
+        TextView eceb = ((MainActivity)getActivity()).mapECEBText;
+        TextView siebel = ((MainActivity)getActivity()).mapSiebelText;
+
+        if (((TextView)v).getCurrentTextColor() == ContextCompat.getColor(v.getContext(), R.color.seafoam_blue)) {
+            ((TextView)v).setTextColor(ContextCompat.getColor(v.getContext(), R.color.faded_blue));
+            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        } else {
+            union.setTextColor(ContextCompat.getColor(v.getContext(), R.color.faded_blue));
+            dcl.setTextColor(ContextCompat.getColor(v.getContext(), R.color.faded_blue));
+            eceb.setTextColor(ContextCompat.getColor(v.getContext(), R.color.faded_blue));
+            siebel.setTextColor(ContextCompat.getColor(v.getContext(), R.color.faded_blue));
+            ((TextView)v).setTextColor(ContextCompat.getColor(v.getContext(), R.color.seafoam_blue));
+            mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        }
     }
 
     private void setupMap(){
@@ -125,6 +186,7 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
                 public void onMapReady(GoogleMap googleMap) {
                 if (googleMap != null) {
                     mMap = googleMap;
+
                     if (userLocation != null)
                     {
                         CameraPosition cameraPosition = new CameraPosition.Builder()
@@ -136,6 +198,9 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
                     }
 
                     mMap.getUiSettings().setAllGesturesEnabled(true);
+                    mMap.setIndoorEnabled(false);
+                    mMap.getUiSettings().setMyLocationButtonEnabled(false);
+
                     if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED) {
                         googleMap.setMyLocationEnabled(true);
@@ -162,9 +227,16 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
                 .execute(this);
     }
 
+    private void getMyLocation() {
+        LatLng latLng = findCurrentLocation();
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 18);
+        mMap.animateCamera(cameraUpdate);
+    }
+
     @Override
     public void onDirectionSuccess(Direction direction, String rawBody) {
         if (direction.isOK()) {
+            System.out.println(direction.getRouteList().get(0).getSummary());
             int directionColor;
             if(endLocation == SIEBEL){
                 directionColor = Color.RED;
