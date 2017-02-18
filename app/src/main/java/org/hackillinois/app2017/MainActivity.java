@@ -2,7 +2,6 @@ package org.hackillinois.app2017;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,6 +22,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
 import org.hackillinois.app2017.Announcements.AnnouncementListFragment;
 import org.hackillinois.app2017.Home.HomeFragment;
+import org.hackillinois.app2017.Map.MapFragment;
 import org.hackillinois.app2017.Profile.ProfileFragment;
 import org.hackillinois.app2017.Schedule.ScheduleFragment;
 
@@ -44,10 +44,10 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.bottom_navigation) AHBottomNavigation bottomNavigation;
     @BindView(R.id.map_bar) LinearLayout mapBar;
 
-    @BindView(R.id.map_DCL) TextView mapDCLText;
-    @BindView(R.id.map_Siebel) TextView mapSiebelText;
-    @BindView(R.id.map_ECEB) TextView mapECEBText;
-    @BindView(R.id.map_Union) TextView mapUnionText;
+    @BindView(R.id.map_DCL) public TextView mapDCLText;
+    @BindView(R.id.map_Siebel) public TextView mapSiebelText;
+    @BindView(R.id.map_ECEB) public TextView mapECEBText;
+    @BindView(R.id.map_Union) public TextView mapUnionText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
