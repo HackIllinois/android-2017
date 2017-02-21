@@ -175,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
                         setTitle("Profile");
                         break;
                 }
+
                 return true;
             }
         });
@@ -201,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void checkPerms(){
+    private void checkPerms() {
         String[] PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION,
                                 Manifest.permission.INTERNET};
         for(String permission:PERMISSIONS) {

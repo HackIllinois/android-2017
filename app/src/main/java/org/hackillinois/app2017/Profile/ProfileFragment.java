@@ -9,20 +9,22 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.solver.SolverVariable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.hackillinois.app2017.Login.LoginActivity;
 import org.hackillinois.app2017.MainActivity;
 import org.hackillinois.app2017.R;
-import org.w3c.dom.Text;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static org.hackillinois.app2017.R.drawable.linkedin;
 
 public class ProfileFragment extends Fragment {
 
@@ -64,6 +66,7 @@ public class ProfileFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedPreferences = getContext().getSharedPreferences(MainActivity.sharedPrefsName, Context.MODE_PRIVATE);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -97,8 +100,33 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.profile_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_logout:
+                logOut();
+                return true;
+            default:
+                break;
+        }
+
+        return false;
+    }
+
     private void openLink(String link){
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
         startActivity(browserIntent);
+    }
+
+    private void logOut() {
+        Intent i = new Intent(getContext(), LoginActivity.class);
+        sharedPreferences.edit().clear().apply();
+        startActivity(i);
+        getActivity().finish();
     }
 }

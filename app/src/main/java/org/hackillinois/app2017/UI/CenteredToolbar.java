@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.widget.TextView;
@@ -24,8 +25,9 @@ public class CenteredToolbar extends Toolbar {
 
     public CenteredToolbar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
         titleView = new TextView(getContext());
+
+        titleView.setTextColor(ContextCompat.getColor(context, R.color.pale_grey));
 
         Typeface tf = Typeface.createFromAsset(context.getAssets(), "fonts/Brandon_med.otf");
         titleView.setTypeface(tf);
