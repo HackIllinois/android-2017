@@ -54,7 +54,7 @@ public class AnnouncementGrabberBroadcastReceiver extends BroadcastReceiver {
     public static void scheduleAlarm(PendingIntent pendingIntent, Context context) {
         AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 5000,
-                60000, pendingIntent);//5min interval
+                300000, pendingIntent);//5min interval
     }
 
     public static void cancelAlarm(PendingIntent pendingIntent, Context context) {

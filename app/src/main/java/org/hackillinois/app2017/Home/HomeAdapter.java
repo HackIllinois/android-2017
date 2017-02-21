@@ -137,6 +137,14 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 };
 
                 runnable.run();
+                break;
+            default:
+                EventViewHolder eventViewHolder = (EventViewHolder) holder;
+                HomeEvent homeEvent = (HomeEvent) homeEvents.get(position);
+                eventViewHolder.title.setText(homeEvent.getTitle());
+                eventViewHolder.location.setText(homeEvent.getLocation());
+                eventViewHolder.time.setText(homeEvent.getTime());
+                break;
         }
     }
 

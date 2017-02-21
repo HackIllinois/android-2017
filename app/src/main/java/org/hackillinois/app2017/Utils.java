@@ -9,12 +9,19 @@ import android.widget.ImageView;
 
 import net.glxn.qrgen.android.QRCode;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+
 /**
  * Created by kevin on 2/21/2017.
  */
 
 public class Utils {
-
+    //TODO save the image instead of creating it every time
     public static void showFullScreenQRCode(Context context) {
         ImageView imageView = new ImageView(context);
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);

@@ -23,7 +23,7 @@ import butterknife.Unbinder;
 
 public class HomeFragment extends Fragment {
 
-    private ArrayList<Object> events;
+    private HomeEventList homeEventList;
     private HomeAdapter homeAdapter;
     private Unbinder unbinder;
 
@@ -31,35 +31,24 @@ public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
-        events = new ArrayList<>();
+        GregorianCalendar hackIllinoisStartTime = new GregorianCalendar(2017, Calendar.FEBRUARY, 24, 21, 0);
+        homeEventList = new HomeEventList(new HomeTime(hackIllinoisStartTime));
         View view = inflater.inflate(R.layout.layout_home, parent, false);
         unbinder = ButterKnife.bind(this, view);
 
-        homeAdapter = new HomeAdapter(events);
+        homeAdapter = new HomeAdapter(homeEventList);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         homeRecyclerView.setLayoutManager(mLayoutManager);
         homeRecyclerView.setItemAnimator(new DefaultItemAnimator());
         homeRecyclerView.setAdapter(homeAdapter);
-        addData();
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        ArrayList<Event> events = EventManager.getInstance().getEvents();
-        //remove any events which ended before current time
-        //add new events
-    }
-
-    private void addData() {
-        events.add(new HomeTime(new GregorianCalendar(2017, Calendar.FEBRUARY, 24, 21, 0)));
-        events.add(new HomeEvent());
-        events.add(new HomeEvent());
-
-        homeAdapter.notifyDataSetChanged();
-
+        homeEventList.syncEvents();
     }
 
     @Override
