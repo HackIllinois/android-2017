@@ -32,35 +32,15 @@
             android:paddingBottom="20dp"
             android:paddingStart="20dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/map_bottomsheet_name"
+                android:layout_width="220dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="100">
-
-                <TextView
-                    android:id="@+id/map_bottomsheet_name"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_weight="65"
-                    android:lines="2"
-                    android:text="Electrical Computer Engineering Building"
-                    android:textColor="@color/pale_grey"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:id="@+id/map_bottomsheet_indoormap"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="35"
-                    android:text="INDOOR MAP"
-                    android:textAlignment="center"
-                    android:textColor="@color/seafoam_blue"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
+                android:layout_marginTop="20dp"
+                android:lines="2"
+                android:text="Electrical Computer Engineering Building"
+                android:textColor="@color/pale_grey"
+                android:textSize="24sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -103,11 +83,53 @@
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/map_fab_indoormap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="14dp"
+        android:adjustViewBounds="false"
+        android:fitsSystemWindows="false"
+        android:tint="@color/pale_grey"
+        app:backgroundTint="@color/seafoam_blue"
+        app:fabSize="normal"
+        app:layout_anchor="@+id/map_bottomsheet"
+        app:layout_anchorGravity="top|end"
+        app:srcCompat="@drawable/ic_my_location_white_24dp" />
+
+    <View
+        android:id="@+id/dummy"
+        android:layout_width="1dp"
+        android:layout_height="82dp"
+        app:layout_anchor="@id/map_fab_indoormap"
+        app:layout_anchorGravity="top|right|end" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/map_fab_directions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="25dp"
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"
+        android:fitsSystemWindows="false"
+        android:tint="@color/pale_grey"
+        app:backgroundTint="@color/seafoam_blue"
+        app:fabSize="normal"
+        app:srcCompat="@drawable/ic_navigation_white_24dp"
+        app:layout_anchor="@id/dummy"
+        app:layout_anchorGravity="top" />
+
+    <View
+        android:id="@+id/dummy2"
+        android:layout_width="1dp"
+        android:layout_height="82dp"
+        app:layout_anchor="@id/map_fab_directions"
+        app:layout_anchorGravity="top|right|end" />
+
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/map_fab_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top|left"
-        android:layout_marginBottom="14dp"
         android:layout_marginRight="25dp"
         android:adjustViewBounds="false"
         android:cropToPadding="false"
@@ -115,8 +137,18 @@
         android:tint="@color/seafoam_blue"
         app:backgroundTint="@color/pale_grey"
         app:fabSize="normal"
-        app:layout_anchor="@+id/map_bottomsheet"
-        app:layout_anchorGravity="top|end"
-        app:srcCompat="@drawable/ic_my_location_white_24dp" />
+        app:srcCompat="@drawable/ic_my_location_white_24dp"
+        app:layout_anchor="@id/dummy2"
+        app:layout_anchorGravity="top|end" />
+
+    <TextView
+        android:id="@+id/map_bottomsheet_indoormap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="INDOOR MAP"
+        android:textAlignment="center"
+        android:textColor="@color/seafoam_blue"
+        android:textSize="14sp" />
 
 </android.support.design.widget.CoordinatorLayout>

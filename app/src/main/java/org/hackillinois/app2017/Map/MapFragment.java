@@ -85,7 +85,7 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
                     break;
                 case R.id.map_ECEB:
                     toggle(v);
-                    setHeader("Electrical and Computer Engineering Building", "0.4 mi", "9 min");
+                    setHeader("Electrical Computer Engineering Building", "0.4 mi", "9 min");
                     location = "Electrical and Computer Engineering Building";
                     endLocation = ECEB;
                     break;
