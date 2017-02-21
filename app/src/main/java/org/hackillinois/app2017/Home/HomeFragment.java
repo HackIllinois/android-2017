@@ -17,11 +17,13 @@ import java.util.GregorianCalendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class HomeFragment extends Fragment {
 
     private ArrayList<Object> events;
     private HomeAdapter homeAdapter;
+    private Unbinder unbinder;
 
     @BindView(R.id.homeEventList) RecyclerView homeRecyclerView;
 
@@ -29,7 +31,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
         events = new ArrayList<>();
         View view = inflater.inflate(R.layout.layout_home, parent, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
 
         homeAdapter = new HomeAdapter(events);
 
@@ -48,5 +50,11 @@ public class HomeFragment extends Fragment {
 
         homeAdapter.notifyDataSetChanged();
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

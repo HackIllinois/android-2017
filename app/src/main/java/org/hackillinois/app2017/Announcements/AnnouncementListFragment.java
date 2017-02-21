@@ -34,6 +34,7 @@ import java.util.Collection;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 import static android.content.Context.ALARM_SERVICE;
 import static android.content.Context.NOTIFICATION_SERVICE;
@@ -42,6 +43,7 @@ public class AnnouncementListFragment extends Fragment {
 
     private ArrayList<Notification> announcements;
     private AnnouncementAdapter adapter;
+    private Unbinder unbinder;
 
     @BindView(R.id.announcementList) RecyclerView recyclerView;
 
@@ -49,7 +51,7 @@ public class AnnouncementListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
         announcements =  new ArrayList<>();
         View view = inflater.inflate(R.layout.layout_announcements, parent, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
 
         adapter = new AnnouncementAdapter(announcements);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
@@ -90,5 +92,11 @@ public class AnnouncementListFragment extends Fragment {
         announcements.add(announcement);
 
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }
