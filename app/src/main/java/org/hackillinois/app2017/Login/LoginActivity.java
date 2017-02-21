@@ -85,8 +85,8 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //authorize(emailField.getText().toString(), passwordField.getText().toString());
-                loadEvents();
+                authorize(emailField.getText().toString(), passwordField.getText().toString());
+                // loadEvents();
                 // TODO: Uncomment authorize, delete loadEvents() call
             }
         });
@@ -118,6 +118,7 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString("github", data.getString("github"));
                     editor.putString("linkedin", data.getString("linkedin"));
                     editor.putString("resumeKey", data.getJSONObject("resume").getString("key"));
+                    editor.putString("id", data.getString("id"));
 
                     editor.apply();
 
@@ -176,7 +177,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void moveOn() {
-        //editor.putBoolean("hasAuthed", true).apply(); Disabled for now just for testing
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         this.finish();
