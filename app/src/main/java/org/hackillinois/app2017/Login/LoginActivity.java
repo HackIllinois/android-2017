@@ -63,6 +63,8 @@ public class LoginActivity extends AppCompatActivity {
     TextView incorrectText;
     @BindView(R.id.loading_view)
     LinearLayout loadingView;
+    @BindView(R.id.loading_text)
+    TextView loadingText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -85,6 +87,7 @@ public class LoginActivity extends AppCompatActivity {
         passwordField.setTypeface(brandon_med);
         loginButton.setTypeface(brandon_med);
         incorrectText.setTypeface(brandon_med);
+        loadingText.setTypeface(brandon_med);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
