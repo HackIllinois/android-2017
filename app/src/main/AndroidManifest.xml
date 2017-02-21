@@ -34,6 +34,10 @@
             android:name=".Settings.PrefsActivity"
             android:label="Settings" />
         <activity android:name=".EventActivity" />
+
+        <receiver android:name=".Announcements.AnnouncementGrabberBroadcastReceiver"
+            android:enabled="true"
+            />
     </application>
 
 </manifest>
