@@ -10,10 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.hackillinois.app2017.R;
-import org.hackillinois.app2017.Schedule.Event;
-import org.hackillinois.app2017.Schedule.EventManager;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 

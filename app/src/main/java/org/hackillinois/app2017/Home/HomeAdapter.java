@@ -9,7 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.hackillinois.app2017.EventActivity;
+import org.hackillinois.app2017.Events.Event;
+import org.hackillinois.app2017.Events.EventActivity;
 import org.hackillinois.app2017.R;
 import org.hackillinois.app2017.Utils;
 
@@ -57,6 +58,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     class EventViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.home_event_title) TextView title;
         @BindView(R.id.home_event_location) TextView location;
+        private String locationLong = "";
         @BindView(R.id.home_event_time) TextView time;
         @BindView(R.id.home_event_qr_button) TextView qrButton;
 
@@ -77,7 +79,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 public void onClick(View v) {
                     Intent i = new Intent(v.getContext(), EventActivity.class);
                     i.putExtra("title", title.getText());
-                    i.putExtra("location", location.getText());
+                    i.putExtra("location", locationLong);
                     i.putExtra("starttime", time.getText());
 
                     v.getContext().startActivity(i);
@@ -140,10 +142,14 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 break;
             default:
                 EventViewHolder eventViewHolder = (EventViewHolder) holder;
-                HomeEvent homeEvent = (HomeEvent) homeEvents.get(position);
-                eventViewHolder.title.setText(homeEvent.getTitle());
-                eventViewHolder.location.setText(homeEvent.getLocation());
-                eventViewHolder.time.setText(homeEvent.getTime());
+                Event homeEvent = (Event) homeEvents.get(position);
+                eventViewHolder.title.setText(homeEvent.getName());
+                eventViewHolder.location.setText(homeEvent.getShortLocations());
+                eventViewHolder.time.setText(homeEvent.getStartTime());
+                if(!homeEvent.needsQRCode()) {
+                    eventViewHolder.qrButton.setVisibility(View.GONE);
+                }
+                eventViewHolder.locationLong = homeEvent.getLocation();
                 break;
         }
     }

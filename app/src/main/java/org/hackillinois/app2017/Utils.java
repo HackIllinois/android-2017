@@ -9,13 +9,6 @@ import android.widget.ImageView;
 
 import net.glxn.qrgen.android.QRCode;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
-
 /**
  * Created by kevin on 2/21/2017.
  */

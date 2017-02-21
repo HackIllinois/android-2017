@@ -33,7 +33,7 @@
         <activity
             android:name=".Settings.PrefsActivity"
             android:label="Settings" />
-        <activity android:name=".EventActivity" />
+        <activity android:name=".Events.EventActivity" />
 
         <receiver android:name=".Announcements.BackgroundAnnouncements"
             android:enabled="true"

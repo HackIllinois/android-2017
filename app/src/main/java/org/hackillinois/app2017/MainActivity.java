@@ -20,8 +20,8 @@ import android.widget.TextView;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
-import org.hackillinois.app2017.Announcements.BackgroundAnnouncements;
 import org.hackillinois.app2017.Announcements.AnnouncementListFragment;
+import org.hackillinois.app2017.Announcements.BackgroundAnnouncements;
 import org.hackillinois.app2017.Home.HomeFragment;
 import org.hackillinois.app2017.Map.MapFragment;
 import org.hackillinois.app2017.Profile.ProfileFragment;

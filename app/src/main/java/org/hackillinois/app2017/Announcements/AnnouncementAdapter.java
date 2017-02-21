@@ -11,7 +11,6 @@ import android.widget.TextView;
 import org.hackillinois.app2017.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

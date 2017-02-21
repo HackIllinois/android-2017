@@ -1,4 +1,4 @@
-package org.hackillinois.app2017.Schedule;
+package org.hackillinois.app2017.Events;
 
 import java.util.ArrayList;
 

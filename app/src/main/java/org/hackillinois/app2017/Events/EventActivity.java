@@ -1,11 +1,10 @@
-package org.hackillinois.app2017;
+package org.hackillinois.app2017.Events;
 
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import org.hackillinois.app2017.R;
 import org.hackillinois.app2017.UI.CenteredToolbar;
 
 import butterknife.BindView;
@@ -41,7 +40,7 @@ public class EventActivity extends AppCompatActivity {
         location.setText(bundle.getString("location"));
         startTime.setText(bundle.getString("starttime"));
         location.setText(bundle.getString("location"));
-        description.setText("Umm...");
+        description.setText(bundle.getString("description","No description"));
     }
 
     private void setUpActionBar(CenteredToolbar toolbar) {
