@@ -17,17 +17,14 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".Login.SplashScreen"
-            android:theme="@style/SplashTheme">
+            android:name=".Login.LoginActivity"
+            android:windowSoftInputMode="stateUnchanged">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Login.LoginActivity"
-            android:windowSoftInputMode="stateUnchanged"/>
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
