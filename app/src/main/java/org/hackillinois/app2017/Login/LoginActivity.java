@@ -98,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
                     passwordField.setError("Your password goes here!");
                 } else {
                     authorize(emailField.getText().toString(), passwordField.getText().toString());
-                     loadEvents();
+                    // loadEvents();
                     // TODO: Uncomment authorize, delete loadEvents() call
                 }
             }
