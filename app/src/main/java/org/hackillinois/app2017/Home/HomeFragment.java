@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.hackillinois.app2017.R;
+import org.hackillinois.app2017.Schedule.Event;
+import org.hackillinois.app2017.Schedule.EventManager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,6 +43,14 @@ public class HomeFragment extends Fragment {
         homeRecyclerView.setAdapter(homeAdapter);
         addData();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ArrayList<Event> events = EventManager.getInstance().getEvents();
+        //remove any events which ended before current time
+        //add new events
     }
 
     private void addData() {
