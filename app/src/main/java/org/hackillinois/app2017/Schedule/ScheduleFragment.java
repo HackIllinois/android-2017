@@ -1,19 +1,19 @@
 package org.hackillinois.app2017.Schedule;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.hackillinois.app2017.R;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +31,8 @@ public class ScheduleFragment extends Fragment {
 
         ScheduleViewPageAdapter scheduleViewPageAdapter = new ScheduleViewPageAdapter(getFragmentManager());
         viewPager.setAdapter(scheduleViewPageAdapter);
+        int currentDayTab = getCurrentDayTab();
+        viewPager.setCurrentItem(currentDayTab);
 
         TabLayout tabLayout = (TabLayout)getActivity().findViewById(R.id.tabs);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -67,5 +69,21 @@ public class ScheduleFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    public int getCurrentDayTab() {
+        Date date = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("dd");
+        int day = Integer.parseInt(dateFormat.format(date));
+        switch (day) {
+            case 24:
+                return 0;
+            case 25:
+                return 1;
+            case 26:
+                return 2;
+            default:
+                return 0;
+        }
     }
 }
