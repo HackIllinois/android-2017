@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -60,6 +61,8 @@ public class LoginActivity extends AppCompatActivity {
     Button loginButton;
     @BindView(R.id.incorrectEmailOrPassword)
     TextView incorrectText;
+    @BindView(R.id.loading_view)
+    LinearLayout loadingView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,6 +76,7 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
             this.finish();
         }
+
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
@@ -85,9 +89,15 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                authorize(emailField.getText().toString(), passwordField.getText().toString());
-                // loadEvents();
-                // TODO: Uncomment authorize, delete loadEvents() call
+                if (emailField.getText().toString().isEmpty()) {
+                    emailField.setError("Forget something?");
+                } else if (passwordField.getText().toString().isEmpty()) {
+                    passwordField.setError("Your password goes here!");
+                } else {
+                    authorize(emailField.getText().toString(), passwordField.getText().toString());
+                    // loadEvents();
+                    // TODO: Uncomment authorize, delete loadEvents() call
+                }
             }
         });
     }
@@ -99,6 +109,7 @@ public class LoginActivity extends AppCompatActivity {
         params.put("password", password);
 
         incorrectText.setVisibility(View.INVISIBLE);
+        loadingView.setVisibility(View.VISIBLE);
 
         final JsonObjectRequest userRequest = new JsonObjectRequest(Request.Method.GET,
                 APIHelper.userEndpoint, null, new Response.Listener<JSONObject>() {
@@ -119,6 +130,7 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString("linkedin", data.getString("linkedin"));
                     editor.putString("resumeKey", data.getJSONObject("resume").getString("key"));
                     editor.putString("id", data.getString("id"));
+                    editor.putBoolean("hasAuthed", true);
 
                     editor.apply();
 
@@ -167,6 +179,7 @@ public class LoginActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        loadingView.setVisibility(View.GONE);
                         incorrectText.setVisibility(View.VISIBLE);
                         loginButton.setClickable(true);
                     }
