@@ -1,15 +1,8 @@
 package org.hackillinois.app2017.Announcements;
 
-import android.app.AlarmManager;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,30 +11,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 
-import org.hackillinois.app2017.Backend.APIHelper;
-import org.hackillinois.app2017.Backend.RequestManager;
 import org.hackillinois.app2017.R;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static android.content.Context.ALARM_SERVICE;
-import static android.content.Context.NOTIFICATION_SERVICE;
+import butterknife.Unbinder;
 
 public class AnnouncementListFragment extends Fragment {
 
     private ArrayList<Notification> announcements;
     private AnnouncementAdapter adapter;
+    private Unbinder unbinder;
 
     @BindView(R.id.announcementList) RecyclerView recyclerView;
 
@@ -49,7 +35,7 @@ public class AnnouncementListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
         announcements =  new ArrayList<>();
         View view = inflater.inflate(R.layout.layout_announcements, parent, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
 
         adapter = new AnnouncementAdapter(announcements);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
@@ -60,7 +46,7 @@ public class AnnouncementListFragment extends Fragment {
         dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider));
         recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setAdapter(adapter);
-        AnnouncementGrabberBroadcastReceiver.requestAnnouncements(getContext(), new Response.Listener<JSONObject>() {
+        BackgroundAnnouncements.requestAnnouncements(getContext(), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 AnnouncementQuery announcementQuery = new Gson().fromJson(response.toString(), AnnouncementQuery.class);
@@ -90,5 +76,11 @@ public class AnnouncementListFragment extends Fragment {
         announcements.add(announcement);
 
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

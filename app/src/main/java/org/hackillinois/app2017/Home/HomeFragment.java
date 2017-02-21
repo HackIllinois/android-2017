@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.hackillinois.app2017.R;
+import org.hackillinois.app2017.Schedule.Event;
+import org.hackillinois.app2017.Schedule.EventManager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -17,36 +19,41 @@ import java.util.GregorianCalendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class HomeFragment extends Fragment {
 
-    private ArrayList<Object> events;
+    private HomeEventList homeEventList;
     private HomeAdapter homeAdapter;
+    private Unbinder unbinder;
 
     @BindView(R.id.homeEventList) RecyclerView homeRecyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
-        events = new ArrayList<>();
+        GregorianCalendar hackIllinoisStartTime = new GregorianCalendar(2017, Calendar.FEBRUARY, 24, 21, 0);
+        homeEventList = new HomeEventList(new HomeTime(hackIllinoisStartTime));
         View view = inflater.inflate(R.layout.layout_home, parent, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
 
-        homeAdapter = new HomeAdapter(events);
+        homeAdapter = new HomeAdapter(homeEventList);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         homeRecyclerView.setLayoutManager(mLayoutManager);
         homeRecyclerView.setItemAnimator(new DefaultItemAnimator());
         homeRecyclerView.setAdapter(homeAdapter);
-        addData();
         return view;
     }
 
-    private void addData() {
-        events.add(new HomeTime(new GregorianCalendar(2017, Calendar.FEBRUARY, 24, 21, 0)));
-        events.add(new HomeEvent());
-        events.add(new HomeEvent());
+    @Override
+    public void onResume() {
+        super.onResume();
+        homeEventList.syncEvents();
+    }
 
-        homeAdapter.notifyDataSetChanged();
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

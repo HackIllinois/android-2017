@@ -27,11 +27,13 @@ import net.glxn.qrgen.android.QRCode;
 import org.hackillinois.app2017.Login.LoginActivity;
 import org.hackillinois.app2017.MainActivity;
 import org.hackillinois.app2017.R;
+import org.hackillinois.app2017.Utils;
 
 import java.io.ByteArrayOutputStream;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class ProfileFragment extends Fragment {
 
@@ -48,6 +50,7 @@ public class ProfileFragment extends Fragment {
     @BindView(R.id.profile_university_title) TextView universityTitle;
     @BindView(R.id.profile_yearofgraduation) TextView yearOfGraduation;
     @BindView(R.id.profile_yearofgraduation_title) TextView yearOfGraduationTitle;
+    private Unbinder unbinder;
 
     private SharedPreferences sharedPreferences;
 
@@ -79,7 +82,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.layout_profile, parent, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
 
         linkedin.setOnClickListener(listener);
         github.setOnClickListener(listener);
@@ -91,6 +94,13 @@ public class ProfileFragment extends Fragment {
 
         Bitmap qrCodeBitmapOfID = getQRCodeFromID();
         qrcode.setImageBitmap(qrCodeBitmapOfID);
+        qrcode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.showFullScreenQRCode(v.getContext());
+            }
+        });
+
         name.setTypeface(gotham_med);
         diet.setTypeface(brandon_med);
         universityTitle.setTypeface(brandon_reg);
@@ -141,5 +151,11 @@ public class ProfileFragment extends Fragment {
 
     public Bitmap getQRCodeFromID() {
         return QRCode.from(sharedPreferences.getString("id","N/A")).withSize(400,400).bitmap();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

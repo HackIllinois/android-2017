@@ -52,6 +52,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class MapFragment extends Fragment implements DirectionCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
 
@@ -63,6 +64,7 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
     private static final LatLng UNION = new LatLng(40.109387, -88.227246);
     private HashSet<LatLng> visited;
     private GoogleApiClient mGoogleApiClient;
+    private Unbinder unbinder;
 
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
@@ -139,7 +141,7 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.layout_map, parent, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(layoutManager);
@@ -320,4 +322,9 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
         this.time.setText(time);
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
 }

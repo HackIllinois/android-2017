@@ -38,6 +38,7 @@ import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class EventListFragment extends Fragment {
 
@@ -45,6 +46,7 @@ public class EventListFragment extends Fragment {
 
     @BindView(R.id.my_recycler_view)
     RecyclerView mRecyclerView;
+    private Unbinder unbinder;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,7 +58,7 @@ public class EventListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.event_list_layout, parent, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
 
         Bundle extras = getArguments();
         int whichDay = extras.getInt("day");
@@ -125,5 +127,11 @@ public class EventListFragment extends Fragment {
         }
 
         return toReturn;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }
