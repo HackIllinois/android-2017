@@ -86,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 authorize(emailField.getText().toString(), passwordField.getText().toString());
-                loadEvents();
+                // loadEvents();
                 // TODO: Uncomment authorize, delete loadEvents() call
             }
         });
