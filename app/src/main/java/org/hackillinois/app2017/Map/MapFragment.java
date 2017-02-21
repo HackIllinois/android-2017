@@ -21,6 +21,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -75,28 +76,24 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
             switch (v.getId()){
                 case R.id.map_DCL:
                     toggle(v);
-                    header = new Header("Digital Computer Laboratory", "0.4 mi", "9 min");
-                    directions.add(header);
+                    setHeader("Digital Computer Laboratory", "0.4 mi", "9 min");
                     location = "DCL";
                     break;
                 case R.id.map_Siebel:
                     toggle(v);
-                    header = new Header("Thomas Siebel Center for Computer Science", "0.4 mi", "9 min");
-                    directions.add(header);
+                    setHeader("Thomas Siebel Center for Computer Science", "0.4 mi", "9 min");
                     location = "Siebel Center";
                     endLocation = SIEBEL;
                     break;
                 case R.id.map_ECEB:
                     toggle(v);
-                    header = new Header("Electrical and Computer Engineering Building", "0.4 mi", "9 min");
-                    directions.add(header);
+                    setHeader("Electrical Computer Engineering Building", "0.4 mi", "9 min");
                     location = "Electrical and Computer Engineering Building";
                     endLocation = ECEB;
                     break;
                 case R.id.map_Union:
                     toggle(v);
-                    header = new Header("Illini Union", "0.4 mi", "9 min");
-                    directions.add(header);
+                    setHeader("Illini Union", "0.4 mi", "9 min");
                     location = "Illini Union";
                     endLocation = UNION;
                     break;
@@ -117,8 +114,13 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
     private BottomSheetBehavior mBottomSheetBehavior;
     private ArrayList<Object> directions;
     private DirectionsAdapter mAdapter;
+    @BindView(R.id.map_bottomsheet_recycler) RecyclerView mRecyclerView;
+    @BindView(R.id.map_bottomsheet) LinearLayout bottomSheet;
+    @BindView(R.id.map_bottomsheet_distance) TextView distance;
+    @BindView(R.id.map_bottomsheet_name) TextView name;
+    @BindView(R.id.map_bottomsheet_time) TextView time;
+    @BindView(R.id.map_bottomsheet_indoormap) TextView indoorMap;
     @BindView(R.id.map_fab_location) FloatingActionButton fab;
-    @BindView(R.id.map_bottomsheet) RecyclerView mRecyclerView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -151,7 +153,6 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
         ((MainActivity)getActivity()).setMapSiebelOnClickListener(clickListener);
         ((MainActivity)getActivity()).setMapUnionOnClickListener(clickListener);
 
-        fab = (FloatingActionButton) view.findViewById(R.id.map_fab_location);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,7 +160,6 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
             }
         });
 
-        View bottomSheet = view.findViewById(R.id.map_bottomsheet);
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         mBottomSheetBehavior.setHideable(true);
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
@@ -203,7 +203,7 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             mSupportMapFragment = SupportMapFragment.newInstance();
             fragmentTransaction.replace(R.id.mapFrame, mSupportMapFragment).commit();
-        }else {
+        } else {
             mSupportMapFragment.getMapAsync(new OnMapReadyCallback() {
                 @Override
                 public void onMapReady(GoogleMap googleMap) {
@@ -314,6 +314,12 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
     public void onStop() {
         mGoogleApiClient.disconnect();
         super.onStop();
+    }
+
+    private void setHeader(String name, String distance, String time) {
+        this.name.setText(name);
+        this.distance.setText(distance);
+        this.time.setText(time);
     }
 
     @Override
