@@ -1,107 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_slate_blue">
+    android:layout_width="match_parent" >
 
-    <android.support.constraint.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@color/dark_slate_blue">
 
-        <EditText
-            android:id="@+id/emailField"
-            android:layout_width="0dp"
-            android:layout_height="46dp"
-            android:layout_marginEnd="55dp"
-            android:layout_marginLeft="55dp"
-            android:layout_marginRight="55dp"
-            android:layout_marginStart="55dp"
-            android:layout_marginTop="315dp"
-            android:background="@drawable/custom_edittext"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/dark_slate_blue"
-            android:textColorHint="@color/dark_blue_grey"
-            android:textColorLink="@color/dark_slate_blue"
-            android:textSize="24sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/passwordField"
-            android:layout_width="0dp"
-            android:layout_height="46dp"
-            android:layout_marginEnd="55dp"
-            android:layout_marginLeft="55dp"
-            android:layout_marginRight="55dp"
-            android:layout_marginStart="55dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/custom_edittext"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:textColor="@color/dark_slate_blue"
-            android:textColorHint="@color/dark_blue_grey"
-            android:textColorLink="@color/dark_slate_blue"
-            android:textSize="24sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/emailField" />
-
-        <Button
-            android:id="@+id/loginButton"
-            android:layout_width="0dp"
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="55dp"
-            android:layout_marginLeft="55dp"
-            android:layout_marginRight="55dp"
-            android:layout_marginStart="55dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/custom_button"
-            android:text="Log In"
-            android:textColor="@color/dark_blue_grey"
-            android:textSize="24sp"
-            app:layout_constraintHorizontal_bias="0.52"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/passwordField" />
+            android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/hackillinnois"
+            <EditText
+                android:id="@+id/emailField"
+                android:layout_width="0dp"
+                android:layout_height="46dp"
+                android:layout_marginEnd="55dp"
+                android:layout_marginLeft="55dp"
+                android:layout_marginRight="55dp"
+                android:layout_marginStart="55dp"
+                android:layout_marginTop="315dp"
+                android:background="@drawable/custom_edittext"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/dark_slate_blue"
+                android:textColorHint="@color/dark_blue_grey"
+                android:textColorLink="@color/dark_slate_blue"
+                android:textSize="24sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/passwordField"
+                android:layout_width="0dp"
+                android:layout_height="46dp"
+                android:layout_marginEnd="55dp"
+                android:layout_marginLeft="55dp"
+                android:layout_marginRight="55dp"
+                android:layout_marginStart="55dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/custom_edittext"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:textColor="@color/dark_slate_blue"
+                android:textColorHint="@color/dark_blue_grey"
+                android:textColorLink="@color/dark_slate_blue"
+                android:textSize="24sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/emailField" />
+
+            <Button
+                android:id="@+id/loginButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="55dp"
+                android:layout_marginLeft="55dp"
+                android:layout_marginRight="55dp"
+                android:layout_marginStart="55dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/custom_button"
+                android:text="Log In"
+                android:textColor="@color/dark_blue_grey"
+                android:textSize="24sp"
+                app:layout_constraintHorizontal_bias="0.52"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/passwordField" />
+
+            <ImageView
+                android:id="@+id/hackillinnois"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="74dp"
+                android:src="@drawable/logo"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/incorrectEmailOrPassword"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart="16dp"
+                android:ems="10"
+                android:text="Incorrect E-mail or Password"
+                android:textAlignment="center"
+                android:textColor="@color/lipstick"
+                android:textIsSelectable="false"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toTopOf="@+id/emailField"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+    <LinearLayout
+        android:id="@+id/loading_view"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:background="@color/dark_blue_grey"
+        android:alpha="0.9"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:id="@+id/loading_circle"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="74dp"
-            android:src="@drawable/logo"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:indeterminateDrawable="@drawable/progress_circle" >
+        </ProgressBar>
+
 
         <TextView
-            android:id="@+id/incorrectEmailOrPassword"
-            android:layout_width="0dp"
+            android:id="@+id/loading_text"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginStart="16dp"
-            android:ems="10"
-            android:text="Incorrect E-mail or Password"
-            android:textAlignment="center"
-            android:textColor="@color/lipstick"
-            android:textIsSelectable="false"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@+id/emailField"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:textColor="@color/pale_grey"
+            android:textSize="24sp"
+            android:text="Logging in..."/>
 
-    </android.support.constraint.ConstraintLayout>
-</ScrollView>
+    </LinearLayout>
+</FrameLayout>
