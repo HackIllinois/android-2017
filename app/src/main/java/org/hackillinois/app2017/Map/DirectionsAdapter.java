@@ -67,7 +67,7 @@ public class DirectionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         View view;
 
         if (viewType == 0) {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.map_header_viewholder, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.reminder_layout, parent, false);
             return new HeaderViewHolder(view);
         }
 
