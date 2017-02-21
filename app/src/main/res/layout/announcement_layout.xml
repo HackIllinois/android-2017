@@ -9,46 +9,56 @@
     android:paddingRight="20dp"
     android:paddingTop="20dp">
 
-    <LinearLayout
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:weightSum="2">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/notificationType"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="6dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:gravity="left|center_vertical"-->
+    <!--android:text="Announcement"-->
+    <!--android:textSize="15sp"-->
+    <!--android:textStyle="bold"-->
+    <!--android:textColor="@color/cloudy_blue" />-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/notificationTime"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="6dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:gravity="right|center_vertical"-->
+    <!--android:text="a few seconds ago"-->
+    <!--android:textSize="18sp"-->
+    <!--android:textColor="@color/faded_blue" />-->
+    <!--</LinearLayout>-->
+
+    <TextView
+        android:id="@+id/notificationTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2">
-
-        <TextView
-            android:id="@+id/notificationType"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:layout_weight="1"
-            android:gravity="left|center_vertical"
-            android:text="Announcement"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:textColor="@color/cloudy_blue" />
-
-        <TextView
-            android:id="@+id/notificationTime"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:layout_weight="1"
-            android:gravity="right|center_vertical"
-            android:text="a few seconds ago"
-            android:textSize="18sp"
-            android:textColor="@color/faded_blue" />
-    </LinearLayout>
+        android:layout_weight="1"
+        android:gravity="left|center_vertical"
+        android:text="a few seconds ago"
+        android:textColor="@color/faded_blue"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/notificationMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="4dp"
         android:gravity="start"
         android:text="Announcement Message"
-        android:textSize="18sp"
+        android:textAlignment="textStart"
         android:textColor="@color/pale_grey"
-        android:textAlignment="textStart" />
+        android:textSize="18sp" />
 
 </LinearLayout>
 

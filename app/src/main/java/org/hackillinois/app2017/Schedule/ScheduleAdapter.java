@@ -1,5 +1,6 @@
 package org.hackillinois.app2017.Schedule;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,21 +8,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.hackillinois.app2017.EventActivity;
 import org.hackillinois.app2017.R;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
 
-    private Event[] dataset;
+    private ArrayList<Event> mDataset;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.eventName) TextView titleTextView;
         @BindView(R.id.eventLocation) TextView locationTextView;
         @BindView(R.id.eventTime) TextView timeTextView;
-        @BindView(R.id.event_button_remind_me) TextView remindMeTextView;
+        // @BindView(R.id.event_button_remind_me) TextView remindMeTextView;
 
         public ViewHolder(View v) {
             super(v);
@@ -31,12 +35,24 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
             titleTextView.setTypeface(brandon_med);
             locationTextView.setTypeface(brandon_med);
             timeTextView.setTypeface(brandon_med);
-            remindMeTextView.setTypeface(brandon_med);
+            // remindMeTextView.setTypeface(brandon_med);
+
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(v.getContext(), EventActivity.class);
+                    i.putExtra("title", titleTextView.getText());
+                    i.putExtra("location", locationTextView.getText());
+                    i.putExtra("starttime", timeTextView.getText());
+
+                    v.getContext().startActivity(i);
+                }
+            });
         }
     }
 
-    public ScheduleAdapter(Event[] data){
-        dataset = data;
+    public ScheduleAdapter(ArrayList<Event> data){
+        mDataset = data;
     }
 
     @Override
@@ -48,13 +64,13 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.locationTextView.setText(dataset[position].getLocation());
-        holder.titleTextView.setText(dataset[position].getTitle());
-        holder.timeTextView.setText(dataset[position].getTime());
+        holder.locationTextView.setText(mDataset.get(position).getLocation());
+        holder.titleTextView.setText(mDataset.get(position).getName());
+        holder.timeTextView.setText(mDataset.get(position).getStartTime());
     }
 
     @Override
     public int getItemCount() {
-        return dataset.length;
+        return mDataset.size();
     }
 }

@@ -1,5 +1,6 @@
 package org.hackillinois.app2017.Home;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.hackillinois.app2017.EventActivity;
 import org.hackillinois.app2017.R;
 
 import java.util.ArrayList;
@@ -68,6 +70,25 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             time.setTypeface(brandon_reg);
             location.setTypeface(brandon_med);
             qrButton.setTypeface(brandon_med);
+
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(v.getContext(), EventActivity.class);
+                    i.putExtra("title", title.getText());
+                    i.putExtra("location", location.getText());
+                    i.putExtra("starttime", time.getText());
+
+                    v.getContext().startActivity(i);
+                }
+            });
+
+            qrButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // TODO: Show QR Code
+                }
+            });
         }
     }
 

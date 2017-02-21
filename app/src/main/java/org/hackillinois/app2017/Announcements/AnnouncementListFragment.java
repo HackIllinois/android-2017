@@ -49,8 +49,9 @@ public class AnnouncementListFragment extends Fragment {
         Announcement announcement = new Announcement("To the owner of the white van that is parked outside of Siebel, please stop selling soylent to people. It is not encouraged behavior.", "a few seconds ago");
         announcements.add(announcement);
 
-        Reminder reminder = new Reminder("Lunch will be in 10 minutes.", "a few seconds ago", "ECEB");
-        announcements.add(reminder);
+        // Reminders are not used for HackIllinois 2017
+//        Reminder reminder = new Reminder("Lunch will be in 10 minutes.", "a few seconds ago", "ECEB");
+//        announcements.add(reminder);
 
         announcement = new Announcement("Hella narwhal Cosby sweater McSweeney's salvia kitsch before they sold out High Life.", "an hour ago");
         announcements.add(announcement);

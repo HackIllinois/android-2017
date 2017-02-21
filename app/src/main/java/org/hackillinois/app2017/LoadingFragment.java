@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import org.hackillinois.app2017.R;
 
 /**
- * Created by dl-eric for HackIllinois' 2016 Clue Hunt
+ * @author dl-eric
  */
 public class LoadingFragment extends Fragment {
 

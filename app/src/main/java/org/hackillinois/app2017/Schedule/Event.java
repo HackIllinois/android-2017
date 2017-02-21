@@ -1,36 +1,49 @@
 package org.hackillinois.app2017.Schedule;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
+import com.google.gson.annotations.SerializedName;
+
 public class Event {
 
-    private String title;
-    private String location;
-    private int hour;
-    private int minutes;
-    private boolean AM;
+    @SerializedName("description")
+    private String description;
 
-    public Event(String title, String location, int hour, int minutes, boolean AM){
-        this.title = title;
-        this.location = location;
-        this.hour = hour;
-        this.minutes = minutes;
-        this.AM = AM;
+    @SerializedName("startTime")
+    private Date startTime;
+
+    @SerializedName("endTime")
+    private Date endTime;
+
+    @SerializedName("name")
+    private String name;
+
+    @SerializedName("shortName")
+    private String shortName;
+
+    public String getName() {
+        return name;
     }
 
-    public String getTitle(){
-        return title;
+    public String getShortName() {
+        return shortName;
     }
 
     public String getLocation(){
-        return location;
+        return "TODO"; //TODO
     }
 
-    public String getTime(){
-        String base = "";
-        if(minutes < 10){
-            base = Integer.toString(hour) + ":0" + Integer.toString(minutes);
-        }else{
-            base = Integer.toString(hour) + ":" + Integer.toString(minutes);
-        }
-        return base + (AM ? " AM" : " PM");
+    public String getStartTime() {
+        return startTime.toString();
+    }
+
+    public int getStartDay() {
+        return startTime.getDay();
+    }
+
+    public String getEndTime() {
+        return endTime.toString();
     }
 }

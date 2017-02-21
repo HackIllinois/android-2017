@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@color/dark_slate_blue"
+    android:orientation="horizontal"
+    android:weightSum="4">
+
+    <TextView
+        android:id="@+id/map_DCL"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="DCL"
+        android:textAlignment="center"
+        android:textColor="@color/faded_blue"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/map_Siebel"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Siebel"
+        android:textAlignment="center"
+        android:textColor="@color/faded_blue"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/map_ECEB"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="ECEB"
+        android:textAlignment="center"
+        android:textColor="@color/faded_blue"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/map_Union"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Union"
+        android:textAlignment="center"
+        android:textColor="@color/faded_blue"
+        android:textSize="18sp" />
+
+</LinearLayout>

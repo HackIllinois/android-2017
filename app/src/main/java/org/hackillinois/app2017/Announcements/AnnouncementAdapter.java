@@ -22,7 +22,7 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     public static class AnnouncementViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.notificationType) TextView typeTextView;
+        // @BindView(R.id.notificationType) TextView typeTextView;
         @BindView(R.id.notificationMessage) TextView messageTextView;
         @BindView(R.id.notificationTime) TextView timeTextView;
 
@@ -32,7 +32,7 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             Typeface brandon_reg = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Brandon_reg.otf");
             Typeface brandon_med = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Brandon_med.otf");
 
-            typeTextView.setTypeface(brandon_med);
+            // typeTextView.setTypeface(brandon_med);
             messageTextView.setTypeface(brandon_reg);
             timeTextView.setTypeface(brandon_reg);
         }
@@ -96,7 +96,7 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         switch (holder.getItemViewType()) {
             case 0:
                 AnnouncementViewHolder announcementHolder = (AnnouncementViewHolder)holder;
-                announcementHolder.typeTextView.setText("ANNOUNCEMENT");
+                // announcementHolder.typeTextView.setText("ANNOUNCEMENT");
                 announcementHolder.messageTextView.setText(notification.getMessage());
                 announcementHolder.timeTextView.setText(notification.getTime());
                 break;

@@ -16,44 +16,44 @@
         android:weightSum="12">
 
         <TextView
-            android:id="@+id/eventTime"
+            android:id="@+id/eventName"
             android:layout_width="0dp"
             android:layout_weight="8.4"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:gravity="start|center_vertical"
-            android:text="EVENT TIME"
+            android:text="EVENT NAME"
             android:textSize="18sp"
             android:textColor="@color/pale_grey" />
 
-        <ImageView
-            android:id="@+id/event_button_icon"
-            android:layout_width="0dp"
-            android:layout_weight="0.8"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:src="@drawable/reminder"
-            android:layout_marginBottom="3dp" />
+        <!--<ImageView-->
+            <!--android:id="@+id/event_button_icon"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_weight="0.8"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="bottom"-->
+            <!--android:src="@drawable/reminder"-->
+            <!--android:layout_marginBottom="3dp" />-->
 
-        <TextView
-            android:id="@+id/event_button_remind_me"
-            android:layout_width="0dp"
-            android:layout_weight="2.8"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:gravity="right|center_vertical"
-            android:text="Reminder"
-            android:textSize="18sp"
-            android:textColor="@color/faded_blue" />
+        <!--<TextView-->
+            <!--android:id="@+id/event_button_remind_me"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_weight="2.8"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="12dp"-->
+            <!--android:gravity="right|center_vertical"-->
+            <!--android:text="Reminder"-->
+            <!--android:textSize="18sp"-->
+            <!--android:textColor="@color/faded_blue" />-->
     </LinearLayout>
 
     <TextView
-        android:id="@+id/eventName"
+        android:id="@+id/eventTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:gravity="left|center_vertical"
-        android:text="EVENT NAME"
+        android:text="EVENT TIME"
         android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="@color/cloudy_blue" />
