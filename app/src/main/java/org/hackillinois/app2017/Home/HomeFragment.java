@@ -46,6 +46,7 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         homeEventList.syncEvents();
+        homeAdapter.notifyDataSetChanged();
     }
 
     @Override
