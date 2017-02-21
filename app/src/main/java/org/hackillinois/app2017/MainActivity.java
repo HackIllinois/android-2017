@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private MapFragment mMapFragment;
     private HomeFragment mHomeFragment;
     private ProfileFragment mProfileFragment;
+    private AnnouncementListFragment mAnnouncementListFragment;
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.tabs) TabLayout tabLayout;
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         mMapFragment = new MapFragment();
         mHomeFragment = new HomeFragment();
         mProfileFragment = new ProfileFragment();
+        mAnnouncementListFragment = new AnnouncementListFragment();
 
         checkPerms();
         setSupportActionBar(toolbar);
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Set default fragment to Home fragment
         fragmentManager.beginTransaction()
-                .replace(R.id.content_holder, new HomeFragment()).commit();
+                .replace(R.id.content_holder, mHomeFragment).commit();
         setTitle("Home");
     }
 
@@ -162,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 3:
                         // Notifications
-                        swapFragment(new AnnouncementListFragment());
+                        swapFragment(mAnnouncementListFragment);
                         tabLayout.setVisibility(View.GONE);
                         mapBar.setVisibility(View.GONE);
                         setTitle("Notifications");

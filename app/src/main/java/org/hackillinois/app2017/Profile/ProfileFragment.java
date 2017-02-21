@@ -140,24 +140,6 @@ public class ProfileFragment extends Fragment {
     }
 
     public Bitmap getQRCodeFromID() {
-        Bitmap toReturn;
-        String previouslyEncodedImage = sharedPreferences.getString("qr_data", "");
-        if( !previouslyEncodedImage.isEmpty() ){
-            byte[] b = Base64.decode(previouslyEncodedImage, Base64.DEFAULT);
-            toReturn = BitmapFactory.decodeByteArray(b, 0, b.length);
-        } else {
-            Log.d("profile_fragment", "generating img");
-            toReturn = QRCode.from(sharedPreferences.getString("id","N/A")).bitmap();
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            toReturn.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            byte[] b = baos.toByteArray();
-
-            String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
-
-            SharedPreferences.Editor edit = sharedPreferences.edit();
-            edit.putString("qr_data",encodedImage);
-            edit.apply();
-        }
-        return toReturn;
+        return QRCode.from(sharedPreferences.getString("id","N/A")).withSize(400,400).bitmap();
     }
 }
