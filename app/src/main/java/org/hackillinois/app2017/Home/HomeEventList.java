@@ -34,7 +34,7 @@ public class HomeEventList extends ArrayList<Object> {
             Date end = getDateFromAPI(e.getEndTime()); //format as date
             Date date = new Date();
             if(date.after(start) && date.before(end)) { //if current time is after start and before end, add it
-                Log.d("EVENT ADDER", "current date " + date.toString() + " is after " + e.getStartTime() + " and after " + e.getEndTime());
+                Log.d("HomeEventList", "current date " + date.toString() + " is after " + e.getStartTime() + " and after " + e.getEndTime());
                 HomeEvent homeEvent = new HomeEvent(e);
                 add(homeEvent);
             }

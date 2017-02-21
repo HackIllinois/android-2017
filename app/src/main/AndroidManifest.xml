@@ -35,7 +35,7 @@
             android:label="Settings" />
         <activity android:name=".EventActivity" />
 
-        <receiver android:name=".Announcements.AnnouncementGrabberBroadcastReceiver"
+        <receiver android:name=".Announcements.BackgroundAnnouncements"
             android:enabled="true"
             />
     </application>

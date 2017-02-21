@@ -31,35 +31,40 @@ import static android.content.Context.NOTIFICATION_SERVICE;
  * Created by kevin on 2/21/2017.
  */
 
-public class AnnouncementGrabberBroadcastReceiver extends BroadcastReceiver {
+public class BackgroundAnnouncements extends BroadcastReceiver {
     public static final int GET_ANNOUNCEMENTS = 0;
+    private static PendingIntent grabAnnouncementsTask = null;
     @Override
     public void onReceive(final Context context, Intent intent) {
         requestAnnouncements(context, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.d("TIMER", "got timed response");
+                Log.d("BackgroundAnnouncements", "Checking for new announcements");
                 AnnouncementQuery announcementQuery = new Gson().fromJson(response.toString(), AnnouncementQuery.class);
                 handleNewAnnouncements(announcementQuery.getData(),context);
             }
         });
     }
 
-    public static PendingIntent getPendingIntent(Context context) {
-        Intent i = new Intent(context, AnnouncementGrabberBroadcastReceiver.class);
-        i.setClass(context,AnnouncementGrabberBroadcastReceiver.class);
-        return PendingIntent.getBroadcast(context, GET_ANNOUNCEMENTS, i, 0);
+    private static void setPendingIntent(Context context) {
+        Intent i = new Intent(context, BackgroundAnnouncements.class);
+        i.setClass(context,BackgroundAnnouncements.class);
+        grabAnnouncementsTask = PendingIntent.getBroadcast(context, GET_ANNOUNCEMENTS, i, 0);
     }
 
-    public static void scheduleAlarm(PendingIntent pendingIntent, Context context) {
+    public static void startBackgroundAnnouncements(Context context) {
+        setPendingIntent(context);
         AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 5000,
-                300000, pendingIntent);//5min interval
+                300000, grabAnnouncementsTask);//5min interval
     }
 
-    public static void cancelAlarm(PendingIntent pendingIntent, Context context) {
+    public static void stopBackgroundAnnouncements(Context context) {
+        if(grabAnnouncementsTask == null) {
+            return;
+        }
         AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        am.cancel(pendingIntent);
+        am.cancel(grabAnnouncementsTask);
     }
 
     public static void requestAnnouncements(Context context, Response.Listener<JSONObject> response) {

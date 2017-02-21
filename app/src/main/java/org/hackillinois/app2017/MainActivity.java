@@ -1,7 +1,6 @@
 package org.hackillinois.app2017;
 
 import android.Manifest;
-import android.app.PendingIntent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -21,8 +20,7 @@ import android.widget.TextView;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
-import org.hackillinois.app2017.Announcements.Announcement;
-import org.hackillinois.app2017.Announcements.AnnouncementGrabberBroadcastReceiver;
+import org.hackillinois.app2017.Announcements.BackgroundAnnouncements;
 import org.hackillinois.app2017.Announcements.AnnouncementListFragment;
 import org.hackillinois.app2017.Home.HomeFragment;
 import org.hackillinois.app2017.Map.MapFragment;
@@ -77,9 +75,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager.beginTransaction()
                 .replace(R.id.content_holder, mHomeFragment).commit();
         setTitle("Home");
-        AnnouncementGrabberBroadcastReceiver.scheduleAlarm(
-                AnnouncementGrabberBroadcastReceiver.getPendingIntent(getApplicationContext()),
-                getApplicationContext());
+        BackgroundAnnouncements.startBackgroundAnnouncements(getApplicationContext());
     }
 
     @Override
@@ -250,7 +246,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        PendingIntent pendingIntent = AnnouncementGrabberBroadcastReceiver.getPendingIntent(getApplicationContext());
-        AnnouncementGrabberBroadcastReceiver.cancelAlarm(pendingIntent, getApplicationContext());
+        BackgroundAnnouncements.stopBackgroundAnnouncements(getApplicationContext());
     }
 }
