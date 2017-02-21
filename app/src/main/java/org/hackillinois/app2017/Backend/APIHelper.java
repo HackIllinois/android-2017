@@ -7,5 +7,5 @@ public class APIHelper {
     public static String userEndpoint = serverAddress + "/v1/registration/attendee";
     //public static String eventsEndpoint = serverAddress + "/v1/events";
     public static String eventsEndpoint = "http://13.90.146.188:8080/v1/events";
-    //public static String announcementsEndpoint = serverAddress + "/v1/announcement";
+    public static String announcementsEndpoint = serverAddress + "/v1/announcement/all";
 }
