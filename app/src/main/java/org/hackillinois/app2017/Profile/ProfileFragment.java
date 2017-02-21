@@ -3,12 +3,15 @@ package org.hackillinois.app2017.Profile;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.solver.SolverVariable;
 import android.support.v4.app.Fragment;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,9 +22,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import net.glxn.qrgen.android.QRCode;
+
 import org.hackillinois.app2017.Login.LoginActivity;
 import org.hackillinois.app2017.MainActivity;
 import org.hackillinois.app2017.R;
+
+import java.io.ByteArrayOutputStream;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -82,6 +89,8 @@ public class ProfileFragment extends Fragment {
         Typeface brandon_reg = Typeface.createFromAsset(view.getContext().getAssets(), "fonts/Brandon_reg.otf");
         Typeface gotham_med = Typeface.createFromAsset(view.getContext().getAssets(), "fonts/Gotham-Medium.otf");
 
+        Bitmap qrCodeBitmapOfID = getQRCodeFromID();
+        qrcode.setImageBitmap(qrCodeBitmapOfID);
         name.setTypeface(gotham_med);
         diet.setTypeface(brandon_med);
         universityTitle.setTypeface(brandon_reg);
@@ -128,5 +137,27 @@ public class ProfileFragment extends Fragment {
         sharedPreferences.edit().clear().apply();
         startActivity(i);
         getActivity().finish();
+    }
+
+    public Bitmap getQRCodeFromID() {
+        Bitmap toReturn;
+        String previouslyEncodedImage = sharedPreferences.getString("qr_data", "");
+        if( !previouslyEncodedImage.isEmpty() ){
+            byte[] b = Base64.decode(previouslyEncodedImage, Base64.DEFAULT);
+            toReturn = BitmapFactory.decodeByteArray(b, 0, b.length);
+        } else {
+            Log.d("profile_fragment", "generating img");
+            toReturn = QRCode.from(sharedPreferences.getString("id","N/A")).bitmap();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            toReturn.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] b = baos.toByteArray();
+
+            String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+
+            SharedPreferences.Editor edit = sharedPreferences.edit();
+            edit.putString("qr_data",encodedImage);
+            edit.apply();
+        }
+        return toReturn;
     }
 }
