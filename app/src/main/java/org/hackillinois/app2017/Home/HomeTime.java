@@ -17,6 +17,7 @@ public class HomeTime {
 
         return (int)(calculatedEpoch / 3600000);
     }
+
     public int getMinutes() {
         long epoch = targetTime.getTimeInMillis();
         long epochNow = new GregorianCalendar().getTimeInMillis();
@@ -24,6 +25,7 @@ public class HomeTime {
 
         return (int)((calculatedEpoch / 60000) % 60);
     }
+
     public int getSeconds() {
         long epoch = targetTime.getTimeInMillis();
         long epochNow = new GregorianCalendar().getTimeInMillis();
@@ -31,6 +33,7 @@ public class HomeTime {
 
         return (int)((calculatedEpoch / 1000) % 60);
     }
+
     public String getTime() {
         StringBuilder time = new StringBuilder();
         time.append("@ ");

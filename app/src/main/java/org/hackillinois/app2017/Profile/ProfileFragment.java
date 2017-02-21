@@ -27,6 +27,7 @@ import net.glxn.qrgen.android.QRCode;
 import org.hackillinois.app2017.Login.LoginActivity;
 import org.hackillinois.app2017.MainActivity;
 import org.hackillinois.app2017.R;
+import org.hackillinois.app2017.Utils;
 
 import java.io.ByteArrayOutputStream;
 
@@ -93,6 +94,13 @@ public class ProfileFragment extends Fragment {
 
         Bitmap qrCodeBitmapOfID = getQRCodeFromID();
         qrcode.setImageBitmap(qrCodeBitmapOfID);
+        qrcode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.showFullScreenQRCode(v.getContext());
+            }
+        });
+
         name.setTypeface(gotham_med);
         diet.setTypeface(brandon_med);
         universityTitle.setTypeface(brandon_reg);

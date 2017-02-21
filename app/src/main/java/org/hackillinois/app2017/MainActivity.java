@@ -249,6 +249,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onDestroy() {
+        super.onDestroy();
         PendingIntent pendingIntent = AnnouncementGrabberBroadcastReceiver.getPendingIntent(getApplicationContext());
         AnnouncementGrabberBroadcastReceiver.cancelAlarm(pendingIntent, getApplicationContext());
     }

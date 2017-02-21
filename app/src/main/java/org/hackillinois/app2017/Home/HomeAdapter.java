@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import org.hackillinois.app2017.EventActivity;
 import org.hackillinois.app2017.R;
+import org.hackillinois.app2017.Utils;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -86,7 +87,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             qrButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // TODO: Show QR Code
+                    Utils.showFullScreenQRCode(v.getContext());
                 }
             });
         }
@@ -103,10 +104,10 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (viewType == 0) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_time_layout, parent, false);
             return new TimeViewHolder(view);
+        } else { //(viewType == 1)
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_event_layout, parent, false);
+            return new EventViewHolder(view);
         }
-
-        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_event_layout, parent, false);
-        return new EventViewHolder(view);
     }
 
     @Override
