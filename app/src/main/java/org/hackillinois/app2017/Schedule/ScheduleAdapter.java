@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.hackillinois.app2017.Events.Event;
+import org.hackillinois.app2017.Events.EventActivity;
 import org.hackillinois.app2017.R;
 
 import java.util.ArrayList;
