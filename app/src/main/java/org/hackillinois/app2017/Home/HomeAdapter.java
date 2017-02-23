@@ -39,19 +39,18 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ButterKnife.bind(this, v);
 
             Typeface gotham_book = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Gotham-Book.otf");
-            Typeface brandon_light = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Brandon_light.otf");
+            Typeface gotham_med = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Gotham-Medium.otf");
             Typeface brandon_med = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Brandon_med.otf");
-            Typeface brandon_reg = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Brandon_reg.otf");
 
-            title.setTypeface(gotham_book);
-            hour.setTypeface(brandon_light);
-            minute.setTypeface(brandon_light);
-            second.setTypeface(brandon_light);
-            hour_text.setTypeface(brandon_med);
-            minute_text.setTypeface(brandon_med);
-            second_text.setTypeface(brandon_med);
+            title.setTypeface(gotham_med);
+            hour.setTypeface(gotham_med);
+            minute.setTypeface(gotham_med);
+            second.setTypeface(gotham_med);
+            hour_text.setTypeface(gotham_book);
+            minute_text.setTypeface(gotham_book);
+            second_text.setTypeface(gotham_book);
             target_time.setTypeface(brandon_med);
-            happening_now.setTypeface(brandon_reg);
+            happening_now.setTypeface(gotham_med);
         }
     }
 
