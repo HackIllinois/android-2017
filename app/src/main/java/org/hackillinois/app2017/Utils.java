@@ -1,13 +1,18 @@
 package org.hackillinois.app2017;
 
-import android.app.Dialog;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import net.glxn.qrgen.android.QRCode;
 
@@ -32,23 +37,49 @@ public class Utils {
 
     public static Bitmap getQRCodeBitmap(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.sharedPrefsName, Context.MODE_PRIVATE);
-        return QRCode.from(sharedPreferences.getString("id", "N/A")).withSize(400, 400)
+        return QRCode.from(sharedPreferences.getString("id", "N/A")).withSize(1024, 1024)
                 .withColor(ContextCompat.getColor(context, R.color.seafoam_blue), Color.TRANSPARENT).bitmap();
     }
 
     //TODO save the image instead of creating it every time
-    public static void showFullScreenQRCode(Context context) {
-        ImageView imageView = new ImageView(context);
-        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        imageView.setAdjustViewBounds(true);
-        Bitmap qrCode = getQRCodeBitmap(context);
-        imageView.setImageBitmap(qrCode);
-
-        Dialog dialog = new Dialog(context, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+    public static void showFullScreenQRCode(final Context context) {
+//        ImageView imageView = new ImageView(context);
+//        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+//        imageView.setAdjustViewBounds(true);
+//        Bitmap qrCode = getQRCodeBitmap(context);
+//        imageView.setImageBitmap(qrCode);
+//        View v = LayoutInflater.from(context).inflate(R.layout.dialog_qr_popup, null);
+//        ImageView imageView = (ImageView) v.findViewById(R.id.qr_popup);
+//        imageView.setImageBitmap(getQRCodeBitmap(context));
+//        Dialog dialog = new Dialog(context, R.style.QRPopUp);
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        dialog.setContentView(v);
+//        dialog.setCanceledOnTouchOutside(true);
+//        dialog.show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        final AlertDialog dialog = builder.create();
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View dialogLayout = inflater.inflate(R.layout.dialog_qr_popup, null);
+        ImageView qrCode = (ImageView) dialogLayout.findViewById(R.id.qr_popup);
+        qrCode.setImageBitmap(getQRCodeBitmap(context));
+        dialog.setView(dialogLayout);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(imageView);
-        dialog.setCanceledOnTouchOutside(true);
+
         dialog.show();
+
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface d) {
+                ImageView image = (ImageView) dialog.findViewById(R.id.qr_popup);
+                Bitmap icon = getQRCodeBitmap(context);
+                float imageWidthInPX = (float)image.getWidth();
+
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(Math.round(imageWidthInPX),
+                        Math.round(imageWidthInPX * (float)icon.getHeight() / (float)icon.getWidth()));
+                image.setLayoutParams(layoutParams);
+                image.setImageBitmap(icon);
+            }
+        });
     }
 
     public static Date getDateFromAPI(String time) {
