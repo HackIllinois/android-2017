@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 
 public class AnnouncementAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private ArrayList<Notification> notifications;
+    private ArrayList<Announcement> notifications;
 
     public static class AnnouncementViewHolder extends RecyclerView.ViewHolder {
 
@@ -57,15 +57,15 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    public AnnouncementAdapter(ArrayList<Notification> notifications) {
+    public AnnouncementAdapter(ArrayList<Announcement> notifications) {
         this.notifications = notifications;
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (notifications.get(position) instanceof Reminder) {
-            return 1;
-        }
+//        if (notifications.get(position) instanceof Reminder) {
+//            return 1;
+//        }
 
         return 0;
     }

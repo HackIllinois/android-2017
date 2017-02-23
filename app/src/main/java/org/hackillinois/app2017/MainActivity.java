@@ -23,6 +23,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
 import org.hackillinois.app2017.Announcements.AnnouncementListFragment;
+import org.hackillinois.app2017.Announcements.AnnouncementManager;
 import org.hackillinois.app2017.Announcements.BackgroundAnnouncements;
 import org.hackillinois.app2017.Home.HomeFragment;
 import org.hackillinois.app2017.Map.MapFragment;
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         BackgroundAnnouncements.startBackgroundAnnouncements(getApplicationContext());
 
         handleIntent();
+        AnnouncementManager.sync(getApplicationContext());
         NotificationManagerCompat.from(getApplicationContext()).cancelAll();
     }
 

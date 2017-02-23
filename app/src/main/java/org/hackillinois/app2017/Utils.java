@@ -28,14 +28,18 @@ public class Utils {
     public static final String HACKILLINOIS_START = "2017-02-24T16:00:00.000Z";
     public static final String HACKILLINOIS_END = "2017-02-26T17:00:00.000Z";
 
+    public static Bitmap getQRCodeBitmap(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.sharedPrefsName, Context.MODE_PRIVATE);
+        return QRCode.from(sharedPreferences.getString("id", "N/A")).withSize(400, 400).bitmap();
+    }
+
     //TODO save the image instead of creating it every time
     public static void showFullScreenQRCode(Context context) {
         ImageView imageView = new ImageView(context);
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         imageView.setAdjustViewBounds(true);
-        SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.sharedPrefsName, Context.MODE_PRIVATE);
-        Bitmap bitmap = QRCode.from(sharedPreferences.getString("id", "N/A")).withSize(400, 400).bitmap();
-        imageView.setImageBitmap(bitmap);
+        Bitmap qrCode = getQRCodeBitmap(context);
+        imageView.setImageBitmap(qrCode);
 
         Dialog dialog = new Dialog(context, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);

@@ -24,6 +24,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
+import org.hackillinois.app2017.Announcements.AnnouncementManager;
+import org.hackillinois.app2017.Announcements.BackgroundAnnouncements;
 import org.hackillinois.app2017.Backend.APIHelper;
 import org.hackillinois.app2017.Backend.RequestManager;
 import org.hackillinois.app2017.Events.Event;
@@ -68,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
         editor = sharedPreferences.edit();
 
         if (sharedPreferences.getBoolean("hasAuthed", false)) {
+            //TODO: reauth using api
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             this.finish();
@@ -93,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     authorize(emailField.getText().toString(), passwordField.getText().toString());
                     loadEvents();
-                    // TODO: Uncomment authorize, delete loadEvents() call
+                    // TODO: delete loadEvents() call
                 }
             }
         });

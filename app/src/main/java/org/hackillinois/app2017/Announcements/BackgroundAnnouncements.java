@@ -39,16 +39,26 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 public class BackgroundAnnouncements extends BroadcastReceiver {
     public static final int GET_ANNOUNCEMENTS = 0;
     private static PendingIntent grabAnnouncementsTask = null;
+    private static final int minutesToWaitBetweenRefresh = 5;
+
     @Override
     public void onReceive(final Context context, Intent intent) {
-        requestAnnouncements(context, new Response.Listener<JSONObject>() {
+        sync(context);
+    }
+
+    public static void sync(Context context) {
+        requestAnnouncements(context, getDefaultListener(context));
+    }
+
+    private static Response.Listener<JSONObject> getDefaultListener(final Context context) {
+        return new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("BackgroundAnnouncements", "Checking for new announcements");
                 AnnouncementQuery announcementQuery = new Gson().fromJson(response.toString(), AnnouncementQuery.class);
                 handleNewAnnouncements(announcementQuery.getData(),context);
             }
-        });
+        };
     }
 
     private static void setPendingIntent(Context context) {
@@ -60,8 +70,10 @@ public class BackgroundAnnouncements extends BroadcastReceiver {
     public static void startBackgroundAnnouncements(Context context) {
         setPendingIntent(context);
         AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, 5000,
-                300000, grabAnnouncementsTask);//5min interval
+        am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                5000,
+                TimeUnit.MINUTES.toMillis(minutesToWaitBetweenRefresh),
+                grabAnnouncementsTask);//5min interval
     }
 
     public static void stopBackgroundAnnouncements(Context context) {
@@ -88,7 +100,9 @@ public class BackgroundAnnouncements extends BroadcastReceiver {
         SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.sharedPrefsName, Context.MODE_PRIVATE);
         int lastAnnouncement = sharedPreferences.getInt("newest_notification_id",-1);
         int newestAnnouncement = lastAnnouncement;
-        for(Announcement announcement : announcements) {
+        AnnouncementManager.getInstance().setEvents(announcements);
+
+        for(Announcement announcement : AnnouncementManager.getInstance().getEvents()) {
             if(announcement.getId() > lastAnnouncement) {
                 newestAnnouncement = Math.max(newestAnnouncement, announcement.getId());
                 buildNotification(announcement,context);
