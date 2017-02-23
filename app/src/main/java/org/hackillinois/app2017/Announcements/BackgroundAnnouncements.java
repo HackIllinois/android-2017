@@ -96,7 +96,7 @@ public class BackgroundAnnouncements extends BroadcastReceiver {
         }
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("newest_notification_id",0);
+        editor.putInt("newest_notification_id",newestAnnouncement);
         editor.apply();
     }
 
