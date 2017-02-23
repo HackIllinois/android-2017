@@ -51,14 +51,31 @@ public class Announcement implements Notification {
     private String prettyPrintDate(Date date) {
         Date now = new Date();
         long timeDifferenceInMilliseconds = now.getTime() - date.getTime();
-        if(TimeUnit.MILLISECONDS.toSeconds(timeDifferenceInMilliseconds) < 60) { //less than 60 seconds
-            return "Less than a minute ago";
-        } else if (TimeUnit.MILLISECONDS.toMinutes(timeDifferenceInMilliseconds) < 60) {
-            return TimeUnit.MILLISECONDS.toMinutes(timeDifferenceInMilliseconds) + " minutes ago";
-        } else if(TimeUnit.MILLISECONDS.toHours(timeDifferenceInMilliseconds) < 24) {
-            return TimeUnit.MILLISECONDS.toHours(timeDifferenceInMilliseconds) + " hours ago";
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(timeDifferenceInMilliseconds);
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(timeDifferenceInMilliseconds);
+        long hours = TimeUnit.MILLISECONDS.toHours(timeDifferenceInMilliseconds);
+        long days = TimeUnit.MILLISECONDS.toDays(timeDifferenceInMilliseconds);
+        boolean isSingular = false;
+        StringBuilder stringBuilder = new StringBuilder();
+        if( seconds < 60) { //less than 60 seconds
+            stringBuilder.append("Less than a minute ago");
+        } else if ( minutes < 60) {
+            isSingular = minutes == 1;
+            stringBuilder.append(minutes).append(" minute");
+        } else if( hours < 24) {
+            isSingular = hours == 1;
+            stringBuilder.append(hours).append(" hour");
         } else {
-            return TimeUnit.MILLISECONDS.toDays(timeDifferenceInMilliseconds) + " days ago";
+            isSingular = days == 1;
+            stringBuilder.append(days).append(" day");
         }
+
+        if(isSingular) {
+            stringBuilder.append(" ago");
+        } else {
+            stringBuilder.append("s ago");
+        }
+
+        return stringBuilder.toString();
     }
 }
