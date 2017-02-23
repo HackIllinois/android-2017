@@ -29,9 +29,6 @@ public class CenteredToolbar extends Toolbar {
 
         titleView.setTextColor(ContextCompat.getColor(context, R.color.pale_grey));
 
-        Typeface tf = Typeface.createFromAsset(context.getAssets(), "fonts/Brandon_med.otf");
-        titleView.setTypeface(tf);
-
         int textAppearanceStyleResId;
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs,
                 new int[] { android.support.v7.appcompat.R.attr.titleTextAppearance }, defStyleAttr, 0);
@@ -44,6 +41,8 @@ public class CenteredToolbar extends Toolbar {
             titleView.setTextAppearance(context, textAppearanceStyleResId);
         }
 
+        Typeface tf = Typeface.createFromAsset(context.getAssets(), "fonts/Gotham-Medium.otf");
+        titleView.setTypeface(tf);
         addView(titleView, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
     }
 

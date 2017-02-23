@@ -165,35 +165,35 @@ public class MainActivity extends AppCompatActivity {
                         swapFragment(mHomeFragment);
                         tabLayout.setVisibility(View.GONE);
                         mapBar.setVisibility(View.GONE);
-                        setTitle("Home");
+                        setTitle("HOME");
                         break;
                     case 1:
                         // Schedule
                         swapFragment(new ScheduleFragment());
                         tabLayout.setVisibility(View.VISIBLE);
                         mapBar.setVisibility(View.GONE);
-                        setTitle("Schedule");
+                        setTitle("SCHEDULE");
                         break;
                     case 2:
                         // Maps
                         swapFragment(mMapFragment);
                         tabLayout.setVisibility(View.GONE);
                         mapBar.setVisibility(View.VISIBLE);
-                        setTitle("Maps");
+                        setTitle("MAPS");
                         break;
                     case 3:
                         // Notifications
                         swapFragment(mAnnouncementListFragment);
                         tabLayout.setVisibility(View.GONE);
                         mapBar.setVisibility(View.GONE);
-                        setTitle("Notifications");
+                        setTitle("NOTIFICATIONS");
                         break;
                     case 4:
                         // Profile
                         swapFragment(mProfileFragment);
                         tabLayout.setVisibility(View.GONE);
                         mapBar.setVisibility(View.GONE);
-                        setTitle("Profile");
+                        setTitle("PROFILE");
                         break;
                 }
 
