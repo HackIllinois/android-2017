@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.view.Window;
 import android.widget.ImageView;
 
@@ -30,7 +32,8 @@ public class Utils {
 
     public static Bitmap getQRCodeBitmap(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.sharedPrefsName, Context.MODE_PRIVATE);
-        return QRCode.from(sharedPreferences.getString("id", "N/A")).withSize(400, 400).bitmap();
+        return QRCode.from(sharedPreferences.getString("id", "N/A")).withSize(400, 400)
+                .withColor(ContextCompat.getColor(context, R.color.seafoam_blue), Color.TRANSPARENT).bitmap();
     }
 
     //TODO save the image instead of creating it every time
