@@ -44,6 +44,9 @@ public class EventActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
 
         ArrayList<String> locations = bundle.getStringArrayList("location");
+        if( locations == null) {
+            locations = new ArrayList<>();
+        }
         for(String location : locations) {
             TextView locationView = Utils.generateLocationTextView(getApplicationContext(),location);
             locationView.setTypeface(brandon_med);
