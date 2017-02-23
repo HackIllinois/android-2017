@@ -1,6 +1,7 @@
 package org.hackillinois.app2017.Home;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ import org.hackillinois.app2017.Utils;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -67,12 +69,23 @@ public class HomeFragment extends Fragment {
         }
         Calendar hackIllinoisStartTime = GregorianCalendar.getInstance();
         hackIllinoisStartTime.setTime(toCountDownTo);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                refreshEventList();
+            }
+        }, TimeUnit.SECONDS.toMillis(30));
         return new HomeTime(hackIllinoisStartTime,title);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+
+    }
+
+    public void refreshEventList() {
         homeEventList.syncEvents();
         homeAdapter.notifyDataSetChanged();
     }

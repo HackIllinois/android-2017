@@ -1,6 +1,5 @@
 package org.hackillinois.app2017.Announcements;
 
-import java.util.HashSet;
 import java.util.List;
 
 /**

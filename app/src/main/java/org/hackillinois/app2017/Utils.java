@@ -3,16 +3,22 @@ package org.hackillinois.app2017;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.support.v4.content.ContextCompat;
+import android.util.DisplayMetrics;
+import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import net.glxn.qrgen.android.QRCode;
 
@@ -69,6 +75,37 @@ public class Utils {
         });
     }
 
+    public static TextView generateLocationTextView(final Context context, String name) {
+        TextView textView = new TextView(context);
+        textView.setText(name);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, MainActivity.class);
+                intent.putExtra(MainActivity.BOTTOM_BAR_TAB, 2);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                context.startActivity(intent);
+            }
+        });
+        textView.setGravity(View.TEXT_ALIGNMENT_TEXT_START | View.TEXT_ALIGNMENT_CENTER);
+        textView.setTextColor(ContextCompat.getColor(context, R.color.seafoam_blue));
+        return textView;
+    }
+
+    public static float convertDpToPixel(float dp, Context context) {
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float px = dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+        return px;
+    }
+
+    public static float convertPixelsToDp(float px, Context context) {
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float dp = px / ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+        return dp;
+    }
+
     public static Date getDateFromAPI(String time) {
         try {
             DateFormat dateFormat = new SimpleDateFormat(API_DATE_FORMAT, Locale.US);
@@ -80,7 +117,7 @@ public class Utils {
     }
 
     public static String getStringDateAsAPI(Date date) {
-        DateFormat dateFormat = new SimpleDateFormat(API_DATE_FORMAT,Locale.US);
+        DateFormat dateFormat = new SimpleDateFormat(API_DATE_FORMAT, Locale.US);
         return dateFormat.format(date);
     }
 
@@ -100,9 +137,9 @@ public class Utils {
 
     public static HackIllinoisStatus getHackIllinoisStatus() {
         Date date = new Date();
-        if(isBeforeHackIllinois(date)) {
+        if (isBeforeHackIllinois(date)) {
             return BEFORE;
-        } else if(isDuringHackIllinois(date)) {
+        } else if (isDuringHackIllinois(date)) {
             return DURING;
         } else {
             return AFTER;

@@ -120,7 +120,7 @@ public class BackgroundAnnouncements extends BroadcastReceiver {
         int mNotificationId = announcement.getId();
 
         Intent resultIntent = new Intent(context, MainActivity.class);
-        resultIntent.putExtra(MainActivity.INITIAL_TAB_INTENT,3);
+        resultIntent.putExtra(MainActivity.BOTTOM_BAR_TAB,3);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         // Adds the back stack for the Intent (but not the Intent itself)
         stackBuilder.addParentStack(MainActivity.class);

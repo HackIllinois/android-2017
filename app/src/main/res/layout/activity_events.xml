@@ -43,16 +43,13 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp" />
 
-    <TextView
-        android:text="Siebel and ECEB"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/event_location"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="4dp"
-        android:textColor="@color/seafoam_blue"
-        android:textSize="18sp"
-        android:layout_marginEnd="20dp" />
+        android:orientation="vertical"
+        android:id="@+id/event_location_container">
+
+    </LinearLayout>
 
     <TextView
         android:text="To the owner of the white van that is parked outside of Siebel, please stop selling Soylent."

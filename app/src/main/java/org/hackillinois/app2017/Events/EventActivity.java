@@ -4,10 +4,15 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.hackillinois.app2017.R;
 import org.hackillinois.app2017.UI.CenteredToolbar;
+import org.hackillinois.app2017.Utils;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -17,7 +22,7 @@ public class EventActivity extends AppCompatActivity {
     @BindView(R.id.toolbar_events) CenteredToolbar toolbar;
     @BindView(R.id.event_title) TextView title;
     @BindView(R.id.event_start_time) TextView startTime;
-    @BindView(R.id.event_location) TextView location;
+    @BindView(R.id.event_location_container) LinearLayout locationContainer;
     @BindView(R.id.event_description) TextView description;
 
     @Override
@@ -34,14 +39,24 @@ public class EventActivity extends AppCompatActivity {
 
         title.setTypeface(brandon_med);
         startTime.setTypeface(brandon_med);
-        location.setTypeface(brandon_med);
         description.setTypeface(brandon_reg);
 
         Bundle bundle = getIntent().getExtras();
 
-        location.setText(bundle.getString("location"));
+        ArrayList<String> locations = bundle.getStringArrayList("location");
+        if( locations == null) {
+            locations = new ArrayList<>();
+        }
+        for(String location : locations) {
+            TextView locationView = Utils.generateLocationTextView(getApplicationContext(),location);
+            locationView.setTypeface(brandon_med);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams.setMarginStart((int) Utils.convertDpToPixel(20,getApplicationContext()));
+            locationView.setLayoutParams(layoutParams);
+            locationView.setTextSize(18);
+            locationContainer.addView(locationView);
+        }
         startTime.setText(bundle.getString("starttime"));
-        location.setText(bundle.getString("location"));
         description.setText(bundle.getString("description","No description"));
     }
 
