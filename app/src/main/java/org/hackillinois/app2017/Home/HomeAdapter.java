@@ -125,11 +125,11 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         switch (holder.getItemViewType()) {
             case 0:
+                final TimeViewHolder timeViewHolder = (TimeViewHolder) holder;
+                final HomeTime targetTime = (HomeTime) homeEvents.get(position);
                 final Handler handler = new Handler();
                 Runnable runnable = new Runnable() {
                     public void run() {
-                        TimeViewHolder timeViewHolder = (TimeViewHolder) holder;
-                        HomeTime targetTime = (HomeTime) homeEvents.get(position);
                         timeViewHolder.target_time.setText(targetTime.getTime());
                         timeViewHolder.hour.setText(String.format(Locale.US, "%03d", targetTime.getHours()));
                         timeViewHolder.minute.setText(String.format(Locale.US, "%02d", targetTime.getMinutes()));
@@ -137,7 +137,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         handler.postDelayed(this, 1000);
                     }
                 };
-
+                timeViewHolder.title.setText(targetTime.getTitle());
                 runnable.run();
                 break;
             default:
