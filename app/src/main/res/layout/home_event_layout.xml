@@ -41,18 +41,10 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/event_location_container"
         android:layout_marginBottom="15dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp">
-
-        <TextView
-            android:text="East Entrance, Siebel Center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/home_event_location"
-            android:layout_weight="1"
-            android:textSize="18sp"
-            android:textColor="@color/seafoam_blue" />
     </LinearLayout>
 
     <TextView

@@ -7,10 +7,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.hackillinois.app2017.Events.Event;
 import org.hackillinois.app2017.Events.EventActivity;
+import org.hackillinois.app2017.Events.EventLocation;
 import org.hackillinois.app2017.R;
 import org.hackillinois.app2017.Utils;
 
@@ -57,8 +59,8 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     class EventViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.home_event_title) TextView title;
-        @BindView(R.id.home_event_location) TextView location;
-        private String locationLong = "";
+        @BindView(R.id.event_location_container) LinearLayout locationContainer;
+        private ArrayList<String> locationLong = new ArrayList<>();
         @BindView(R.id.home_event_time) TextView time;
         @BindView(R.id.home_event_qr_button) TextView qrButton;
 
@@ -71,15 +73,18 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             title.setTypeface(brandon_reg);
             time.setTypeface(brandon_reg);
-            location.setTypeface(brandon_med);
             qrButton.setTypeface(brandon_med);
+
+            for(int i = 0; i < locationContainer.getChildCount(); i++) {
+                ((TextView)locationContainer.getChildAt(i)).setTypeface(brandon_med);
+            }
 
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(v.getContext(), EventActivity.class);
                     i.putExtra("title", title.getText());
-                    i.putExtra("location", locationLong);
+                    i.putStringArrayListExtra("location", locationLong);
                     i.putExtra("starttime", time.getText());
 
                     v.getContext().startActivity(i);
@@ -127,29 +132,39 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             case 0:
                 final TimeViewHolder timeViewHolder = (TimeViewHolder) holder;
                 final HomeTime targetTime = (HomeTime) homeEvents.get(position);
+                timeViewHolder.title.setText(targetTime.getTitle());
+
                 final Handler handler = new Handler();
                 Runnable runnable = new Runnable() {
                     public void run() {
                         timeViewHolder.target_time.setText(targetTime.getTime());
-                        timeViewHolder.hour.setText(String.format(Locale.US, "%03d", targetTime.getHours()));
+                        timeViewHolder.hour.setText(String.format(Locale.US, "%01d", targetTime.getHours()));
                         timeViewHolder.minute.setText(String.format(Locale.US, "%02d", targetTime.getMinutes()));
                         timeViewHolder.second.setText(String.format(Locale.US, "%02d", targetTime.getSeconds()));
                         handler.postDelayed(this, 1000);
                     }
                 };
-                timeViewHolder.title.setText(targetTime.getTitle());
                 runnable.run();
                 break;
             default:
                 EventViewHolder eventViewHolder = (EventViewHolder) holder;
                 Event homeEvent = (Event) homeEvents.get(position);
                 eventViewHolder.title.setText(homeEvent.getName());
-                eventViewHolder.location.setText(homeEvent.getShortLocations());
+                for(EventLocation e : homeEvent.getLocation()) {
+                    TextView textView = Utils.generateLocationTextView(holder.itemView.getContext(),e.getShortName());
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    layoutParams.weight = 1;
+                    textView.setLayoutParams(layoutParams);
+                    textView.setTextSize(18);
+                    eventViewHolder.locationContainer.addView(textView);
+                }
                 eventViewHolder.time.setText(homeEvent.getStartTime());
                 if(!homeEvent.needsQRCode()) {
                     eventViewHolder.qrButton.setVisibility(View.GONE);
                 }
-                eventViewHolder.locationLong = homeEvent.getLocation();
+                for(EventLocation e : homeEvent.getLocation()) {
+                    eventViewHolder.locationLong.add(e.getName());
+                }
                 break;
         }
     }

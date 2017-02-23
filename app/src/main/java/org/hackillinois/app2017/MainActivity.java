@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String sharedPrefsName = "AppPrefs";
     private static final int REQUEST_CODE = 12;
-    public static final String INITIAL_TAB_INTENT = "INITIAL_TAB_INTENT";
+    public static final String BOTTOM_BAR_TAB = "BOTTOM_BAR_TAB";
 
     private FragmentManager fragmentManager;
     private MapFragment mMapFragment;
@@ -81,18 +81,22 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Home");
         BackgroundAnnouncements.startBackgroundAnnouncements(getApplicationContext());
 
-        handleIntent();
+        handleIntent(getIntent());
         AnnouncementManager.sync(getApplicationContext());
         //sync events
         NotificationManagerCompat.from(getApplicationContext()).cancelAll();
     }
 
-    private void handleIntent() {
-        Intent intent = getIntent();
+    private void handleIntent(Intent intent) {
         if(intent != null) {
-            int currentTabView = intent.getIntExtra(INITIAL_TAB_INTENT,0);
+            int currentTabView = intent.getIntExtra(BOTTOM_BAR_TAB,0);
             bottomNavigation.setCurrentItem(currentTabView);
         }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        handleIntent(intent);
     }
 
     @Override

@@ -24,8 +24,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
-import org.hackillinois.app2017.Announcements.AnnouncementManager;
-import org.hackillinois.app2017.Announcements.BackgroundAnnouncements;
 import org.hackillinois.app2017.Backend.APIHelper;
 import org.hackillinois.app2017.Backend.RequestManager;
 import org.hackillinois.app2017.Events.Event;
@@ -94,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                 } else if (passwordField.getText().toString().isEmpty()) {
                     passwordField.setError("Your password goes here!");
                 } else {
-                    authorize(emailField.getText().toString(), passwordField.getText().toString());
+                    //authorize(emailField.getText().toString(), passwordField.getText().toString());
                     loadEvents();
                     // TODO: delete loadEvents() call
                 }

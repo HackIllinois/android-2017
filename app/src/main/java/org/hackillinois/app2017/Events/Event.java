@@ -2,13 +2,13 @@ package org.hackillinois.app2017.Events;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class Event {
 
     @SerializedName("locations")
-    private List<EventLocation> locations;
+    private ArrayList<EventLocation> locations;
 
     @SerializedName("description")
     private String description;
@@ -37,14 +37,8 @@ public class Event {
         return shortName;
     }
 
-    public String getLocation(){ //TODO CHECK THIS
-        StringBuilder sb = new StringBuilder();
-        String seperator = "";
-        for(EventLocation el : locations) {
-            sb.append(seperator).append(el.getName());
-            seperator = ", ";
-        }
-        return sb.toString();
+    public ArrayList<EventLocation> getLocation(){ //TODO CHECK THIS
+        return locations;
     }
 
     public String getShortLocations() {
