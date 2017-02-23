@@ -29,11 +29,11 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             super(v);
             ButterKnife.bind(this, v);
             Typeface brandon_reg = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Brandon_reg.otf");
-            Typeface brandon_med = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Brandon_med.otf");
+            Typeface gotham_bold_reg = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/GothamBold-Regular.otf");
 
             // typeTextView.setTypeface(brandon_med);
             messageTextView.setTypeface(brandon_reg);
-            timeTextView.setTypeface(brandon_reg);
+            timeTextView.setTypeface(gotham_bold_reg);
         }
     }
 
