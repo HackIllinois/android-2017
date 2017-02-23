@@ -56,7 +56,6 @@ public class EventActivity extends AppCompatActivity {
             locationView.setTextSize(18);
             locationContainer.addView(locationView);
         }
-        //TODO CREATE INTENT TO OPEN MAPS PAGE FROM LOCATION
         startTime.setText(bundle.getString("starttime"));
         description.setText(bundle.getString("description","No description"));
     }

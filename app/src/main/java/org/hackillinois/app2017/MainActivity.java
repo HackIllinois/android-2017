@@ -25,6 +25,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import org.hackillinois.app2017.Announcements.AnnouncementListFragment;
 import org.hackillinois.app2017.Announcements.AnnouncementManager;
 import org.hackillinois.app2017.Announcements.BackgroundAnnouncements;
+import org.hackillinois.app2017.Events.EventManager;
 import org.hackillinois.app2017.Home.HomeFragment;
 import org.hackillinois.app2017.Map.MapFragment;
 import org.hackillinois.app2017.Profile.ProfileFragment;
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
         handleIntent(getIntent());
         AnnouncementManager.sync(getApplicationContext());
-        //sync events
+        EventManager.sync(getApplicationContext(),null); //sync events
         NotificationManagerCompat.from(getApplicationContext()).cancelAll();
     }
 

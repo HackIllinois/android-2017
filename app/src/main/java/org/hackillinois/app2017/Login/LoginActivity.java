@@ -195,30 +195,11 @@ public class LoginActivity extends AppCompatActivity {
 
     //TODO refactor this so that it can be used to load events from event manager and onfinish call moveOn
     private void loadEvents() {
-        final JsonObjectRequest eventsRequest = new JsonObjectRequest(Request.Method.GET,
-                APIHelper.eventsEndpoint, null, new Response.Listener<JSONObject>() {
+        EventManager.sync(getApplicationContext(), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Type listType = new TypeToken<ArrayList<Event>>() {
-                }.getType();
-                GsonBuilder gsonBuilder = new GsonBuilder();
-                gsonBuilder.setDateFormat(Utils.API_DATE_FORMAT);
-                Gson gson = gsonBuilder.create();
-
-                JsonParser jsonParser = new JsonParser();
-                JsonArray jsonEvents = jsonParser.parse(response.toString()).getAsJsonObject().getAsJsonArray("data");
-
-                EventManager.getInstance().setEvents((ArrayList) gson.fromJson(jsonEvents.toString(), listType));
-
                 moveOn();
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // TODO: Handle error
-            }
         });
-
-        requestManager.addToRequestQueue(eventsRequest);
     }
 }

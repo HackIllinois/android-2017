@@ -41,16 +41,6 @@ public class Event {
         return locations;
     }
 
-    public String getShortLocations() {
-        StringBuilder sb = new StringBuilder();
-        String seperator = "";
-        for(EventLocation el : locations) {
-            sb.append(seperator).append(el.getShortName());
-            seperator = ", ";
-        }
-        return sb.toString();
-    }
-
     public String getStartTime() {
         return startTime.toString();
     }
