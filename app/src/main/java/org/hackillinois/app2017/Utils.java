@@ -43,19 +43,6 @@ public class Utils {
 
     //TODO save the image instead of creating it every time
     public static void showFullScreenQRCode(final Context context) {
-//        ImageView imageView = new ImageView(context);
-//        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-//        imageView.setAdjustViewBounds(true);
-//        Bitmap qrCode = getQRCodeBitmap(context);
-//        imageView.setImageBitmap(qrCode);
-//        View v = LayoutInflater.from(context).inflate(R.layout.dialog_qr_popup, null);
-//        ImageView imageView = (ImageView) v.findViewById(R.id.qr_popup);
-//        imageView.setImageBitmap(getQRCodeBitmap(context));
-//        Dialog dialog = new Dialog(context, R.style.QRPopUp);
-//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        dialog.setContentView(v);
-//        dialog.setCanceledOnTouchOutside(true);
-//        dialog.show();
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         final AlertDialog dialog = builder.create();
         LayoutInflater inflater = LayoutInflater.from(context);
