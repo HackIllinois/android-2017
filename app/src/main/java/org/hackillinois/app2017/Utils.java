@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
@@ -66,21 +67,21 @@ public class Utils {
             }
         });
         textView.setGravity(View.TEXT_ALIGNMENT_TEXT_START | View.TEXT_ALIGNMENT_CENTER);
-        textView.setTextColor(context.getResources().getColor(R.color.seafoam_blue));
+        textView.setTextColor(ContextCompat.getColor(context, R.color.seafoam_blue));
         return textView;
     }
 
-    public static float convertDpToPixel(float dp, Context context){
+    public static float convertDpToPixel(float dp, Context context) {
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
-        float px = dp * ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+        float px = dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
         return px;
     }
 
-    public static float convertPixelsToDp(float px, Context context){
+    public static float convertPixelsToDp(float px, Context context) {
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
-        float dp = px / ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+        float dp = px / ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
         return dp;
     }
 
@@ -95,7 +96,7 @@ public class Utils {
     }
 
     public static String getStringDateAsAPI(Date date) {
-        DateFormat dateFormat = new SimpleDateFormat(API_DATE_FORMAT,Locale.US);
+        DateFormat dateFormat = new SimpleDateFormat(API_DATE_FORMAT, Locale.US);
         return dateFormat.format(date);
     }
 
@@ -115,9 +116,9 @@ public class Utils {
 
     public static HackIllinoisStatus getHackIllinoisStatus() {
         Date date = new Date();
-        if(isBeforeHackIllinois(date)) {
+        if (isBeforeHackIllinois(date)) {
             return BEFORE;
-        } else if(isDuringHackIllinois(date)) {
+        } else if (isDuringHackIllinois(date)) {
             return DURING;
         } else {
             return AFTER;
