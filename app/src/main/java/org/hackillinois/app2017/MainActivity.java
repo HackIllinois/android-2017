@@ -1,6 +1,7 @@
 package org.hackillinois.app2017;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,8 +22,9 @@ import android.widget.TextView;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 
-import org.hackillinois.app2017.Announcements.BackgroundAnnouncements;
 import org.hackillinois.app2017.Announcements.AnnouncementListFragment;
+import org.hackillinois.app2017.Announcements.AnnouncementManager;
+import org.hackillinois.app2017.Announcements.BackgroundAnnouncements;
 import org.hackillinois.app2017.Home.HomeFragment;
 import org.hackillinois.app2017.Map.MapFragment;
 import org.hackillinois.app2017.Profile.ProfileFragment;
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String sharedPrefsName = "AppPrefs";
     private static final int REQUEST_CODE = 12;
+    public static final String INITIAL_TAB_INTENT = "INITIAL_TAB_INTENT";
 
     private FragmentManager fragmentManager;
     private MapFragment mMapFragment;
@@ -76,6 +80,19 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.content_holder, mHomeFragment).commit();
         setTitle("Home");
         BackgroundAnnouncements.startBackgroundAnnouncements(getApplicationContext());
+
+        handleIntent();
+        AnnouncementManager.sync(getApplicationContext());
+        //sync events
+        NotificationManagerCompat.from(getApplicationContext()).cancelAll();
+    }
+
+    private void handleIntent() {
+        Intent intent = getIntent();
+        if(intent != null) {
+            int currentTabView = intent.getIntExtra(INITIAL_TAB_INTENT,0);
+            bottomNavigation.setCurrentItem(currentTabView);
+        }
     }
 
     @Override

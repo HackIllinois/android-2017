@@ -4,15 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.constraint.solver.SolverVariable;
 import android.support.v4.app.Fragment;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,14 +18,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import net.glxn.qrgen.android.QRCode;
-
 import org.hackillinois.app2017.Login.LoginActivity;
 import org.hackillinois.app2017.MainActivity;
 import org.hackillinois.app2017.R;
 import org.hackillinois.app2017.Utils;
-
-import java.io.ByteArrayOutputStream;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -92,7 +84,7 @@ public class ProfileFragment extends Fragment {
         Typeface brandon_reg = Typeface.createFromAsset(view.getContext().getAssets(), "fonts/Brandon_reg.otf");
         Typeface gotham_med = Typeface.createFromAsset(view.getContext().getAssets(), "fonts/Gotham-Medium.otf");
 
-        Bitmap qrCodeBitmapOfID = getQRCodeFromID();
+        Bitmap qrCodeBitmapOfID = Utils.getQRCodeBitmap(getContext());
         qrcode.setImageBitmap(qrCodeBitmapOfID);
         qrcode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,7 +103,7 @@ public class ProfileFragment extends Fragment {
         yearOfGraduation.setTypeface(brandon_reg);
 
         name.setText(sharedPreferences.getString("firstName", "N/A") + " " + sharedPreferences.getString("lastName", "N/A"));
-        // TODO: Set Diet
+        diet.setText(sharedPreferences.getString("diet", "N/A")); // TODO: Check diet
         university.setText(sharedPreferences.getString("school", "Error"));
         major.setText(sharedPreferences.getString("major", "Error"));
         yearOfGraduation.setText(sharedPreferences.getString("graduationYear", "Error"));
@@ -147,10 +139,6 @@ public class ProfileFragment extends Fragment {
         sharedPreferences.edit().clear().apply();
         startActivity(i);
         getActivity().finish();
-    }
-
-    public Bitmap getQRCodeFromID() {
-        return QRCode.from(sharedPreferences.getString("id","N/A")).withSize(400,400).bitmap();
     }
 
     @Override

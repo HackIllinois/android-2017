@@ -8,7 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.hackillinois.app2017.EventActivity;
+import org.hackillinois.app2017.Events.Event;
+import org.hackillinois.app2017.Events.EventActivity;
 import org.hackillinois.app2017.R;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
 
         @BindView(R.id.eventName) TextView titleTextView;
         @BindView(R.id.eventLocation) TextView locationTextView;
+        private String locationLong = "";
         @BindView(R.id.eventTime) TextView timeTextView;
         // @BindView(R.id.event_button_remind_me) TextView remindMeTextView;
 
@@ -42,7 +44,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
                 public void onClick(View v) {
                     Intent i = new Intent(v.getContext(), EventActivity.class);
                     i.putExtra("title", titleTextView.getText());
-                    i.putExtra("location", locationTextView.getText());
+                    i.putExtra("location", locationLong);
                     i.putExtra("starttime", timeTextView.getText());
 
                     v.getContext().startActivity(i);
@@ -64,9 +66,10 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.locationTextView.setText(mDataset.get(position).getLocation());
+        holder.locationTextView.setText(mDataset.get(position).getShortLocations());
         holder.titleTextView.setText(mDataset.get(position).getName());
         holder.timeTextView.setText(mDataset.get(position).getStartTime());
+        holder.locationLong = mDataset.get(position).getLocation();
     }
 
     @Override

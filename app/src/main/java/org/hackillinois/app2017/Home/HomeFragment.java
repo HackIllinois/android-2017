@@ -10,11 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.hackillinois.app2017.R;
-import org.hackillinois.app2017.Schedule.Event;
-import org.hackillinois.app2017.Schedule.EventManager;
+import org.hackillinois.app2017.Utils;
 
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import butterknife.BindView;
@@ -31,8 +30,7 @@ public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
-        GregorianCalendar hackIllinoisStartTime = new GregorianCalendar(2017, Calendar.FEBRUARY, 24, 21, 0);
-        homeEventList = new HomeEventList(new HomeTime(hackIllinoisStartTime));
+        homeEventList = new HomeEventList(getTimeToCountdown());
         View view = inflater.inflate(R.layout.layout_home, parent, false);
         unbinder = ButterKnife.bind(this, view);
 
@@ -45,10 +43,38 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
+    private HomeTime getTimeToCountdown() {
+        Utils.HackIllinoisStatus status = Utils.getHackIllinoisStatus();
+        Date toCountDownTo;
+        String title;
+        switch (status) {
+            case BEFORE:
+                toCountDownTo = Utils.getDateFromAPI(Utils.HACKILLINOIS_START);
+                title = "Hacking Starts In...";
+                break;
+            case DURING:
+                toCountDownTo = Utils.getDateFromAPI(Utils.HACKILLINOIS_END);
+                title = "Hacking Ends In...";
+                break;
+            case AFTER:
+                toCountDownTo = Utils.getDateFromAPI(Utils.HACKILLINOIS_END);
+                title = "Hacking Ended...";
+                break;
+            default:
+                toCountDownTo = Utils.getDateFromAPI(Utils.HACKILLINOIS_START);
+                title = "Hacking Starts In...";
+                break;
+        }
+        Calendar hackIllinoisStartTime = GregorianCalendar.getInstance();
+        hackIllinoisStartTime.setTime(toCountDownTo);
+        return new HomeTime(hackIllinoisStartTime,title);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         homeEventList.syncEvents();
+        homeAdapter.notifyDataSetChanged();
     }
 
     @Override

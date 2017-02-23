@@ -6,8 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.hackillinois.app2017.R;
-
 /**
  * @author dl-eric
  */

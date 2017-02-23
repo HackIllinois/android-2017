@@ -11,21 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.volley.Response;
-import com.google.gson.Gson;
-
 import org.hackillinois.app2017.R;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class AnnouncementListFragment extends Fragment {
+public class AnnouncementListFragment extends Fragment implements AnnouncementManager.CallBack {
 
-    private ArrayList<Notification> announcements;
     private AnnouncementAdapter adapter;
     private Unbinder unbinder;
 
@@ -33,11 +26,10 @@ public class AnnouncementListFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
-        announcements =  new ArrayList<>();
         View view = inflater.inflate(R.layout.layout_announcements, parent, false);
         unbinder = ButterKnife.bind(this, view);
 
-        adapter = new AnnouncementAdapter(announcements);
+        adapter = new AnnouncementAdapter(AnnouncementManager.getInstance().getAnnouncements());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -46,41 +38,20 @@ public class AnnouncementListFragment extends Fragment {
         dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider));
         recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setAdapter(adapter);
-        BackgroundAnnouncements.requestAnnouncements(getContext(), new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                AnnouncementQuery announcementQuery = new Gson().fromJson(response.toString(), AnnouncementQuery.class);
-                announcements.clear();
-                announcements.addAll(announcementQuery.getData());
-            }
-        });
 
+        AnnouncementManager.getInstance().setCallback(this);
+        onEventsSet();
         return view;
-    }
-
-    private void testData(){
-        Announcement announcement = new Announcement("To the owner of the white van that is parked outside of Siebel, please stop selling soylent to people. It is not encouraged behavior.", "a few seconds ago");
-        announcements.add(announcement);
-
-        // Reminders are not used for HackIllinois 2017
-//        Reminder reminder = new Reminder("Lunch will be in 10 minutes.", "a few seconds ago", "ECEB");
-//        announcements.add(reminder);
-
-        announcement = new Announcement("Hella narwhal Cosby sweater McSweeney's salvia kitsch before they sold out High Life.", "an hour ago");
-        announcements.add(announcement);
-
-        announcement = new Announcement("Tousled food truck polaroid, salvia bespoke small batch Pinterest Marfa.", "an hour ago");
-        announcements.add(announcement);
-
-        announcement = new Announcement("This is a test message bruh", "yesterday");
-        announcements.add(announcement);
-
-        adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onEventsSet() {
+        adapter.notifyDataSetChanged();
     }
 }

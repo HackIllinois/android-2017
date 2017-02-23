@@ -1,13 +1,16 @@
 package org.hackillinois.app2017.Home;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public class HomeTime {
-    private GregorianCalendar targetTime;
+    private Calendar targetTime;
+    private String title;
 
-    public HomeTime(GregorianCalendar targetTime) {
+    public HomeTime(Calendar targetTime, String title) {
         this.targetTime = targetTime;
+        this.title = title;
     }
 
     public int getHours() {
@@ -74,5 +77,9 @@ public class HomeTime {
         }
 
         return time.toString();
+    }
+
+    public String getTitle() {
+        return title;
     }
 }

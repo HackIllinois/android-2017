@@ -1,4 +1,4 @@
-package org.hackillinois.app2017.Schedule;
+package org.hackillinois.app2017.Events;
 
 import java.util.ArrayList;
 
@@ -7,7 +7,6 @@ import java.util.ArrayList;
  */
 
 public class EventManager {
-
     private static EventManager instance;
     private ArrayList<Event> events;
 

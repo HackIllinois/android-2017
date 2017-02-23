@@ -1,6 +1,7 @@
 package org.hackillinois.app2017.Announcements;
 
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * Created by kevin on 2/20/2017.
@@ -8,9 +9,9 @@ import java.util.HashSet;
 
 public class AnnouncementQuery {
     private String meta;
-    private HashSet<Announcement> data;
+    private List<Announcement> data;
 
-    public HashSet<Announcement> getData() {
+    public List<Announcement> getData() {
         return data;
     }
 }

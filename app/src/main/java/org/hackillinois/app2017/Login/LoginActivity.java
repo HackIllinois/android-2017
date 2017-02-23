@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,26 +15,24 @@ import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
+import org.hackillinois.app2017.Announcements.AnnouncementManager;
+import org.hackillinois.app2017.Announcements.BackgroundAnnouncements;
 import org.hackillinois.app2017.Backend.APIHelper;
 import org.hackillinois.app2017.Backend.RequestManager;
+import org.hackillinois.app2017.Events.Event;
+import org.hackillinois.app2017.Events.EventManager;
 import org.hackillinois.app2017.MainActivity;
 import org.hackillinois.app2017.R;
-import org.hackillinois.app2017.Schedule.Event;
-import org.hackillinois.app2017.Schedule.EventManager;
+import org.hackillinois.app2017.Utils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -48,7 +45,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class LoginActivity extends AppCompatActivity {
-
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private RequestManager requestManager;
@@ -74,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
         editor = sharedPreferences.edit();
 
         if (sharedPreferences.getBoolean("hasAuthed", false)) {
+            //TODO: reauth using api
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             this.finish();
@@ -99,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     authorize(emailField.getText().toString(), passwordField.getText().toString());
                     loadEvents();
-                    // TODO: Uncomment authorize, delete loadEvents() call
+                    // TODO: delete loadEvents() call
                 }
             }
         });
@@ -198,6 +195,7 @@ public class LoginActivity extends AppCompatActivity {
         this.finish();
     }
 
+    //TODO refactor this so that it can be used to load events from event manager and onfinish call moveOn
     private void loadEvents() {
         final JsonObjectRequest eventsRequest = new JsonObjectRequest(Request.Method.GET,
                 APIHelper.eventsEndpoint, null, new Response.Listener<JSONObject>() {
@@ -206,7 +204,7 @@ public class LoginActivity extends AppCompatActivity {
                 Type listType = new TypeToken<ArrayList<Event>>() {
                 }.getType();
                 GsonBuilder gsonBuilder = new GsonBuilder();
-                gsonBuilder.setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                gsonBuilder.setDateFormat(Utils.API_DATE_FORMAT);
                 Gson gson = gsonBuilder.create();
 
                 JsonParser jsonParser = new JsonParser();
