@@ -95,11 +95,11 @@ public class ProfileFragment extends Fragment {
 
         name.setTypeface(gotham_med);
         diet.setTypeface(brandon_med);
-        universityTitle.setTypeface(brandon_reg);
+        universityTitle.setTypeface(gotham_med);
         university.setTypeface(brandon_reg);
-        majorTitle.setTypeface(brandon_reg);
+        majorTitle.setTypeface(gotham_med);
         major.setTypeface(brandon_reg);
-        yearOfGraduationTitle.setTypeface(brandon_reg);
+        yearOfGraduationTitle.setTypeface(gotham_med);
         yearOfGraduation.setTypeface(brandon_reg);
 
         name.setText(sharedPreferences.getString("firstName", "N/A") + " " + sharedPreferences.getString("lastName", "N/A"));
