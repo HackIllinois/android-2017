@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
         handleIntent();
         AnnouncementManager.sync(getApplicationContext());
+        //sync events
         NotificationManagerCompat.from(getApplicationContext()).cancelAll();
     }
 

@@ -11,17 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.volley.Response;
-import com.google.gson.Gson;
-
 import org.hackillinois.app2017.R;
-import org.hackillinois.app2017.Utils;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,7 +29,7 @@ public class AnnouncementListFragment extends Fragment implements AnnouncementMa
         View view = inflater.inflate(R.layout.layout_announcements, parent, false);
         unbinder = ButterKnife.bind(this, view);
 
-        adapter = new AnnouncementAdapter(AnnouncementManager.getInstance().getEvents());
+        adapter = new AnnouncementAdapter(AnnouncementManager.getInstance().getAnnouncements());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -48,7 +38,7 @@ public class AnnouncementListFragment extends Fragment implements AnnouncementMa
         dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider));
         recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setAdapter(adapter);
-        
+
         AnnouncementManager.getInstance().setCallback(this);
         onEventsSet();
         return view;
@@ -62,16 +52,6 @@ public class AnnouncementListFragment extends Fragment implements AnnouncementMa
 
     @Override
     public void onEventsSet() {
-        Collections.sort(AnnouncementManager.getInstance().getEvents(), new Comparator<Announcement>() {
-            @Override
-            public int compare(Announcement lhs, Announcement rhs) {
-                Date rhsDate = Utils.getDateFromAPI(rhs.getCreated());
-                if(rhsDate == null) {
-                    return -1;
-                }
-                return rhsDate.compareTo(Utils.getDateFromAPI(lhs.getCreated()));
-            }
-        });
         adapter.notifyDataSetChanged();
     }
 }

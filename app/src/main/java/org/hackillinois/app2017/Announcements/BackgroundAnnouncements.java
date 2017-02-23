@@ -1,7 +1,6 @@
 package org.hackillinois.app2017.Announcements;
 
 import android.app.AlarmManager;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.BroadcastReceiver;
@@ -22,15 +21,12 @@ import org.hackillinois.app2017.Backend.APIHelper;
 import org.hackillinois.app2017.Backend.RequestManager;
 import org.hackillinois.app2017.MainActivity;
 import org.hackillinois.app2017.R;
-import org.hackillinois.app2017.Utils;
 import org.json.JSONObject;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import static android.content.Context.ALARM_SERVICE;
-import static android.content.Context.NOTIFICATION_SERVICE;
 
 /**
  * Created by kevin on 2/21/2017.
@@ -100,9 +96,9 @@ public class BackgroundAnnouncements extends BroadcastReceiver {
         SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.sharedPrefsName, Context.MODE_PRIVATE);
         int lastAnnouncement = sharedPreferences.getInt("newest_notification_id",-1);
         int newestAnnouncement = lastAnnouncement;
-        AnnouncementManager.getInstance().setEvents(announcements);
+        AnnouncementManager.getInstance().setAnnouncements(announcements);
 
-        for(Announcement announcement : AnnouncementManager.getInstance().getEvents()) {
+        for(Announcement announcement : AnnouncementManager.getInstance().getAnnouncements()) {
             if(announcement.getId() > lastAnnouncement) {
                 newestAnnouncement = Math.max(newestAnnouncement, announcement.getId());
                 buildNotification(announcement,context);

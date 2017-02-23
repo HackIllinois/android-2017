@@ -7,7 +7,6 @@ import java.util.ArrayList;
  */
 
 public class EventManager {
-
     private static EventManager instance;
     private ArrayList<Event> events;
 
