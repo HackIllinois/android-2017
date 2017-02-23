@@ -30,6 +30,7 @@ import org.hackillinois.app2017.Events.Event;
 import org.hackillinois.app2017.Events.EventManager;
 import org.hackillinois.app2017.MainActivity;
 import org.hackillinois.app2017.R;
+import org.hackillinois.app2017.Utils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -42,7 +43,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class LoginActivity extends AppCompatActivity {
-
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private RequestManager requestManager;
@@ -192,6 +192,7 @@ public class LoginActivity extends AppCompatActivity {
         this.finish();
     }
 
+    //TODO refactor this so that it can be used to load events from event manager and onfinish call moveOn
     private void loadEvents() {
         final JsonObjectRequest eventsRequest = new JsonObjectRequest(Request.Method.GET,
                 APIHelper.eventsEndpoint, null, new Response.Listener<JSONObject>() {
@@ -200,7 +201,7 @@ public class LoginActivity extends AppCompatActivity {
                 Type listType = new TypeToken<ArrayList<Event>>() {
                 }.getType();
                 GsonBuilder gsonBuilder = new GsonBuilder();
-                gsonBuilder.setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                gsonBuilder.setDateFormat(Utils.API_DATE_FORMAT);
                 Gson gson = gsonBuilder.create();
 
                 JsonParser jsonParser = new JsonParser();

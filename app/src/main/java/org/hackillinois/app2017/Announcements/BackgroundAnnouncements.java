@@ -3,10 +3,12 @@ package org.hackillinois.app2017.Announcements;
 import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
@@ -20,9 +22,12 @@ import org.hackillinois.app2017.Backend.APIHelper;
 import org.hackillinois.app2017.Backend.RequestManager;
 import org.hackillinois.app2017.MainActivity;
 import org.hackillinois.app2017.R;
+import org.hackillinois.app2017.Utils;
 import org.json.JSONObject;
 
 import java.util.Collection;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import static android.content.Context.ALARM_SERVICE;
 import static android.content.Context.NOTIFICATION_SERVICE;
@@ -68,12 +73,11 @@ public class BackgroundAnnouncements extends BroadcastReceiver {
     }
 
     public static void requestAnnouncements(Context context, Response.Listener<JSONObject> response) {
-        String request = APIHelper.announcementsEndpoint + "?after=2017-02-22T00:00:00.000Z&before=2017-02-27T00:00:00.000Z";
         final JsonObjectRequest userRequest = new JsonObjectRequest(Request.Method.GET,
-                request, null, response, new Response.ErrorListener() {
+                APIHelper.announcementsEndpoint, null, response, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                //TODO should handle
             }
         });
         RequestManager requestManager = RequestManager.getInstance(context);
@@ -92,7 +96,7 @@ public class BackgroundAnnouncements extends BroadcastReceiver {
         }
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("newest_notification_id",newestAnnouncement);
+        editor.putInt("newest_notification_id",0);
         editor.apply();
     }
 
@@ -101,10 +105,24 @@ public class BackgroundAnnouncements extends BroadcastReceiver {
                 (NotificationCompat.Builder) new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.logo)
                         .setContentTitle(announcement.getTitle())
-                        .setContentText(announcement.getMessage());
+                        .setContentText(announcement.getMessage())
+                        .setPriority(announcement.getId());
         int mNotificationId = announcement.getId();
-        NotificationManager mNotifyMgr =
-                (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
-        mNotifyMgr.notify(mNotificationId, mBuilder.build());
+
+        Intent resultIntent = new Intent(context, MainActivity.class);
+        resultIntent.putExtra(MainActivity.INITIAL_TAB_INTENT,3);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+        // Adds the back stack for the Intent (but not the Intent itself)
+        stackBuilder.addParentStack(MainActivity.class);
+        // Adds the Intent that starts the Activity to the top of the stack
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(
+                        0,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        mBuilder.setContentIntent(resultPendingIntent);
+
+        NotificationManagerCompat.from(context).notify(mNotificationId,mBuilder.build());
     }
 }

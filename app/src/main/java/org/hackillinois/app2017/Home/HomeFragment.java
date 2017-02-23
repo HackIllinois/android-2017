@@ -29,6 +29,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
         GregorianCalendar hackIllinoisStartTime = new GregorianCalendar(2017, Calendar.FEBRUARY, 24, 21, 0);
+        //TODO countdown till hackathon starts then change to when hackathon ends
         homeEventList = new HomeEventList(new HomeTime(hackIllinoisStartTime));
         View view = inflater.inflate(R.layout.layout_home, parent, false);
         unbinder = ButterKnife.bind(this, view);

@@ -25,8 +25,9 @@ public class Event {
     @SerializedName("shortName")
     private String shortName;
 
-    @SerializedName(value="qrCode", alternate={"tracking"})
-    private int qrCode;
+    @SerializedName(value="tracking", alternate={"qrCode"})
+    //qrCode is no longer the name in the api (this is just a temporary backup)
+    private int tracking;
 
     public String getName() {
         return name;
@@ -69,6 +70,6 @@ public class Event {
     }
 
     public boolean needsQRCode() {
-        return qrCode > 0;
+        return tracking != 0;
     }
 }

@@ -15,9 +15,13 @@ import com.android.volley.Response;
 import com.google.gson.Gson;
 
 import org.hackillinois.app2017.R;
+import org.hackillinois.app2017.Utils;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,7 +55,18 @@ public class AnnouncementListFragment extends Fragment {
             public void onResponse(JSONObject response) {
                 AnnouncementQuery announcementQuery = new Gson().fromJson(response.toString(), AnnouncementQuery.class);
                 announcements.clear();
-                announcements.addAll(announcementQuery.getData());
+                Collections.sort(announcementQuery.getData(), new Comparator<Announcement>() {
+                    @Override
+                    public int compare(Announcement lhs, Announcement rhs) {
+                        Date rhsDate = Utils.getDateFromAPI(rhs.getCreated());
+                        if(rhsDate == null) {
+                            return -1;
+                        }
+                        return rhsDate.compareTo(Utils.getDateFromAPI(lhs.getCreated()));
+                    }
+                });
+                        announcements.addAll(announcementQuery.getData());
+                adapter.notifyDataSetChanged();
             }
         });
 
