@@ -22,6 +22,11 @@ public class EventLocation {
     @SerializedName("latitude")
     private double latitude;
 
+    public EventLocation(String name, String shortName) {
+        this.name = name;
+        this.shortName = shortName;
+    }
+
     public int getId() {
         return id;
     }

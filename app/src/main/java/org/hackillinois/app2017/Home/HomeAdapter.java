@@ -149,13 +149,15 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 EventViewHolder eventViewHolder = (EventViewHolder) holder;
                 Event homeEvent = (Event) homeEvents.get(position);
                 eventViewHolder.title.setText(homeEvent.getName());
-                for(EventLocation e : homeEvent.getLocation()) {
-                    TextView textView = Utils.generateLocationTextView(holder.itemView.getContext(),e.getShortName());
-                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                    layoutParams.weight = 1;
-                    textView.setLayoutParams(layoutParams);
-                    textView.setTextSize(18);
-                    eventViewHolder.locationContainer.addView(textView);
+                if(eventViewHolder.locationContainer.getChildCount() == 0) {
+                    for(EventLocation e : homeEvent.getLocation()) {
+                        TextView textView = Utils.generateLocationTextView(holder.itemView.getContext(),e.getShortName());
+                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        layoutParams.weight = 1;
+                        textView.setLayoutParams(layoutParams);
+                        textView.setTextSize(18);
+                        eventViewHolder.locationContainer.addView(textView);
+                    }
                 }
                 eventViewHolder.time.setText(homeEvent.getStartTime());
                 if(!homeEvent.needsQRCode()) {

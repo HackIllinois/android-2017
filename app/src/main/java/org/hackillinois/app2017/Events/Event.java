@@ -29,6 +29,14 @@ public class Event {
     //qrCode is no longer the name in the api (this is just a temporary backup)
     private int tracking;
 
+    public Event(String name, Date start, Date end, ArrayList<EventLocation> locations) {
+        this.name = name;
+        startTime = start;
+        endTime = end;
+        this.locations = locations;
+        tracking = 1;
+    }
+
     public String getName() {
         return name;
     }

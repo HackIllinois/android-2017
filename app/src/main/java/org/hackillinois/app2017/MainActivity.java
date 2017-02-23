@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
         handleIntent(getIntent());
         AnnouncementManager.sync(getApplicationContext());
-        EventManager.sync(getApplicationContext(),null); //sync events
+        EventManager.sync(getApplicationContext(),null); //refreshEventList events
         NotificationManagerCompat.from(getApplicationContext()).cancelAll();
     }
 
