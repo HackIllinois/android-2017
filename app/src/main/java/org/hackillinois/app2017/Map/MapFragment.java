@@ -1,10 +1,8 @@
 package org.hackillinois.app2017.Map;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -20,7 +18,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +30,6 @@ import com.akexorcist.googledirection.GoogleDirection;
 import com.akexorcist.googledirection.constant.TransportMode;
 import com.akexorcist.googledirection.model.Direction;
 import com.akexorcist.googledirection.model.Leg;
-import com.akexorcist.googledirection.model.Route;
 import com.akexorcist.googledirection.model.Step;
 import com.akexorcist.googledirection.util.DirectionConverter;
 import com.google.android.gms.common.ConnectionResult;
@@ -53,7 +49,6 @@ import org.hackillinois.app2017.R;
 import org.hackillinois.app2017.UI.CustomBottomSheetBehavior;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 import butterknife.BindView;
@@ -72,6 +67,7 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
     private static final LatLng DCL = new LatLng(40.1131069, -88.228756);
     private GoogleApiClient mGoogleApiClient;
     private Unbinder unbinder;
+    private IndoorMapViewer.Buildings toOpen;
 
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
@@ -98,6 +94,23 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
                             setHeaderName("Illini Union");
                             break;
                     }
+
+                    if (endLocation == DCL) {
+                        toOpen = IndoorMapViewer.Buildings.DCL;
+                    } else if (endLocation == SIEBEL) {
+                        toOpen = IndoorMapViewer.Buildings.SIEBEL;
+                    } else if (endLocation == ECEB) {
+                        toOpen = IndoorMapViewer.Buildings.ECEB;
+                    } else if (endLocation == UNION) {
+                        toOpen = IndoorMapViewer.Buildings.UNION;
+                    }
+
+                    indoorMap.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            IndoorMapViewer.showMap(getContext(), toOpen);
+                        }
+                    });
 
                     toggle(v, currentLocation, endLocation);
                 }

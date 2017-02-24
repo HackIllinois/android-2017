@@ -27,9 +27,7 @@
 
         </activity>
 
-        <activity android:name=".Map.IndoorMapViewer"
-            android:theme="@style/AppTheme.NoActionBar"
-            />
+        <activity android:name=".Map.IndoorMapViewer" />
 
         <activity
             android:name=".MainActivity"
