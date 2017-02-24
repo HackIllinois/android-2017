@@ -27,6 +27,7 @@ import org.hackillinois.app2017.Announcements.AnnouncementManager;
 import org.hackillinois.app2017.Announcements.BackgroundAnnouncements;
 import org.hackillinois.app2017.Events.EventManager;
 import org.hackillinois.app2017.Home.HomeFragment;
+import org.hackillinois.app2017.Map.IndoorMapViewer;
 import org.hackillinois.app2017.Map.MapFragment;
 import org.hackillinois.app2017.Profile.ProfileFragment;
 import org.hackillinois.app2017.Schedule.ScheduleFragment;
