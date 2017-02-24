@@ -21,6 +21,11 @@
             android:windowSoftInputMode="stateUnchanged">
 
         </activity>
+
+        <activity android:name=".Map.IndoorMapViewer"
+            android:theme="@style/AppTheme.NoActionBar"
+            />
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
