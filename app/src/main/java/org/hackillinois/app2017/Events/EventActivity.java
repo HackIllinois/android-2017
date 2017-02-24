@@ -2,6 +2,7 @@ package org.hackillinois.app2017.Events;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,7 +65,7 @@ public class EventActivity extends AppCompatActivity {
     private void setUpActionBar(CenteredToolbar toolbar) {
         setSupportActionBar(toolbar);
         setTitle("Event Details");
-        // TODO: toolbar.setNavigationLogo();
+        toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.back));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
