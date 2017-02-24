@@ -69,9 +69,10 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Typeface brandon_med = Typeface.createFromAsset(getAssets(), "fonts/Brandon_med.otf");
-        emailField.setTypeface(brandon_med);
-        passwordField.setTypeface(brandon_med);
-        loginButton.setTypeface(brandon_med);
+        Typeface gotham_med = Typeface.createFromAsset(getAssets(), "fonts/Gotham-Medium.otf");
+        emailField.setTypeface(gotham_med);
+        passwordField.setTypeface(gotham_med);
+        loginButton.setTypeface(gotham_med);
         incorrectText.setTypeface(brandon_med);
         loadingText.setTypeface(brandon_med);
 
