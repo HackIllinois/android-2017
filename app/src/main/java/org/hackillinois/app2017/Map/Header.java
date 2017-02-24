@@ -8,11 +8,13 @@ public class Header {
     private String name;
     private String distance;
     private String time;
+    private String endAddress;
 
-    public Header(String name, String distance, String time) {
+    public Header(String name, String distance, String time, String endAddress) {
         this.name = name;
         this.distance = distance;
         this.time = time;
+        this.endAddress = endAddress;
     }
 
     public String getTime() {
@@ -37,5 +39,9 @@ public class Header {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEndAddress() {
+        return endAddress;
     }
 }

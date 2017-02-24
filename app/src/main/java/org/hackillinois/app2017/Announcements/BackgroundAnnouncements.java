@@ -143,7 +143,7 @@ public class BackgroundAnnouncements extends BroadcastReceiver {
         Log.i("BuildNotification", "building");
         NotificationCompat.Builder mBuilder =
                 (NotificationCompat.Builder) new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.logo)
+                        .setSmallIcon(R.drawable.status_bar_icon)
                         .setContentTitle(announcement.getTitle())
                         .setContentText(announcement.getMessage())
                         .setPriority(announcement.getId());
