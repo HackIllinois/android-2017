@@ -87,11 +87,11 @@ public class LoginActivity extends AppCompatActivity {
                     passwordField.setError("Your password goes here!");
                 } else {
                     if(Utils.isNetworkAvailable(getApplicationContext())) {
-                        //authorize(emailField.getText().toString(), passwordField.getText().toString());
+                        authorize(emailField.getText().toString(), passwordField.getText().toString());
                     } else  {
                         Toast.makeText(getApplicationContext(), "Please connect to the internet.", Toast.LENGTH_SHORT).show();
                     }
-                    loadEvents();
+                    //loadEvents();
                     // TODO: delete loadEvents() call
                 }
             }
@@ -124,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString("major", data.getString("major"));
                     editor.putString("github", data.getString("github"));
                     editor.putString("linkedin", data.getString("linkedin"));
-                    editor.putString("resumeKey", data.getJSONObject("resume").getString("key"));
+                    editor.putString("resumeId", data.getJSONObject("resume").getString("id"));
                     editor.putString("id", data.getString("id"));
                     editor.putBoolean("hasAuthed", true);
 
