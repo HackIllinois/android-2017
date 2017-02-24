@@ -41,7 +41,7 @@ import static org.hackillinois.app2017.Utils.HackIllinoisStatus.DURING;
 public class Utils {
     public static final String API_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
     public static final String HACKILLINOIS_START = "2017-02-24T22:00:00.000Z";
-    public static final String HACKILLINOIS_END = "2017-02-26T21:00:00.000Z";
+    public static final String HACKILLINOIS_END = "2017-02-26T17:00:00.000Z";
 
     public static Bitmap getQRCodeBitmap(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
