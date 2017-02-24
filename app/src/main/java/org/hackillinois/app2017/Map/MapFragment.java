@@ -193,6 +193,7 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
             }
         });
 
+
         return view;
     }
 

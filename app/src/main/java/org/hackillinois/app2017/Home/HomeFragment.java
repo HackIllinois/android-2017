@@ -42,6 +42,8 @@ public class HomeFragment extends Fragment {
         homeRecyclerView.setLayoutManager(mLayoutManager);
         homeRecyclerView.setItemAnimator(new DefaultItemAnimator());
         homeRecyclerView.setAdapter(homeAdapter);
+
+        refreshEventList();
         return view;
     }
 
@@ -69,7 +71,6 @@ public class HomeFragment extends Fragment {
         }
         Calendar hackIllinoisStartTime = GregorianCalendar.getInstance();
         hackIllinoisStartTime.setTime(toCountDownTo);
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

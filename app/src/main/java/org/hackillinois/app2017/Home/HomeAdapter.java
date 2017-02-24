@@ -60,7 +60,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     class EventViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.home_event_title) TextView title;
         @BindView(R.id.event_location_container) LinearLayout locationContainer;
-        private ArrayList<String> locationLong = new ArrayList<>();
+        ArrayList<String> locationLong = new ArrayList<>();
         @BindView(R.id.home_event_time) TextView time;
         @BindView(R.id.home_event_qr_button) TextView qrButton;
 
@@ -78,18 +78,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             for(int i = 0; i < locationContainer.getChildCount(); i++) {
                 ((TextView)locationContainer.getChildAt(i)).setTypeface(brandon_med);
             }
-
-            v.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(v.getContext(), EventActivity.class);
-                    i.putExtra("title", title.getText());
-                    i.putStringArrayListExtra("location", locationLong);
-                    i.putExtra("starttime", time.getText());
-
-                    v.getContext().startActivity(i);
-                }
-            });
 
             qrButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -148,7 +136,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 break;
             default:
                 EventViewHolder eventViewHolder = (EventViewHolder) holder;
-                Event homeEvent = (Event) homeEvents.get(position);
+                final Event homeEvent = (Event) homeEvents.get(position);
                 eventViewHolder.title.setText(homeEvent.getName());
 
                 if(eventViewHolder.locationContainer.getChildCount() == 0) {
@@ -171,6 +159,19 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 for(EventLocation e : homeEvent.getLocation()) {
                     eventViewHolder.locationLong.add(e.getName());
                 }
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(v.getContext(), EventActivity.class);
+                        i.putExtra("title", homeEvent.getName());
+                        i.putStringArrayListExtra("location", ((EventViewHolder) holder).locationLong);
+                        i.putExtra("description", homeEvent.getDescription());
+                        i.putExtra("starttime", homeEvent.getStartHour());
+
+                        v.getContext().startActivity(i);
+                    }
+                });
                 break;
         }
     }

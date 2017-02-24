@@ -61,6 +61,8 @@ public class Event {
 
     }
 
+    public String getDescription() { return description; }
+
     public int getStartDay() {
         return startTime.getDay();
     }

@@ -70,7 +70,7 @@ public class BackgroundAnnouncements extends BroadcastReceiver {
         setPendingIntent(context);
         AlarmManager am = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                5000,
+                50000,
                 TimeUnit.MINUTES.toMillis(minutesToWaitBetweenRefresh),
                 grabAnnouncementsTask);//5min interval
     }
@@ -119,7 +119,7 @@ public class BackgroundAnnouncements extends BroadcastReceiver {
                 if(notification == null) {
                     notification = new Date();
                 }
-                if(TimeUnit.MILLISECONDS.toHours(now.getTime() - notification.getTime()) <6) {
+                if(TimeUnit.MILLISECONDS.toHours(now.getTime() - notification.getTime()) <6 && ! MainActivity.isActivelyVisible()) {
                     buildNotification(announcement,context);
                 }
             }

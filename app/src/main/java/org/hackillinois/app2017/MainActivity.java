@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private HomeFragment mHomeFragment;
     private ProfileFragment mProfileFragment;
     private AnnouncementListFragment mAnnouncementListFragment;
+    private static boolean activelyVisible;
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.tabs) TabLayout tabLayout;
@@ -102,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
             int currentTabView = intent.getIntExtra(BOTTOM_BAR_TAB,-1);
             if(currentTabView != -1) {
                 bottomNavigation.setCurrentItem(currentTabView);
+                bottomNavigation.restoreBottomNavigation();
             }
 
             updateNotification();
@@ -260,6 +262,30 @@ public class MainActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(this, new String[]{permission}, REQUEST_CODE);
             }
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        activityPaused();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        activityResumed();
+    }
+
+    public static void activityPaused() {
+        activelyVisible = false;
+    }
+
+    public static void activityResumed() {
+        activelyVisible = true;
+    }
+
+    public static boolean isActivelyVisible() {
+        return activelyVisible;
     }
 
     private void changeFonts() {

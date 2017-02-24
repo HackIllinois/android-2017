@@ -1,6 +1,7 @@
 package org.hackillinois.app2017.Events;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -19,6 +20,7 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -62,9 +64,11 @@ public class EventManager {
 
                 JsonParser jsonParser = new JsonParser();
                 JsonArray jsonEvents = jsonParser.parse(response.toString()).getAsJsonObject().getAsJsonArray("data");
-
+                Log.d("VolleyResponse", "Got response " + response.toString());
                 getInstance().setEvents((ArrayList) gson.fromJson(jsonEvents.toString(), listType));
-
+                for(Event e : getInstance().getEvents()) {
+                    Log.d("AddedEvent", e.getName());
+                }
                 if(listener != null) {
                     listener.onResponse(response);
                 }
@@ -73,6 +77,7 @@ public class EventManager {
             @Override
             public void onErrorResponse(VolleyError error) {
                 // TODO: Handle error
+                Log.d("VolleyError", "Couldn't add new events");
             }
         });
 

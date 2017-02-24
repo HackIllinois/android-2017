@@ -1,5 +1,7 @@
 package org.hackillinois.app2017.Events;
 
+import android.location.Location;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -15,6 +17,9 @@ public class EventLocation {
 
     @SerializedName("shortName")
     private String shortName;
+
+    @SerializedName("locationId")
+    private int locationId;
 
     @SerializedName("longitude")
     private double longitude;
@@ -32,11 +37,37 @@ public class EventLocation {
     }
 
     public String getName() {
-        return name;
+        Locations l = Locations.from(locationId);
+        switch (l) {
+            case DCL:
+                return "Digital Computer Laboratory";
+            case Siebel:
+                return "Thomas Siebel Center";
+            case ECEB:
+                return "Electrical Computer Engineering Building";
+            case Union:
+                return "Illini Union";
+            case KennyGym:
+                return "Kenny Gym Annex";
+        }
+        return null;
     }
 
     public String getShortName() {
-        return shortName;
+        Locations l = Locations.from(locationId);
+        switch (l) {
+            case DCL:
+                return "DCL";
+            case Siebel:
+                return "Siebel";
+            case ECEB:
+                return "ECEB";
+            case Union:
+                return "Union";
+            case KennyGym:
+                return "Kenny Gym";
+        }
+        return null;
     }
 
     public double getLongitude() {
@@ -45,5 +76,28 @@ public class EventLocation {
 
     public double getLatitude() {
         return latitude;
+    }
+
+
+    public enum Locations {
+        DCL(1),
+        Siebel(2),
+        ECEB(3),
+        Union(4),
+        KennyGym(5);
+
+        private int id;
+        Locations(int i) {
+            id = i;
+        }
+
+        public static Locations from(int i) {
+            for(Locations l : Locations.values()) {
+                if(l.id == i) {
+                    return l;
+                }
+            }
+            return null;
+        }
     }
 }
