@@ -1,6 +1,8 @@
 package org.hackillinois.app2017.Profile;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -120,7 +122,26 @@ public class ProfileFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_logout:
-                logOut();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setMessage("Are you sure you want to log out?");
+                builder.setTitle("Log Out");
+                builder.setPositiveButton("Log Out", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        logOut();
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
                 return true;
             default:
                 break;
