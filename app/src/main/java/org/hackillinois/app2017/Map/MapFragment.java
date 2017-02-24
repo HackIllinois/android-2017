@@ -50,6 +50,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.hackillinois.app2017.MainActivity;
 import org.hackillinois.app2017.R;
+import org.hackillinois.app2017.UI.CustomBottomSheetBehavior;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -119,10 +120,11 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
     TextView name;
     @BindView(R.id.map_bottomsheet_time)
     TextView time;
-    //@BindView(R.id.map_bottomsheet_indoormap)
-    //TextView indoorMap;
+    @BindView(R.id.map_fab_indoormap)
+    FloatingActionButton indoorMap;
     @BindView(R.id.map_fab_location)
     FloatingActionButton fab;
+    @BindView(R.id.map_bottomsheet_header) LinearLayout header;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -163,9 +165,20 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
             }
         });
 
-        mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        mBottomSheetBehavior = CustomBottomSheetBehavior.from(bottomSheet);
         mBottomSheetBehavior.setHideable(true);
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+
+        header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
+                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                } else {
+                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                }
+            }
+        });
 
         return view;
     }
@@ -197,6 +210,7 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
         if (((TextView) v).getCurrentTextColor() == ContextCompat.getColor(v.getContext(), R.color.seafoam_blue)) {
             ((TextView) v).setTextColor(ContextCompat.getColor(v.getContext(), R.color.faded_blue));
             mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+            indoorMap.setVisibility(View.INVISIBLE);
         } else {
             union.setTextColor(ContextCompat.getColor(v.getContext(), R.color.faded_blue));
             dcl.setTextColor(ContextCompat.getColor(v.getContext(), R.color.faded_blue));
@@ -204,6 +218,7 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
             siebel.setTextColor(ContextCompat.getColor(v.getContext(), R.color.faded_blue));
             ((TextView) v).setTextColor(ContextCompat.getColor(v.getContext(), R.color.seafoam_blue));
             mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            indoorMap.setVisibility(View.VISIBLE);
             requestDirection(currentLocation, endLocation);
         }
     }
