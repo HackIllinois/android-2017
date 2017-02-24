@@ -2,6 +2,7 @@ package org.hackillinois.app2017;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -27,7 +28,6 @@ import org.hackillinois.app2017.Announcements.AnnouncementManager;
 import org.hackillinois.app2017.Announcements.BackgroundAnnouncements;
 import org.hackillinois.app2017.Events.EventManager;
 import org.hackillinois.app2017.Home.HomeFragment;
-import org.hackillinois.app2017.Map.IndoorMapViewer;
 import org.hackillinois.app2017.Map.MapFragment;
 import org.hackillinois.app2017.Profile.ProfileFragment;
 import org.hackillinois.app2017.Schedule.ScheduleFragment;
@@ -37,9 +37,10 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String sharedPrefsName = "AppPrefs";
+    public static final String SHARED_PREFS_NAME = "AppPrefs";
     private static final int REQUEST_CODE = 12;
     public static final String BOTTOM_BAR_TAB = "BOTTOM_BAR_TAB";
+    public static final String UPDATE_NOTIFICATION = "UPDATE_NOTIFICATION";
 
     private FragmentManager fragmentManager;
     private MapFragment mMapFragment;
@@ -83,16 +84,37 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Home");
         BackgroundAnnouncements.startBackgroundAnnouncements(getApplicationContext());
 
-        handleIntent(getIntent());
+        getSharedPreferences(SHARED_PREFS_NAME,MODE_PRIVATE).registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+                if(key.equals("new_notification_count")) {
+                    updateNotification();
+                }
+            }
+        });
         AnnouncementManager.sync(getApplicationContext());
         EventManager.sync(getApplicationContext(),null); //refreshEventList events
-        NotificationManagerCompat.from(getApplicationContext()).cancelAll();
+        handleIntent(getIntent());
     }
 
     private void handleIntent(Intent intent) {
         if(intent != null) {
-            int currentTabView = intent.getIntExtra(BOTTOM_BAR_TAB,0);
-            bottomNavigation.setCurrentItem(currentTabView);
+            int currentTabView = intent.getIntExtra(BOTTOM_BAR_TAB,-1);
+            if(currentTabView != -1) {
+                bottomNavigation.setCurrentItem(currentTabView);
+            }
+
+            updateNotification();
+        }
+    }
+
+    private void updateNotification() {
+        NotificationManagerCompat.from(getApplicationContext()).cancelAll();
+        int newNotifications = getNewNotificationCount();
+        if(newNotifications == 0) {
+            bottomNavigation.setNotification("",3);
+        } else {
+            bottomNavigation.setNotification("HEY",3);
         }
     }
 
@@ -190,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
                     case 3:
                         // Notifications
                         swapFragment(mAnnouncementListFragment);
+                        resetNotifications();
                         tabLayout.setVisibility(View.GONE);
                         mapBar.setVisibility(View.GONE);
                         setTitle("NOTIFICATIONS");
@@ -270,5 +293,19 @@ public class MainActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         BackgroundAnnouncements.stopBackgroundAnnouncements(getApplicationContext());
+    }
+
+    private void resetNotifications() {
+        SharedPreferences shared = getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = shared.edit();
+        editor.putInt("new_notification_count",0);
+        editor.apply();
+        updateNotification();
+    }
+
+    public int getNewNotificationCount() {
+        int num = 0;
+        SharedPreferences shared = getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE);
+        return shared.getInt("new_notification_count",0);
     }
 }

@@ -7,15 +7,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
@@ -44,7 +41,7 @@ public class Utils {
     public static final String HACKILLINOIS_END = "2017-02-26T17:00:00.000Z";
 
     public static Bitmap getQRCodeBitmap(Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.sharedPrefsName, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
         return QRCode.from(sharedPreferences.getString("id", "N/A")).withSize(1024, 1024)
                 .withColor(ContextCompat.getColor(context, R.color.seafoam_blue), Color.TRANSPARENT).bitmap();
     }

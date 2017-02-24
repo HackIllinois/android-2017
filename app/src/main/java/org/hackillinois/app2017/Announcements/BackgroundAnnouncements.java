@@ -21,9 +21,11 @@ import org.hackillinois.app2017.Backend.APIHelper;
 import org.hackillinois.app2017.Backend.RequestManager;
 import org.hackillinois.app2017.MainActivity;
 import org.hackillinois.app2017.R;
+import org.hackillinois.app2017.Utils;
 import org.json.JSONObject;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import static android.content.Context.ALARM_SERVICE;
@@ -80,9 +82,16 @@ public class BackgroundAnnouncements extends BroadcastReceiver {
         am.cancel(grabAnnouncementsTask);
     }
 
-    public static void requestAnnouncements(Context context, Response.Listener<JSONObject> response) {
+    public static void requestAnnouncements(final Context context, final Response.Listener<JSONObject> responseListener) {
         final JsonObjectRequest userRequest = new JsonObjectRequest(Request.Method.GET,
-                APIHelper.announcementsEndpoint, null, response, new Response.ErrorListener() {
+                APIHelper.announcementsEndpoint, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                AnnouncementQuery announcementQuery = new Gson().fromJson(response.toString(), AnnouncementQuery.class);
+                handleNewAnnouncements(announcementQuery.getData(),context);
+                responseListener.onResponse(response);
+            }
+        }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 //TODO should handle
@@ -93,24 +102,37 @@ public class BackgroundAnnouncements extends BroadcastReceiver {
     }
 
     private static void handleNewAnnouncements(Collection<Announcement> announcements, Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.sharedPrefsName, Context.MODE_PRIVATE);
-        int lastAnnouncement = sharedPreferences.getInt("newest_notification_id",-1);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
+        int lastAnnouncement = sharedPreferences.getInt("newest_notification_id",0);
         int newestAnnouncement = lastAnnouncement;
         AnnouncementManager.getInstance().setAnnouncements(announcements);
 
         for(Announcement announcement : AnnouncementManager.getInstance().getAnnouncements()) {
             if(announcement.getId() > lastAnnouncement) {
                 newestAnnouncement = Math.max(newestAnnouncement, announcement.getId());
-                buildNotification(announcement,context);
+                Date date = new Date();
+                Date notification = Utils.getDateFromAPI(announcement.getCreated());
+                if(notification == null) {
+                    notification = new Date();
+                }
+                if(TimeUnit.MILLISECONDS.toHours(date.getTime() - notification.getTime()) <6) {
+                    buildNotification(announcement,context);
+                }
             }
         }
 
+        Log.d("SharedPreferences","about to store preferences : newest_notification_id=" + sharedPreferences.getInt("newest_notification_id",0));
+        Log.d("SharedPreferences","about to store preferences : new_notification_count=" + sharedPreferences.getInt("new_notification_count",0));
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("newest_notification_id",newestAnnouncement);
+        editor.putInt("new_notification_count",sharedPreferences.getInt("new_notification_count",0) + newestAnnouncement - lastAnnouncement);
         editor.apply();
+        Log.d("SharedPreferences","about to store preferences : newest_notification_id=" + sharedPreferences.getInt("newest_notification_id",0));
+        Log.d("SharedPreferences","about to store preferences : new_notification_count=" + sharedPreferences.getInt("new_notification_count",0));
     }
 
     private static void buildNotification(Announcement announcement,Context context) {
+        Log.i("BuildNotification", "building");
         NotificationCompat.Builder mBuilder =
                 (NotificationCompat.Builder) new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.logo)
