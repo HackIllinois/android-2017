@@ -52,11 +52,11 @@ public class HomeFragment extends Fragment {
         switch (status) {
             case BEFORE:
                 toCountDownTo = Utils.getDateFromAPI(Utils.HACKILLINOIS_START);
-                title = "Hacking Starts In...";
+                title = "Hacking Starts in...";
                 break;
             case DURING:
                 toCountDownTo = Utils.getDateFromAPI(Utils.HACKILLINOIS_END);
-                title = "Hacking Ends In...";
+                title = "Submit Project in...";
                 break;
             case AFTER:
                 toCountDownTo = Utils.getDateFromAPI(Utils.HACKILLINOIS_END);

@@ -39,18 +39,6 @@ public class HomeEventList extends ArrayList<Object> {
         }
     }
 
-    //TODO refactor into utils
-    public static Date getLocalDateFromString(String time) {
-        try {
-            DateFormat dateFormat = new SimpleDateFormat(
-                    "EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
-            return dateFormat.parse(time);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     @Override
     public void clear() {
         super.clear();
