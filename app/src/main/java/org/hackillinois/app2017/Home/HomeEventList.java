@@ -29,8 +29,8 @@ public class HomeEventList extends ArrayList<Object> {
         List<Event> events = EventManager.getInstance().getEvents();
         clear();
         for(Event e : events) {
-            Date start = getLocalDateFromString(e.getStartTime()); //format as date
-            Date end = getLocalDateFromString(e.getEndTime()); //format as date
+            Date start = e.getStartTime(); //format as date
+            Date end = e.getEndTime(); //format as date
             Date date = new Date();
             if(date.after(start) && date.before(end)) { //if current time is after start and before end, add it
                 Log.d("HomeEventList", "current date " + date.toString() + " is after " + e.getStartTime() + " and after " + e.getEndTime());

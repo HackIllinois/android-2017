@@ -149,6 +149,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 EventViewHolder eventViewHolder = (EventViewHolder) holder;
                 Event homeEvent = (Event) homeEvents.get(position);
                 eventViewHolder.title.setText(homeEvent.getName());
+
                 if(eventViewHolder.locationContainer.getChildCount() == 0) {
                     for(EventLocation e : homeEvent.getLocation()) {
                         TextView textView = Utils.generateLocationTextView(holder.itemView.getContext(),e.getShortName());
@@ -159,7 +160,8 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         eventViewHolder.locationContainer.addView(textView);
                     }
                 }
-                eventViewHolder.time.setText(homeEvent.getStartTime());
+
+                eventViewHolder.time.setText(homeEvent.getStartHour());
                 if(!homeEvent.needsQRCode()) {
                     eventViewHolder.qrButton.setVisibility(View.GONE);
                 }

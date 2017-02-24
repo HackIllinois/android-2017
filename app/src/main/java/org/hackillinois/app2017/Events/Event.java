@@ -2,6 +2,8 @@ package org.hackillinois.app2017.Events;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -49,16 +51,22 @@ public class Event {
         return locations;
     }
 
-    public String getStartTime() {
-        return startTime.toString();
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public String getStartHour() {
+        DateFormat format = new SimpleDateFormat("h:mm a");
+        return format.format(startTime);
+
     }
 
     public int getStartDay() {
         return startTime.getDay();
     }
 
-    public String getEndTime() {
-        return endTime.toString();
+    public Date getEndTime() {
+        return endTime;
     }
 
     public boolean needsQRCode() {
