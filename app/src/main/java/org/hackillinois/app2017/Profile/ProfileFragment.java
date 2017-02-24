@@ -54,7 +54,7 @@ public class ProfileFragment extends Fragment {
             int id = v.getId();
             switch (id){
                 case R.id.image_profile_linkedin:
-                    openLink("http://www.linkedin.com/" + sharedPreferences.getString("linkedin", ""));
+                    openLink("http://www.linkedin.com/in/" + sharedPreferences.getString("linkedin", ""));
                     break;
                 case R.id.image_profile_github:
                     openLink("http://github.com/" + sharedPreferences.getString("github", ""));
