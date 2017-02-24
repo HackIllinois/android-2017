@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="78dp"
+    android:background="@color/dark_blue_grey"
+    android:orientation="horizontal"
+    android:paddingStart="20dp"
+    android:paddingBottom="20dp"
+    android:weightSum="100">
+
+    <ImageView
+        android:id="@+id/map_bottomsheet_header_image"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="13"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_my_location_white_24dp" />
+    
+    <TextView
+        android:id="@+id/map_bottomsheet_header_summary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:paddingLeft="20dp"
+        android:textAlignment="textStart"
+        android:text="Your location"
+        android:layout_gravity="center_vertical|start"
+        android:textColor="@color/pale_grey"
+        android:layout_weight="87"/>
+</LinearLayout>

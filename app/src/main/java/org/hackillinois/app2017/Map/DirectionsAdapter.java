@@ -2,10 +2,12 @@ package org.hackillinois.app2017.Map;
 
 
 import android.graphics.Typeface;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.hackillinois.app2017.R;
@@ -20,31 +22,33 @@ public class DirectionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private ArrayList<Object> directions;
 
     public static class DirectionViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.map_bottomsheet_direction_image)
+        ImageView image;
+        @BindView(R.id.map_bottomsheet_direction_summary)
+        TextView summary;
+        @BindView(R.id.map_bottomsheet_direction_distance)
+        TextView distance;
 
         public DirectionViewHolder(View v) {
             super(v);
             ButterKnife.bind(this, v);
             Typeface brandon_reg = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Brandon_reg.otf");
-            Typeface brandon_med = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Brandon_med.otf");
+
+            summary.setTypeface(brandon_reg);
+            distance.setTypeface(brandon_reg);
         }
     }
 
     public static class HeaderViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.map_bottomsheet_distance) TextView distance;
-        @BindView(R.id.map_bottomsheet_name) TextView name;
-        @BindView(R.id.map_bottomsheet_time) TextView time;
-        @BindView(R.id.map_bottomsheet_indoormap) TextView indoorMap;
+        @BindView(R.id.map_bottomsheet_header_summary) TextView summary;
+        @BindView(R.id.map_bottomsheet_header_image) ImageView image;
 
         public HeaderViewHolder(View v) {
             super(v);
             ButterKnife.bind(this, v);
             Typeface brandon_reg = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Brandon_reg.otf");
-            Typeface brandon_med = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Brandon_med.otf");
 
-            name.setTypeface(brandon_reg);
-            distance.setTypeface(brandon_reg);
-            time.setTypeface(brandon_reg);
-            indoorMap.setTypeface(brandon_med);
+            summary.setTypeface(brandon_reg);
         }
     }
 
@@ -67,28 +71,35 @@ public class DirectionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         View view;
 
         if (viewType == 0) {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.reminder_layout, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.map_header_viewholder, parent, false);
             return new HeaderViewHolder(view);
         }
 
-        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.reminder_layout, parent, false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.map_direction_viewholder, parent, false);
         return new DirectionViewHolder(view);
     }
 
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        // 0 = Header
-        // 1 = Directions
-        if (holder.getItemViewType() == 0) {
-            HeaderViewHolder mHolder = (HeaderViewHolder)holder;
-            Header mHeader = (Header)directions.get(position);
+        if (directions.get(position) instanceof DirectionObject) {
+            DirectionViewHolder h = (DirectionViewHolder) holder;
+            DirectionObject direction = (DirectionObject)directions.get(position);
+            h.distance.setText(direction.getDistance());
+            h.summary.setText(direction.getDescription());
 
-            mHolder.name.setText(mHeader.getName());
-            mHolder.distance.setText(mHeader.getDistance());
-            mHolder.time.setText(mHeader.getTime());
-        } else {
+            if (direction.getDescription().contains("Head")) {
+                h.image.setImageDrawable(ContextCompat.getDrawable(h.image.getContext(), R.drawable.head_towards));
+            } else if (direction.getDescription().contains("left")) {
+                h.image.setImageDrawable(ContextCompat.getDrawable(h.image.getContext(), R.drawable.turn_left));
+            } else if (direction.getDescription().contains("right")) {
+                h.image.setImageDrawable(ContextCompat.getDrawable(h.image.getContext(), R.drawable.turn_right));
+            }
+        }
 
+        if (position == directions.size() - 1) {
+            HeaderViewHolder h = (HeaderViewHolder) holder;
+            h.image.setImageDrawable(ContextCompat.getDrawable(h.image.getContext(), R.drawable.ic_pin_drop));
         }
     }
 

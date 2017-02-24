@@ -81,7 +81,7 @@ public class ProfileFragment extends Fragment {
             int id = v.getId();
             switch (id){
                 case R.id.image_profile_linkedin:
-                    openLink("http://www.linkedin.com/" + sharedPreferences.getString("linkedin", ""));
+                    openLink("http://www.linkedin.com/in/" + sharedPreferences.getString("linkedin", ""));
                     break;
                 case R.id.image_profile_github:
                     openLink("http://github.com/" + sharedPreferences.getString("github", ""));
@@ -132,7 +132,13 @@ public class ProfileFragment extends Fragment {
         yearOfGraduation.setTypeface(brandon_reg);
 
         name.setText(sharedPreferences.getString("firstName", "N/A") + " " + sharedPreferences.getString("lastName", "N/A"));
-        diet.setText(sharedPreferences.getString("diet", "N/A")); // TODO: Check diet
+
+        if (sharedPreferences.getString("diet", "N/A").equalsIgnoreCase("NONE")) {
+            diet.setText("No Dietary Restrictions");
+        } else {
+            diet.setText(sharedPreferences.getString("diet", "N/A"));
+        }
+
         university.setText(sharedPreferences.getString("school", "Error"));
         major.setText(sharedPreferences.getString("major", "Error"));
         yearOfGraduation.setText(sharedPreferences.getString("graduationYear", "Error"));

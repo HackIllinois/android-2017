@@ -20,6 +20,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,9 @@ import com.akexorcist.googledirection.DirectionCallback;
 import com.akexorcist.googledirection.GoogleDirection;
 import com.akexorcist.googledirection.constant.TransportMode;
 import com.akexorcist.googledirection.model.Direction;
+import com.akexorcist.googledirection.model.Leg;
 import com.akexorcist.googledirection.model.Route;
+import com.akexorcist.googledirection.model.Step;
 import com.akexorcist.googledirection.util.DirectionConverter;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -65,7 +68,7 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
     private static final LatLng ECEB = new LatLng(40.114918, -88.228253);
     private static final LatLng SIEBEL = new LatLng(40.114026, -88.224807);
     private static final LatLng UNION = new LatLng(40.109387, -88.227246);
-    private HashSet<LatLng> visited;
+    private static final LatLng DCL = new LatLng(40.1131069, -88.228756);
     private GoogleApiClient mGoogleApiClient;
     private Unbinder unbinder;
 
@@ -73,46 +76,30 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
         @Override
         public void onClick(View v) {
             directions.clear();
-            if(hasPermissions())  {
-                Header header;
-                String location = "";
+            if (hasPermissions()) {
                 LatLng currentLocation = (userLocation != null ? userLocation : findCurrentLocation());
-                if( currentLocation != null) {
+                if (currentLocation != null) {
                     switch (v.getId()) {
                         case R.id.map_DCL:
-                            toggle(v);
-                            setHeader("Digital Computer Laboratory", "0.4 mi", "9 min");
-                            location = "DCL";
+                            endLocation = DCL;
+                            setHeaderName("Digital Computer Laboratory");
                             break;
                         case R.id.map_Siebel:
-                            toggle(v);
-                            setHeader("Thomas Siebel Center for Computer Science", "0.4 mi", "9 min");
-                            location = "Siebel Center";
                             endLocation = SIEBEL;
+                            setHeaderName("Thomas Siebel Center for Computer Science");
                             break;
                         case R.id.map_ECEB:
-                            toggle(v);
-                            setHeader("Electrical Computer Engineering Building", "0.4 mi", "9 min");
-                            location = "Electrical and Computer Engineering Building";
                             endLocation = ECEB;
+                            setHeaderName("Electrical Computer Engineering Building");
                             break;
                         case R.id.map_Union:
-                            toggle(v);
-                            setHeader("Illini Union", "0.4 mi", "9 min");
-                            location = "Illini Union";
                             endLocation = UNION;
+                            setHeaderName("Illini Union");
                             break;
                     }
 
-                    if (!visited.contains(endLocation)) {
-                        // Toast.makeText(getContext(), "Getting directions to " + location, Toast.LENGTH_SHORT).show();
-                        requestDirection(currentLocation, endLocation);
-                        visited.add(endLocation);
-                    } else {
-                        Toast.makeText(getContext(), "You already requested this location", Toast.LENGTH_SHORT).show();
-                    }
+                    toggle(v, currentLocation, endLocation);
                 }
-
             }
 
             mAdapter.notifyDataSetChanged();
@@ -132,8 +119,8 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
     TextView name;
     @BindView(R.id.map_bottomsheet_time)
     TextView time;
-    @BindView(R.id.map_bottomsheet_indoormap)
-    TextView indoorMap;
+    //@BindView(R.id.map_bottomsheet_indoormap)
+    //TextView indoorMap;
     @BindView(R.id.map_fab_location)
     FloatingActionButton fab;
 
@@ -141,7 +128,6 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        visited = new HashSet<>();
         directions = new ArrayList<>();
 
         if (mGoogleApiClient == null) {
@@ -171,7 +157,7 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(hasPermissions()) {
+                if (hasPermissions()) {
                     getMyLocation();
                 }
             }
@@ -185,21 +171,29 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
     }
 
     private void setDirections(Direction direction) {
-        List<Route> list = direction.getRouteList();
 
-        for (Route r : list) {
-            directions.add(new DirectionObject(r.getSummary(), "wat"));
+        Leg leg = direction.getRouteList().get(0).getLegList().get(0);
+        directions.add(null);
+        List<Step> list = leg.getStepList();
+
+        for (Step s : list) {
+            directions.add(new DirectionObject(s.getHtmlInstruction()
+                    .replace("><", "> <")
+                    .replaceAll("&nbsp;", " ")
+                    .replaceAll("\\<.*?>",""), s.getDistance().getText()));
         }
 
+        directions.add(null);
         mAdapter.notifyDataSetChanged();
     }
 
-    private void toggle(View v) {
+    private void toggle(View v, LatLng currentLocation, LatLng endLocation) {
         TextView union = ((MainActivity) getActivity()).mapUnionText;
         TextView dcl = ((MainActivity) getActivity()).mapDCLText;
         TextView eceb = ((MainActivity) getActivity()).mapECEBText;
         TextView siebel = ((MainActivity) getActivity()).mapSiebelText;
 
+        mMap.clear();
         if (((TextView) v).getCurrentTextColor() == ContextCompat.getColor(v.getContext(), R.color.seafoam_blue)) {
             ((TextView) v).setTextColor(ContextCompat.getColor(v.getContext(), R.color.faded_blue));
             mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
@@ -210,6 +204,7 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
             siebel.setTextColor(ContextCompat.getColor(v.getContext(), R.color.faded_blue));
             ((TextView) v).setTextColor(ContextCompat.getColor(v.getContext(), R.color.seafoam_blue));
             mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            requestDirection(currentLocation, endLocation);
         }
     }
 
@@ -255,14 +250,14 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
         Criteria criteria = new Criteria();
 
         Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
-        if(location == null) {
+        if (location == null) {
             return null;
         }
         return new LatLng(location.getLatitude(), location.getLongitude());
     }
 
     private void requestDirection(LatLng current, LatLng destination) {
-        if(hasPermissions()) {
+        if (hasPermissions()) {
             GoogleDirection.withServerKey(getResources().getString(R.string.google_maps_server_key))
                     .from(current)
                     .to(destination)
@@ -272,11 +267,11 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
     }
 
     private void getMyLocation() {
-        if(hasPermissions()) {
+        if (hasPermissions()) {
             LatLng latLng = findCurrentLocation();
-            if( latLng != null) {
+            if (latLng != null) {
                 CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 18);
-                if(mMap != null) {
+                if (mMap != null) {
                     mMap.animateCamera(cameraUpdate);
                 }
             }
@@ -286,24 +281,17 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
     @Override
     public void onDirectionSuccess(Direction direction, String rawBody) {
         if (direction.isOK()) {
+            setHeader(direction.getRouteList().get(0).getLegList().get(0));
             setDirections(direction);
 
-            int directionColor;
+            int directionColor = ContextCompat.getColor(getContext(), R.color.sea);
 
-            if (endLocation == SIEBEL) {
-                directionColor = Color.RED;
-            } else if (endLocation == ECEB) {
-                directionColor = Color.BLACK;
-            } else {
-                directionColor = Color.GREEN;
-            }
-
-            if(mMap != null) {
+            if (mMap != null) {
                 mMap.addMarker(new MarkerOptions().position(userLocation));
                 mMap.addMarker(new MarkerOptions().position(endLocation));
 
                 ArrayList<LatLng> directionPositionList = direction.getRouteList().get(0).getLegList().get(0).getDirectionPoint();
-                mMap.addPolyline(DirectionConverter.createPolyline(this.getContext(), directionPositionList, 5, directionColor));
+                mMap.addPolyline(DirectionConverter.createPolyline(this.getContext(), directionPositionList, 6, directionColor));
             }
 
         } else {
@@ -318,12 +306,12 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        if(!hasPermissions()) {
+        if (!hasPermissions()) {
             return;
         }
         Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if(location == null) {
-            Toast.makeText(getContext(),"Please enable location services", Toast.LENGTH_SHORT).show();
+        if (location == null) {
+            Toast.makeText(getContext(), "Please enable location services", Toast.LENGTH_SHORT).show();
             return;
         }
         userLocation = new LatLng(location.getLatitude(), location.getLongitude());
@@ -334,12 +322,12 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
     public boolean hasPermissions() {
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             String[] PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION};
-            for(String permission:PERMISSIONS) {
-                if(ContextCompat.checkSelfPermission(getContext(), permission) != PackageManager.PERMISSION_GRANTED){
+            for (String permission : PERMISSIONS) {
+                if (ContextCompat.checkSelfPermission(getContext(), permission) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(getActivity(), new String[]{permission}, REQUEST_CODE);
                 }
             }
-            Toast.makeText(getContext(),"Please enable location permissions", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Please enable location permissions", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
@@ -355,12 +343,14 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                 } else {
-                    Toast.makeText(getContext(),"Please grant Location permissions.",Toast.LENGTH_SHORT).show();;
+                    Toast.makeText(getContext(), "Please grant Location permissions.", Toast.LENGTH_SHORT).show();
+                    ;
                 }
                 return;
             }
         }
     }
+
     @Override
     public void onConnectionSuspended(int i) {
 
@@ -383,10 +373,13 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
         super.onStop();
     }
 
-    private void setHeader(String name, String distance, String time) {
+    private void setHeader(Leg leg) {
+        this.distance.setText(leg.getDistance().getText());
+        this.time.setText(leg.getDuration().getText());
+    }
+
+    private void setHeaderName(String name) {
         this.name.setText(name);
-        this.distance.setText(distance);
-        this.time.setText(time);
     }
 
     @Override

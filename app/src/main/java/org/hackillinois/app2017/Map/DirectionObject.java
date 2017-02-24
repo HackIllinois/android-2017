@@ -12,4 +12,12 @@ public class DirectionObject {
         this.description = description;
         this.distance = distance;
     }
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }
