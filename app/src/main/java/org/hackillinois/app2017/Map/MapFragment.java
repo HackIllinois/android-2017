@@ -1,6 +1,7 @@
 package org.hackillinois.app2017.Map;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -60,6 +61,7 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
     private GoogleMap mMap;
     private LatLng userLocation;
     private LatLng endLocation;
+    private static final int REQUEST_CODE = 12;
     private static final LatLng ECEB = new LatLng(40.114918, -88.228253);
     private static final LatLng SIEBEL = new LatLng(40.114026, -88.224807);
     private static final LatLng UNION = new LatLng(40.109387, -88.227246);
@@ -331,19 +333,34 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
 
     public boolean hasPermissions() {
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+            String[] PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION};
+            for(String permission:PERMISSIONS) {
+                if(ContextCompat.checkSelfPermission(getContext(), permission) != PackageManager.PERMISSION_GRANTED){
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{permission}, REQUEST_CODE);
+                }
+            }
             Toast.makeText(getContext(),"Please enable location permissions", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                } else {
+                    Toast.makeText(getContext(),"Please grant Location permissions.",Toast.LENGTH_SHORT).show();;
+                }
+                return;
+            }
+        }
+    }
     @Override
     public void onConnectionSuspended(int i) {
 

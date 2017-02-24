@@ -1,8 +1,16 @@
 package org.hackillinois.app2017.Announcements;
 
+import android.util.Log;
+
 import org.hackillinois.app2017.Utils;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 public class Announcement implements Notification {
@@ -59,6 +67,7 @@ public class Announcement implements Notification {
         StringBuilder stringBuilder = new StringBuilder();
         if( seconds < 60) { //less than 60 seconds
             stringBuilder.append("Less than a minute ago");
+            return stringBuilder.toString();
         } else if ( minutes < 60) {
             isSingular = minutes == 1;
             stringBuilder.append(minutes).append(" minute");

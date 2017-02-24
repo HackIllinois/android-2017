@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Vibrator;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
@@ -107,28 +108,35 @@ public class BackgroundAnnouncements extends BroadcastReceiver {
         int newestAnnouncement = lastAnnouncement;
         AnnouncementManager.getInstance().setAnnouncements(announcements);
 
+        //basically, what this should be doing is checking how many announcements
+        //in the list are greater than lastAnnouncment and that is the number of
+        //new announcments.
         for(Announcement announcement : AnnouncementManager.getInstance().getAnnouncements()) {
             if(announcement.getId() > lastAnnouncement) {
                 newestAnnouncement = Math.max(newestAnnouncement, announcement.getId());
-                Date date = new Date();
+                Date now = new Date();
                 Date notification = Utils.getDateFromAPI(announcement.getCreated());
                 if(notification == null) {
                     notification = new Date();
                 }
-                if(TimeUnit.MILLISECONDS.toHours(date.getTime() - notification.getTime()) <6) {
+                if(TimeUnit.MILLISECONDS.toHours(now.getTime() - notification.getTime()) <6) {
                     buildNotification(announcement,context);
                 }
             }
         }
-
+        int newNotificationCount = sharedPreferences.getInt("new_notification_count",0) + newestAnnouncement - lastAnnouncement;
+        if(newestAnnouncement - lastAnnouncement > 0) {
+            Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+            v.vibrate(500); // Vibrate for 500 milliseconds
+        }
         Log.d("SharedPreferences","about to store preferences : newest_notification_id=" + sharedPreferences.getInt("newest_notification_id",0));
         Log.d("SharedPreferences","about to store preferences : new_notification_count=" + sharedPreferences.getInt("new_notification_count",0));
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("newest_notification_id",newestAnnouncement);
-        editor.putInt("new_notification_count",sharedPreferences.getInt("new_notification_count",0) + newestAnnouncement - lastAnnouncement);
+        editor.putInt("new_notification_count",newNotificationCount);
         editor.apply();
-        Log.d("SharedPreferences","about to store preferences : newest_notification_id=" + sharedPreferences.getInt("newest_notification_id",0));
-        Log.d("SharedPreferences","about to store preferences : new_notification_count=" + sharedPreferences.getInt("new_notification_count",0));
+        Log.d("SharedPreferences","after storing preferences : newest_notification_id=" + sharedPreferences.getInt("newest_notification_id",0));
+        Log.d("SharedPreferences","after storing preferences : new_notification_count=" + sharedPreferences.getInt("new_notification_count",0));
     }
 
     private static void buildNotification(Announcement announcement,Context context) {
