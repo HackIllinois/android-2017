@@ -67,7 +67,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sharedPreferences = getContext().getSharedPreferences(MainActivity.sharedPrefsName, Context.MODE_PRIVATE);
+        sharedPreferences = getContext().getSharedPreferences(MainActivity.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
         setHasOptionsMenu(true);
     }
 

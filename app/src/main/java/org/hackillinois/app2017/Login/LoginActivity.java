@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestManager = RequestManager.getInstance(this);
-        sharedPreferences = this.getSharedPreferences(MainActivity.sharedPrefsName, Context.MODE_PRIVATE);
+        sharedPreferences = this.getSharedPreferences(MainActivity.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
         if (sharedPreferences.getBoolean("hasAuthed", false)) {
