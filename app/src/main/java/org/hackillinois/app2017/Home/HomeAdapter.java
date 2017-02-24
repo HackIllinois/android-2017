@@ -21,6 +21,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.internal.Util;
 
 public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<Object> homeEvents = new ArrayList<>();
@@ -154,10 +155,12 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     for(EventLocation e : homeEvent.getLocation()) {
                         TextView textView = Utils.generateLocationTextView(holder.itemView.getContext(),e.getShortName());
                         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        layoutParams.weight = 1;
                         textView.setLayoutParams(layoutParams);
                         textView.setTextSize(18);
-                        eventViewHolder.locationContainer.addView(textView);
+
+                        eventViewHolder.locationContainer.addView(
+                                Utils.generateLocationLinearLayout(eventViewHolder.itemView.getContext(),
+                                textView));
                     }
                 }
 
