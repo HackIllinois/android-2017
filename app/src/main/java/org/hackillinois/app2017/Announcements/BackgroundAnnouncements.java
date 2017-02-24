@@ -107,6 +107,9 @@ public class BackgroundAnnouncements extends BroadcastReceiver {
         int newestAnnouncement = lastAnnouncement;
         AnnouncementManager.getInstance().setAnnouncements(announcements);
 
+        //basically, what this should be doing is checking how many announcements
+        //in the list are greater than lastAnnouncment and that is the number of
+        //new announcments.
         for(Announcement announcement : AnnouncementManager.getInstance().getAnnouncements()) {
             if(announcement.getId() > lastAnnouncement) {
                 newestAnnouncement = Math.max(newestAnnouncement, announcement.getId());

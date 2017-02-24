@@ -59,6 +59,7 @@ public class Announcement implements Notification {
         StringBuilder stringBuilder = new StringBuilder();
         if( seconds < 60) { //less than 60 seconds
             stringBuilder.append("Less than a minute ago");
+            return stringBuilder.toString();
         } else if ( minutes < 60) {
             isSingular = minutes == 1;
             stringBuilder.append(minutes).append(" minute");
