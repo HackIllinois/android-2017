@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -24,6 +25,7 @@ import org.hackillinois.app2017.Backend.RequestManager;
 import org.hackillinois.app2017.Events.EventManager;
 import org.hackillinois.app2017.MainActivity;
 import org.hackillinois.app2017.R;
+import org.hackillinois.app2017.Utils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -84,7 +86,11 @@ public class LoginActivity extends AppCompatActivity {
                 } else if (passwordField.getText().toString().isEmpty()) {
                     passwordField.setError("Your password goes here!");
                 } else {
-                    //authorize(emailField.getText().toString(), passwordField.getText().toString());
+                    if(Utils.isNetworkAvailable(getApplicationContext())) {
+                        //authorize(emailField.getText().toString(), passwordField.getText().toString());
+                    } else  {
+                        Toast.makeText(getApplicationContext(), "Please connect to the internet.", Toast.LENGTH_SHORT).show();
+                    }
                     loadEvents();
                     // TODO: delete loadEvents() call
                 }
@@ -134,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // TODO: RIP
+                        Toast.makeText(getApplicationContext(), "Sorry, please try again.", Toast.LENGTH_SHORT).show();
                         loginButton.setClickable(true);
                     }
                 }) {
@@ -185,7 +191,6 @@ public class LoginActivity extends AppCompatActivity {
         this.finish();
     }
 
-    //TODO refactor this so that it can be used to load events from event manager and onfinish call moveOn
     private void loadEvents() {
         EventManager.sync(getApplicationContext(), new Response.Listener<JSONObject>() {
             @Override

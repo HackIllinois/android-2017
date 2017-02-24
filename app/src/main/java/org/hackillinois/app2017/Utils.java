@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -26,6 +28,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import static org.hackillinois.app2017.Utils.HackIllinoisStatus.AFTER;
 import static org.hackillinois.app2017.Utils.HackIllinoisStatus.BEFORE;
@@ -37,8 +40,8 @@ import static org.hackillinois.app2017.Utils.HackIllinoisStatus.DURING;
 
 public class Utils {
     public static final String API_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
-    public static final String HACKILLINOIS_START = "2017-02-24T16:00:00.000Z";
-    public static final String HACKILLINOIS_END = "2017-02-26T17:00:00.000Z";
+    public static final String HACKILLINOIS_START = "2017-02-24T22:00:00.000Z";
+    public static final String HACKILLINOIS_END = "2017-02-26T23:00:00.000Z";
 
     public static Bitmap getQRCodeBitmap(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
@@ -136,6 +139,7 @@ public class Utils {
     public static Date getDateFromAPI(String time) {
         try {
             DateFormat dateFormat = new SimpleDateFormat(API_DATE_FORMAT, Locale.US);
+            dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
             return dateFormat.parse(time);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -171,6 +175,13 @@ public class Utils {
         } else {
             return AFTER;
         }
+    }
+
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     public enum HackIllinoisStatus {
