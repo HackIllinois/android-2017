@@ -1,6 +1,7 @@
 package org.hackillinois.app2017.Profile;
 
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,8 +10,10 @@ import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,11 +22,35 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.hackillinois.app2017.Backend.APIHelper;
+import org.hackillinois.app2017.Backend.RequestManager;
 import org.hackillinois.app2017.Login.LoginActivity;
 import org.hackillinois.app2017.MainActivity;
 import org.hackillinois.app2017.R;
 import org.hackillinois.app2017.Utils;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,7 +87,7 @@ public class ProfileFragment extends Fragment {
                     openLink("http://github.com/" + sharedPreferences.getString("github", ""));
                     break;
                 case R.id.image_profile_resume:
-                    openLink("resume");
+                    getResume();
                     break;
             }
         }
@@ -166,5 +193,69 @@ public class ProfileFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    public void getResume() {
+        final Map<String, String> headers = new HashMap<>();
+        headers.put("Authorization", sharedPreferences.getString("auth", ""));
+
+        final Request<byte[]> request = new Request<byte[]>(Request.Method.GET, APIHelper.resumeEndpoint + sharedPreferences.getString("resumeId",null), new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //TODO handle
+                Log.e("GETPDF","Couldn't download pdf");
+            }
+        }) {
+            @Override
+            protected Response<byte[]> parseNetworkResponse(NetworkResponse response) {
+                return Response.success(response.data, HttpHeaderParser.parseCacheHeaders(response));
+            }
+
+            @Override
+            protected void deliverResponse(byte[] response) {
+                Uri path = savePDF("resume",response);
+                readPDF(path);
+            }
+
+            @Override
+            public Map<String, String> getHeaders() {
+                return headers;
+            }
+        };
+
+        Log.d("VolleyResume", request.getUrl());
+
+        RequestManager.getInstance(getContext()).addToRequestQueue(request);
+
+    }
+
+    private Uri savePDF(String filename, byte[] pdfBytes) {
+        try {
+            File pdfFile = new File(getContext().getExternalCacheDir(), filename + ".pdf");
+            FileOutputStream fos = new FileOutputStream(pdfFile);
+            fos.write(pdfBytes);
+            fos.flush();
+            fos.close();
+            Log.i("SAVEPDF","saving to " + pdfFile.getAbsolutePath());
+            return Uri.fromFile(pdfFile);
+        } catch (IOException e) {
+            Log.i("SAVEPDF", "Couldn't write pdf");
+            Toast.makeText(getContext(),"Can't get PDF", Toast.LENGTH_SHORT).show();
+        }
+        return null;
+    }
+
+    private void readPDF(Uri filename){
+        Intent target = new Intent(Intent.ACTION_VIEW);
+        Log.i("READPDF","reading from " + filename.toString());
+        target.setDataAndType(filename,"application/pdf");
+        target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
+        Intent intent = Intent.createChooser(target, "Open File");
+        try {
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            // Instruct the user to install a PDF reader here, or something
+        }
     }
 }
