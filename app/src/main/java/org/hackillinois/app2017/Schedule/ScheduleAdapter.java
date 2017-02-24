@@ -79,7 +79,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
             holder.eventLocationContainer.addView(locationView);
         }
         holder.titleTextView.setText(mDataset.get(position).getName());
-        holder.timeTextView.setText(mDataset.get(position).getStartTime());
+        holder.timeTextView.setText(mDataset.get(position).getStartHour());
         for(EventLocation e : mDataset.get(position).getLocation()) {
             holder.locationLong.add(e.getName());
         }
