@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(saturday, 1);
         tabLayout.addTab(sunday, 2);
 
-        tabLayout.setTabTextColors(ContextCompat.getColorStateList(this, R.drawable.tab_selector));
+        tabLayout.setTabTextColors(ContextCompat.getColorStateList(this, R.color.tab_selector));
         tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.seafoam_blue));
     }
 
