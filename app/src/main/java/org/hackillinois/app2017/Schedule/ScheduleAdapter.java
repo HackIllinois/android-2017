@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.internal.Util;
 
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
 
@@ -72,11 +73,14 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         for(EventLocation e : mDataset.get(position).getLocation()) {
-            TextView locationView = Utils.generateLocationTextView(holder.itemView.getContext(),e.getShortName());
+            TextView locationTextView = Utils.generateLocationTextView(holder.itemView.getContext(),e.getShortName());
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            locationView.setLayoutParams(layoutParams);
-            locationView.setTextSize(18);
-            holder.eventLocationContainer.addView(locationView);
+            locationTextView.setLayoutParams(layoutParams);
+            locationTextView.setTextSize(18);
+
+            holder.eventLocationContainer.addView(
+                    Utils.generateLocationLinearLayout(holder.itemView.getContext(),
+                            locationTextView));
         }
         holder.titleTextView.setText(mDataset.get(position).getName());
         holder.timeTextView.setText(mDataset.get(position).getStartHour());

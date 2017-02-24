@@ -48,13 +48,14 @@ public class EventActivity extends AppCompatActivity {
             locations = new ArrayList<>();
         }
         for(String location : locations) {
-            TextView locationView = Utils.generateLocationTextView(getApplicationContext(),location);
-            locationView.setTypeface(brandon_med);
+            TextView locationTextView = Utils.generateLocationTextView(getApplicationContext(),location);
+            locationTextView.setTypeface(brandon_med);
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             layoutParams.setMarginStart((int) Utils.convertDpToPixel(20,getApplicationContext()));
-            locationView.setLayoutParams(layoutParams);
-            locationView.setTextSize(18);
-            locationContainer.addView(locationView);
+            locationTextView.setLayoutParams(layoutParams);
+            locationTextView.setTextSize(18);
+
+            locationContainer.addView(Utils.generateLocationLinearLayout(getApplicationContext(),locationTextView));
         }
         startTime.setText(bundle.getString("starttime"));
         description.setText(bundle.getString("description","No description"));

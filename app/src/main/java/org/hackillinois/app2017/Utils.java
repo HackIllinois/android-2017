@@ -10,11 +10,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -78,7 +80,37 @@ public class Utils {
     public static TextView generateLocationTextView(final Context context, String name) {
         TextView textView = new TextView(context);
         textView.setText(name);
-        textView.setOnClickListener(new View.OnClickListener() {
+        textView.setGravity(View.TEXT_ALIGNMENT_TEXT_START | View.TEXT_ALIGNMENT_CENTER);
+        textView.setTextColor(ContextCompat.getColor(context, R.color.seafoam_blue));
+        return textView;
+    }
+
+    public static LinearLayout generateLocationLinearLayout(final Context context, TextView name) {
+        LinearLayout linearLayout = new LinearLayout(context);
+        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(0,2,0,2);
+        linearLayout.setLayoutParams(layoutParams);
+
+        ImageView gpsIcon = new ImageView(context);
+        gpsIcon.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.gps));
+        LinearLayout.LayoutParams gpsMargins = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        gpsMargins.gravity = Gravity.CENTER_VERTICAL;
+        gpsMargins.setMargins(0,0,15,0);
+        gpsIcon.setLayoutParams(gpsMargins);
+        linearLayout.addView(gpsIcon);
+
+        linearLayout.addView(name);
+
+        ImageView rightArrow = new ImageView(context);
+        rightArrow.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.event_location_arrow));
+        LinearLayout.LayoutParams rightArrowMargins = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        rightArrowMargins.setMargins(15,5,0,0);
+        rightArrowMargins.gravity = Gravity.CENTER_VERTICAL;
+        rightArrow.setLayoutParams(rightArrowMargins);
+        linearLayout.addView(rightArrow);
+
+        linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, MainActivity.class);
@@ -87,9 +119,7 @@ public class Utils {
                 context.startActivity(intent);
             }
         });
-        textView.setGravity(View.TEXT_ALIGNMENT_TEXT_START | View.TEXT_ALIGNMENT_CENTER);
-        textView.setTextColor(ContextCompat.getColor(context, R.color.seafoam_blue));
-        return textView;
+        return linearLayout;
     }
 
     public static float convertDpToPixel(float dp, Context context) {
