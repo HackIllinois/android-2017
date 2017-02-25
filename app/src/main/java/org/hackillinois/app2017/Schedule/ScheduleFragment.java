@@ -50,7 +50,9 @@ public class ScheduleFragment extends Fragment {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
+                if(viewPager != null) {
+                    viewPager.setCurrentItem(tab.getPosition());
+                }
             }
         });
 

@@ -43,7 +43,6 @@ public class HomeFragment extends Fragment {
         homeRecyclerView.setItemAnimator(new DefaultItemAnimator());
         homeRecyclerView.setAdapter(homeAdapter);
 
-        refreshEventList();
         return view;
     }
 
@@ -71,18 +70,22 @@ public class HomeFragment extends Fragment {
         }
         Calendar hackIllinoisStartTime = GregorianCalendar.getInstance();
         hackIllinoisStartTime.setTime(toCountDownTo);
-        new Handler().postDelayed(new Runnable() {
+        final Handler handler = new Handler();
+        final Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 refreshEventList();
+                handler.postDelayed(this,TimeUnit.SECONDS.toMillis(30));
             }
-        }, TimeUnit.SECONDS.toMillis(30));
+        };
+        handler.postDelayed(runnable, TimeUnit.SECONDS.toMillis(1));
         return new HomeTime(hackIllinoisStartTime,title);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        refreshEventList();
 
     }
 

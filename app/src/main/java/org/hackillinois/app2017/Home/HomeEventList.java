@@ -9,9 +9,11 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by kevin on 2/21/2017.
@@ -32,12 +34,17 @@ public class HomeEventList extends ArrayList<Object> {
         }
         clear();
         for(Event e : events) {
-            Date start = e.getStartTime(); //format as date
-            Date end = e.getEndTime(); //format as date
+            Date start = e.getStartTime();
+            Date end = e.getEndTime();
             Date date = new Date();
+            if(TimeUnit.MILLISECONDS.toHours(date.getTime() - start.getTime()) > 6) {
+                continue;
+            }
             if(date.after(start) && date.before(end)) { //if current time is after start and before end, add it
                 Log.d("HomeEventList", "current date " + date.toString() + " is after " + e.getStartTime() + " and before " + e.getEndTime());
                 add(e);
+                // if you would prefer events to show with most recent at the top
+                // add(1,e);
             }
         }
     }
