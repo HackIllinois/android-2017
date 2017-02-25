@@ -60,12 +60,12 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
+        holder.eventLocationContainer.removeAllViews();
         for(EventLocation e : mDataset.get(position).getLocation()) {
             TextView locationTextView = Utils.generateLocationTextView(holder.itemView.getContext(),e.getShortName());
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             locationTextView.setLayoutParams(layoutParams);
             locationTextView.setTextSize(18);
-
             holder.eventLocationContainer.addView(
                     Utils.generateLocationLinearLayout(holder.itemView.getContext(),
                             locationTextView));
