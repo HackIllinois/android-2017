@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private HomeFragment mHomeFragment;
     private ProfileFragment mProfileFragment;
     private AnnouncementListFragment mAnnouncementListFragment;
-    private static boolean activelyVisible;
+    private static boolean activelyVisible = false;
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.tabs) TabLayout tabLayout;

@@ -49,6 +49,10 @@ public class EventManager {
 
     public void setEvents(ArrayList<Event> events) {
         this.events = events;
+        if(events == null) {
+            Log.d("EventManager","Events should not be null");
+            this.events = new ArrayList<>();
+        }
     }
 
     public static void sync(Context context, final Response.Listener<JSONObject> listener) {
@@ -68,6 +72,7 @@ public class EventManager {
                 getInstance().setEvents((ArrayList) gson.fromJson(jsonEvents.toString(), listType));
                 for(Event e : getInstance().getEvents()) {
                     Log.d("AddedEvent", e.getName());
+                    e.fixTime();
                 }
                 if(listener != null) {
                     listener.onResponse(response);

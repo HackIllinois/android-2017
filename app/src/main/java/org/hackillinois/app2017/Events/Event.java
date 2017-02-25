@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class Event {
 
@@ -73,5 +74,10 @@ public class Event {
 
     public boolean needsQRCode() {
         return tracking != 0;
+    }
+
+    public void fixTime() {
+        startTime.setTime(startTime.getTime() - TimeUnit.HOURS.toMillis(6));
+        endTime.setTime(endTime.getTime() - TimeUnit.HOURS.toMillis(6));
     }
 }
