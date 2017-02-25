@@ -139,7 +139,7 @@ public class Utils {
     public static Date getDateFromAPI(String time) {
         try {
             DateFormat dateFormat = new SimpleDateFormat(API_DATE_FORMAT, Locale.US);
-            dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+                dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
             return dateFormat.parse(time);
         } catch (ParseException e) {
             e.printStackTrace();
