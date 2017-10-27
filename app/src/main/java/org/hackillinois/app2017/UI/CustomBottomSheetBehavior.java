@@ -1,7 +1,6 @@
 package org.hackillinois.app2017.UI;
 
 import android.content.Context;
-import android.os.Parcelable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CoordinatorLayout;
 import android.util.AttributeSet;

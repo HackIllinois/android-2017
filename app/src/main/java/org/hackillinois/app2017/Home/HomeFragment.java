@@ -2,6 +2,7 @@ package org.hackillinois.app2017.Home;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,7 +32,7 @@ public class HomeFragment extends Fragment {
     @BindView(R.id.homeEventList) RecyclerView homeRecyclerView;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
         homeEventList = new HomeEventList(getTimeToCountdown());
         View view = inflater.inflate(R.layout.layout_home, parent, false);
         unbinder = ButterKnife.bind(this, view);
@@ -51,6 +52,7 @@ public class HomeFragment extends Fragment {
         Date toCountDownTo;
         String title;
         switch (status) {
+			default:
             case BEFORE:
                 toCountDownTo = Utils.getDateFromAPI(Utils.HACKILLINOIS_START);
                 title = "Hacking Starts in...";
@@ -63,15 +65,11 @@ public class HomeFragment extends Fragment {
                 toCountDownTo = Utils.getDateFromAPI(Utils.HACKILLINOIS_END);
                 title = "Hacking Ended...";
                 break;
-            default:
-                toCountDownTo = Utils.getDateFromAPI(Utils.HACKILLINOIS_START);
-                title = "Hacking Starts In...";
-                break;
         }
         Calendar hackIllinoisStartTime = GregorianCalendar.getInstance();
         hackIllinoisStartTime.setTime(toCountDownTo);
         final Handler handler = new Handler();
-        final Runnable runnable = new Runnable() {
+        Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 refreshEventList();

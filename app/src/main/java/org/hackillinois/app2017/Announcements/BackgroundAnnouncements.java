@@ -85,7 +85,7 @@ public class BackgroundAnnouncements extends BroadcastReceiver {
 
     public static void requestAnnouncements(final Context context, final Response.Listener<JSONObject> responseListener) {
         final JsonObjectRequest userRequest = new JsonObjectRequest(Request.Method.GET,
-                APIHelper.announcementsEndpoint, null, new Response.Listener<JSONObject>() {
+                APIHelper.ANNOUNCEMENTS_ENDPOINT, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 AnnouncementQuery announcementQuery = new Gson().fromJson(response.toString(), AnnouncementQuery.class);

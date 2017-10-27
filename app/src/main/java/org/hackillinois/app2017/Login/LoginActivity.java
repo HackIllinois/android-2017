@@ -108,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
         loadingView.setVisibility(View.VISIBLE);
 
         final JsonObjectRequest userRequest = new JsonObjectRequest(Request.Method.GET,
-                APIHelper.userEndpoint, null, new Response.Listener<JSONObject>() {
+                APIHelper.USER_ENDPOINT, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -153,7 +153,7 @@ public class LoginActivity extends AppCompatActivity {
         };
 
         JsonObjectRequest loginRequest = new JsonObjectRequest(Request.Method.POST,
-                APIHelper.authEndpoint, new JSONObject(params),
+                APIHelper.AUTH_ENDPOINT, new JSONObject(params),
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

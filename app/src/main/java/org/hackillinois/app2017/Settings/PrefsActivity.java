@@ -21,7 +21,7 @@ public class PrefsActivity extends AppCompatActivity {
                 .replace(R.id.settings_content, new PrefsFragment())
                 .commit();
 
-        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.settings_toolbar);
+        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.settings_toolbar);
         setSupportActionBar(toolbar);
         setTitle("Settings");
 
