@@ -8,8 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Vibrator;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
-import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -141,12 +141,11 @@ public class BackgroundAnnouncements extends BroadcastReceiver {
 
     private static void buildNotification(Announcement announcement,Context context) {
         Log.i("BuildNotification", "building");
-        NotificationCompat.Builder mBuilder =
-                (NotificationCompat.Builder) new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.status_bar_icon)
-                        .setContentTitle(announcement.getTitle())
-                        .setContentText(announcement.getMessage())
-                        .setPriority(announcement.getId());
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, "announcements")
+						.setSmallIcon(R.drawable.status_bar_icon)
+						.setContentTitle(announcement.getTitle())
+						.setContentText(announcement.getMessage())
+						.setPriority(announcement.getId());
         int mNotificationId = announcement.getId();
 
         Intent resultIntent = new Intent(context, MainActivity.class);
