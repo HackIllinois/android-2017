@@ -67,7 +67,8 @@ public class EventManager {
                 JsonParser jsonParser = new JsonParser();
                 JsonArray jsonEvents = jsonParser.parse(response.toString()).getAsJsonObject().getAsJsonArray("data");
                 Log.d("VolleyResponse", "Got response " + response.toString());
-                getInstance().setEvents((ArrayList) gson.fromJson(jsonEvents.toString(), listType));
+                ArrayList<Event> events = gson.fromJson(jsonEvents.toString(), listType);
+                getInstance().setEvents(events);
                 for(Event e : getInstance().getEvents()) {
                     Log.d("AddedEvent", e.getName());
                     e.fixTime();
