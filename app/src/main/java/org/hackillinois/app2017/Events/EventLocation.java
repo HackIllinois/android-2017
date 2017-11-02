@@ -1,7 +1,5 @@
 package org.hackillinois.app2017.Events;
 
-import android.location.Location;
-
 import com.google.gson.annotations.SerializedName;
 
 /**

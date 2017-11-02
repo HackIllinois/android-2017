@@ -10,7 +10,6 @@ import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -24,13 +23,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
-import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.hackillinois.app2017.Backend.APIHelper;
 import org.hackillinois.app2017.Backend.RequestManager;
@@ -38,17 +35,10 @@ import org.hackillinois.app2017.Login.LoginActivity;
 import org.hackillinois.app2017.MainActivity;
 import org.hackillinois.app2017.R;
 import org.hackillinois.app2017.Utils;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -205,7 +195,7 @@ public class ProfileFragment extends Fragment {
         final Map<String, String> headers = new HashMap<>();
         headers.put("Authorization", sharedPreferences.getString("auth", ""));
 
-        final Request<byte[]> request = new Request<byte[]>(Request.Method.GET, APIHelper.resumeEndpoint + sharedPreferences.getString("resumeId",null), new Response.ErrorListener() {
+        final Request<byte[]> request = new Request<byte[]>(Request.Method.GET, APIHelper.RESUME_ENDPOINT + sharedPreferences.getString("resumeId",null), new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 //TODO handle

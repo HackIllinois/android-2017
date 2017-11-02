@@ -20,8 +20,6 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 
 /**
  * @author dl-eric
@@ -57,7 +55,7 @@ public class EventManager {
 
     public static void sync(Context context, final Response.Listener<JSONObject> listener) {
         final JsonObjectRequest eventsRequest = new JsonObjectRequest(Request.Method.GET,
-                APIHelper.eventsEndpoint, null, new Response.Listener<JSONObject>() {
+                APIHelper.EVENTS_ENDPOINT, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Type listType = new TypeToken<ArrayList<Event>>() {
