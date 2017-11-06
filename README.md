@@ -1,4 +1,6 @@
 # android-2017
+[![Build Status](https://travis-ci.org/HackIllinois/android-2017.svg?branch=master)](https://travis-ci.org/HackIllinois/android-2017)
+
 
 The official Android app for HackIllinois 2017.
 
