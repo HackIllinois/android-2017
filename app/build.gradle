@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'groovyx.android'
 
 android {
     signingConfigs {
@@ -21,6 +22,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -38,4 +42,13 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.jakewharton:butterknife:8.6.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+
+    // https://stackoverflow.com/questions/39186326/running-android-unit-tests-with-spock-framework
+    testCompile 'org.codehaus.groovy:groovy:2.4.12:grooid'
+    testCompile ('org.spockframework:spock-core:1.0-groovy-2.4') {
+        exclude group: 'org.codehaus.groovy'
+        // exclude group: 'junit' <-- we don't have junit included earlier so we can comment this
+    }
+    testCompile 'cglib:cglib-nodep:3.1'
+    testCompile 'org.objenesis:objenesis:2.5'
 }
