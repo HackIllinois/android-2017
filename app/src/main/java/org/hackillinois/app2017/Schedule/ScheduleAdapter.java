@@ -60,7 +60,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.eventLocationContainer.removeAllViews();
-        for(EventLocation e : mDataset.get(position).getLocation()) {
+        for(EventLocation e : mDataset.get(holder.getAdapterPosition()).getLocation()) {
             TextView locationTextView = Utils.generateLocationTextView(holder.itemView.getContext(),e.getShortName());
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             locationTextView.setLayoutParams(layoutParams);
@@ -70,10 +70,10 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
                             locationTextView));
         }
 
-        holder.titleTextView.setText(mDataset.get(position).getName());
-        holder.timeTextView.setText(mDataset.get(position).getStartHour());
+        holder.titleTextView.setText(mDataset.get(holder.getAdapterPosition()).getName());
+        holder.timeTextView.setText(mDataset.get(holder.getAdapterPosition()).getStartHour());
 
-        for(EventLocation e : mDataset.get(position).getLocation()) {
+        for(EventLocation e : mDataset.get(holder.getAdapterPosition()).getLocation()) {
             holder.locationLong.add(e.getName());
         }
 
@@ -81,10 +81,10 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), EventActivity.class);
-                i.putExtra("title", mDataset.get(position).getName());
+                i.putExtra("title", mDataset.get(holder.getAdapterPosition()).getName());
                 i.putStringArrayListExtra("location", holder.locationLong);
-                i.putExtra("starttime", mDataset.get(position).getStartHour());
-                i.putExtra("description", mDataset.get(position).getDescription());
+                i.putExtra("starttime", mDataset.get(holder.getAdapterPosition()).getStartHour());
+                i.putExtra("description", mDataset.get(holder.getAdapterPosition()).getDescription());
                 v.getContext().startActivity(i);
             }
         });

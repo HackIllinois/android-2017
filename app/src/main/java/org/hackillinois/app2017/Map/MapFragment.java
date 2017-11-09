@@ -1,6 +1,7 @@
 package org.hackillinois.app2017.Map;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
@@ -197,6 +198,7 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
         return view;
     }
 
+    @SuppressLint("Annotator")
     private void setDirections(Direction direction) {
 
         Leg leg = direction.getRouteList().get(0).getLegList().get(0);
@@ -274,6 +276,8 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
         }
     }
 
+    @SuppressLint("MissingPermission")
+    // Permissions are assumed to be available when this is called
     private LatLng findCurrentLocation() {
         LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
@@ -338,7 +342,11 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
         if (!hasPermissions()) {
             return;
         }
+
+        @SuppressLint("MissingPermission")
         Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        // for some reason the linter doesn't see the checks inside of hasPermissions;
+
         if (location == null) {
             Toast.makeText(getContext(), "Please enable location services", Toast.LENGTH_SHORT).show();
             return;
