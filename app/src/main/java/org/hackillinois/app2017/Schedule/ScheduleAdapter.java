@@ -77,17 +77,14 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
             holder.locationLong.add(e.getName());
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(v.getContext(), EventActivity.class);
-                i.putExtra("title", mDataset.get(holder.getAdapterPosition()).getName());
-                i.putStringArrayListExtra("location", holder.locationLong);
-                i.putExtra("starttime", mDataset.get(holder.getAdapterPosition()).getStartHour());
-                i.putExtra("description", mDataset.get(holder.getAdapterPosition()).getDescription());
-                v.getContext().startActivity(i);
-            }
-        });
+        holder.itemView.setOnClickListener(v -> {
+			Intent i = new Intent(v.getContext(), EventActivity.class);
+			i.putExtra("title", mDataset.get(holder.getAdapterPosition()).getName());
+			i.putStringArrayListExtra("location", holder.locationLong);
+			i.putExtra("starttime", mDataset.get(holder.getAdapterPosition()).getStartHour());
+			i.putExtra("description", mDataset.get(holder.getAdapterPosition()).getDescription());
+			v.getContext().startActivity(i);
+		});
     }
 
     @Override

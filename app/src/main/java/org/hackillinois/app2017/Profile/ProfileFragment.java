@@ -3,7 +3,6 @@ package org.hackillinois.app2017.Profile;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -26,7 +25,6 @@ import android.widget.Toast;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 
 import org.hackillinois.app2017.Backend.APIHelper;
@@ -145,25 +143,14 @@ public class ProfileFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_logout:
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setMessage("Are you sure you want to log out?");
-                builder.setTitle("Log Out");
-                builder.setPositiveButton("Log Out", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        logOut();
-                    }
-                });
+                AlertDialog alertDialog = new AlertDialog.Builder(getContext())
+                        .setMessage("Are you sure you want to log out?")
+                        .setTitle("Log Out")
+                        .setPositiveButton("Log Out", (dialog, which) -> logOut())
+                        .setNegativeButton("Cancel", (dialog, which) -> dialog.cancel())
+                        .create();
 
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                alertDialog.show();
 
                 return true;
             default:
@@ -195,13 +182,11 @@ public class ProfileFragment extends Fragment {
         final Map<String, String> headers = new HashMap<>();
         headers.put("Authorization", sharedPreferences.getString("auth", ""));
 
-        final Request<byte[]> request = new Request<byte[]>(Request.Method.GET, APIHelper.RESUME_ENDPOINT + sharedPreferences.getString("resumeId",null), new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                //TODO handle
-                Log.e("GETPDF","Couldn't download pdf");
-            }
-        }) {
+        final Request<byte[]> request = new Request<byte[]>(
+                Request.Method.GET,
+                APIHelper.RESUME_ENDPOINT + sharedPreferences.getString("resumeId",null),
+                error -> Log.e("GETPDF","Couldn't download pdf") //TODO handle
+        ) {
             @Override
             protected Response<byte[]> parseNetworkResponse(NetworkResponse response) {
                 return Response.success(response.data, HttpHeaderParser.parseCacheHeaders(response));
@@ -209,7 +194,7 @@ public class ProfileFragment extends Fragment {
 
             @Override
             protected void deliverResponse(byte[] response) {
-                Uri path = savePDF("resume",response);
+                Uri path = savePDF("resume", response);
                 readPDF(path);
             }
 

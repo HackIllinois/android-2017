@@ -55,26 +55,23 @@ public class Utils {
         final AlertDialog dialog = builder.create();
         LayoutInflater inflater = LayoutInflater.from(context);
         View dialogLayout = inflater.inflate(R.layout.dialog_qr_popup, null);
-        ImageView qrCode = (ImageView) dialogLayout.findViewById(R.id.qr_popup);
+        ImageView qrCode = dialogLayout.findViewById(R.id.qr_popup);
         qrCode.setImageBitmap(getQRCodeBitmap(context));
         dialog.setView(dialogLayout);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         dialog.show();
 
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface d) {
-                ImageView image = (ImageView) dialog.findViewById(R.id.qr_popup);
-                Bitmap icon = getQRCodeBitmap(context);
-                float imageWidthInPX = (float)image.getWidth();
+        dialog.setOnShowListener(d -> {
+			ImageView image = dialog.findViewById(R.id.qr_popup);
+			Bitmap icon = getQRCodeBitmap(context);
+			float imageWidthInPX = (float)image.getWidth();
 
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(Math.round(imageWidthInPX),
-                        Math.round(imageWidthInPX * (float)icon.getHeight() / (float)icon.getWidth()));
-                image.setLayoutParams(layoutParams);
-                image.setImageBitmap(icon);
-            }
-        });
+			LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(Math.round(imageWidthInPX),
+					Math.round(imageWidthInPX * (float)icon.getHeight() / (float)icon.getWidth()));
+			image.setLayoutParams(layoutParams);
+			image.setImageBitmap(icon);
+		});
     }
 
     public static TextView generateLocationTextView(final Context context, String name) {
@@ -110,15 +107,12 @@ public class Utils {
         rightArrow.setLayoutParams(rightArrowMargins);
         linearLayout.addView(rightArrow);
 
-        linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, MainActivity.class);
-                intent.putExtra(MainActivity.BOTTOM_BAR_TAB, 2);
-                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                context.startActivity(intent);
-            }
-        });
+        linearLayout.setOnClickListener(v -> {
+			Intent intent = new Intent(context, MainActivity.class);
+			intent.putExtra(MainActivity.BOTTOM_BAR_TAB, 2);
+			intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+			context.startActivity(intent);
+		});
         return linearLayout;
     }
 

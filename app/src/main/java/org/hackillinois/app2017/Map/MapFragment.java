@@ -170,29 +170,23 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
         ((MainActivity) getActivity()).setMapSiebelOnClickListener(clickListener);
         ((MainActivity) getActivity()).setMapUnionOnClickListener(clickListener);
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (hasPermissions()) {
-                    getMyLocation();
-                }
-            }
-        });
+        fab.setOnClickListener(v -> {
+			if (hasPermissions()) {
+				getMyLocation();
+			}
+		});
 
         mBottomSheetBehavior = CustomBottomSheetBehavior.from(bottomSheet);
         mBottomSheetBehavior.setHideable(true);
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 
-        header.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
-                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                } else {
-                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                }
-            }
-        });
+        header.setOnClickListener(v -> {
+			if (mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
+				mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+			} else {
+				mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+			}
+		});
 
 
         return view;
@@ -247,32 +241,29 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
             mSupportMapFragment = SupportMapFragment.newInstance();
             fragmentTransaction.replace(R.id.mapFrame, mSupportMapFragment).commit();
         } else {
-            mSupportMapFragment.getMapAsync(new OnMapReadyCallback() {
-                @Override
-                public void onMapReady(GoogleMap googleMap) {
-                    if (googleMap != null) {
-                        mMap = googleMap;
+            mSupportMapFragment.getMapAsync(googleMap -> {
+				if (googleMap != null) {
+					mMap = googleMap;
 
-                        if (userLocation != null) {
-                            CameraPosition cameraPosition = new CameraPosition.Builder()
-                                    .target(userLocation)      // Sets the center of the map to location user
-                                    .zoom(19)                   // Sets the zoom
-                                    .build();                   // Creates a CameraPosition from the builder
-                            //userLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 18.0f));
-                        }
+					if (userLocation != null) {
+						CameraPosition cameraPosition = new CameraPosition.Builder()
+								.target(userLocation)      // Sets the center of the map to location user
+								.zoom(19)                   // Sets the zoom
+								.build();                   // Creates a CameraPosition from the builder
+						//userLocation = new LatLng(location.getLatitude(), location.getLongitude());
+						mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 18.0f));
+					}
 
-                        mMap.getUiSettings().setAllGesturesEnabled(true);
-                        mMap.setIndoorEnabled(false);
-                        mMap.getUiSettings().setMyLocationButtonEnabled(false);
+					mMap.getUiSettings().setAllGesturesEnabled(true);
+					mMap.setIndoorEnabled(false);
+					mMap.getUiSettings().setMyLocationButtonEnabled(false);
 
-                        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
-                                == PackageManager.PERMISSION_GRANTED) {
-                            googleMap.setMyLocationEnabled(true);
-                        }
-                    }
-                }
-            });
+					if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+							== PackageManager.PERMISSION_GRANTED) {
+						googleMap.setMyLocationEnabled(true);
+					}
+				}
+			});
         }
     }
 

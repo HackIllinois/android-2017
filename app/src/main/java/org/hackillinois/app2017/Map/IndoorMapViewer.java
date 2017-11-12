@@ -40,27 +40,19 @@ public class IndoorMapViewer extends AppCompatActivity {
         setContentView(R.layout.layout_indoor_map_viewer);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
         toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.back));
 
         final Buildings building = getBuildingEnum();
         setTitle(building.toString());
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                List<ImageView> listOfImages = getBuildingImages(building);
-                for (ImageView i : listOfImages) {
-                    indoorMap.addView(i);
-                }
-            }
-        }).run();
+        new Thread(() -> {
+			List<ImageView> listOfImages = getBuildingImages(building);
+			for (ImageView i : listOfImages) {
+				indoorMap.addView(i);
+			}
+		}).run();
     }
 
     public static void showMap(Context context, Buildings building) {

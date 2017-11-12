@@ -67,11 +67,6 @@ public class EventActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         setTitle("Event Details");
         toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.back));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
     }
 }
