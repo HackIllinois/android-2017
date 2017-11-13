@@ -33,7 +33,7 @@ public class ScheduleFragment extends Fragment {
         int currentDayTab = getCurrentDayTab();
         viewPager.setCurrentItem(currentDayTab);
 
-        TabLayout tabLayout = (TabLayout)getActivity().findViewById(R.id.tabs);
+        TabLayout tabLayout = getActivity().findViewById(R.id.tabs);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -62,8 +62,6 @@ public class ScheduleFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
-
     }
 
     @Override

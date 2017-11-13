@@ -4,7 +4,6 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,6 +13,7 @@ import org.hackillinois.app2017.UI.CenteredToolbar;
 import org.hackillinois.app2017.Utils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,18 +44,18 @@ public class EventActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
 
-        ArrayList<String> locations = bundle.getStringArrayList("location");
+        List<String> locations = bundle.getStringArrayList("location");
         if( locations == null) {
             locations = new ArrayList<>();
         }
-        for(String location : locations) {
-            TextView locationTextView = Utils.generateLocationTextView(getApplicationContext(),location);
+        for (String location : locations) {
+            TextView locationTextView = Utils.generateLocationTextView(getApplicationContext(), location);
             locationTextView.setTypeface(brandon_med);
             locationTextView.setTextSize(18);
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            layoutParams.setMarginStart((int) Utils.convertDpToPixel(20,getApplicationContext()));
+            layoutParams.setMarginStart((int) Utils.convertDpToPixel(20, getApplicationContext()));
             locationTextView.setLayoutParams(layoutParams);
-            locationTextView.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.faded_blue));
+            locationTextView.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.faded_blue));
             locationContainer.addView(locationTextView);
         }
         title.setText(bundle.getString("title"));

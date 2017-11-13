@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.annimon.stream.Stream;
+
 import org.hackillinois.app2017.Events.Event;
 import org.hackillinois.app2017.Events.EventActivity;
 import org.hackillinois.app2017.Events.EventLocation;
@@ -150,9 +152,10 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 if(!homeEvent.needsQRCode()) {
                     eventViewHolder.qrButton.setVisibility(View.GONE);
                 }
-                for(EventLocation e : homeEvent.getLocation()) {
-                    eventViewHolder.locationLong.add(e.getName());
-                }
+
+                Stream.of(homeEvent.getLocation())
+                        .map(EventLocation::getName)
+                        .forEach(eventViewHolder.locationLong::add);
 
                 holder.itemView.setOnClickListener(v -> {
 					Intent i = new Intent(v.getContext(), EventActivity.class);

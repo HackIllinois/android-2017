@@ -6,6 +6,7 @@ import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.annimon.stream.Stream;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -19,6 +20,7 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author dl-eric
@@ -26,7 +28,7 @@ import java.util.ArrayList;
 
 public class EventManager {
     private static EventManager instance;
-    private ArrayList<Event> events;
+    private List<Event> events;
 
     private EventManager() {
         events = new ArrayList<>();
@@ -40,11 +42,11 @@ public class EventManager {
         return instance;
     }
 
-    public ArrayList<Event> getEvents() {
+    public List<Event> getEvents() {
         return events;
     }
 
-    public void setEvents(ArrayList<Event> events) {
+    public void setEvents(List<Event> events) {
         this.events = events;
         if(events == null) {
             Log.d("EventManager","Events should not be null");
@@ -66,12 +68,14 @@ public class EventManager {
 					JsonParser jsonParser = new JsonParser();
 					JsonArray jsonEvents = jsonParser.parse(response.toString()).getAsJsonObject().getAsJsonArray("data");
 					Log.d("VolleyResponse", "Got response " + response.toString());
-					ArrayList<Event> events = gson.fromJson(jsonEvents.toString(), listType);
+					List<Event> events = gson.fromJson(jsonEvents.toString(), listType);
+
+					Stream.of(events)
+							.peek(event -> Log.d("AddedEvent", event.getName()))
+							.forEach(Event::fixTime);
+
 					getInstance().setEvents(events);
-					for (Event e : getInstance().getEvents()) {
-						Log.d("AddedEvent", e.getName());
-						e.fixTime();
-					}
+
 					if (listener != null) {
 						listener.onResponse(response);
 					}

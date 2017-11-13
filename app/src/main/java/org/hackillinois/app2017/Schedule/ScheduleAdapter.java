@@ -16,13 +16,14 @@ import org.hackillinois.app2017.R;
 import org.hackillinois.app2017.Utils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
 
-    private ArrayList<Event> mDataset;
+    private List<Event> mDataset;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -46,7 +47,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
         }
     }
 
-    public ScheduleAdapter(ArrayList<Event> data){
+    public ScheduleAdapter(List<Event> data){
         mDataset = data;
     }
 

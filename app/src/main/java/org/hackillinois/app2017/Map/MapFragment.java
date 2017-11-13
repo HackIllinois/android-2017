@@ -33,6 +33,7 @@ import com.akexorcist.googledirection.model.Direction;
 import com.akexorcist.googledirection.model.Leg;
 import com.akexorcist.googledirection.model.Step;
 import com.akexorcist.googledirection.util.DirectionConverter;
+import com.annimon.stream.Stream;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -197,17 +198,20 @@ public class MapFragment extends Fragment implements DirectionCallback, GoogleAp
 
         Leg leg = direction.getRouteList().get(0).getLegList().get(0);
         directions.add(null);
-        List<Step> list = leg.getStepList();
 
-        for (Step s : list) {
-            directions.add(new DirectionObject(s.getHtmlInstruction()
-                    .replace("><", "> <")
-                    .replaceAll("&nbsp;", " ")
-                    .replaceAll("\\<.*?>",""), s.getDistance().getText()));
-        }
+        Stream.of(leg.getStepList())
+                .map(s -> new DirectionObject(parseHTMLStepText(s), s.getDistance().getText()))
+                .forEach(directions::add);
 
         directions.add(null);
         mAdapter.notifyDataSetChanged();
+    }
+
+    private static String parseHTMLStepText(Step s) {
+        return s.getHtmlInstruction()
+				.replace("><", "> <")
+				.replaceAll("&nbsp;", " ")
+				.replaceAll("\\<.*?>","");
     }
 
     private void toggle(View v, LatLng currentLocation, LatLng endLocation) {

@@ -2,12 +2,13 @@ package org.hackillinois.app2017.Home;
 
 import android.util.Log;
 
+import com.annimon.stream.Stream;
+
 import org.hackillinois.app2017.Events.Event;
 import org.hackillinois.app2017.Events.EventManager;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -23,26 +24,26 @@ public class HomeEventList extends ArrayList<Object> {
     }
 
     public void syncEvents() {
-        List<Event> events = EventManager.getInstance().getEvents();
-        if(events == null) {
-            return;
-        }
         clear();
-        for(Event e : events) {
-            Date start = e.getStartTime();
-            Date end = e.getEndTime();
-            Date date = new Date();
-            if(TimeUnit.MILLISECONDS.toHours(date.getTime() - start.getTime()) > 6) {
-                continue;
-            }
-            if(date.after(start) && date.before(end)) { //if current time is after start and before end, add it
-                Log.d("HomeEventList", "current date " + date.toString() + " is after " + e.getStartTime() + " and before " + e.getEndTime());
-                add(e);
-                // if you would prefer events to show with most recent at the top
-                // add(1,e);
-            }
-        }
-    }
+		Date now = new Date();
+		Stream.of(EventManager.getInstance().getEvents())
+				.filter(event -> shouldDisplayEvent(now, event))
+				.forEach(this::add);
+	}
+
+	private static boolean shouldDisplayEvent(Date date, Event event) {
+		Date start = event.getStartTime();
+		Date end = event.getEndTime();
+		if (date.before(start) || date.after(end)) { // if it hasn't started or already ended
+			return false;
+		} else if (TimeUnit.MILLISECONDS.toHours(date.getTime() - start.getTime()) > 6) {
+			// if it started > 6 hours ago
+			return false;
+		}
+
+		Log.d("HomeEventList", "current date " + date.toString() + " is after " + event.getStartTime() + " and before " + event.getEndTime());
+		return true;
+	}
 
     @Override
     public void clear() {
