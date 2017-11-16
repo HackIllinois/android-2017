@@ -11,13 +11,14 @@ import android.widget.TextView;
 import org.hackillinois.app2017.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class AnnouncementAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private ArrayList<Announcement> notifications;
+    private List<Announcement> notifications;
 
     public static class AnnouncementViewHolder extends RecyclerView.ViewHolder {
 
@@ -57,7 +58,7 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    public AnnouncementAdapter(ArrayList<Announcement> notifications) {
+    public AnnouncementAdapter(List<Announcement> notifications) {
         this.notifications = notifications;
     }
 

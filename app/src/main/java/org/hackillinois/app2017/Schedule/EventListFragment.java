@@ -12,11 +12,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.annimon.stream.Collectors;
+import com.annimon.stream.Stream;
+import com.annimon.stream.function.Predicate;
+
 import org.hackillinois.app2017.Events.Event;
 import org.hackillinois.app2017.Events.EventManager;
 import org.hackillinois.app2017.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,7 +29,10 @@ import butterknife.Unbinder;
 
 public class EventListFragment extends Fragment {
 
-    private ArrayList<Event> events;
+    private List<Event> events;
+    private static final Predicate<Event> IS_FRIDAY = event -> event.getStartDay() == 5;
+    private static final Predicate<Event> IS_SATURDAY = event -> event.getStartDay() == 6;
+    private static final Predicate<Event> IS_SUNDAY = event -> event.getStartDay() == 0;
 
     @BindView(R.id.my_recycler_view)
     RecyclerView mRecyclerView;
@@ -43,22 +51,8 @@ public class EventListFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
 
         Bundle extras = getArguments();
-        int whichDay = extras.getInt("day");
-        Log.i("Which Day", whichDay + "");
-        switch (whichDay) {
-            case 0:
-                events = getFridayEvents();
-                break;
-            case 1:
-                events = getSaturdayEvents();
-                break;
-            case 2:
-                events = getSundayEvents();
-                break;
-            default:
-                events = getFridayEvents();
-                break;
-        }
+        Predicate<Event> eventFilter = getFilterFromArguments(extras);
+        events = getEvents(eventFilter);
 
         mRecyclerView.setHasFixedSize(true);
 
@@ -75,40 +69,25 @@ public class EventListFragment extends Fragment {
         return view;
     }
 
-    private ArrayList<Event> getFridayEvents() {
-        ArrayList<Event> toReturn = new ArrayList<>();
-
-        for (Event e : events) {
-            if (e.getStartDay() == 5) {
-                toReturn.add(e);
-            }
+    private Predicate<Event> getFilterFromArguments(Bundle extras) {
+        int whichDay = extras.getInt("day");
+        Log.i("Which Day", whichDay + "");
+        switch (whichDay) {
+            case 0:
+                return IS_FRIDAY;
+            case 1:
+                return IS_SATURDAY;
+            case 2:
+                return IS_SUNDAY;
+            default:
+                return IS_FRIDAY;
         }
-
-        return toReturn;
     }
 
-    private ArrayList<Event> getSaturdayEvents() {
-        ArrayList<Event> toReturn = new ArrayList<>();
-
-        for (Event e : events) {
-            if (e.getStartDay() == 6) {
-                toReturn.add(e);
-            }
-        }
-
-        return toReturn;
-    }
-
-    private ArrayList<Event> getSundayEvents() {
-        ArrayList<Event> toReturn = new ArrayList<>();
-
-        for (Event e : events) {
-            if (e.getStartDay() == 0) {
-                toReturn.add(e);
-            }
-        }
-
-        return toReturn;
+    private List<Event> getEvents(Predicate<Event> eventFilter) {
+        return Stream.of(events)
+                .filter(eventFilter)
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -85,12 +85,9 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Home");
         BackgroundAnnouncements.startBackgroundAnnouncements(getApplicationContext());
 
-        getSharedPreferences(SHARED_PREFS_NAME,MODE_PRIVATE).registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
-            @Override
-            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-                if(key.equals("new_notification_count")) {
-                    updateNotification();
-                }
+        getSharedPreferences(SHARED_PREFS_NAME, MODE_PRIVATE).registerOnSharedPreferenceChangeListener((sharedPreferences, key) -> {
+            if (key.equals("new_notification_count")) {
+                updateNotification();
             }
         });
         AnnouncementManager.sync(getApplicationContext());

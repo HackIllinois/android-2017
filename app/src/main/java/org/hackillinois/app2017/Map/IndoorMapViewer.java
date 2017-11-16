@@ -14,6 +14,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.annimon.stream.Collectors;
+import com.annimon.stream.Stream;
+
 import org.hackillinois.app2017.R;
 
 import java.util.ArrayList;
@@ -48,10 +51,7 @@ public class IndoorMapViewer extends AppCompatActivity {
         setTitle(building.toString());
 
         new Thread(() -> {
-			List<ImageView> listOfImages = getBuildingImages(building);
-			for (ImageView i : listOfImages) {
-				indoorMap.addView(i);
-			}
+			getBuildingImages(building).forEach(indoorMap::addView);
 		}).run();
     }
 
@@ -61,7 +61,7 @@ public class IndoorMapViewer extends AppCompatActivity {
         context.startActivity(intent);
     }
 
-    private List<ImageView> getBuildingImages(Buildings building) {
+    private Stream<ImageView> getBuildingImages(Buildings building) {
         List<Integer> ids = new ArrayList<>();
         switch (building) {
             case SIEBEL:
@@ -80,15 +80,15 @@ public class IndoorMapViewer extends AppCompatActivity {
         return getDrawables(ids);
     }
 
-    public List<ImageView> getDrawables(List<Integer> ids) {
-        List<ImageView> images = new ArrayList<>();
-        for (int i : ids) {
-            ImageView temp = new ImageView(this);
-            temp.setImageBitmap(decodeSampledBitmapFromResource(getResources(), i, 512, 512));
-            initializeImageView(temp);
-            images.add(temp);
-        }
-        return images;
+    public Stream<ImageView> getDrawables(List<Integer> ids) {
+        return Stream.of(ids)
+                .map(i -> {
+                    ImageView temp = new ImageView(this);
+					Bitmap bitmap = decodeSampledBitmapFromResource(getResources(), i, 512, 512);
+					temp.setImageBitmap(bitmap);
+					initializeImageView(temp);
+					return temp;
+                });
     }
 
     public void initializeImageView(ImageView image) {
