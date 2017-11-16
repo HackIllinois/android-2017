@@ -238,17 +238,14 @@ public class MainActivity extends AppCompatActivity {
         if(fragment.equals(mMapFragment)) {
             fragmentManager.beginTransaction().replace(R.id.content_holder, new LoadingFragment()).commit();
 
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    FragmentTransaction transaction = fragmentManager.beginTransaction();
-                    transaction.setCustomAnimations(android.R.anim.fade_in,
-                            0,
-                            0,
-                            android.R.anim.fade_out);
-                    transaction.replace(R.id.content_holder, fragment).commit();
-                }
-            }, 300);
+            new Handler().postDelayed(() -> {
+				FragmentTransaction transaction = fragmentManager.beginTransaction();
+				transaction.setCustomAnimations(android.R.anim.fade_in,
+						0,
+						0,
+						android.R.anim.fade_out);
+				transaction.replace(R.id.content_holder, fragment).commit();
+			}, 300);
         } else {
             fragmentManager.beginTransaction().replace(R.id.content_holder, fragment).commit();
         }

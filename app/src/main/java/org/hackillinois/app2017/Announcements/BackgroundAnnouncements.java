@@ -14,7 +14,6 @@ import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 
@@ -50,14 +49,11 @@ public class BackgroundAnnouncements extends BroadcastReceiver {
     }
 
     private static Response.Listener<JSONObject> getDefaultListener(final Context context) {
-        return new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d("BackgroundAnnouncements", "Checking for new announcements");
-                AnnouncementQuery announcementQuery = new Gson().fromJson(response.toString(), AnnouncementQuery.class);
-                handleNewAnnouncements(announcementQuery.getData(),context);
-            }
-        };
+        return response -> {
+			Log.d("BackgroundAnnouncements", "Checking for new announcements");
+			AnnouncementQuery announcementQuery = new Gson().fromJson(response.toString(), AnnouncementQuery.class);
+			handleNewAnnouncements(announcementQuery.getData(),context);
+		};
     }
 
     private static void setPendingIntent(Context context) {
@@ -84,20 +80,17 @@ public class BackgroundAnnouncements extends BroadcastReceiver {
     }
 
     public static void requestAnnouncements(final Context context, final Response.Listener<JSONObject> responseListener) {
-        final JsonObjectRequest userRequest = new JsonObjectRequest(Request.Method.GET,
-                APIHelper.ANNOUNCEMENTS_ENDPOINT, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                AnnouncementQuery announcementQuery = new Gson().fromJson(response.toString(), AnnouncementQuery.class);
-                handleNewAnnouncements(announcementQuery.getData(),context);
-                responseListener.onResponse(response);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                //TODO should handle
-            }
-        });
+        final JsonObjectRequest userRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                APIHelper.ANNOUNCEMENTS_ENDPOINT,
+                null,
+                response -> {
+                    AnnouncementQuery announcementQuery = new Gson().fromJson(response.toString(), AnnouncementQuery.class);
+                    handleNewAnnouncements(announcementQuery.getData(), context);
+                    responseListener.onResponse(response);
+                },
+                error -> {/*TODO should handle*/}
+        );
         RequestManager requestManager = RequestManager.getInstance(context);
         requestManager.addToRequestQueue(userRequest);
     }

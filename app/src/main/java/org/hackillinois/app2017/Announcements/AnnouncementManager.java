@@ -57,15 +57,12 @@ public class AnnouncementManager {
     }
 
     private void sortAnnouncements() {
-        Collections.sort(announcements, new Comparator<Announcement>() {
-            @Override
-            public int compare(Announcement lhs, Announcement rhs) {
-                Date rhsDate = Utils.getDateFromAPI(rhs.getCreated());
-                if(rhsDate == null) {
-                    return -1;
-                }
-                return rhsDate.compareTo(Utils.getDateFromAPI(lhs.getCreated()));
-            }
-        });
+        Collections.sort(announcements, (lhs, rhs) -> {
+			Date rhsDate = Utils.getDateFromAPI(rhs.getCreated());
+			if(rhsDate == null) {
+				return -1;
+			}
+			return rhsDate.compareTo(Utils.getDateFromAPI(lhs.getCreated()));
+		});
     }
 }

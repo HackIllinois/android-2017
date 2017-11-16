@@ -78,12 +78,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 ((TextView)locationContainer.getChildAt(i)).setTypeface(brandon_med);
             }
 
-            qrButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Utils.showFullScreenQRCode(v.getContext());
-                }
-            });
+            qrButton.setOnClickListener(v1 -> Utils.showFullScreenQRCode(v1.getContext()));
         }
     }
 
@@ -159,18 +154,15 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     eventViewHolder.locationLong.add(e.getName());
                 }
 
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent i = new Intent(v.getContext(), EventActivity.class);
-                        i.putExtra("title", homeEvent.getName());
-                        i.putStringArrayListExtra("location", ((EventViewHolder) holder).locationLong);
-                        i.putExtra("description", homeEvent.getDescription());
-                        i.putExtra("starttime", homeEvent.getStartHour());
+                holder.itemView.setOnClickListener(v -> {
+					Intent i = new Intent(v.getContext(), EventActivity.class);
+					i.putExtra("title", homeEvent.getName());
+					i.putStringArrayListExtra("location", ((EventViewHolder) holder).locationLong);
+					i.putExtra("description", homeEvent.getDescription());
+					i.putExtra("starttime", homeEvent.getStartHour());
 
-                        v.getContext().startActivity(i);
-                    }
-                });
+					v.getContext().startActivity(i);
+				});
                 break;
         }
     }

@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -54,37 +53,32 @@ public class EventManager {
     }
 
     public static void sync(Context context, final Response.Listener<JSONObject> listener) {
-        final JsonObjectRequest eventsRequest = new JsonObjectRequest(Request.Method.GET,
-                APIHelper.EVENTS_ENDPOINT, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Type listType = new TypeToken<ArrayList<Event>>() {
-                }.getType();
-                GsonBuilder gsonBuilder = new GsonBuilder();
-                gsonBuilder.setDateFormat(Utils.API_DATE_FORMAT);
-                Gson gson = gsonBuilder.create();
+		final JsonObjectRequest eventsRequest = new JsonObjectRequest(
+				Request.Method.GET,
+				APIHelper.EVENTS_ENDPOINT,
+				null,
+				response -> {
+					Type listType = new TypeToken<ArrayList<Event>>() {}.getType();
+					GsonBuilder gsonBuilder = new GsonBuilder();
+					gsonBuilder.setDateFormat(Utils.API_DATE_FORMAT);
+					Gson gson = gsonBuilder.create();
 
-                JsonParser jsonParser = new JsonParser();
-                JsonArray jsonEvents = jsonParser.parse(response.toString()).getAsJsonObject().getAsJsonArray("data");
-                Log.d("VolleyResponse", "Got response " + response.toString());
-                ArrayList<Event> events = gson.fromJson(jsonEvents.toString(), listType);
-                getInstance().setEvents(events);
-                for(Event e : getInstance().getEvents()) {
-                    Log.d("AddedEvent", e.getName());
-                    e.fixTime();
-                }
-                if(listener != null) {
-                    listener.onResponse(response);
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // TODO: Handle error
-                Log.d("VolleyError", "Couldn't add new events");
-            }
-        });
+					JsonParser jsonParser = new JsonParser();
+					JsonArray jsonEvents = jsonParser.parse(response.toString()).getAsJsonObject().getAsJsonArray("data");
+					Log.d("VolleyResponse", "Got response " + response.toString());
+					ArrayList<Event> events = gson.fromJson(jsonEvents.toString(), listType);
+					getInstance().setEvents(events);
+					for (Event e : getInstance().getEvents()) {
+						Log.d("AddedEvent", e.getName());
+						e.fixTime();
+					}
+					if (listener != null) {
+						listener.onResponse(response);
+					}
+				},
+				error -> Log.d("VolleyError", "Couldn't add new events") // TODO: Handle error
+		);
 
-        RequestManager.getInstance(context).addToRequestQueue(eventsRequest);
+		RequestManager.getInstance(context).addToRequestQueue(eventsRequest);
     }
 }

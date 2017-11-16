@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.hackillinois.app2017.Backend.APIHelper;
@@ -78,24 +77,21 @@ public class LoginActivity extends AppCompatActivity {
         incorrectText.setTypeface(brandon_med);
         loadingText.setTypeface(brandon_med);
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (emailField.getText().toString().isEmpty()) {
-                    emailField.setError("Forget something?");
-                } else if (passwordField.getText().toString().isEmpty()) {
-                    passwordField.setError("Your password goes here!");
-                } else {
-                    if(Utils.isNetworkAvailable(getApplicationContext())) {
-                        authorize(emailField.getText().toString(), passwordField.getText().toString());
-                    } else  {
-                        Toast.makeText(getApplicationContext(), "Please connect to the internet.", Toast.LENGTH_SHORT).show();
-                    }
-                    //loadEvents();
-                    // TODO: delete loadEvents() call
-                }
-            }
-        });
+        loginButton.setOnClickListener(v -> {
+			if (emailField.getText().toString().isEmpty()) {
+				emailField.setError("Forget something?");
+			} else if (passwordField.getText().toString().isEmpty()) {
+				passwordField.setError("Your password goes here!");
+			} else {
+				if(Utils.isNetworkAvailable(getApplicationContext())) {
+					authorize(emailField.getText().toString(), passwordField.getText().toString());
+				} else  {
+					Toast.makeText(getApplicationContext(), "Please connect to the internet.", Toast.LENGTH_SHORT).show();
+				}
+				//loadEvents();
+				// TODO: delete loadEvents() call
+			}
+		});
     }
 
     private void authorize(final String email, final String password) {
@@ -107,43 +103,41 @@ public class LoginActivity extends AppCompatActivity {
         incorrectText.setVisibility(View.INVISIBLE);
         loadingView.setVisibility(View.VISIBLE);
 
-        final JsonObjectRequest userRequest = new JsonObjectRequest(Request.Method.GET,
-                APIHelper.USER_ENDPOINT, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    JSONObject data = response.getJSONObject("data");
+        final JsonObjectRequest userRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                APIHelper.USER_ENDPOINT,
+                null,
+                response -> {
+                    try {
+                        JSONObject data = response.getJSONObject("data");
 
-                    Log.i("UserData", data.getString("firstName"));
-                    editor.putString("firstName", data.getString("firstName"));
-                    editor.putString("lastName", data.getString("lastName"));
-                    editor.putString("diet", data.getString("diet"));
-                    editor.putString("age", data.getString("age"));
-                    editor.putString("graduationYear", data.getString("graduationYear"));
-                    editor.putString("school", data.getString("school"));
-                    editor.putString("major", data.getString("major"));
-                    editor.putString("github", data.getString("github"));
-                    editor.putString("linkedin", data.getString("linkedin"));
-                    editor.putString("resumeId", data.getJSONObject("resume").getString("id"));
-                    editor.putString("id", data.getString("id"));
-                    editor.putBoolean("hasAuthed", true);
+                        Log.i("UserData", data.getString("firstName"));
+                        editor.putString("firstName", data.getString("firstName"));
+                        editor.putString("lastName", data.getString("lastName"));
+                        editor.putString("diet", data.getString("diet"));
+                        editor.putString("age", data.getString("age"));
+                        editor.putString("graduationYear", data.getString("graduationYear"));
+                        editor.putString("school", data.getString("school"));
+                        editor.putString("major", data.getString("major"));
+                        editor.putString("github", data.getString("github"));
+                        editor.putString("linkedin", data.getString("linkedin"));
+                        editor.putString("resumeId", data.getJSONObject("resume").getString("id"));
+                        editor.putString("id", data.getString("id"));
+                        editor.putBoolean("hasAuthed", true);
 
-                    editor.apply();
+                        editor.apply();
 
-                    loadEvents();
+                        loadEvents();
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "Sorry, please try again.", Toast.LENGTH_SHORT).show();
-                        loginButton.setClickable(true);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                }) {
+                },
+                error -> {
+                    Toast.makeText(getApplicationContext(), "Sorry, please try again.", Toast.LENGTH_SHORT).show();
+                    loginButton.setClickable(true);
+                }
+        ) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> headers = new HashMap<>();
@@ -152,34 +146,29 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
 
-        JsonObjectRequest loginRequest = new JsonObjectRequest(Request.Method.POST,
-                APIHelper.AUTH_ENDPOINT, new JSONObject(params),
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            String authKey = response.getJSONObject("data").getString("auth");
+        JsonObjectRequest loginRequest = new JsonObjectRequest(
+                Request.Method.POST,
+                APIHelper.AUTH_ENDPOINT,
+                new JSONObject(params),
+                response -> {
+					try {
+						String authKey = response.getJSONObject("data").getString("auth");
 
-                            editor.putString("auth", authKey);
-                            editor.apply();
+						editor.putString("auth", authKey);
+						editor.apply();
 
-                            requestManager.addToRequestQueue(userRequest);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            // TODO Do something here.
-                            loginButton.setClickable(true);
-                        }
-                    }
-                },
-
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        loadingView.setVisibility(View.GONE);
-                        incorrectText.setVisibility(View.VISIBLE);
-                        loginButton.setClickable(true);
-                    }
-                }
+						requestManager.addToRequestQueue(userRequest);
+					} catch (JSONException e) {
+						e.printStackTrace();
+						// TODO Do something here.
+						loginButton.setClickable(true);
+					}
+				},
+                error -> {
+					loadingView.setVisibility(View.GONE);
+					incorrectText.setVisibility(View.VISIBLE);
+					loginButton.setClickable(true);
+				}
         );
 
         requestManager.addToRequestQueue(loginRequest);
@@ -192,11 +181,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loadEvents() {
-        EventManager.sync(getApplicationContext(), new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                moveOn();
-            }
-        });
+        EventManager.sync(getApplicationContext(), response -> moveOn());
     }
 }
