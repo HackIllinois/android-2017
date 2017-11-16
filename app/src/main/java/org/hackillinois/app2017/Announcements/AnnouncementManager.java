@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by kevin on 2/23/2017.
@@ -16,7 +17,7 @@ import java.util.Date;
 
 public class AnnouncementManager {
     private static AnnouncementManager instance;
-    private ArrayList<Announcement> announcements;
+    private List<Announcement> announcements;
     private static CallBack callback;
 
     public static void sync(Context applicationContext) {
@@ -43,7 +44,7 @@ public class AnnouncementManager {
         callback = toCall;
     }
 
-    public ArrayList<Announcement> getAnnouncements() {
+    public List<Announcement> getAnnouncements() {
         return announcements;
     }
 
