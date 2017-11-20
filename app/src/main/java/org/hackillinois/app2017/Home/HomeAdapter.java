@@ -1,7 +1,6 @@
 package org.hackillinois.app2017.Home;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -54,12 +53,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public EventViewHolder(View v) {
             super(v);
             ButterKnife.bind(this, v);
-
-            Typeface brandon_med = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Brandon_med.otf");
-
-            for(int i = 0; i < locationContainer.getChildCount(); i++) {
-                ((TextView)locationContainer.getChildAt(i)).setTypeface(brandon_med);
-            }
 
             qrButton.setOnClickListener(v1 -> Utils.showFullScreenQRCode(v1.getContext()));
         }
@@ -119,13 +112,8 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 if(eventViewHolder.locationContainer.getChildCount() == 0) {
                     for(EventLocation e : homeEvent.getLocation()) {
                         TextView textView = Utils.generateLocationTextView(holder.itemView.getContext(),e.getShortName());
-                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        textView.setLayoutParams(layoutParams);
-                        textView.setTextSize(18);
-
-                        eventViewHolder.locationContainer.addView(
-                                Utils.generateLocationLinearLayout(eventViewHolder.itemView.getContext(),
-                                textView));
+                        LinearLayout linearLayout = Utils.generateLocationLinearLayout(eventViewHolder.itemView.getContext(), textView);
+                        eventViewHolder.locationContainer.addView(linearLayout);
                     }
                 }
 

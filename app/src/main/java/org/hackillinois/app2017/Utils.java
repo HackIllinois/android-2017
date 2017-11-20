@@ -2,12 +2,12 @@ package org.hackillinois.app2017;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v4.content.ContextCompat;
@@ -77,10 +77,18 @@ public class Utils {
     }
 
     public static TextView generateLocationTextView(final Context context, String name) {
+        Typeface brandon_med = Typeface.createFromAsset(context.getAssets(), "fonts/Brandon_med.otf");
+
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
         TextView textView = new TextView(context);
+        textView.setTextSize(18);
         textView.setText(name);
         textView.setGravity(View.TEXT_ALIGNMENT_TEXT_START | View.TEXT_ALIGNMENT_CENTER);
         textView.setTextColor(ContextCompat.getColor(context, R.color.seafoam_blue));
+
+        textView.setLayoutParams(layoutParams);
+        textView.setTypeface(brandon_med);
         return textView;
     }
 

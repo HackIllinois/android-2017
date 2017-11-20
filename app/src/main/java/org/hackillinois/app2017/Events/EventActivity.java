@@ -1,6 +1,5 @@
 package org.hackillinois.app2017.Events;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.ViewGroup;
@@ -35,8 +34,6 @@ public class EventActivity extends HackillinoisActivity {
 
         setUpActionBar(toolbar);
 
-        Typeface brandon_med = Typeface.createFromAsset(getAssets(), "fonts/Brandon_med.otf");
-
         Bundle bundle = getIntent().getExtras();
 
         List<String> locations = bundle.getStringArrayList("location");
@@ -45,12 +42,11 @@ public class EventActivity extends HackillinoisActivity {
         }
         for (String location : locations) {
             TextView locationTextView = Utils.generateLocationTextView(getApplicationContext(), location);
-            locationTextView.setTypeface(brandon_med);
-            locationTextView.setTextSize(18);
+            locationTextView.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.faded_blue));
+
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             layoutParams.setMarginStart((int) Utils.convertDpToPixel(20, getApplicationContext()));
             locationTextView.setLayoutParams(layoutParams);
-            locationTextView.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.faded_blue));
             locationContainer.addView(locationTextView);
         }
         title.setText(bundle.getString("title"));
