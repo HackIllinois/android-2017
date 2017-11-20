@@ -38,8 +38,6 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
             ButterKnife.bind(this, v);
             Typeface brandon_med = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Brandon_med.otf");
 
-            titleTextView.setTypeface(brandon_med);
-            timeTextView.setTypeface(brandon_med);
             // remindMeTextView.setTypeface(brandon_med);
             for(int i = 0; i < eventLocationContainer.getChildCount(); i++) {
                 ((TextView)eventLocationContainer.getChildAt(i)).setTypeface(brandon_med);

@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/dark_blue_grey"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="MissingPrefix" >
 
     <TextView
         android:id="@+id/home_time_text"
+        fontPath="fonts/Gotham-Medium.otf"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
@@ -26,6 +29,7 @@
 
         <TextView
             android:id="@+id/home_time_hour"
+            fontPath="fonts/Gotham-Medium.otf"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -36,6 +40,7 @@
 
         <TextView
             android:id="@+id/home_time_minute"
+            fontPath="fonts/Gotham-Medium.otf"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -46,6 +51,7 @@
 
         <TextView
             android:id="@+id/home_time_second"
+            fontPath="fonts/Gotham-Medium.otf"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -65,6 +71,7 @@
 
         <TextView
             android:id="@+id/home_text_hour"
+            fontPath="fonts/Gotham-Book.otf"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -75,6 +82,7 @@
 
         <TextView
             android:id="@+id/home_text_minute"
+            fontPath="fonts/Gotham-Book.otf"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -85,6 +93,7 @@
 
         <TextView
             android:id="@+id/home_text_second"
+            fontPath="fonts/Gotham-Book.otf"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -96,6 +105,7 @@
 
     <TextView
         android:id="@+id/home_target_time"
+        fontPath="fonts/Brandon_med.otf"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -114,6 +124,7 @@
 
     <TextView
         android:id="@+id/home_happening_now"
+        fontPath="fonts/Gotham-Medium.otf"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"

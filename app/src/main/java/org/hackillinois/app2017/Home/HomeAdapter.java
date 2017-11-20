@@ -41,20 +41,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public TimeViewHolder(View v) {
             super(v);
             ButterKnife.bind(this, v);
-
-            Typeface gotham_book = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Gotham-Book.otf");
-            Typeface gotham_med = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Gotham-Medium.otf");
-            Typeface brandon_med = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Brandon_med.otf");
-
-            title.setTypeface(gotham_med);
-            hour.setTypeface(gotham_med);
-            minute.setTypeface(gotham_med);
-            second.setTypeface(gotham_med);
-            hour_text.setTypeface(gotham_book);
-            minute_text.setTypeface(gotham_book);
-            second_text.setTypeface(gotham_book);
-            target_time.setTypeface(brandon_med);
-            happening_now.setTypeface(gotham_med);
         }
     }
 
@@ -70,11 +56,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ButterKnife.bind(this, v);
 
             Typeface brandon_med = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Brandon_med.otf");
-            Typeface brandon_reg = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Brandon_reg.otf");
-
-            title.setTypeface(brandon_reg);
-            time.setTypeface(brandon_reg);
-            qrButton.setTypeface(brandon_med);
 
             for(int i = 0; i < locationContainer.getChildCount(); i++) {
                 ((TextView)locationContainer.getChildAt(i)).setTypeface(brandon_med);

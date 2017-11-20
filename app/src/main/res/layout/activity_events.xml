@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="org.hackillinois.app2017.Events.EventActivity"
-    android:background="@color/dark_blue_grey">
+    android:background="@color/dark_blue_grey"
+    tools:ignore="MissingPrefix" >
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -26,6 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/event_title"
+        fontPath="fonts/Brandon_med.otf"
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
         android:textColor="@color/pale_grey"
@@ -37,6 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/event_start_time"
+        fontPath="fonts/Brandon_med.otf"
         android:textSize="18sp"
         android:textColor="@color/cloudy_blue"
         android:layout_marginTop="4dp"
@@ -56,6 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/event_description"
+        fontPath="fonts/Brandon_reg.otf"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:textColor="@color/pale_grey"

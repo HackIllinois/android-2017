@@ -3,11 +3,11 @@ package org.hackillinois.app2017.Events;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.hackillinois.app2017.HackillinoisActivity;
 import org.hackillinois.app2017.R;
 import org.hackillinois.app2017.UI.CenteredToolbar;
 import org.hackillinois.app2017.Utils;
@@ -18,7 +18,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class EventActivity extends AppCompatActivity {
+public class EventActivity extends HackillinoisActivity {
 
     @BindView(R.id.toolbar_events) CenteredToolbar toolbar;
     @BindView(R.id.event_title) TextView title;
@@ -36,11 +36,6 @@ public class EventActivity extends AppCompatActivity {
         setUpActionBar(toolbar);
 
         Typeface brandon_med = Typeface.createFromAsset(getAssets(), "fonts/Brandon_med.otf");
-        Typeface brandon_reg = Typeface.createFromAsset(getAssets(), "fonts/Brandon_reg.otf");
-
-        title.setTypeface(brandon_med);
-        startTime.setTypeface(brandon_med);
-        description.setTypeface(brandon_reg);
 
         Bundle bundle = getIntent().getExtras();
 

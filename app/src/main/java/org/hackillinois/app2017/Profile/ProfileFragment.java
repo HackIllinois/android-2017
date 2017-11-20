@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -97,27 +96,9 @@ public class ProfileFragment extends Fragment {
         github.setOnClickListener(listener);
         resume.setOnClickListener(listener);
 
-        Typeface brandon_med = Typeface.createFromAsset(view.getContext().getAssets(), "fonts/Brandon_med.otf");
-        Typeface brandon_reg = Typeface.createFromAsset(view.getContext().getAssets(), "fonts/Brandon_reg.otf");
-        Typeface gotham_med = Typeface.createFromAsset(view.getContext().getAssets(), "fonts/Gotham-Medium.otf");
-
         Bitmap qrCodeBitmapOfID = Utils.getQRCodeBitmap(getContext());
         qrcode.setImageBitmap(qrCodeBitmapOfID);
-        qrcode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Utils.showFullScreenQRCode(v.getContext());
-            }
-        });
-
-        name.setTypeface(gotham_med);
-        diet.setTypeface(brandon_med);
-        universityTitle.setTypeface(gotham_med);
-        university.setTypeface(brandon_reg);
-        majorTitle.setTypeface(gotham_med);
-        major.setTypeface(brandon_reg);
-        yearOfGraduationTitle.setTypeface(gotham_med);
-        yearOfGraduation.setTypeface(brandon_reg);
+        qrcode.setOnClickListener(v -> Utils.showFullScreenQRCode(v.getContext()));
 
         name.setText(sharedPreferences.getString("firstName", "N/A") + " " + sharedPreferences.getString("lastName", "N/A"));
 

@@ -45,8 +45,10 @@ public class Utils {
 
     public static Bitmap getQRCodeBitmap(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
-        return QRCode.from(sharedPreferences.getString("id", "N/A")).withSize(1024, 1024)
-                .withColor(ContextCompat.getColor(context, R.color.seafoam_blue), Color.TRANSPARENT).bitmap();
+        return QRCode.from(sharedPreferences.getString("id", "N/A"))
+                .withSize(1024, 1024)
+                .withColor(ContextCompat.getColor(context, R.color.seafoam_blue), Color.TRANSPARENT)
+                .bitmap();
     }
 
     //TODO save the image instead of creating it every time
@@ -82,6 +84,7 @@ public class Utils {
         return textView;
     }
 
+    // TODO: Make this a layout file with fontPath parameter set
     public static LinearLayout generateLocationLinearLayout(final Context context, TextView name) {
         LinearLayout linearLayout = new LinearLayout(context);
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
