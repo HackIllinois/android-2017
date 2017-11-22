@@ -3,9 +3,7 @@ package org.hackillinois.app2017.Login;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,12 +14,12 @@ import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.hackillinois.app2017.Backend.APIHelper;
 import org.hackillinois.app2017.Backend.RequestManager;
 import org.hackillinois.app2017.Events.EventManager;
+import org.hackillinois.app2017.HackillinoisActivity;
 import org.hackillinois.app2017.MainActivity;
 import org.hackillinois.app2017.R;
 import org.hackillinois.app2017.Utils;
@@ -34,23 +32,17 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends HackillinoisActivity {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private RequestManager requestManager;
 
-    @BindView(R.id.emailField)
-    EditText emailField;
-    @BindView(R.id.passwordField)
-    EditText passwordField;
-    @BindView(R.id.loginButton)
-    Button loginButton;
-    @BindView(R.id.incorrectEmailOrPassword)
-    TextView incorrectText;
-    @BindView(R.id.loading_view)
-    LinearLayout loadingView;
-    @BindView(R.id.loading_text)
-    TextView loadingText;
+    @BindView(R.id.emailField) EditText emailField;
+    @BindView(R.id.passwordField) EditText passwordField;
+    @BindView(R.id.loginButton) Button loginButton;
+    @BindView(R.id.incorrectEmailOrPassword) TextView incorrectText;
+    @BindView(R.id.loading_view) LinearLayout loadingView;
+    @BindView(R.id.loading_text) TextView loadingText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,14 +60,6 @@ public class LoginActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-
-        Typeface brandon_med = Typeface.createFromAsset(getAssets(), "fonts/Brandon_med.otf");
-        Typeface gotham_med = Typeface.createFromAsset(getAssets(), "fonts/Gotham-Medium.otf");
-        emailField.setTypeface(gotham_med);
-        passwordField.setTypeface(gotham_med);
-        loginButton.setTypeface(gotham_med);
-        incorrectText.setTypeface(brandon_med);
-        loadingText.setTypeface(brandon_med);
 
         loginButton.setOnClickListener(v -> {
 			if (emailField.getText().toString().isEmpty()) {

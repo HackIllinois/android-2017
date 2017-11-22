@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
@@ -14,7 +13,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -35,7 +33,7 @@ import org.hackillinois.app2017.Schedule.ScheduleFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends HackillinoisActivity {
 
     public static final String SHARED_PREFS_NAME = "AppPrefs";
     private static final int REQUEST_CODE = 12;
@@ -74,8 +72,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         setUpBottomNavigationBar();
         setUpTabBar();
-
-        changeFonts();
 
         fragmentManager = getSupportFragmentManager();
 
@@ -280,15 +276,6 @@ public class MainActivity extends AppCompatActivity {
 
     public static boolean isActivelyVisible() {
         return activelyVisible;
-    }
-
-    private void changeFonts() {
-        Typeface brandon_med = Typeface.createFromAsset(getAssets(), "fonts/Brandon_med.otf");
-
-        mapDCLText.setTypeface(brandon_med);
-        mapSiebelText.setTypeface(brandon_med);
-        mapECEBText.setTypeface(brandon_med);
-        mapUnionText.setTypeface(brandon_med);
     }
 
     @Override

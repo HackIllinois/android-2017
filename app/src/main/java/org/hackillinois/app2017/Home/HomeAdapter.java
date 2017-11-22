@@ -1,7 +1,6 @@
 package org.hackillinois.app2017.Home;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -41,20 +40,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public TimeViewHolder(View v) {
             super(v);
             ButterKnife.bind(this, v);
-
-            Typeface gotham_book = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Gotham-Book.otf");
-            Typeface gotham_med = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Gotham-Medium.otf");
-            Typeface brandon_med = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Brandon_med.otf");
-
-            title.setTypeface(gotham_med);
-            hour.setTypeface(gotham_med);
-            minute.setTypeface(gotham_med);
-            second.setTypeface(gotham_med);
-            hour_text.setTypeface(gotham_book);
-            minute_text.setTypeface(gotham_book);
-            second_text.setTypeface(gotham_book);
-            target_time.setTypeface(brandon_med);
-            happening_now.setTypeface(gotham_med);
         }
     }
 
@@ -68,17 +53,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public EventViewHolder(View v) {
             super(v);
             ButterKnife.bind(this, v);
-
-            Typeface brandon_med = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Brandon_med.otf");
-            Typeface brandon_reg = Typeface.createFromAsset(v.getContext().getAssets(), "fonts/Brandon_reg.otf");
-
-            title.setTypeface(brandon_reg);
-            time.setTypeface(brandon_reg);
-            qrButton.setTypeface(brandon_med);
-
-            for(int i = 0; i < locationContainer.getChildCount(); i++) {
-                ((TextView)locationContainer.getChildAt(i)).setTypeface(brandon_med);
-            }
 
             qrButton.setOnClickListener(v1 -> Utils.showFullScreenQRCode(v1.getContext()));
         }
@@ -138,13 +112,8 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 if(eventViewHolder.locationContainer.getChildCount() == 0) {
                     for(EventLocation e : homeEvent.getLocation()) {
                         TextView textView = Utils.generateLocationTextView(holder.itemView.getContext(),e.getShortName());
-                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        textView.setLayoutParams(layoutParams);
-                        textView.setTextSize(18);
-
-                        eventViewHolder.locationContainer.addView(
-                                Utils.generateLocationLinearLayout(eventViewHolder.itemView.getContext(),
-                                textView));
+                        LinearLayout linearLayout = Utils.generateLocationLinearLayout(eventViewHolder.itemView.getContext(), textView);
+                        eventViewHolder.locationContainer.addView(linearLayout);
                     }
                 }
 

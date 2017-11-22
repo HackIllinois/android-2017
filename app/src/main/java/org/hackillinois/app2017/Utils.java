@@ -2,12 +2,12 @@ package org.hackillinois.app2017;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v4.content.ContextCompat;
@@ -45,8 +45,10 @@ public class Utils {
 
     public static Bitmap getQRCodeBitmap(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(MainActivity.SHARED_PREFS_NAME, Context.MODE_PRIVATE);
-        return QRCode.from(sharedPreferences.getString("id", "N/A")).withSize(1024, 1024)
-                .withColor(ContextCompat.getColor(context, R.color.seafoam_blue), Color.TRANSPARENT).bitmap();
+        return QRCode.from(sharedPreferences.getString("id", "N/A"))
+                .withSize(1024, 1024)
+                .withColor(ContextCompat.getColor(context, R.color.seafoam_blue), Color.TRANSPARENT)
+                .bitmap();
     }
 
     //TODO save the image instead of creating it every time
@@ -75,13 +77,22 @@ public class Utils {
     }
 
     public static TextView generateLocationTextView(final Context context, String name) {
+        Typeface brandon_med = Typeface.createFromAsset(context.getAssets(), "fonts/Brandon_med.otf");
+
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
         TextView textView = new TextView(context);
+        textView.setTextSize(18);
         textView.setText(name);
         textView.setGravity(View.TEXT_ALIGNMENT_TEXT_START | View.TEXT_ALIGNMENT_CENTER);
         textView.setTextColor(ContextCompat.getColor(context, R.color.seafoam_blue));
+
+        textView.setLayoutParams(layoutParams);
+        textView.setTypeface(brandon_med);
         return textView;
     }
 
+    // TODO: Make this a layout file with fontPath parameter set
     public static LinearLayout generateLocationLinearLayout(final Context context, TextView name) {
         LinearLayout linearLayout = new LinearLayout(context);
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);

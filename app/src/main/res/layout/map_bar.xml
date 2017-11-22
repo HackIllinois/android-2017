@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
     android:layout_height="48dp"
     android:background="@color/dark_slate_blue"
     android:orientation="horizontal"
-    android:weightSum="4">
+    android:weightSum="4"
+    tools:ignore="MissingPrefix">
 
     <TextView
         android:id="@+id/map_DCL"
+        fontPath="fonts/Brandon_med.otf"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -19,6 +22,7 @@
 
     <TextView
         android:id="@+id/map_Siebel"
+        fontPath="fonts/Brandon_med.otf"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -30,6 +34,7 @@
 
     <TextView
         android:id="@+id/map_ECEB"
+        fontPath="fonts/Brandon_med.otf"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -41,6 +46,7 @@
 
     <TextView
         android:id="@+id/map_Union"
+        fontPath="fonts/Brandon_med.otf"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
