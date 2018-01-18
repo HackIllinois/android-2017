@@ -23,13 +23,13 @@ public class SplashActivity extends HackillinoisActivity {
             new Handler().postDelayed(() -> {
                 Intent i = new Intent(getApplicationContext(), LoginChooserActivity.class);
                 startActivity(i);
-                finish();
             }, duration);
 
         } catch (IOException e) {
             Intent i = new Intent(this, LoginChooserActivity.class);
             startActivity(i);
-            finish();
         }
+
+        finish();
     }
 }
