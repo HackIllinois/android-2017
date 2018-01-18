@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:paddingStart="41dp"
-    android:paddingEnd="41dp"
+    android:layout_marginStart="41dp"
+    android:layout_marginEnd="41dp"
     android:orientation="vertical"
     android:layout_marginTop="?actionBarSize"
     tools:context="org.hackillinois.android.LoginChooserActivity">
