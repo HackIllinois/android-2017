@@ -41,7 +41,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginChooserActivity"></activity>
+        <activity android:name=".LoginChooserActivity" />
+        <activity android:name=".LoginActivity"></activity>
     </application>
 
 </manifest>
