@@ -10,7 +10,6 @@ android {
         versionCode 4
         versionName "1.02"
         vectorDrawables.useSupportLibrary = true
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
