@@ -4,7 +4,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.FrameLayout;
 
-public abstract class DrawerActivity extends AppCompatActivity {
+public abstract class DrawerActivity extends HackillinoisActivity {
     protected DrawerLayout drawerLayout;
     protected FrameLayout frameLayout;
 
