@@ -6,4 +6,12 @@
     <string name="menu_schedule">Schedule</string>
     <string name="menu_notifications">Notifications</string>
     <string name="menu_map">Map</string>
+
+    <!-- Login Chooser -->
+    <string name="i_am_a">I AM A</string>
+    <string name="next">NEXT</string>
+    <string name="hacker">Hacker</string>
+    <string name="mentor">Mentor</string>
+    <string name="staff_member">Staff Member</string>
+    <string name="volunteer">Volunteer</string>
 </resources>
