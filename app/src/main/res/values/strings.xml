@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">android</string>
+
+    <!-- Navigation Menu -->
+    <string name="menu_home">Home</string>
+    <string name="menu_schedule">Schedule</string>
+    <string name="menu_notifications">Notifications</string>
+    <string name="menu_map">Map</string>
 </resources>
