@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainBackground"
+    tools:context="org.hackillinois.android.HomeActivity">
+
+    <TextView
+        android:id="@+id/hackingEnds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/darkPurple"
+        android:textSize="24sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/hacking_ends_in"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hackingEnds"
+        android:text="make clock"/>
+
+    <TextView
+        android:id="@+id/happeningNow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="21dp"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/darkPurple"
+        android:textSize="24sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:text="@string/happening_now"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/active_events"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/happeningNow"
+        tools:listitem="@layout/event_list_item"/>
+
+</android.support.constraint.ConstraintLayout>
