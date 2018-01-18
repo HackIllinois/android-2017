@@ -14,4 +14,6 @@
     <string name="mentor">Mentor</string>
     <string name="staff_member">Staff Member</string>
     <string name="volunteer">Volunteer</string>
+    <string name="happening_now">Happening now</string>
+    <string name="hacking_ends_in">Hacking ends in:</string>
 </resources>

@@ -33,6 +33,7 @@ dependencies {
 
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.10'
 
+    implementation 'com.mikepenz:fastadapter:3.1.2@aar'
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
     implementation 'com.annimon:stream:1.1.9'
     implementation 'com.github.kenglxn.QRGen:android:2.2.0'

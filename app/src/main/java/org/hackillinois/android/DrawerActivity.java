@@ -12,7 +12,8 @@ public abstract class DrawerActivity extends HackillinoisActivity {
         drawerLayout = (DrawerLayout) getLayoutInflater().inflate(R.layout.activity_drawer, null);
         frameLayout = drawerLayout.findViewById(R.id.content_frame);
 
-        getLayoutInflater().inflate(layoutResID, frameLayout, true);
+//        getLayoutInflater().inflate(layoutResID, frameLayout, true);
+        getLayoutInflater().inflate(layoutResID, frameLayout);
         super.setContentView(drawerLayout);
     }
 
