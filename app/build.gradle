@@ -28,21 +28,26 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Android Official
     implementation 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.android.support:design:26.1.0'
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
-    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.10'
-
+    // Other libraries used
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.10'
     implementation 'com.mikepenz:fastadapter:3.1.2@aar'
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+    implementation 'com.jakewharton:butterknife:8.6.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+
+    // used in the pas app
     implementation 'com.annimon:stream:1.1.9'
     implementation 'com.github.kenglxn.QRGen:android:2.2.0'
     implementation 'com.akexorcist:googledirectionlibrary:1.0.4' // todo possibly not needed
     implementation 'com.google.code.gson:gson:2.8.0'
-    implementation 'com.jakewharton:butterknife:8.6.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
 
+    // test libraries
     // https://stackoverflow.com/questions/39186326/running-android-unit-tests-with-spock-framework
     testImplementation 'org.codehaus.groovy:groovy:2.4.12:grooid'
     testImplementation('org.spockframework:spock-core:1.0-groovy-2.4') {

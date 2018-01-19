@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/mainBackground</color>
+    <color name="colorPrimary">@color/colorPrimaryDark</color>
     <color name="colorPrimaryDark">#801C055E</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="pink">#ED008C</color>
 
     <color name="mainBackground">#F2F5Fe</color>
     <color name="white">#FFFFFF</color>
     <color name="darkPurple">#1c055e</color>
+    <color name="bluePurple">#CCD9FC</color>
 </resources>
