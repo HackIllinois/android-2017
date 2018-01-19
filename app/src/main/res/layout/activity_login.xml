@@ -1,11 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="?actionBarSize"
     android:orientation="vertical"
-    tools:context="org.hackillinois.android.LoginActivity">
+    android:paddingEnd="41dp"
+    android:paddingStart="41dp"
+    tools:context="org.hackillinois.android.activity.login.LoginActivity"
+    tools:ignore="MissingPrefix">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingEnd="15dp"
+        android:paddingStart="15dp">
+
+        <TextView
+            fontPath="fonts/Roboto_Medium.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:text="@string/log_in"
+            android:textColor="@color/pink"
+            android:textSize="16sp"/>
+
+        <TextView
+            fontPath="fonts/Roboto_Regular.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:text="@string/username"
+            android:textColor="@color/darkPurple"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/login_username"
+            fontPath="fonts/Roboto_Regular.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/darkPurple"
+            android:textSize="14sp"
+            app:backgroundTint="@color/pink"
+            tools:text="username"/>
+
+        <TextView
+            fontPath="fonts/Roboto_Regular.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:text="@string/password"
+            android:textColor="@color/darkPurple"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/login_password"
+            fontPath="fonts/Roboto_Regular.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:inputType="textPassword"
+            android:textColor="@color/darkPurple"
+            android:textSize="14sp"
+            app:backgroundTint="@color/pink"
+            tools:text="password"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/sign_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="61dp"
+        android:background="@color/bluePurple"
+        android:text="@string/sign_in"
+        fontPath="fonts/Roboto_Medium.ttf"
+        android:textColor="@color/darkPurple"/>
 
 </LinearLayout>

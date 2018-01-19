@@ -16,4 +16,8 @@
     <string name="volunteer">Volunteer</string>
     <string name="happening_now">Happening now</string>
     <string name="hacking_ends_in">Hacking ends in:</string>
+    <string name="log_in">LOG IN</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="sign_in">Sign In</string>
 </resources>

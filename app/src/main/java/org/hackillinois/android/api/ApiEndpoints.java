@@ -1,4 +1,4 @@
-package org.hackillinois.android;
+package org.hackillinois.android.api;
 
 public class ApiEndpoints {
 	private static final String SERVER_ADDRESS = "http://ec2-54-227-68-47.compute-1.amazonaws.com";
