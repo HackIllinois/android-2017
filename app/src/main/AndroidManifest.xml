@@ -21,28 +21,15 @@
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".HomeActivity" />
         <activity android:name=".ScheduleActivity" />
         <activity android:name=".NotificationsActivity" />
-        <activity android:name=".GitHubLoginActivity">
-            <intent-filter>
-                <data
-                    android:host="hackillinois.org"
-                    android:pathPrefix="/"
-                    android:scheme="https" />
-
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.BROWSABLE" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".GitHubLoginActivity" />
         <activity android:name=".LoginChooserActivity" />
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".LoginActivity" />
     </application>
 
 </manifest>
