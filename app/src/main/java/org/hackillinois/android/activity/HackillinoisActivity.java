@@ -1,4 +1,4 @@
-package org.hackillinois.android;
+package org.hackillinois.android.activity;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;

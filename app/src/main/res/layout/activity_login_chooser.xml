@@ -8,7 +8,7 @@
     android:paddingEnd="41dp"
     android:paddingStart="41dp"
     android:paddingTop="?actionBarSize"
-    tools:context="org.hackillinois.android.LoginChooserActivity"
+    tools:context="org.hackillinois.android.activity.login.LoginChooserActivity"
     tools:ignore="MissingPrefix">
 
     <LinearLayout

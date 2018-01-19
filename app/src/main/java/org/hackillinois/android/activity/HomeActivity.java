@@ -1,10 +1,12 @@
-package org.hackillinois.android;
+package org.hackillinois.android.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
+
+import org.hackillinois.android.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
