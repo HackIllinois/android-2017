@@ -19,6 +19,7 @@ public class SplashActivity extends HackillinoisActivity {
         setContentView(R.layout.activity_splash);
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 
         try {
             GifDrawable gif = new GifDrawable(getResources(), R.drawable.appanimation);
