@@ -3,17 +3,28 @@ package org.hackillinois.android;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.annimon.stream.Optional;
 import com.google.gson.Gson;
+
+import java.time.ZonedDateTime;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
+
 
 public class Settings {
 	private static final String PREFS_NAME = "AppPrefs";
+	private static final String AUTH_PREF = "AUTH";
+	private static final String LAST_AUTH_PREF = "LAST_AUTH_TIME";
+	private static final String LAST_ZONE_PREF = "LAST_AUTH_ZONE";
 	private static final Gson GSON = new Gson();
+	private static final String HACKER_PREF = "HACKER";
 	private static Settings INSTANCE;
 
-	private final SharedPreferences preferences;
+	private final SharedPreferences prefs;
 
 	private Settings(Context context) {
-		preferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+		prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 	}
 
 	public static Settings getInstance(Context context) {
@@ -33,7 +44,7 @@ public class Settings {
 			return;
 		}
 
-		SharedPreferences.Editor prefsEditor = preferences.edit();
+		SharedPreferences.Editor prefsEditor = prefs.edit();
 		String json = GSON.toJson(response);
 		prefsEditor.putString(response.getClass().getName(), json);
 		prefsEditor.apply();
@@ -44,7 +55,52 @@ public class Settings {
 			return null;
 		}
 
-		String json = preferences.getString(responseClass.getName(), "");
+		String json = prefs.getString(responseClass.getName(), "");
 		return GSON.fromJson(json, responseClass);
+	}
+
+	public void saveAuthKey(String auth) {
+		SharedPreferences.Editor prefsEditor = prefs.edit();
+		prefsEditor.putString(AUTH_PREF, auth);
+		saveLastAuth(new Date());
+		prefsEditor.apply();
+	}
+
+	public Optional<String> getAuthKey() {
+		return Optional.ofNullable(prefs.getString(AUTH_PREF, null));
+	}
+
+	public Optional<Date> getLastAuth() {
+		if (!prefs.contains(LAST_AUTH_PREF) || !prefs.contains(LAST_ZONE_PREF)) {
+			return Optional.empty();
+		}
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(prefs.getLong(LAST_AUTH_PREF, 0));
+		calendar.setTimeZone(TimeZone.getTimeZone(prefs.getString(LAST_ZONE_PREF, TimeZone.getDefault().getID())));
+		return Optional.of(calendar.getTime());
+	}
+
+	public void saveLastAuth(Date date) {
+		prefs.edit().putLong(LAST_AUTH_PREF, date.getTime()).apply();
+		prefs.edit().putString(LAST_ZONE_PREF, TimeZone.getDefault().getID()).apply();
+	}
+
+	public String getAuthString() {
+		String authKey = prefs.getString(AUTH_PREF, null);
+		if(getIsHacker()) {
+			return "Bearer " + authKey;
+		} else {
+			return "Basic " + authKey;
+		}
+	}
+
+	public void saveIsHacker(boolean isHacker) {
+		SharedPreferences.Editor prefsEditor = prefs.edit();
+		prefsEditor.putBoolean(HACKER_PREF, isHacker);
+		prefsEditor.apply();
+	}
+
+	public boolean getIsHacker() {
+		return prefs.getBoolean(HACKER_PREF, false);
 	}
 }

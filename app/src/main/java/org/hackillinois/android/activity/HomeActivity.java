@@ -19,7 +19,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HomeActivity extends DrawerActivity {
-	private static Settings settings;
+	private Settings settings;
 	@BindView(R.id.active_events) RecyclerView recyclerView;
 
 	@Override
@@ -27,12 +27,12 @@ public class HomeActivity extends DrawerActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 		ButterKnife.bind(this);
-		settings = Settings.getInstance(getApplicationContext());
+		settings = Settings.getInstance(this);
 
 		// todo why does this activity show the action bar
 		LoginResponse loginResponse = settings.getResponse(LoginResponse.class);
 
-		HackIllinoisAPI.api.getAttendeeInfo(loginResponse.githubAuth())
+		HackIllinoisAPI.api.getAttendeeInfo(settings.getAuthString())
 				.enqueue(new Callback<AttendeeResponse>() {
 					@Override
 					public void onResponse(Call<AttendeeResponse> call, Response<AttendeeResponse> response) {

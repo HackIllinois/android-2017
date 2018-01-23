@@ -7,12 +7,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import org.hackillinois.android.R;
+import org.hackillinois.android.Settings;
 import org.hackillinois.android.activity.HackillinoisActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class LoginChooserActivity extends HackillinoisActivity {
+	private Settings settings;
 	private boolean isHacker = true;
 	private TextView lastSelection = null;
 
@@ -21,6 +23,7 @@ public class LoginChooserActivity extends HackillinoisActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login_chooser);
 		ButterKnife.bind(this);
+		settings = Settings.getInstance(this);
 	}
 
 	@OnClick(R.id.login_hacker)
@@ -47,6 +50,7 @@ public class LoginChooserActivity extends HackillinoisActivity {
 	@OnClick(R.id.login_next)
 	public void login() {
 		Intent nextActivity = null;
+		settings.saveIsHacker(isHacker);
 		if (isHacker) {
 			nextActivity = new Intent(getApplicationContext(), GitHubLoginActivity.class);
 		} else {
