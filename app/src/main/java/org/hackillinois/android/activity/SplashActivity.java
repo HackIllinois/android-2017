@@ -8,11 +8,17 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import org.hackillinois.android.R;
+import org.hackillinois.android.Settings;
 import org.hackillinois.android.activity.login.LoginChooserActivity;
+import org.hackillinois.android.api.HackIllinoisAPI;
+import org.hackillinois.android.api.response.login.LoginResponse;
 
 import java.io.IOException;
 
 import pl.droidsonroids.gif.GifDrawable;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SplashActivity extends HackillinoisActivity {
 
@@ -29,6 +35,7 @@ public class SplashActivity extends HackillinoisActivity {
 			Log.d("Splash", "Hit");
 			int duration = gif.getDuration();
 
+			// todo check if logged in
 			new Handler().postDelayed(() -> {
 				Intent i = new Intent(getApplicationContext(), LoginChooserActivity.class);
 				startActivity(i);

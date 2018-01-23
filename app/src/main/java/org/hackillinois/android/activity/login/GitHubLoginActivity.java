@@ -1,15 +1,16 @@
 package org.hackillinois.android.activity.login;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import org.hackillinois.android.R;
+import org.hackillinois.android.Settings;
 import org.hackillinois.android.activity.HackillinoisActivity;
-import org.hackillinois.android.api.ApiEndpoints;
+import org.hackillinois.android.activity.HomeActivity;
 import org.hackillinois.android.api.HackIllinoisAPI;
 import org.hackillinois.android.api.response.login.LoginResponse;
 
@@ -22,6 +23,7 @@ import retrofit2.Response;
 public class GitHubLoginActivity extends HackillinoisActivity {
 	@BindView(R.id.github_webview) WebView githubWebview;
 
+	@SuppressLint("SetJavaScriptEnabled")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -31,7 +33,6 @@ public class GitHubLoginActivity extends HackillinoisActivity {
 		// intercept api auth code
 
 		githubWebview.getSettings().setJavaScriptEnabled(true); // required for github
-		Log.d("GITHUB", "JAVASCRIPT:" + githubWebview.getSettings().getJavaScriptEnabled());
 		githubWebview.setWebViewClient(new WebViewClient() {
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -39,19 +40,20 @@ public class GitHubLoginActivity extends HackillinoisActivity {
 					// todo clean up url checking
 					//we got the code
 					String code = url.split("\\?code=")[1];
-					Toast.makeText(getApplicationContext(), "Got code=" + code, Toast.LENGTH_LONG).show();
 
 					HackIllinoisAPI.api.verifyUser(code)
 							.enqueue(new Callback<LoginResponse>() {
 								@Override
 								public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-									Log.d("LOGIN", "Call=" + call);
-									Toast.makeText(getApplicationContext(), "Got " + response, Toast.LENGTH_LONG).show();
+									Toast.makeText(getApplicationContext(), R.string.success, Toast.LENGTH_LONG).show();
+									// todo only save auth key
+									Settings.getInstance(getApplicationContext()).saveResponse(response.body());
+									startActivity(new Intent(GitHubLoginActivity.this, HomeActivity.class));
 								}
 
 								@Override
 								public void onFailure(Call<LoginResponse> call, Throwable t) {
-									Toast.makeText(getApplicationContext(), "Error " + t, Toast.LENGTH_LONG).show();
+									//todo handle error
 								}
 							});
 
@@ -60,6 +62,6 @@ public class GitHubLoginActivity extends HackillinoisActivity {
 				return false;
 			}
 		});
-		githubWebview.loadUrl(ApiEndpoints.AUTH);
+		githubWebview.loadUrl(HackIllinoisAPI.AUTH);
 	}
 }

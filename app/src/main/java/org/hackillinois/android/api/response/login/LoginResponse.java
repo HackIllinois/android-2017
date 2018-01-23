@@ -3,13 +3,30 @@ package org.hackillinois.android.api.response.login;
 import com.google.gson.annotations.SerializedName;
 
 public class LoginResponse {
-	@SerializedName("data") private LoginResponseData data;
+	@SerializedName("meta") private String meta;
+	@SerializedName("data") private LoginResponseData loginResponseData;
 
-	public LoginResponse(LoginResponseData data) {
-		this.data = data;
+	public String getMeta() {
+		return meta;
 	}
 
-	public LoginResponseData getData() {
-		return data;
+	public LoginResponseData getLoginResponseData() {
+		return loginResponseData;
+	}
+
+	public static class LoginResponseData {
+		@SerializedName("auth") private String auth;
+
+		public String getAuth() {
+			return auth;
+		}
+	}
+
+	public String githubAuth() {
+		return "Bearer " + getLoginResponseData().getAuth();
+	}
+
+	public String basicAuth() {
+		return "Basic " + getLoginResponseData().getAuth();
 	}
 }
