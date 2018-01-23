@@ -21,12 +21,4 @@ public class LoginResponse {
 			return auth;
 		}
 	}
-
-	public String githubAuth() {
-		return "Bearer " + getLoginResponseData().getAuth();
-	}
-
-	public String basicAuth() {
-		return "Basic " + getLoginResponseData().getAuth();
-	}
 }

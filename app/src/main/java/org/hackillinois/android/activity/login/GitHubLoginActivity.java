@@ -21,6 +21,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class GitHubLoginActivity extends HackillinoisActivity {
+	private Settings settings;
 	@BindView(R.id.github_webview) WebView githubWebview;
 
 	@SuppressLint("SetJavaScriptEnabled")
@@ -29,8 +30,7 @@ public class GitHubLoginActivity extends HackillinoisActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_github_login);
 		ButterKnife.bind(this);
-		// add webview, loading github auth page
-		// intercept api auth code
+		settings = Settings.getInstance(this);
 
 		githubWebview.getSettings().setJavaScriptEnabled(true); // required for github
 		githubWebview.setWebViewClient(new WebViewClient() {
@@ -38,30 +38,35 @@ public class GitHubLoginActivity extends HackillinoisActivity {
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
 				if (url.startsWith("https://hackillinois.org/auth/?code=") || url.contains("?code=")) {
 					// todo clean up url checking
-					//we got the code
 					String code = url.split("\\?code=")[1];
-
-					HackIllinoisAPI.api.verifyUser(code)
-							.enqueue(new Callback<LoginResponse>() {
-								@Override
-								public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-									Toast.makeText(getApplicationContext(), R.string.success, Toast.LENGTH_LONG).show();
-									// todo only save auth key
-									Settings.getInstance(getApplicationContext()).saveResponse(response.body());
-									startActivity(new Intent(GitHubLoginActivity.this, HomeActivity.class));
-								}
-
-								@Override
-								public void onFailure(Call<LoginResponse> call, Throwable t) {
-									//todo handle error
-								}
-							});
-
+					authenticateUser(code);
 					return true;
 				}
 				return false;
 			}
 		});
 		githubWebview.loadUrl(HackIllinoisAPI.AUTH);
+	}
+
+	private void authenticateUser(String code) {
+		HackIllinoisAPI.api.verifyUser(code)
+				.enqueue(new Callback<LoginResponse>() {
+					@Override
+					public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+						LoginResponse loginResponse = response.body();
+						if (loginResponse != null) {
+							String authKey = loginResponse.getLoginResponseData().getAuth();
+							settings.saveAuthKey(authKey);
+							startActivity(new Intent(GitHubLoginActivity.this, HomeActivity.class));
+						} else {
+							Toast.makeText(getApplicationContext(), R.string.failure, Toast.LENGTH_LONG).show();
+						}
+					}
+
+					@Override
+					public void onFailure(Call<LoginResponse> call, Throwable t) {
+						//todo handle error
+					}
+				});
 	}
 }
