@@ -21,4 +21,6 @@
     <string name="username">Username</string>
     <string name="sign_in">Sign In</string>
     <string name="failure">Failed!</string>
+    <string name="normal_login_failed">Login attempt failed. Please try again</string>
+    <string name="failed_incorrect_login">Login Failed. Email/Password Combination Was Incorrect.</string>
 </resources>
