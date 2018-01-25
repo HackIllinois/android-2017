@@ -40,7 +40,7 @@
             />
 
         <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/login_username"
+            android:id="@+id/login_email"
             fontPath="fonts/Roboto_Regular.ttf"
             android:layout_width="match_parent"
             android:layout_height="52dp"
