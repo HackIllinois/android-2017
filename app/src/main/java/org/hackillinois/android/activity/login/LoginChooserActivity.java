@@ -39,11 +39,13 @@ public class LoginChooserActivity extends HackillinoisActivity {
 	@OnClick(value = {R.id.login_hacker, R.id.login_mentor, R.id.login_staff, R.id.login_volunteer})
 	public void highlightSelection(View view) {
 		if (lastSelection != null) {
+			lastSelection.setTextColor(ContextCompat.getColor(this, R.color.darkPurple));
 			lastSelection.setBackgroundColor(ContextCompat.getColor(this, R.color.mainBackground));
 		}
 
 		TextView selectedType = (TextView) view;
-		selectedType.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+		selectedType.setBackgroundColor(ContextCompat.getColor(this, R.color.darkPurple));
+		selectedType.setTextColor(ContextCompat.getColor(this, R.color.mainBackground));
 		lastSelection = selectedType;
 	}
 

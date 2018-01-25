@@ -58,6 +58,7 @@ public class GitHubLoginActivity extends HackillinoisActivity {
 							String authKey = loginResponse.getLoginResponseData().getAuth();
 							settings.saveAuthKey(authKey);
 							startActivity(new Intent(GitHubLoginActivity.this, HomeActivity.class));
+							finish();
 						} else {
 							Toast.makeText(getApplicationContext(), R.string.failure, Toast.LENGTH_LONG).show();
 						}
