@@ -25,7 +25,6 @@ public abstract class DrawerActivity extends HackillinoisActivity {
 
         nv = drawerLayout.findViewById(R.id.navigation);
         nv.setNavigationItemSelectedListener(item -> {
-            Log.d("Nav", item.getItemId() + "");
             Intent i;
             switch (item.getItemId()) {
                 case R.id.menu_home: // Home
