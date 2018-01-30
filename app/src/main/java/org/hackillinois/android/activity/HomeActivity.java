@@ -1,5 +1,6 @@
 package org.hackillinois.android.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
@@ -28,6 +29,9 @@ public class HomeActivity extends DrawerActivity {
 		setContentView(R.layout.activity_home);
 		ButterKnife.bind(this);
 		settings = Settings.getInstance(this);
+
+		// Kill LoginChooserActivity so user can't press back and get to it.
+        sendBroadcast(new Intent("finish_activity"));
 
 		// todo why does this activity show the action bar
 		LoginResponse loginResponse = settings.getResponse(LoginResponse.class);
