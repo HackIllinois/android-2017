@@ -19,15 +19,61 @@
         android:textSize="24sp"
         android:textStyle="normal"/>
 
-    <TextView
-        android:id="@+id/textView"
+    <LinearLayout
+        android:id="@+id/clock_animation"
+        android:gravity="center_horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
-        android:text="make clock"
-        app:layout_constraintTop_toBottomOf="@+id/hackingEnds"/>
+        android:layout_height="234dp"
+        android:orientation="horizontal"
+        tools:layout_height="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hackingEnds">
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/day_animation"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="5dp"
+            app:lottie_fileName="countdown.json"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/minute_animation"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="5dp"
+            app:lottie_fileName="countdown.json"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hackingEnds"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/second_animation"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="5dp"
+            app:lottie_fileName="countdown.json"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hackingEnds"/>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/happeningNow"
