@@ -46,7 +46,7 @@ public abstract class DrawerActivity extends HackillinoisActivity {
                     // TODO:Open User's Map App
                     break;
                 case R.id.menu_profile: // Profile
-                    i = new Intent(getApplicationContext(), HomeActivity.class);
+                    i = new Intent(getApplicationContext(), ProfileActivity.class);
                     startActivity(i);
                     finish();
                     break;
