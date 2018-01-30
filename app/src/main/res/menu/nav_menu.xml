@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="@string/menu_home" />
-    <item android:title="@string/menu_schedule" />
-    <item android:title="@string/menu_notifications" />
-    <item android:title="@string/menu_map" />
+    <item android:id="@+id/menu_home" android:title="@string/menu_home" />
+    <item android:id="@+id/menu_schedule" android:title="@string/menu_schedule" />
+    <item android:id="@+id/menu_notifications" android:title="@string/menu_notifications" />
+    <item android:id="@+id/menu_map" android:title="@string/menu_map" />
+    <item android:id="@+id/menu_profile" android:title="@string/menu_profile" />
 </menu>
