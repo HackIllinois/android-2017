@@ -14,70 +14,37 @@
         android:layout_marginTop="30dp"
         android:orientation="vertical"
         android:gravity="center_horizontal"
-        android:background="@color/white">
+        android:background="@color/white"
+        tools:ignore="MissingPrefix">
 
         <ImageView
-            android:id="@+id/gq_code"
+            android:id="@+id/qr_code"
             android:layout_width="225dp"
             android:layout_height="225dp"
             android:layout_marginTop="35dp"/>
 
         <TextView
+            fontPath = "fonts/Roboto_Bold.ttf"
             android:id="@+id/name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="bold"
             android:textColor="@color/darkPurple"
-            android:layout_marginTop="40dp"
-            tools:text="JOHN DOE"
-            android:textStyle="bold"/>
+            android:layout_marginTop="35dp"
+            tools:text="JOHN DOE" />
         <TextView
+            fontPath = "fonts/Roboto_Regular.ttf"
             android:id="@+id/dietary_restrictions_tv"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/pink"
+            android:layout_width="wrap_content"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="@color/lightPink"
             android:layout_marginBottom="35dp"
             tools:text="No Dietary Restrictions"/>
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/emergency_contact_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:textColor="@color/darkPurple"
-        android:text="EMERGENCY CONTACT"
-        android:textStyle="bold"
-        android:layout_marginTop="25dp"
-        android:layout_marginLeft="20dp"/>
-
-    <TextView
-        android:id="@+id/emergency_name_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:textColor="@color/pink"
-        android:layout_marginTop="10dp"
-        tools:text="JANE DOE"
-        android:layout_marginLeft="20dp"/>
-
-    <TextView
-        android:id="@+id/emergency_phone_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:textColor="@color/pink"
-        tools:text="630 - 000 - 9090"
-        android:layout_marginLeft="20dp"/>
-
-    <TextView
-        android:id="@+id/emergency_em_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:textColor="@color/pink"
-        tools:text="jane@doe.com"
-        android:layout_marginLeft="20dp"/>
 </LinearLayout>
