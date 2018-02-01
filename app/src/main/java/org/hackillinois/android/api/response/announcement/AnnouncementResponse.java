@@ -3,6 +3,8 @@ package org.hackillinois.android.api.response.announcement;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.joda.time.DateTime;
+
 import java.util.List;
 
 public class AnnouncementResponse {
@@ -18,42 +20,25 @@ public class AnnouncementResponse {
 	}
 
 	public static class Announcement {
-		@SerializedName("created") private String created;
+		@SerializedName("created") private DateTime created;
 		@SerializedName("description") private String description;
 		@SerializedName("id") private long id;
 		@SerializedName("title") private String title;
 
-		public String getCreated() {
+		public DateTime getCreated() {
 			return created;
-		}
-
-		public void setCreated(String created) {
-			this.created = created;
 		}
 
 		public String getDescription() {
 			return description;
 		}
 
-		public void setDescription(String description) {
-			this.description = description;
-		}
-
 		public long getId() {
 			return id;
-		}
-
-		public void setId(long id) {
-			this.id = id;
 		}
 
 		public String getTitle() {
 			return title;
 		}
-
-		public void setTitle(String title) {
-			this.title = title;
-		}
 	}
-
 }

@@ -19,6 +19,7 @@ import org.hackillinois.android.api.HackIllinoisAPI;
 import org.hackillinois.android.api.response.event.EventResponse;
 import org.hackillinois.android.dialogs.EventInfoDialog;
 import org.hackillinois.android.items.EventItem;
+import org.joda.time.DateTime;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,11 +34,6 @@ public class HomeFragment extends Fragment {
     private Unbinder unbinder;
     private final ItemAdapter<EventItem> itemAdapter = new ItemAdapter<>();
     private final FastAdapter<EventItem> fastAdapter = FastAdapter.with(itemAdapter);
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -68,7 +64,9 @@ public class HomeFragment extends Fragment {
                     public void onResponse(Call<EventResponse> call, Response<EventResponse> response) {
                         if (response != null && response.isSuccessful()) {
                             Stream.of(response.body().getData())
-                                    .sortBy(EventResponse.Event::getStartTime)
+									.filter(value -> value.getStartTime().isBeforeNow())
+									.filter(value -> value.getEndTime().isAfterNow())
+                                    .sortBy(EventResponse.Event::getStartTime) // todo is this correct
                                     .map(EventItem::new)
                                     .forEach(itemAdapter::add);
                         }
