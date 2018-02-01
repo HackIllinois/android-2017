@@ -1,4 +1,4 @@
-package org.hackillinois.android.activity.login;
+package org.hackillinois.android.ui.login;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import org.hackillinois.android.R;
 import org.hackillinois.android.Settings;
-import org.hackillinois.android.activity.HackillinoisActivity;
+import org.hackillinois.android.ui.HackillinoisActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;

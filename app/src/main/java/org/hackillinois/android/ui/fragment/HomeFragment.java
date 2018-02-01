@@ -1,6 +1,5 @@
-package org.hackillinois.android;
+package org.hackillinois.android.ui.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,16 +13,13 @@ import android.view.ViewGroup;
 
 import com.annimon.stream.Stream;
 import com.mikepenz.fastadapter.FastAdapter;
-import com.mikepenz.fastadapter.IAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
-import com.mikepenz.fastadapter.listeners.OnClickListener;
 
-import org.hackillinois.android.activity.MainActivity;
+import org.hackillinois.android.R;
 import org.hackillinois.android.api.HackIllinoisAPI;
 import org.hackillinois.android.api.response.event.EventResponse;
-import org.hackillinois.android.api.response.user.AttendeeResponse;
-import org.hackillinois.android.dialogs.EventInfoDialog;
-import org.hackillinois.android.items.EventItem;
+import org.hackillinois.android.ui.dialog.EventInfoDialog;
+import org.hackillinois.android.item.EventItem;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,40 +29,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
-    private Settings settings;
-    @BindView(R.id.active_events)
-    RecyclerView activeEvents;
+    @BindView(R.id.active_events) RecyclerView activeEvents;
 
     private Unbinder unbinder;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        settings = Settings.getInstance(getContext());
-
-        HackIllinoisAPI.api.getAttendeeInfo(settings.getAuthString())
-                .enqueue(new Callback<AttendeeResponse>() {
-                    @Override
-                    public void onResponse(Call<AttendeeResponse> call, Response<AttendeeResponse> response) {
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<AttendeeResponse> call, Throwable t) {
-
-                    }
-                });
-    }
+    private final ItemAdapter<EventItem> itemAdapter = new ItemAdapter<>();
+    private final FastAdapter<EventItem> fastAdapter = FastAdapter.with(itemAdapter);
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_home, container, false);
         unbinder = ButterKnife.bind(this, view);
-
-        //create the ItemAdapter holding your Items
-        ItemAdapter<EventItem> itemAdapter = new ItemAdapter<>();
-        //create the managing FastAdapter, by passing in the itemAdapter
-        FastAdapter<EventItem> fastAdapter = FastAdapter.with(itemAdapter);
 
         //set our adapters to the RecyclerView
         activeEvents.setAdapter(fastAdapter);
@@ -74,14 +46,17 @@ public class HomeFragment extends Fragment {
         DividerItemDecoration divider = new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL);
         activeEvents.addItemDecoration(divider);
 
-        fastAdapter.withOnClickListener(new OnClickListener<EventItem>() {
-            @Override
-            public boolean onClick(View v, IAdapter<EventItem> adapter, EventItem item, int position) {
-                new EventInfoDialog(getContext(), item.getEvent()).show();
-                return false;
-            }
-        });
+        fastAdapter.withOnClickListener((v, adapter, item, position) -> {
+			new EventInfoDialog(getContext(), item.getEvent()).show();
+			return false;
+		});
 
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         //set the items to your ItemAdapter
         HackIllinoisAPI.api.getEvents()
                 .enqueue(new Callback<EventResponse>() {
@@ -89,7 +64,9 @@ public class HomeFragment extends Fragment {
                     public void onResponse(Call<EventResponse> call, Response<EventResponse> response) {
                         if (response != null && response.isSuccessful()) {
                             Stream.of(response.body().getData())
-                                    .sortBy(EventResponse.Event::getStartTime)
+									.filter(value -> value.getStartTime().isBeforeNow())
+									.filter(value -> value.getEndTime().isAfterNow())
+                                    .sortBy(EventResponse.Event::getStartTime) // todo is this correct
                                     .map(EventItem::new)
                                     .forEach(itemAdapter::add);
                         }
@@ -100,11 +77,21 @@ public class HomeFragment extends Fragment {
 
                     }
                 });
-
-        return view;
     }
 
-    @Override
+	@Override
+	public void onSaveInstanceState(@NonNull Bundle outState) {
+		super.onSaveInstanceState(outState);
+		fastAdapter.saveInstanceState(outState);
+	}
+
+	@Override
+	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		fastAdapter.withSavedInstanceState(savedInstanceState);
+	}
+
+	@Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();

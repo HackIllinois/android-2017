@@ -10,6 +10,7 @@ android {
         versionCode 4
         versionName "1.02"
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -30,14 +31,19 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     // Android Official
+    compile 'com.android.support:multidex:1.0.2'
     implementation 'com.android.support:appcompat-v7:27.0.2'
     implementation 'com.android.support:design:27.0.2'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
-    // Other libraries used
+    // Other libraries use
+    implementation ('com.fatboyindustrial.gson-jodatime-serialisers:gson-jodatime-serialisers:1.6.0') {
+        exclude group: 'joda-time'
+    }
+    implementation 'net.danlew:android.joda:2.9.9.1'
+    implementation 'com.jakewharton.timber:timber:4.6.0'
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-    implementation 'com.google.code.gson:gson:2.8.0'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.10'
     implementation 'com.mikepenz:fastadapter:3.1.2@aar'
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'

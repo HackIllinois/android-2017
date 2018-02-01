@@ -1,26 +1,17 @@
-package org.hackillinois.android.activity.login;
+package org.hackillinois.android.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatEditText;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
 import org.hackillinois.android.R;
 import org.hackillinois.android.Settings;
-import org.hackillinois.android.activity.HackillinoisActivity;
-import org.hackillinois.android.activity.MainActivity;
-import org.hackillinois.android.api.HackIllinoisAPI;
-import org.hackillinois.android.api.response.login.LoginRequest;
-import org.hackillinois.android.api.response.login.LoginResponse;
+import org.hackillinois.android.ui.HackillinoisActivity;
+import org.hackillinois.android.ui.MainActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class LoginActivity extends HackillinoisActivity {
 	private Settings settings;

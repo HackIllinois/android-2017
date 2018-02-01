@@ -6,17 +6,13 @@ import android.content.SharedPreferences;
 import com.annimon.stream.Optional;
 import com.google.gson.Gson;
 
-import java.time.ZonedDateTime;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
+import org.joda.time.DateTime;
 
 
 public class Settings {
 	private static final String PREFS_NAME = "AppPrefs";
 	private static final String AUTH_PREF = "AUTH";
-	private static final String LAST_AUTH_PREF = "LAST_AUTH_TIME";
-	private static final String LAST_ZONE_PREF = "LAST_AUTH_ZONE";
+	private static final String LAST_TIME_AUTH_PREF = "LAST_TIME_AUTH";
 	private static final Gson GSON = new Gson();
 	private static final String HACKER_PREF = "HACKER";
 	private static Settings INSTANCE;
@@ -62,7 +58,7 @@ public class Settings {
 	public void saveAuthKey(String auth) {
 		SharedPreferences.Editor prefsEditor = prefs.edit();
 		prefsEditor.putString(AUTH_PREF, auth);
-		saveLastAuth(new Date());
+		saveLastAuth(DateTime.now());
 		prefsEditor.apply();
 	}
 
@@ -70,24 +66,23 @@ public class Settings {
 		return Optional.ofNullable(prefs.getString(AUTH_PREF, null));
 	}
 
-	public Optional<Date> getLastAuth() {
-		if (!prefs.contains(LAST_AUTH_PREF) || !prefs.contains(LAST_ZONE_PREF)) {
+	public Optional<DateTime> getLastAuth() {
+		if (!prefs.contains(LAST_TIME_AUTH_PREF)) {
 			return Optional.empty();
 		}
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTimeInMillis(prefs.getLong(LAST_AUTH_PREF, 0));
-		calendar.setTimeZone(TimeZone.getTimeZone(prefs.getString(LAST_ZONE_PREF, TimeZone.getDefault().getID())));
-		return Optional.of(calendar.getTime());
+
+		return Optional.of(new DateTime(prefs.getLong(LAST_TIME_AUTH_PREF, 0)));
 	}
 
-	public void saveLastAuth(Date date) {
-		prefs.edit().putLong(LAST_AUTH_PREF, date.getTime()).apply();
-		prefs.edit().putString(LAST_ZONE_PREF, TimeZone.getDefault().getID()).apply();
+	public void saveLastAuth(DateTime now) {
+		SharedPreferences.Editor edit = prefs.edit();
+		edit.putString(LAST_TIME_AUTH_PREF, now.toString()).apply();
+		edit.apply();
 	}
 
 	public String getAuthString() {
 		String authKey = prefs.getString(AUTH_PREF, null);
-		if(getIsHacker()) {
+		if (getIsHacker()) {
 			return "Bearer " + authKey;
 		} else {
 			return "Basic " + authKey;

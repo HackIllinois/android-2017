@@ -1,4 +1,4 @@
-package org.hackillinois.android.activity.login;
+package org.hackillinois.android.ui.login;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -9,8 +9,8 @@ import android.widget.Toast;
 
 import org.hackillinois.android.R;
 import org.hackillinois.android.Settings;
-import org.hackillinois.android.activity.HackillinoisActivity;
-import org.hackillinois.android.activity.MainActivity;
+import org.hackillinois.android.ui.HackillinoisActivity;
+import org.hackillinois.android.ui.MainActivity;
 import org.hackillinois.android.api.HackIllinoisAPI;
 import org.hackillinois.android.api.response.login.LoginResponse;
 

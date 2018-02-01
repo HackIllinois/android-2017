@@ -18,17 +18,17 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.SplashActivity">
+        <activity android:name=".ui.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.login.GitHubLoginActivity" />
-        <activity android:name=".activity.login.LoginChooserActivity" />
-        <activity android:name=".activity.login.LoginActivity" />
+        <activity android:name=".ui.MainActivity" />
+        <activity android:name=".ui.login.GitHubLoginActivity" />
+        <activity android:name=".ui.login.LoginChooserActivity" />
+        <activity android:name=".ui.login.LoginActivity" />
     </application>
 
 </manifest>

@@ -4,6 +4,8 @@ package org.hackillinois.android.api.response.event;
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
+import org.joda.time.DateTime;
+
 public class EventResponse {
     @SerializedName("data") private List<Event> mData;
     @SerializedName("meta") private String meta;
@@ -18,18 +20,18 @@ public class EventResponse {
 
 	public static class Event {
 		@SerializedName("description") private String description;
-		@SerializedName("endTime") private String endTime;
+		@SerializedName("endTime") private DateTime endTime;
 		@SerializedName("id") private Long id;
 		@SerializedName("locations") private List<Location> locations;
 		@SerializedName("name") private String name;
-		@SerializedName("startTime") private String startTime;
+		@SerializedName("startTime") private DateTime startTime;
 		@SerializedName("tag") private String tag;
 
 		public String getDescription() {
 			return description;
 		}
 
-		public String getEndTime() {
+		public DateTime getEndTime() {
 			return endTime;
 		}
 
@@ -45,7 +47,7 @@ public class EventResponse {
 			return name;
 		}
 
-		public String getStartTime() {
+		public DateTime getStartTime() {
 			return startTime;
 		}
 
