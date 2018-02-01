@@ -1,6 +1,5 @@
 package org.hackillinois.android;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,14 +13,10 @@ import android.view.ViewGroup;
 
 import com.annimon.stream.Stream;
 import com.mikepenz.fastadapter.FastAdapter;
-import com.mikepenz.fastadapter.IAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
-import com.mikepenz.fastadapter.listeners.OnClickListener;
 
-import org.hackillinois.android.activity.MainActivity;
 import org.hackillinois.android.api.HackIllinoisAPI;
 import org.hackillinois.android.api.response.event.EventResponse;
-import org.hackillinois.android.api.response.user.AttendeeResponse;
 import org.hackillinois.android.dialogs.EventInfoDialog;
 import org.hackillinois.android.items.EventItem;
 
@@ -33,7 +28,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
-    private Settings settings;
     @BindView(R.id.active_events) RecyclerView activeEvents;
 
     private Unbinder unbinder;
@@ -43,7 +37,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        settings = Settings.getInstance(getContext());
     }
 
     @Override
@@ -88,7 +81,19 @@ public class HomeFragment extends Fragment {
                 });
     }
 
-    @Override
+	@Override
+	public void onSaveInstanceState(@NonNull Bundle outState) {
+		super.onSaveInstanceState(outState);
+		fastAdapter.saveInstanceState(outState);
+	}
+
+	@Override
+	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		fastAdapter.withSavedInstanceState(savedInstanceState);
+	}
+
+	@Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
