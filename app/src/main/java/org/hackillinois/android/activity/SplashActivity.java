@@ -41,7 +41,7 @@ public class SplashActivity extends HackillinoisActivity {
 
 		Optional<Date> lastAuth = settings.getLastAuth();
 		if(settings.getIsHacker() && settings.getAuthKey().isPresent()) { // don't need to refresh these
-			activityClass = HomeActivity.class;
+			activityClass = MainActivity.class;
 		} else if (!settings.getIsHacker() && settings.getAuthKey().isPresent()) {
 			// todo actually test auth for other users
 			Date last = lastAuth.get();
@@ -56,7 +56,7 @@ public class SplashActivity extends HackillinoisActivity {
 							public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
 								LoginResponse loginResponse = response.body();
 								if (loginResponse != null) { // success
-									activityClass = HomeActivity.class;
+									activityClass = MainActivity.class;
 									String authKey = loginResponse.getLoginResponseData().getAuth();
 									settings.saveAuthKey(authKey);
 								} else { // failed, must re login
@@ -71,7 +71,7 @@ public class SplashActivity extends HackillinoisActivity {
 							}
 						});
 			} else {
-				activityClass = HomeActivity.class;
+				activityClass = MainActivity.class;
 			}
 		}
 
