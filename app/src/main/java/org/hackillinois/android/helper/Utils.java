@@ -6,12 +6,14 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v4.content.ContextCompat;
+import android.view.Window;
+import android.view.WindowManager;
 
 import net.glxn.qrgen.android.QRCode;
 
+import org.hackillinois.android.R;
+
 import java.util.Locale;
-import android.view.Window;
-import android.view.WindowManager;
 
 public class Utils {
 	public static boolean isNetworkAvailable(Context context) {
@@ -32,7 +34,7 @@ public class Utils {
 	}
 
 	public static Bitmap getQRCodeBitmap(Context context, int id, String identifier) {
-		String qrFormattedString = String.format(Locale.US,"hackillinois://qrcode/user?id=%d&identifier=%s", id, identifier);
+		String qrFormattedString = String.format(Locale.US, "hackillinois://qrcode/user?id=%d&identifier=%s", id, identifier);
 		return QRCode.from(qrFormattedString)
 				.withSize(1024, 1024)
 				.withColor(ContextCompat.getColor(context, R.color.darkPurple), Color.TRANSPARENT)

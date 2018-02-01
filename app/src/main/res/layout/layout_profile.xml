@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,9 +12,9 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="30dp"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
         android:background="@color/white"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
         tools:ignore="MissingPrefix">
 
         <ImageView
@@ -24,26 +24,27 @@
             android:layout_marginTop="35dp"/>
 
         <TextView
-            fontPath = "fonts/Roboto_Bold.ttf"
-            android:id="@+id/name_tv"
+            android:id="@+id/user_name"
+            fontPath="fonts/Roboto_Bold.ttf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:fontFamily="sans-serif"
-            android:textStyle="bold"
-            android:textColor="@color/darkPurple"
             android:layout_marginTop="35dp"
-            tools:text="JOHN DOE" />
-        <TextView
-            fontPath = "fonts/Roboto_Regular.ttf"
-            android:id="@+id/dietary_restrictions_tv"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:textSize="16sp"
             android:fontFamily="sans-serif"
-            android:textStyle="normal"
-            android:textColor="@color/lightPink"
+            android:textColor="@color/darkPurple"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:text="JOHN DOE"/>
+
+        <TextView
+            android:id="@+id/dietary_restrictions"
+            fontPath="fonts/Roboto_Regular.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="35dp"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/lightPink"
+            android:textSize="16sp"
+            android:textStyle="normal"
             tools:text="No Dietary Restrictions"/>
 
     </LinearLayout>
