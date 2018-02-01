@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingPrefix">
+
+    <ImageView
+        android:id="@+id/event_info_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_close_pink_24dp"/>
+
+    <ImageView
+        android:id="@+id/event_star"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="38dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/event_info_close"
+        app:srcCompat="@drawable/ic_star_border_lightblue_200_24dp"/>
+
+    <LinearLayout
+        android:id="@+id/event_summary_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toStartOf="@+id/event_info_close"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/event_star"
+        app:layout_constraintTop_toTopOf="@id/event_info_close">
+
+        <TextView
+            android:id="@+id/event_name"
+            fontPath="fonts/Roboto_Regular.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="21dp"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/darkPurple"
+            android:textSize="20sp"
+            android:textStyle="normal"
+            tools:text="Current Event Name"/>
+
+        <TextView
+            android:id="@+id/event_location"
+            fontPath="fonts/Roboto_Bold.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="21dp"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/darkPurple"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="East Entrance, Siebel Center"/>
+
+        <TextView
+            android:id="@+id/event_distance"
+            fontPath="fonts/Roboto_Bold.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="21dp"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/darkPurple"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            tools:text="~ 9 minute walk"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/event_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="37dp"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/darkPurple"
+        android:textSize="13sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toTopOf="@+id/login_next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/event_summary_container"
+        app:layout_constraintVertical_bias="0.0"
+        tools:text="This event is the best event, like the best event, in the whole world. It’s the event of events and all events."/>
+
+    <Button
+        android:id="@+id/login_next"
+        fontPath="fonts/Roboto_Medium.ttf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="27dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:background="@color/bluePurple"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/next"
+        android:textColor="@color/darkPurple"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</android.support.constraint.ConstraintLayout>

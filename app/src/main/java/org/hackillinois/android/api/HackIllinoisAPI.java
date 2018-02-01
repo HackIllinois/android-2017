@@ -1,5 +1,6 @@
 package org.hackillinois.android.api;
 
+import org.hackillinois.android.api.response.event.EventResponse;
 import org.hackillinois.android.api.response.login.LoginRequest;
 import org.hackillinois.android.api.response.login.LoginResponse;
 import org.hackillinois.android.api.response.user.AttendeeResponse;
@@ -15,7 +16,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface HackIllinoisAPI {
-	public static final String SERVER_ADDRESS = "http://ec2-54-227-68-47.compute-1.amazonaws.com";
+	public static final String SERVER_ADDRESS = "http://api.test.hackillinois.org";
 	public static final String AUTH = SERVER_ADDRESS + "/v1/auth";
 	HackIllinoisAPI api = new Retrofit.Builder()
 			.baseUrl(SERVER_ADDRESS)
@@ -37,4 +38,7 @@ public interface HackIllinoisAPI {
 
 	@GET("/v1/auth/refresh")
 	Call<LoginResponse> refreshUser(@Header("Authorization") String auth);
+
+	@GET("/v1/event/")
+	Call<EventResponse> getEvents();
 }
