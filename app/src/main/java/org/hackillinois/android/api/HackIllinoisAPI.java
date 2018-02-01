@@ -1,5 +1,9 @@
 package org.hackillinois.android.api;
 
+import com.fatboyindustrial.gsonjodatime.Converters;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import org.hackillinois.android.api.response.event.EventResponse;
 import org.hackillinois.android.api.response.login.LoginRequest;
 import org.hackillinois.android.api.response.login.LoginResponse;
@@ -18,9 +22,10 @@ import retrofit2.http.Query;
 public interface HackIllinoisAPI {
 	public static final String SERVER_ADDRESS = "http://api.test.hackillinois.org";
 	public static final String AUTH = SERVER_ADDRESS + "/v1/auth";
+	Gson gson = Converters.registerDateTime(new GsonBuilder()).create();
 	HackIllinoisAPI api = new Retrofit.Builder()
 			.baseUrl(SERVER_ADDRESS)
-			.addConverterFactory(GsonConverterFactory.create())
+			.addConverterFactory(GsonConverterFactory.create(gson))
 			.build()
 			.create(HackIllinoisAPI.class);
 
