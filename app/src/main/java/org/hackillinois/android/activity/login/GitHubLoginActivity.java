@@ -10,7 +10,7 @@ import android.widget.Toast;
 import org.hackillinois.android.R;
 import org.hackillinois.android.Settings;
 import org.hackillinois.android.activity.HackillinoisActivity;
-import org.hackillinois.android.activity.HomeActivity;
+import org.hackillinois.android.activity.MainActivity;
 import org.hackillinois.android.api.HackIllinoisAPI;
 import org.hackillinois.android.api.response.login.LoginResponse;
 
@@ -57,7 +57,7 @@ public class GitHubLoginActivity extends HackillinoisActivity {
 						if (loginResponse != null) {
 							String authKey = loginResponse.getLoginResponseData().getAuth();
 							settings.saveAuthKey(authKey);
-							startActivity(new Intent(GitHubLoginActivity.this, HomeActivity.class));
+							startActivity(new Intent(GitHubLoginActivity.this, MainActivity.class));
 							finish();
 						} else {
 							Toast.makeText(getApplicationContext(), R.string.failure, Toast.LENGTH_LONG).show();

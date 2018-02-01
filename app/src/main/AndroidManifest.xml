@@ -25,13 +25,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.HomeActivity" />
-        <activity android:name=".activity.ScheduleActivity" />
-        <activity android:name=".activity.NotificationsActivity" />
+        <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.login.GitHubLoginActivity" />
         <activity android:name=".activity.login.LoginChooserActivity" />
         <activity android:name=".activity.login.LoginActivity" />
-        <activity android:name=".activity.ProfileActivity"></activity>
     </application>
 
 </manifest>

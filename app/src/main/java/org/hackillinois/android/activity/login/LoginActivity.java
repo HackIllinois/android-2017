@@ -10,7 +10,7 @@ import android.widget.Toast;
 import org.hackillinois.android.R;
 import org.hackillinois.android.Settings;
 import org.hackillinois.android.activity.HackillinoisActivity;
-import org.hackillinois.android.activity.HomeActivity;
+import org.hackillinois.android.activity.MainActivity;
 import org.hackillinois.android.api.HackIllinoisAPI;
 import org.hackillinois.android.api.response.login.LoginRequest;
 import org.hackillinois.android.api.response.login.LoginResponse;
@@ -38,6 +38,9 @@ public class LoginActivity extends HackillinoisActivity {
 
 	@OnClick(R.id.sign_in)
 	public void signIn() {
+		startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
+		/*
 		String email = emailEditText.getText().toString();
 		String password = passwordEditText.getText().toString();
 		LoginRequest request = new LoginRequest(email, password);
@@ -50,7 +53,7 @@ public class LoginActivity extends HackillinoisActivity {
 				if(loginResponse != null) {
 					String authKey = loginResponse.getLoginResponseData().getAuth();
 					settings.saveAuthKey(authKey);
-					startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+					startActivity(new Intent(LoginActivity.this, MainActivity.class));
 					finish();
 				} else {
 					Toast.makeText(LoginActivity.this, R.string.failed_incorrect_login, Toast.LENGTH_LONG).show();
@@ -62,5 +65,6 @@ public class LoginActivity extends HackillinoisActivity {
 				Toast.makeText(LoginActivity.this, getString(R.string.normal_login_failed), Toast.LENGTH_LONG).show();
 			}
 		});
+		*/
 	}
 }
