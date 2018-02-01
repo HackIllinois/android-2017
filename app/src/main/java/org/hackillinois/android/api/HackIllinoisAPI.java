@@ -1,5 +1,6 @@
 package org.hackillinois.android.api;
 
+import org.hackillinois.android.api.response.announcement.AnnouncementResponse;
 import org.hackillinois.android.api.response.event.EventResponse;
 import org.hackillinois.android.api.response.login.LoginRequest;
 import org.hackillinois.android.api.response.login.LoginResponse;
@@ -41,4 +42,14 @@ public interface HackIllinoisAPI {
 
 	@GET("/v1/event/")
 	Call<EventResponse> getEvents();
+
+	@GET("/v1/announcement/all")
+	Call<AnnouncementResponse> getAnnouncements(
+			@Query("before") String beforeDate,
+			@Query("after") String afterDate,
+			@Query("limit") Integer limit
+	);
+
+	@GET("/v1/announcement/all")
+	Call<AnnouncementResponse> getAnnouncements();
 }

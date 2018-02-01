@@ -3,10 +3,10 @@ package org.hackillinois.android.dialogs;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import org.hackillinois.android.R;
+import org.hackillinois.android.Utils;
 import org.hackillinois.android.api.response.event.EventResponse;
 
 import butterknife.BindView;
@@ -25,11 +25,8 @@ public class EventInfoDialog extends Dialog {
 		setContentView(R.layout.dialog_event_info);
 		ButterKnife.bind(this);
 
-		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-		lp.copyFrom(getWindow().getAttributes());
-		lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-		lp.height = WindowManager.LayoutParams.MATCH_PARENT;
-		getWindow().setAttributes(lp);
+		setCanceledOnTouchOutside(false);
+		Utils.setFullScreen(getWindow());
 
 		setEvent(event);
 	}

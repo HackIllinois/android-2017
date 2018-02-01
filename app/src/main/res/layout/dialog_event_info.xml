@@ -7,21 +7,23 @@
     android:layout_height="match_parent"
     tools:ignore="MissingPrefix">
 
-    <ImageView
+    <ImageButton
         android:id="@+id/event_info_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="28dp"
         android:layout_marginTop="28dp"
+        android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_close_pink_24dp"/>
 
-    <ImageView
+    <ImageButton
         android:id="@+id/event_star"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="38dp"
+        android:background="@android:color/transparent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/event_info_close"
         app:srcCompat="@drawable/ic_star_border_lightblue_200_24dp"/>
@@ -88,7 +90,6 @@
         android:textStyle="normal"
         app:layout_constraintBottom_toTopOf="@+id/login_next"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/event_summary_container"

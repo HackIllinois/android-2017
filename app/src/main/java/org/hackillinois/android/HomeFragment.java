@@ -34,28 +34,16 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
     private Settings settings;
-    @BindView(R.id.active_events)
-    RecyclerView activeEvents;
+    @BindView(R.id.active_events) RecyclerView activeEvents;
 
     private Unbinder unbinder;
+    private final ItemAdapter<EventItem> itemAdapter = new ItemAdapter<>();
+    private final FastAdapter<EventItem> fastAdapter = FastAdapter.with(itemAdapter);
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         settings = Settings.getInstance(getContext());
-
-        HackIllinoisAPI.api.getAttendeeInfo(settings.getAuthString())
-                .enqueue(new Callback<AttendeeResponse>() {
-                    @Override
-                    public void onResponse(Call<AttendeeResponse> call, Response<AttendeeResponse> response) {
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<AttendeeResponse> call, Throwable t) {
-
-                    }
-                });
     }
 
     @Override
@@ -63,25 +51,23 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.layout_home, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        //create the ItemAdapter holding your Items
-        ItemAdapter<EventItem> itemAdapter = new ItemAdapter<>();
-        //create the managing FastAdapter, by passing in the itemAdapter
-        FastAdapter<EventItem> fastAdapter = FastAdapter.with(itemAdapter);
-
         //set our adapters to the RecyclerView
         activeEvents.setAdapter(fastAdapter);
 
         DividerItemDecoration divider = new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL);
         activeEvents.addItemDecoration(divider);
 
-        fastAdapter.withOnClickListener(new OnClickListener<EventItem>() {
-            @Override
-            public boolean onClick(View v, IAdapter<EventItem> adapter, EventItem item, int position) {
-                new EventInfoDialog(getContext(), item.getEvent()).show();
-                return false;
-            }
-        });
+        fastAdapter.withOnClickListener((v, adapter, item, position) -> {
+			new EventInfoDialog(getContext(), item.getEvent()).show();
+			return false;
+		});
 
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         //set the items to your ItemAdapter
         HackIllinoisAPI.api.getEvents()
                 .enqueue(new Callback<EventResponse>() {
@@ -100,8 +86,6 @@ public class HomeFragment extends Fragment {
 
                     }
                 });
-
-        return view;
     }
 
     @Override

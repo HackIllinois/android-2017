@@ -81,8 +81,10 @@ public class Settings {
 	}
 
 	public void saveLastAuth(Date date) {
-		prefs.edit().putLong(LAST_AUTH_PREF, date.getTime()).apply();
-		prefs.edit().putString(LAST_ZONE_PREF, TimeZone.getDefault().getID()).apply();
+		SharedPreferences.Editor edit = prefs.edit();
+		edit.putLong(LAST_AUTH_PREF, date.getTime()).apply();
+		edit.putString(LAST_ZONE_PREF, TimeZone.getDefault().getID()).apply();
+		edit.apply();
 	}
 
 	public String getAuthString() {
