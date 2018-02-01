@@ -1,4 +1,4 @@
-package org.hackillinois.android.dialogs;
+package org.hackillinois.android.ui.dialog;
 
 import android.app.Dialog;
 import android.content.Context;

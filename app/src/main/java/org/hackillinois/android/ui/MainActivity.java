@@ -1,4 +1,4 @@
-package org.hackillinois.android.activity;
+package org.hackillinois.android.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,19 +7,17 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 
-import org.hackillinois.android.HomeFragment;
-import org.hackillinois.android.NotificationFragment;
-import org.hackillinois.android.ProfileFragment;
+import org.hackillinois.android.ui.fragment.HomeFragment;
+import org.hackillinois.android.ui.fragment.NotificationFragment;
+import org.hackillinois.android.ui.fragment.ProfileFragment;
 import org.hackillinois.android.R;
-import org.hackillinois.android.ScheduleFragment;
+import org.hackillinois.android.ui.fragment.ScheduleFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
