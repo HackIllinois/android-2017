@@ -47,11 +47,11 @@ public class ScheduleFragment extends BaseFragment {
 		activeEvents.setAdapter(fastAdapter);
 
 		fastAdapter.withOnClickListener((v, adapter, item, position) -> {
-			new EventInfoDialog(getActivity(), item.getEvent()).show();
+			new EventInfoDialog(getContext(), item.getEvent()).show();
 			return false;
 		});
 
-		DividerItemDecoration divider = new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL);
+		DividerItemDecoration divider = new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL);
 		activeEvents.addItemDecoration(divider);
 
 		Tab currentDayTab = tabLayout.getTabAt(getCurrentDayTab());

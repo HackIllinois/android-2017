@@ -50,7 +50,7 @@ public class HomeFragment extends BaseFragment {
 		activeEvents.setAdapter(fastAdapter);
 
 		fastAdapter.withOnClickListener((v, adapter, item, position) -> {
-			new EventInfoDialog(getActivity(), item.getEvent()).show();
+			new EventInfoDialog(getContext(), item.getEvent()).show();
 			return false;
 		});
 
@@ -70,7 +70,7 @@ public class HomeFragment extends BaseFragment {
 			}
 		}, 100);
 
-		DividerItemDecoration divider = new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL);
+		DividerItemDecoration divider = new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL);
 		activeEvents.addItemDecoration(divider);
 
 		return view;
