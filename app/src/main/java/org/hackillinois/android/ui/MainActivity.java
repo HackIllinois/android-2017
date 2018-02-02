@@ -13,6 +13,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.annimon.stream.Stream;
+import com.mikepenz.fastadapter.FastAdapter;
+import com.mikepenz.fastadapter.adapters.ItemAdapter;
+
+import org.hackillinois.android.api.HackIllinoisAPI;
+import org.hackillinois.android.api.response.event.EventResponse;
+import org.hackillinois.android.item.EventItem;
+import org.hackillinois.android.ui.dialog.EventInfoDialog;
 import org.hackillinois.android.ui.fragment.HomeFragment;
 import org.hackillinois.android.ui.fragment.NotificationFragment;
 import org.hackillinois.android.ui.fragment.ProfileFragment;
@@ -21,6 +29,9 @@ import org.hackillinois.android.ui.fragment.ScheduleFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends HackillinoisActivity {
     @BindView(R.id.navigation) NavigationView navigationView;
@@ -28,10 +39,11 @@ public class MainActivity extends HackillinoisActivity {
     @BindView(R.id.genericToolbar) Toolbar toolbar;
 
     private FragmentManager fragmentManager;
-    private Fragment homeFragment;
-    private Fragment notificationFragment;
-    private Fragment profileFragment;
-    private Fragment scheduleFragment;
+    private HomeFragment homeFragment;
+    private NotificationFragment notificationFragment;
+    private ProfileFragment profileFragment;
+    private ScheduleFragment scheduleFragment;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,9 +98,6 @@ public class MainActivity extends HackillinoisActivity {
         notificationFragment = new NotificationFragment();
         profileFragment = new ProfileFragment();
         scheduleFragment = new ScheduleFragment();
-
-        Toolbar toolbar = findViewById(R.id.genericToolbar);
-        setSupportActionBar(toolbar);
 
         fragmentManager = getSupportFragmentManager();
 
