@@ -17,7 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class EventItem extends AbstractItem<EventItem, EventItem.EventViewHolder> {
-	private EventResponse.Event event;
+	private final EventResponse.Event event;
 	private boolean isStarrable;
 
 	public EventItem(EventResponse.Event event) {

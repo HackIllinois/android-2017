@@ -15,7 +15,7 @@ import android.view.MenuItem;
 
 import org.hackillinois.android.ui.base.BaseActivity;
 import org.hackillinois.android.ui.modules.home.HomeFragment;
-import org.hackillinois.android.ui.modules.notification.NotificationFragment;
+import org.hackillinois.android.ui.modules.announcement.AnnouncementFragment;
 import org.hackillinois.android.ui.modules.profile.ProfileFragment;
 import org.hackillinois.android.R;
 import org.hackillinois.android.ui.modules.schedule.ScheduleFragment;
@@ -30,7 +30,7 @@ public class MainActivity extends BaseActivity {
 
     private FragmentManager fragmentManager;
     private HomeFragment homeFragment;
-    private NotificationFragment notificationFragment;
+    private AnnouncementFragment announcementFragment;
     private ProfileFragment profileFragment;
     private ScheduleFragment scheduleFragment;
 
@@ -64,7 +64,7 @@ public class MainActivity extends BaseActivity {
                     getSupportActionBar().setTitle(getString(R.string.menu_profile));
                     break;
                 case R.id.menu_notifications:
-                    swapFragments(notificationFragment);
+                    swapFragments(announcementFragment);
                     getSupportActionBar().setTitle(getString(R.string.menu_notifications));
                     break;
                 case R.id.menu_schedule:
@@ -85,7 +85,7 @@ public class MainActivity extends BaseActivity {
         sendBroadcast(new Intent("finish_activity"));
 
         homeFragment = new HomeFragment();
-        notificationFragment = new NotificationFragment();
+        announcementFragment = new AnnouncementFragment();
         profileFragment = new ProfileFragment();
         scheduleFragment = new ScheduleFragment();
 
