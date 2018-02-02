@@ -58,7 +58,7 @@ public class Settings {
 	public void saveAuthKey(String auth) {
 		SharedPreferences.Editor prefsEditor = prefs.edit();
 		prefsEditor.putString(AUTH_PREF, auth);
-		saveLastAuth(DateTime.now());
+		saveLastAuth();
 		prefsEditor.apply();
 	}
 
@@ -71,10 +71,11 @@ public class Settings {
 			return Optional.empty();
 		}
 
-		return Optional.of(new DateTime(prefs.getLong(LAST_TIME_AUTH_PREF, 0)));
+		return Optional.of(new DateTime(prefs.getString(LAST_TIME_AUTH_PREF, "")));
 	}
 
-	public void saveLastAuth(DateTime now) {
+	public void saveLastAuth() {
+		DateTime now = DateTime.now();
 		SharedPreferences.Editor edit = prefs.edit();
 		edit.putString(LAST_TIME_AUTH_PREF, now.toString()).apply();
 		edit.apply();
