@@ -2,6 +2,7 @@ package org.hackillinois.android.item;
 
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mikepenz.fastadapter.FastAdapter;
@@ -17,9 +18,15 @@ import butterknife.ButterKnife;
 
 public class EventItem extends AbstractItem<EventItem, EventItem.EventViewHolder> {
 	private EventResponse.Event event;
+	private boolean isStarrable;
 
 	public EventItem(EventResponse.Event event) {
+		this(event, false);
+	}
+
+	public EventItem(EventResponse.Event event, boolean isStarrable) {
 		this.event = event;
+		this.isStarrable = isStarrable;
 	}
 
 	@NonNull
@@ -42,7 +49,12 @@ public class EventItem extends AbstractItem<EventItem, EventItem.EventViewHolder
 		return event;
 	}
 
+	public boolean isStarrable() {
+		return isStarrable;
+	}
+
 	public static class EventViewHolder extends FastAdapter.ViewHolder<EventItem> {
+		@BindView(R.id.event_star) ImageView eventStar;
 		@BindView(R.id.event_name) TextView eventName;
 		@BindView(R.id.event_location) TextView eventLocation;
 
@@ -55,6 +67,11 @@ public class EventItem extends AbstractItem<EventItem, EventItem.EventViewHolder
 		public void bindView(EventItem item, List<Object> payloads) {
 			eventName.setText(item.getEvent().getName());
 			eventLocation.setText("Location id:" + item.getEvent().getLocations().get(0).getLocationId());
+			if(item.isStarrable()) {
+				eventStar.setVisibility(View.VISIBLE);
+			} else {
+				eventStar.setVisibility(View.GONE);
+			}
 		}
 
 		@Override

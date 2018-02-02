@@ -16,6 +16,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
+        android:visibility="gone"
         app:ico_color="@color/bluePurple"
         app:ico_icon="gmd-star-border"
         app:ico_size="24dp"

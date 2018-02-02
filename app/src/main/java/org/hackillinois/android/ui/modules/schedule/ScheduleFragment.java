@@ -133,7 +133,7 @@ public class ScheduleFragment extends BaseFragment {
 					public void onResponse(Call<EventResponse> call, Response<EventResponse> response) {
 						if (response != null && response.isSuccessful()) {
 							Stream.of(response.body().getData())
-									.map(EventItem::new)
+									.map(event -> new EventItem(event, true))
 									.forEach(itemAdapter::add);
 
 							recheckFilter();
