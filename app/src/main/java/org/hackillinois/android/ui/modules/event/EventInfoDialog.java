@@ -1,4 +1,4 @@
-package org.hackillinois.android.ui.dialog;
+package org.hackillinois.android.ui.modules.event;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import android.widget.TextView;
 
 import org.hackillinois.android.R;
-import org.hackillinois.android.Utils;
+import org.hackillinois.android.helper.Utils;
 import org.hackillinois.android.api.response.event.EventResponse;
 
 import butterknife.BindView;

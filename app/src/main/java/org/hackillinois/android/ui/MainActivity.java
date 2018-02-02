@@ -13,27 +13,17 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.annimon.stream.Stream;
-import com.mikepenz.fastadapter.FastAdapter;
-import com.mikepenz.fastadapter.adapters.ItemAdapter;
-
-import org.hackillinois.android.api.HackIllinoisAPI;
-import org.hackillinois.android.api.response.event.EventResponse;
-import org.hackillinois.android.item.EventItem;
-import org.hackillinois.android.ui.dialog.EventInfoDialog;
-import org.hackillinois.android.ui.fragment.HomeFragment;
-import org.hackillinois.android.ui.fragment.NotificationFragment;
-import org.hackillinois.android.ui.fragment.ProfileFragment;
+import org.hackillinois.android.ui.base.BaseActivity;
+import org.hackillinois.android.ui.modules.home.HomeFragment;
+import org.hackillinois.android.ui.modules.notification.NotificationFragment;
+import org.hackillinois.android.ui.modules.profile.ProfileFragment;
 import org.hackillinois.android.R;
-import org.hackillinois.android.ui.fragment.ScheduleFragment;
+import org.hackillinois.android.ui.modules.schedule.ScheduleFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-public class MainActivity extends HackillinoisActivity {
+public class MainActivity extends BaseActivity {
     @BindView(R.id.navigation) NavigationView navigationView;
     @BindView(R.id.drawer) DrawerLayout drawerLayout;
     @BindView(R.id.genericToolbar) Toolbar toolbar;

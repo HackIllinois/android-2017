@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -12,16 +11,15 @@ import android.widget.Toast;
 import com.annimon.stream.Optional;
 
 import org.hackillinois.android.R;
-import org.hackillinois.android.Settings;
-import org.hackillinois.android.ui.login.LoginChooserActivity;
+import org.hackillinois.android.helper.Settings;
+import org.hackillinois.android.ui.base.BaseActivity;
+import org.hackillinois.android.ui.modules.login.LoginChooserActivity;
 import org.hackillinois.android.api.HackIllinoisAPI;
 import org.hackillinois.android.api.response.login.LoginResponse;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 
 import java.io.IOException;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 import pl.droidsonroids.gif.GifDrawable;
 import retrofit2.Call;
@@ -29,7 +27,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
-public class SplashActivity extends HackillinoisActivity {
+public class SplashActivity extends BaseActivity {
 	private Class<?> activityClass = LoginChooserActivity.class;
 
 	@Override
@@ -47,6 +45,8 @@ public class SplashActivity extends HackillinoisActivity {
 		if(settings.getIsHacker() && settings.getAuthKey().isPresent()) { // don't need to refresh these
 			Timber.d("User is a logged in hacker");
 			activityClass = MainActivity.class;
+
+			Timber.d("User auth code is: %s", settings.getAuthKey().get());
 		} else if (!settings.getIsHacker() && settings.getAuthKey().isPresent()) {
 			// todo actually test auth for other users
 			DateTime lastTime = lastAuth.get();

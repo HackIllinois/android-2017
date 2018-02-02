@@ -8,7 +8,7 @@ import timber.log.Timber;
 import timber.log.Timber.DebugTree;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
-public class HackillinoisApp extends MultiDexApplication {
+public class App extends MultiDexApplication {
 	@Override
 	public void onCreate() {
 		super.onCreate();

@@ -1,4 +1,4 @@
-package org.hackillinois.android.ui.login;
+package org.hackillinois.android.ui.modules.login;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,13 +10,13 @@ import android.view.View;
 import android.widget.TextView;
 
 import org.hackillinois.android.R;
-import org.hackillinois.android.Settings;
-import org.hackillinois.android.ui.HackillinoisActivity;
+import org.hackillinois.android.helper.Settings;
+import org.hackillinois.android.ui.base.BaseActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginChooserActivity extends HackillinoisActivity {
+public class LoginChooserActivity extends BaseActivity {
 	private Settings settings;
 	private boolean isHacker = true;
 	private TextView lastSelection = null;

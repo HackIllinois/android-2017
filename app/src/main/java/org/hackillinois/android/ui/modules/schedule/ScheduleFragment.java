@@ -1,9 +1,8 @@
-package org.hackillinois.android.ui.fragment;
+package org.hackillinois.android.ui.modules.schedule;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.Tab;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,7 +18,8 @@ import org.hackillinois.android.R;
 import org.hackillinois.android.api.HackIllinoisAPI;
 import org.hackillinois.android.api.response.event.EventResponse;
 import org.hackillinois.android.item.EventItem;
-import org.hackillinois.android.ui.dialog.EventInfoDialog;
+import org.hackillinois.android.ui.base.BaseFragment;
+import org.hackillinois.android.ui.modules.event.EventInfoDialog;
 import org.joda.time.DateTime;
 
 import butterknife.BindView;
@@ -30,7 +30,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
-public class ScheduleFragment extends Fragment {
+public class ScheduleFragment extends BaseFragment {
 	@BindView(R.id.active_events) RecyclerView activeEvents;
 	@BindView(R.id.tabs) TabLayout tabLayout;
 	private Unbinder unbinder;
@@ -47,11 +47,11 @@ public class ScheduleFragment extends Fragment {
 		activeEvents.setAdapter(fastAdapter);
 
 		fastAdapter.withOnClickListener((v, adapter, item, position) -> {
-			new EventInfoDialog(getContext(), item.getEvent()).show();
+			new EventInfoDialog(getActivity(), item.getEvent()).show();
 			return false;
 		});
 
-		DividerItemDecoration divider = new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL);
+		DividerItemDecoration divider = new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL);
 		activeEvents.addItemDecoration(divider);
 
 		Tab currentDayTab = tabLayout.getTabAt(getCurrentDayTab());

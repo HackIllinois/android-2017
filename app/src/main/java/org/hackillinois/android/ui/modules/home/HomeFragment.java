@@ -1,10 +1,9 @@
-package org.hackillinois.android.ui.fragment;
+package org.hackillinois.android.ui.modules.home;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,13 +15,13 @@ import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
-import com.mikepenz.fastadapter.adapters.ItemFilter;
 
 import org.hackillinois.android.R;
 import org.hackillinois.android.api.HackIllinoisAPI;
 import org.hackillinois.android.api.response.event.EventResponse;
 import org.hackillinois.android.item.EventItem;
-import org.hackillinois.android.ui.dialog.EventInfoDialog;
+import org.hackillinois.android.ui.base.BaseFragment;
+import org.hackillinois.android.ui.modules.event.EventInfoDialog;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -35,7 +34,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends BaseFragment {
 	@BindView(R.id.active_events) RecyclerView activeEvents;
 
 	private Unbinder unbinder;
@@ -51,7 +50,7 @@ public class HomeFragment extends Fragment {
 		activeEvents.setAdapter(fastAdapter);
 
 		fastAdapter.withOnClickListener((v, adapter, item, position) -> {
-			new EventInfoDialog(getContext(), item.getEvent()).show();
+			new EventInfoDialog(getActivity(), item.getEvent()).show();
 			return false;
 		});
 
@@ -71,7 +70,7 @@ public class HomeFragment extends Fragment {
 			}
 		}, 100);
 
-		DividerItemDecoration divider = new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL);
+		DividerItemDecoration divider = new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL);
 		activeEvents.addItemDecoration(divider);
 
 		return view;
