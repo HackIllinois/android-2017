@@ -1,19 +1,19 @@
-package org.hackillinois.android.ui.login;
+package org.hackillinois.android.ui.modules.login;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatEditText;
 
 import org.hackillinois.android.R;
-import org.hackillinois.android.Settings;
-import org.hackillinois.android.ui.HackillinoisActivity;
+import org.hackillinois.android.helper.Settings;
+import org.hackillinois.android.ui.base.BaseActivity;
 import org.hackillinois.android.ui.MainActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginActivity extends HackillinoisActivity {
+public class LoginActivity extends BaseActivity {
 	private Settings settings;
 	@BindView(R.id.login_email) AppCompatEditText emailEditText;
 	@BindView(R.id.login_password) AppCompatEditText passwordEditText;

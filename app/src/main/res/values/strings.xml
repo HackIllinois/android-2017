@@ -26,4 +26,8 @@
     <string name="failed_incorrect_login">Login Failed. Email/Password Combination Was Incorrect.</string>
     <string name="open_drawer">Open</string>
     <string name="close_drawer">Close</string>
+    <string name="sunday">Sunday</string>
+    <string name="saturday">Saturday</string>
+    <string name="friday">Friday</string>
+    <string name="get_directions">Get Directions</string>
 </resources>

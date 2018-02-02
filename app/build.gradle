@@ -37,6 +37,8 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
     // Other libraries use
+    implementation "com.mikepenz:iconics-core:3.0.2@aar"
+    implementation 'com.mikepenz:google-material-typeface:3.0.1.2.original@aar'
     implementation ('com.fatboyindustrial.gson-jodatime-serialisers:gson-jodatime-serialisers:1.6.0') {
         exclude group: 'joda-time'
     }

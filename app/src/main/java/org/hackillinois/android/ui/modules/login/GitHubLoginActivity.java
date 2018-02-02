@@ -1,4 +1,4 @@
-package org.hackillinois.android.ui.login;
+package org.hackillinois.android.ui.modules.login;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -8,8 +8,8 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import org.hackillinois.android.R;
-import org.hackillinois.android.Settings;
-import org.hackillinois.android.ui.HackillinoisActivity;
+import org.hackillinois.android.helper.Settings;
+import org.hackillinois.android.ui.base.BaseActivity;
 import org.hackillinois.android.ui.MainActivity;
 import org.hackillinois.android.api.HackIllinoisAPI;
 import org.hackillinois.android.api.response.login.LoginResponse;
@@ -20,7 +20,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class GitHubLoginActivity extends HackillinoisActivity {
+public class GitHubLoginActivity extends BaseActivity {
 	private Settings settings;
 	@BindView(R.id.github_webview) WebView githubWebview;
 
