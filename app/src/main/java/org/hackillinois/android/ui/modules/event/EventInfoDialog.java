@@ -6,8 +6,8 @@ import android.support.annotation.NonNull;
 import android.widget.TextView;
 
 import org.hackillinois.android.R;
-import org.hackillinois.android.helper.Utils;
 import org.hackillinois.android.api.response.event.EventResponse;
+import org.hackillinois.android.helper.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
