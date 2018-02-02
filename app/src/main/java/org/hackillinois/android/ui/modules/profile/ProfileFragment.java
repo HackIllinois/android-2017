@@ -59,7 +59,7 @@ public class ProfileFragment extends BaseFragment {
 					Bitmap qrCode = Utils.getQRCodeBitmap(getContext(), data.getId(), data.getEmail());
 					qrCodeImage.setImageBitmap(qrCode);
 					userName.setText(data.getEmail()); // todo actually get name
-					userDietaryRestrictions.setText("Unknown");
+					userDietaryRestrictions.setText("Unknown dietary restrictions");
 				} else {
 					Toast.makeText(getContext(), "Couldn't load user info. Try again!", Toast.LENGTH_LONG).show();
 				}

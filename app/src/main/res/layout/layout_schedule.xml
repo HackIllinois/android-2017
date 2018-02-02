@@ -1,54 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.design.widget.TabItem
-            fontPath="fonts/Roboto_Medium.ttf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/friday"
-            android:textColor="@color/darkPurple"
-            android:textSize="13sp"
-            android:textStyle="normal"/>
-
-        <android.support.design.widget.TabItem
-            fontPath="fonts/Roboto_Medium.ttf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/saturday"
-            android:textColor="@color/darkPurple"
-            android:textSize="13sp"
-            android:textStyle="normal"/>
-
-        <android.support.design.widget.TabItem
-            fontPath="fonts/Roboto_Medium.ttf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/sunday"
-            android:textColor="@color/darkPurple"
-            android:textSize="13sp"
-            android:textStyle="normal"/>
-
     </android.support.design.widget.TabLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/active_events"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/day_viewpager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/tabs"
-        tools:listitem="@layout/event_list_item"/>
+        android:layout_height="wrap_content">
 
-</android.support.constraint.ConstraintLayout>
+    </android.support.v4.view.ViewPager>
+
+</LinearLayout>
