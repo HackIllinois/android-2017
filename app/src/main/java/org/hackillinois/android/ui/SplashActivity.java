@@ -11,11 +11,10 @@ import android.widget.Toast;
 import com.annimon.stream.Optional;
 
 import org.hackillinois.android.R;
+import org.hackillinois.android.api.response.login.LoginResponse;
 import org.hackillinois.android.helper.Settings;
 import org.hackillinois.android.ui.base.BaseActivity;
 import org.hackillinois.android.ui.modules.login.LoginChooserActivity;
-import org.hackillinois.android.api.HackIllinoisAPI;
-import org.hackillinois.android.api.response.login.LoginResponse;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 
@@ -55,7 +54,7 @@ public class SplashActivity extends BaseActivity {
 				activityClass = LoginChooserActivity.class;
 			} else if (7 > daysSinceLastAuth && daysSinceLastAuth >= 4) { // re authenticate
 				Timber.d("Trying to reauthenticate user");
-				HackIllinoisAPI.api.refreshUser(settings.getAuthString())
+				getApi().refreshUser(settings.getAuthString())
 						.enqueue(new Callback<LoginResponse>() {
 							@Override
 							public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {

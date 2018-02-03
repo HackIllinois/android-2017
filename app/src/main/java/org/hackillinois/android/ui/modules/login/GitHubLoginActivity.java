@@ -8,11 +8,11 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import org.hackillinois.android.R;
-import org.hackillinois.android.helper.Settings;
-import org.hackillinois.android.ui.base.BaseActivity;
-import org.hackillinois.android.ui.MainActivity;
 import org.hackillinois.android.api.HackIllinoisAPI;
 import org.hackillinois.android.api.response.login.LoginResponse;
+import org.hackillinois.android.helper.Settings;
+import org.hackillinois.android.ui.MainActivity;
+import org.hackillinois.android.ui.base.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,7 +49,7 @@ public class GitHubLoginActivity extends BaseActivity {
 	}
 
 	private void authenticateUser(String code) {
-		HackIllinoisAPI.api.verifyUser(code)
+		getApi().verifyUser(code)
 				.enqueue(new Callback<LoginResponse>() {
 					@Override
 					public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {

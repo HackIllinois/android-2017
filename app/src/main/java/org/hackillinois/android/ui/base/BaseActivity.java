@@ -8,6 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.mikepenz.iconics.context.IconicsLayoutInflater2;
 
+import org.hackillinois.android.App;
+import org.hackillinois.android.api.HackIllinoisAPI;
+
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
@@ -22,5 +25,9 @@ public class BaseActivity extends AppCompatActivity {
 	@Override
 	protected void attachBaseContext(Context newBase) {
 		super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+	}
+
+	public HackIllinoisAPI getApi() {
+		return ((App) getApplication()).getApi();
 	}
 }

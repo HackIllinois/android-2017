@@ -1,10 +1,11 @@
 
 package org.hackillinois.android.api.response.event;
 
-import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
 import org.joda.time.DateTime;
+
+import java.util.List;
 
 public class EventResponse {
     @SerializedName("data") private List<Event> mData;

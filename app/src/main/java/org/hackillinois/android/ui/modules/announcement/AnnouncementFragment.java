@@ -16,7 +16,6 @@ import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
 
 import org.hackillinois.android.R;
-import org.hackillinois.android.api.HackIllinoisAPI;
 import org.hackillinois.android.api.response.announcement.AnnouncementResponse;
 import org.hackillinois.android.item.AnnouncementItem;
 import org.hackillinois.android.ui.base.BaseFragment;
@@ -42,6 +41,8 @@ public class AnnouncementFragment extends BaseFragment {
 		View view = inflater.inflate(R.layout.layout_announcement, container, false);
 		unbinder = ButterKnife.bind(this, view);
 
+		fetchAnnouncements();
+
 		//set our adapters to the RecyclerView
 		announcements.setAdapter(fastAdapter);
 
@@ -49,12 +50,6 @@ public class AnnouncementFragment extends BaseFragment {
 		announcements.addItemDecoration(divider);
 
 		return view;
-	}
-
-	@Override
-	public void onResume() {
-		super.onResume();
-		fetchAnnouncements();
 	}
 
 	@Override
@@ -76,7 +71,7 @@ public class AnnouncementFragment extends BaseFragment {
 	}
 
 	public void fetchAnnouncements() {
-		HackIllinoisAPI.api.getAnnouncements()
+		getApi().getAnnouncements()
 				.enqueue(new Callback<AnnouncementResponse>() {
 					@Override
 					public void onResponse(Call<AnnouncementResponse> call, Response<AnnouncementResponse> response) {

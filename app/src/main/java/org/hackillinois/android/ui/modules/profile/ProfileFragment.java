@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.hackillinois.android.R;
-import org.hackillinois.android.api.HackIllinoisAPI;
 import org.hackillinois.android.api.response.user.UserResponse;
 import org.hackillinois.android.helper.Settings;
 import org.hackillinois.android.helper.Utils;
@@ -50,7 +49,7 @@ public class ProfileFragment extends BaseFragment {
 	private void setupQrCode() {
 		String auth = settings.getAuthString();
 
-		HackIllinoisAPI.api.getUserInfo(auth).enqueue(new Callback<UserResponse>() {
+		getApi().getUserInfo(auth).enqueue(new Callback<UserResponse>() {
 			@Override
 			public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
 				if (response.body() != null) {

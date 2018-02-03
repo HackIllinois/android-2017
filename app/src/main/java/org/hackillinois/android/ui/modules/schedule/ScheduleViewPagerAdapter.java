@@ -8,8 +8,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import org.hackillinois.android.R;
 
-import timber.log.Timber;
-
 public class ScheduleViewPagerAdapter extends FragmentPagerAdapter {
 	private final Context context;
 	int[] titles = {R.string.friday, R.string.saturday, R.string.sunday};

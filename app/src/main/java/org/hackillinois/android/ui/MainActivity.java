@@ -13,11 +13,11 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import org.hackillinois.android.ui.base.BaseActivity;
-import org.hackillinois.android.ui.modules.home.HomeFragment;
-import org.hackillinois.android.ui.modules.announcement.AnnouncementFragment;
-import org.hackillinois.android.ui.modules.profile.ProfileFragment;
 import org.hackillinois.android.R;
+import org.hackillinois.android.ui.base.BaseActivity;
+import org.hackillinois.android.ui.modules.announcement.AnnouncementFragment;
+import org.hackillinois.android.ui.modules.home.HomeFragment;
+import org.hackillinois.android.ui.modules.profile.ProfileFragment;
 import org.hackillinois.android.ui.modules.schedule.ScheduleFragment;
 
 import butterknife.BindView;
