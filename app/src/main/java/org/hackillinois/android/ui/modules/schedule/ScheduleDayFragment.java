@@ -3,7 +3,6 @@ package org.hackillinois.android.ui.modules.schedule;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,9 +16,9 @@ import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
 
 import org.hackillinois.android.R;
-import org.hackillinois.android.api.HackIllinoisAPI;
 import org.hackillinois.android.api.response.event.EventResponse;
 import org.hackillinois.android.item.EventItem;
+import org.hackillinois.android.ui.base.BaseFragment;
 import org.hackillinois.android.ui.modules.event.EventInfoDialog;
 
 import java.util.List;
@@ -32,7 +31,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
 
-public class ScheduleDayFragment extends Fragment {
+public class ScheduleDayFragment extends BaseFragment {
 	@BindView(R.id.active_events) RecyclerView activeEvents;
 	private Unbinder unbinder;
 
@@ -47,6 +46,8 @@ public class ScheduleDayFragment extends Fragment {
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		final View view = inflater.inflate(R.layout.layout_schedule_day, container, false);
 		unbinder = ButterKnife.bind(this, view);
+
+		fetchEvents();
 
 		//set our adapters to the RecyclerView
 		activeEvents.setAdapter(fastAdapter);
@@ -66,12 +67,6 @@ public class ScheduleDayFragment extends Fragment {
 	}
 
 	@Override
-	public void onResume() {
-		super.onResume();
-		fetchEvents();
-	}
-
-	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
 		unbinder.unbind();
@@ -87,7 +82,7 @@ public class ScheduleDayFragment extends Fragment {
 
 	public void fetchEvents() {
 		Timber.d("Fetching events for day of week: %s", currentDay);
-		HackIllinoisAPI.api.getEvents()
+		getApi().getEvents()
 				.enqueue(new Callback<EventResponse>() {
 					@Override
 					public void onResponse(Call<EventResponse> call, Response<EventResponse> response) {

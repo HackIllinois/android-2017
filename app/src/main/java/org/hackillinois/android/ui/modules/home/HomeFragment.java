@@ -17,7 +17,6 @@ import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
 
 import org.hackillinois.android.R;
-import org.hackillinois.android.api.HackIllinoisAPI;
 import org.hackillinois.android.api.response.event.EventResponse;
 import org.hackillinois.android.item.EventItem;
 import org.hackillinois.android.ui.base.BaseFragment;
@@ -79,7 +78,6 @@ public class HomeFragment extends BaseFragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		fetchEvents();
 	}
 
 	@Override
@@ -101,7 +99,7 @@ public class HomeFragment extends BaseFragment {
 	}
 
 	public void fetchEvents() {
-		HackIllinoisAPI.api.getEvents()
+		getApi().getEvents()
 				.enqueue(new Callback<EventResponse>() {
 					@Override
 					public void onResponse(Call<EventResponse> call, Response<EventResponse> response) {

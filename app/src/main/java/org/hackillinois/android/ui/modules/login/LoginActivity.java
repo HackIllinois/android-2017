@@ -6,8 +6,8 @@ import android.support.v7.widget.AppCompatEditText;
 
 import org.hackillinois.android.R;
 import org.hackillinois.android.helper.Settings;
-import org.hackillinois.android.ui.base.BaseActivity;
 import org.hackillinois.android.ui.MainActivity;
+import org.hackillinois.android.ui.base.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,7 +36,7 @@ public class LoginActivity extends BaseActivity {
 		String password = passwordEditText.getText().toString();
 		LoginRequest request = new LoginRequest(email, password);
 
-		HackIllinoisAPI.api.verifyUser(request).enqueue(new Callback<LoginResponse>() {
+		HackIllinoisAPI.API.verifyUser(request).enqueue(new Callback<LoginResponse>() {
 			@Override
 			public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
 				LoginResponse loginResponse = response.body();
