@@ -4,17 +4,18 @@ apply plugin: 'groovyx.android'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "org.hackillinois.android"
+        applicationId "org.hackillinois.branding"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 4
-        versionName "1.02"
+        versionCode 5
+        versionName "1.1.0"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
