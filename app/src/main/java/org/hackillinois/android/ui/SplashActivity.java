@@ -83,9 +83,7 @@ public class SplashActivity extends BaseActivity {
 			GifDrawable gif = new GifDrawable(getResources(), R.drawable.appanimation);
 			int duration = gif.getDuration();
 
-			new Handler().postDelayed(() -> {
-				moveOn(getApplicationContext(), activityClass);
-			}, duration);
+			new Handler().postDelayed(() -> moveOn(getApplicationContext(), activityClass), duration);
 			Timber.d("Splash Screen Displayed");
 		} catch (IOException e) {
 			Timber.d("Failed to display splash Screen");
