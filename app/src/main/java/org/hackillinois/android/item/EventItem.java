@@ -66,8 +66,10 @@ public class EventItem extends AbstractItem<EventItem, EventItem.EventViewHolder
 		@Override
 		public void bindView(EventItem item, List<Object> payloads) {
 			eventName.setText(item.getEvent().getName());
-			eventLocation.setText("Location id:" + item.getEvent().getLocations().get(0).getLocationId());
-			if(item.isStarrable()) {
+			List<EventResponse.Location> locations = item.getEvent().getLocations();
+			String location = locations.size() > 0 ? String.valueOf(locations.get(0).getLocationId()) : "unknown";
+			eventLocation.setText("Location id:" + location);
+			if (item.isStarrable()) {
 				eventStar.setVisibility(View.VISIBLE);
 			} else {
 				eventStar.setVisibility(View.GONE);

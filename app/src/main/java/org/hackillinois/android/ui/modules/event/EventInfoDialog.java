@@ -9,6 +9,8 @@ import org.hackillinois.android.R;
 import org.hackillinois.android.api.response.event.EventResponse;
 import org.hackillinois.android.helper.Utils;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -35,7 +37,9 @@ public class EventInfoDialog extends Dialog {
 		this.event = event;
 
 		eventName.setText(event.getName());
-		eventLocation.setText(String.valueOf(event.getLocations().get(0).getLocationId()));
+		List<EventResponse.Location> locations = event.getLocations();
+		String location = locations.size() > 0 ? String.valueOf(locations.get(0).getLocationId()) : "unknown";
+		eventLocation.setText(location);
 		eventDistance.setText("Building is far");
 		eventDescription.setText(event.getDescription());
 	}
