@@ -31,4 +31,7 @@
     <string name="friday">Friday</string>
     <string name="get_directions">Get Directions</string>
     <string name="announcement">ANNOUNCEMENT</string>
+    <string name="hour_title">H</string>
+    <string name="minute_title">M</string>
+    <string name="second_title">S</string>
 </resources>

@@ -21,46 +21,78 @@
 
     <LinearLayout
         android:id="@+id/clock_animation"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="234dp"
         android:orientation="horizontal"
-        tools:layout_height="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hackingEnds">
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/hour_animation"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="5dp"
-            app:lottie_fileName="countdown.json"
-            app:lottie_loop="true"/>
+        android:padding="16dp"
+        android:clipToPadding="true"
+        tools:ignore="MissingPrefix">
 
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/minute_animation"
-            android:layout_width="100dp"
+            android:id="@+id/hour_animation"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            app:lottie_fileName="countdown.json"/>
+
+        <TextView
+            fontPath="fonts/Roboto_Light.ttf"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="5dp"
-            app:lottie_fileName="countdown.json"
-            app:lottie_loop="true"/>
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center_horizontal"
+            android:text="@string/hour_title"
+            android:textColor="@color/lightPink"
+            android:textSize="21sp"
+            android:textStyle="normal"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:padding="0dp"
+            android:id="@+id/minute_animation"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            app:lottie_fileName="countdown.json"/>
+
+        <TextView
+            fontPath="fonts/Roboto_Light.ttf"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center_horizontal"
+            android:text="@string/minute_title"
+            android:textColor="@color/lightPink"
+            android:textSize="21sp"
+            android:textStyle="normal"/>
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/second_animation"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="5dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            app:lottie_autoPlay="true"
             app:lottie_fileName="countdown.json"
-            app:lottie_loop="true"
-            app:lottie_autoPlay="true"/>
+            app:lottie_loop="true"/>
+
+        <TextView
+            fontPath="fonts/Roboto_Light.ttf"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center_horizontal"
+            android:layout_marginEnd="16dp"
+            android:text="@string/second_title"
+            android:textColor="@color/lightPink"
+            android:textSize="21sp"
+            android:textStyle="normal"/>
     </LinearLayout>
 
     <TextView

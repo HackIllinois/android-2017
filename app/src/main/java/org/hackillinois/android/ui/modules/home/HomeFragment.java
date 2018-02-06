@@ -52,7 +52,7 @@ public class HomeFragment extends BaseFragment {
 		unbinder = ButterKnife.bind(this, view);
 
 		clock = new HomeClock(seconds, minutes, hours);
-		clock.setCountDownTo(getContext(), DateTime.now().plusHours(0).plusMinutes(1).plusSeconds(15));
+		clock.setCountDownTo(getContext(), DateTime.now().plusHours(1).plusMinutes(0).plusSeconds(15));
 
 		//set our adapters to the RecyclerView
 		activeEvents.setAdapter(fastAdapter);

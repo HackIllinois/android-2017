@@ -44,7 +44,7 @@ public class HomeClock {
 		Period diff = new Period(DateTime.now(), time);
 		seconds = diff.getSeconds();
 		minutes = diff.getMinutes();
-		hours = diff.getHours();
+		hours = diff.getHours() + (int) TimeUnit.DAYS.toHours(diff.getDays());
 		LottieComposition.Factory.fromAssetFileName(context, ANIMATION_FILE, composition -> {
 			secondAnimation.setFrame(numberToFrame(seconds));
 			minuteAnimation.setFrame(numberToFrame(minutes));
