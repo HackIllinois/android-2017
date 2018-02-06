@@ -1,5 +1,6 @@
 package org.hackillinois.android.ui.modules.home;
 
+import android.animation.Animator;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -11,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieComposition;
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 import com.mikepenz.fastadapter.FastAdapter;
@@ -21,6 +24,8 @@ import org.hackillinois.android.api.response.event.EventResponse;
 import org.hackillinois.android.item.EventItem;
 import org.hackillinois.android.ui.base.BaseFragment;
 import org.hackillinois.android.ui.modules.event.EventInfoDialog;
+import org.joda.time.DateTime;
+import org.joda.time.Period;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -34,6 +39,9 @@ import retrofit2.Response;
 import timber.log.Timber;
 
 public class HomeFragment extends BaseFragment {
+	@BindView(R.id.hour_animation) LottieAnimationView hourAnimation;
+	@BindView(R.id.minute_animation) LottieAnimationView minuteAnimation;
+	@BindView(R.id.second_animation) LottieAnimationView secondAnimation;
 	@BindView(R.id.active_events) RecyclerView activeEvents;
 
 	private Unbinder unbinder;
@@ -44,6 +52,78 @@ public class HomeFragment extends BaseFragment {
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.layout_home, container, false);
 		unbinder = ButterKnife.bind(this, view);
+
+		float endProgress = 60f / 64f;
+		float startProgress = 1f/64f;
+		secondAnimation.setMinAndMaxProgress(startProgress, endProgress);
+		minuteAnimation.setMinAndMaxProgress(startProgress, endProgress);
+		hourAnimation.setMinAndMaxProgress(startProgress, endProgress);
+
+		float secondsRatio = 1f / (2.0f);
+		float minuteRatio = secondsRatio / 60;
+		float hourRatio = minuteRatio / 60;
+		secondAnimation.setSpeed(secondsRatio);
+		minuteAnimation.setSpeed(secondsRatio);
+		hourAnimation.setSpeed(secondsRatio);
+
+		secondAnimation.addAnimatorListener(new Animator.AnimatorListener() {
+			@Override
+			public void onAnimationStart(Animator animator) {
+
+			}
+
+			@Override
+			public void onAnimationEnd(Animator animator) {
+
+			}
+
+			@Override
+			public void onAnimationCancel(Animator animator) {
+
+			}
+
+			@Override
+			public void onAnimationRepeat(Animator animator) {
+				minuteAnimation.resumeAnimation();
+				new Handler().postDelayed(() -> minuteAnimation.pauseAnimation(), TimeUnit.SECONDS.toMillis(1));
+			}
+		});
+
+		minuteAnimation.addAnimatorListener(new Animator.AnimatorListener() {
+			@Override
+			public void onAnimationStart(Animator animator) {
+
+			}
+
+			@Override
+			public void onAnimationEnd(Animator animator) {
+
+			}
+
+			@Override
+			public void onAnimationCancel(Animator animator) {
+
+			}
+
+			@Override
+			public void onAnimationRepeat(Animator animator) {
+				hourAnimation.resumeAnimation();
+				new Handler().postDelayed(() -> hourAnimation.pauseAnimation(), TimeUnit.SECONDS.toMillis(1));
+			}
+		});
+
+		LottieComposition.Factory.fromAssetFileName(getContext(), "countdown.json", composition -> {
+			Period diff = new Period(DateTime.now(), DateTime.now().plusHours(1).plusMinutes(27).plusSeconds(15));
+			float totalTime = 60.0f;
+			float percentSecond = 1 - (diff.getSeconds() / totalTime);
+			float percentMinute = 1 - (diff.getMinutes() / totalTime);
+			float percentHour = 1 - (diff.getHours() / totalTime);
+			Timber.d("Time remaining %sh %sm %ss", percentHour, percentMinute, percentSecond);
+			secondAnimation.setProgress(percentSecond);
+			minuteAnimation.setProgress(percentMinute);
+			hourAnimation.setProgress(percentHour);
+			Timber.d("Actual remaining %sh %sm %ss", hourAnimation.getProgress(), minuteAnimation.getProgress(), secondAnimation.getProgress());
+		});
 
 		//set our adapters to the RecyclerView
 		activeEvents.setAdapter(fastAdapter);
@@ -78,6 +158,7 @@ public class HomeFragment extends BaseFragment {
 	@Override
 	public void onResume() {
 		super.onResume();
+		fetchEvents();
 	}
 
 	@Override
