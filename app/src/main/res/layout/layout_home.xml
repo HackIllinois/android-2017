@@ -19,22 +19,116 @@
         android:textSize="24sp"
         android:textStyle="normal"/>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
-        android:text="make clock"
-        app:layout_constraintTop_toBottomOf="@+id/hackingEnds"/>
+        android:baselineAligned="false"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <RelativeLayout
+            android:id="@+id/clock_animation"
+            android:layout_width="0dp"
+            android:layout_height="175dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight=".9"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            tools:ignore="MissingPrefix">
+
+            <LinearLayout
+                android:id="@+id/hour_holder"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:orientation="horizontal">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/hour_animation"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    app:lottie_fileName="countdown.json"/>
+
+                <TextView
+                    fontPath="fonts/Roboto_Light.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center_horizontal"
+                    android:padding="8dp"
+                    android:text="@string/hour_title"
+                    android:textColor="@color/lightPink"
+                    android:textSize="21sp"
+                    android:textStyle="normal"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/minute_holder"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:orientation="horizontal">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/minute_animation"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    app:lottie_fileName="countdown.json"/>
+
+                <TextView
+                    fontPath="fonts/Roboto_Light.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center_horizontal"
+                    android:padding="8dp"
+                    android:text="@string/minute_title"
+                    android:textColor="@color/lightPink"
+                    android:textSize="21sp"
+                    android:textStyle="normal"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/second_holder"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:orientation="horizontal">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/second_animation"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    app:lottie_autoPlay="true"
+                    app:lottie_fileName="countdown.json"
+                    app:lottie_loop="true"/>
+
+                <TextView
+                    fontPath="fonts/Roboto_Light.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="center_horizontal"
+                    android:padding="8dp"
+                    android:text="@string/second_title"
+                    android:textColor="@color/lightPink"
+                    android:textSize="21sp"
+                    android:textStyle="normal"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/happeningNow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="22dp"
-        android:layout_marginTop="21dp"
         android:fontFamily="sans-serif"
         android:text="@string/happening_now"
         android:textColor="@color/darkPurple"

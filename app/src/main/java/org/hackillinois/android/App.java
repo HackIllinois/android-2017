@@ -5,6 +5,8 @@ import android.support.multidex.MultiDexApplication;
 import com.fatboyindustrial.gsonjodatime.Converters;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.Iconics;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
@@ -52,6 +54,8 @@ public class App extends MultiDexApplication {
 		);
 		JodaTimeAndroid.init(this);
 		Timber.plant(new DebugTree());
+		Iconics.init(this);
+		Iconics.registerFont(new GoogleMaterial());
 	}
 
 	public Gson getGson() {

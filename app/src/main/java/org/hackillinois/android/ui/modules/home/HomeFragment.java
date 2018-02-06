@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 import com.mikepenz.fastadapter.FastAdapter;
@@ -21,6 +22,7 @@ import org.hackillinois.android.api.response.event.EventResponse;
 import org.hackillinois.android.item.EventItem;
 import org.hackillinois.android.ui.base.BaseFragment;
 import org.hackillinois.android.ui.modules.event.EventInfoDialog;
+import org.joda.time.DateTime;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -34,16 +36,23 @@ import retrofit2.Response;
 import timber.log.Timber;
 
 public class HomeFragment extends BaseFragment {
+	@BindView(R.id.second_animation) LottieAnimationView seconds;
+	@BindView(R.id.minute_animation) LottieAnimationView minutes;
+	@BindView(R.id.hour_animation) LottieAnimationView hours;
 	@BindView(R.id.active_events) RecyclerView activeEvents;
 
 	private Unbinder unbinder;
 	private final ItemAdapter<EventItem> itemAdapter = new ItemAdapter<>();
 	private final FastAdapter<EventItem> fastAdapter = FastAdapter.with(itemAdapter);
+	private HomeClock clock;
 
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.layout_home, container, false);
 		unbinder = ButterKnife.bind(this, view);
+
+		clock = new HomeClock(seconds, minutes, hours);
+		clock.setCountDownTo(getContext(), DateTime.now().plusHours(1).plusMinutes(0).plusSeconds(15));
 
 		//set our adapters to the RecyclerView
 		activeEvents.setAdapter(fastAdapter);
@@ -78,6 +87,7 @@ public class HomeFragment extends BaseFragment {
 	@Override
 	public void onResume() {
 		super.onResume();
+		fetchEvents();
 	}
 
 	@Override
