@@ -54,7 +54,6 @@ public class MainActivity extends BaseActivity {
 		);
 		drawerToggle.syncState();
 
-
         navigationView.setNavigationItemSelectedListener(item -> {
             switch(item.getItemId()) {
                 case R.id.menu_home:
@@ -88,15 +87,18 @@ public class MainActivity extends BaseActivity {
 
         fragmentManager = getSupportFragmentManager();
 
-        fragmentManager.beginTransaction()
-                .add(R.id.content_frame, profileFragment)
-                .hide(profileFragment)
-                .add(R.id.content_frame, announcementFragment)
-                .hide(announcementFragment)
-                .add(R.id.content_frame, scheduleFragment)
-                .hide(scheduleFragment)
-				.add(R.id.content_frame, homeFragment)
-                .commit();
+		if (savedInstanceState == null) {
+			fragmentManager.beginTransaction()
+					.add(R.id.content_frame, profileFragment)
+					.hide(profileFragment)
+					.add(R.id.content_frame, announcementFragment)
+					.hide(announcementFragment)
+					.add(R.id.content_frame, scheduleFragment)
+					.hide(scheduleFragment)
+					.add(R.id.content_frame, homeFragment)
+					.commit();
+		}
+
         getSupportActionBar().setTitle(getString(R.string.menu_home));
     }
 
