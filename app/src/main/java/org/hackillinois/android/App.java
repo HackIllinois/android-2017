@@ -83,7 +83,7 @@ public class App extends MultiDexApplication {
 			if (BuildConfig.DEBUG) {
 				builder.addNetworkInterceptor(new ChuckInterceptor(this).showNotification(false));
 			}
-			builder.cache(cache)
+			okHttpClient = builder.cache(cache)
 					.build();
 		}
 
@@ -92,7 +92,6 @@ public class App extends MultiDexApplication {
 
 	public Retrofit getRetrofit() {
 		if (retrofit == null) {
-			Settings.get().
 			retrofit = new Retrofit.Builder()
 					.baseUrl(SERVER_ADDRESS)
 					.addConverterFactory(GsonConverterFactory.create(getGson()))

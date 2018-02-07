@@ -10,6 +10,10 @@ import org.joda.time.DateTime;
 
 
 public class Settings {
+	public static final DateTime EVENT_START_TIME = new DateTime("2018-02-23T16:00:00-0600"); //  = 2018-02-23T22:00:00+0000
+	public static final DateTime HACKING_START_TIME = new DateTime("2018-02-23T23:00:00-0600"); //  = 2018-02-24T07:00:00+0000
+	public static final DateTime HACKING_END_TIME = new DateTime("2018-02-25T11:00:00-0600"); //  = 2018-02-25T17:00:00+0000
+	public static final DateTime EVENT_END_TIME = new DateTime("2018-02-25T17:00:00-0600"); //  = 2018-02-25T23:00:00+0000
 	private static final String PREFS_NAME = "AppPrefs";
 	private static final String AUTH_PREF = "AUTH";
 	private static final String LAST_TIME_AUTH_PREF = "LAST_TIME_AUTH";

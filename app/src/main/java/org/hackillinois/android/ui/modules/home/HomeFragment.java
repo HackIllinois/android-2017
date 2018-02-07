@@ -19,6 +19,7 @@ import com.mikepenz.fastadapter.adapters.ItemAdapter;
 
 import org.hackillinois.android.R;
 import org.hackillinois.android.api.response.event.EventResponse;
+import org.hackillinois.android.helper.Settings;
 import org.hackillinois.android.ui.base.BaseFragment;
 import org.hackillinois.android.ui.modules.event.EventInfoDialog;
 import org.hackillinois.android.ui.modules.event.EventItem;
@@ -37,6 +38,7 @@ public class HomeFragment extends BaseFragment {
 	@BindView(R.id.second_animation) LottieAnimationView seconds;
 	@BindView(R.id.minute_animation) LottieAnimationView minutes;
 	@BindView(R.id.hour_animation) LottieAnimationView hours;
+	@BindView(R.id.day_animation) LottieAnimationView days;
 	@BindView(R.id.active_events) RecyclerView activeEvents;
 	@BindView(R.id.home_refresh) SwipeRefreshLayout swipeRefresh;
 
@@ -56,8 +58,8 @@ public class HomeFragment extends BaseFragment {
 		View view = inflater.inflate(R.layout.layout_home, container, false);
 		unbinder = ButterKnife.bind(this, view);
 
-		clock = new HomeClock(seconds, minutes, hours);
-		clock.setCountDownTo(getContext(), DateTime.now().plusHours(1).plusMinutes(0).plusSeconds(15));
+		clock = new HomeClock(seconds, minutes, hours, days);
+		clock.setCountDownTo(getContext(), Settings.EVENT_START_TIME);
 
 		swipeRefresh.setOnRefreshListener(this::fetchEvents);
 
