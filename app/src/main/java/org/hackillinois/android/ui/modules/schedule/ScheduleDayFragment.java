@@ -10,11 +10,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
+import com.mikepenz.fastadapter.listeners.ClickEventHook;
 
 import org.hackillinois.android.R;
 import org.hackillinois.android.api.response.event.EventResponse;
@@ -67,6 +69,24 @@ public class ScheduleDayFragment extends BaseFragment {
 		fastAdapter.withOnClickListener((v, adapter, item, position) -> {
 			new EventInfoDialog(getContext(), item.getEvent()).show();
 			return false;
+		});
+
+		fastAdapter.withEventHook(new ClickEventHook<EventItem>() {
+			@Nullable
+			@Override
+			public View onBind(@NonNull RecyclerView.ViewHolder viewHolder) {
+				if (viewHolder instanceof EventItem.EventViewHolder) {
+					return ((EventItem.EventViewHolder) viewHolder).eventStar;
+				}
+				return null;
+			}
+
+			@Override
+			public void onClick(View v, int position, FastAdapter<EventItem> fastAdapter, EventItem item) {
+				if(v.getId() == R.id.event_star) {
+					Timber.w("Event \"%s\" Should be starred", item.getEvent().getName());
+				}
+			}
 		});
 
 		DividerItemDecoration divider = new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL);

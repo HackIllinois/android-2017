@@ -54,9 +54,9 @@ public class EventItem extends AbstractItem<EventItem, EventItem.EventViewHolder
 	}
 
 	public static class EventViewHolder extends FastAdapter.ViewHolder<EventItem> {
-		@BindView(R.id.event_star) ImageView eventStar;
-		@BindView(R.id.event_name) TextView eventName;
-		@BindView(R.id.event_location) TextView eventLocation;
+		@BindView(R.id.event_star) public ImageView eventStar;
+		@BindView(R.id.event_name) public TextView eventName;
+		@BindView(R.id.event_location) public TextView eventLocation;
 
 		public EventViewHolder(View view) {
 			super(view);

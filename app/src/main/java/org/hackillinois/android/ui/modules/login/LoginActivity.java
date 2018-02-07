@@ -15,14 +15,12 @@ import org.hackillinois.android.ui.base.BaseActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.palaima.debugdrawer.actions.ActionsModule;
-import io.palaima.debugdrawer.actions.ButtonAction;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import timber.log.Timber;
 
 public class LoginActivity extends BaseActivity {
-	private Settings settings;
 	@BindView(R.id.login_email) AppCompatEditText emailEditText;
 	@BindView(R.id.login_password) AppCompatEditText passwordEditText;
 
@@ -32,8 +30,6 @@ public class LoginActivity extends BaseActivity {
 		setContentView(R.layout.activity_login);
 		ButterKnife.bind(this);
 		enableDebug();
-
-		settings = Settings.getInstance(this);
 	}
 
 	@OnClick(R.id.sign_in)
@@ -48,8 +44,9 @@ public class LoginActivity extends BaseActivity {
 				LoginResponse loginResponse = response.body();
 
 				if (loginResponse != null) {
+					Timber.i("User %s succesfully logged in", email);
 					String authKey = loginResponse.getLoginResponseData().getAuth();
-					settings.saveAuthKey(authKey);
+					Settings.get().saveAuthKey(authKey);
 					startActivity(new Intent(LoginActivity.this, MainActivity.class));
 					finish();
 				} else {
@@ -60,6 +57,7 @@ public class LoginActivity extends BaseActivity {
 			@Override
 			public void onFailure(Call<LoginResponse> call, Throwable t) {
 				Toast.makeText(LoginActivity.this, getString(R.string.normal_login_failed), Toast.LENGTH_LONG).show();
+				Timber.w(t, "Failed to send login.");
 			}
 		});
 	}

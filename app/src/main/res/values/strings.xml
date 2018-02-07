@@ -34,4 +34,5 @@
     <string name="hour_title">H</string>
     <string name="minute_title">M</string>
     <string name="second_title">S</string>
+    <string name="day_title">D</string>
 </resources>
