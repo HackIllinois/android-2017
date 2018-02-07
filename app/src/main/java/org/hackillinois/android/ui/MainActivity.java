@@ -17,6 +17,7 @@ import org.hackillinois.android.R;
 import org.hackillinois.android.ui.base.BaseActivity;
 import org.hackillinois.android.ui.modules.announcement.AnnouncementFragment;
 import org.hackillinois.android.ui.modules.home.HomeFragment;
+import org.hackillinois.android.ui.modules.login.LoginChooserActivity;
 import org.hackillinois.android.ui.modules.profile.ProfileFragment;
 import org.hackillinois.android.ui.modules.schedule.ScheduleFragment;
 
@@ -39,6 +40,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        enableDebug();
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
@@ -82,7 +84,7 @@ public class MainActivity extends BaseActivity {
         });
 
         // Kill LoginChooserActivity so user can't press back and get to it.
-        sendBroadcast(new Intent("finish_activity"));
+        sendBroadcast(new Intent(LoginChooserActivity.FINISH_ACTIVITY));
 
         homeFragment = new HomeFragment();
         announcementFragment = new AnnouncementFragment();

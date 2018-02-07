@@ -35,6 +35,12 @@ public class ScheduleFragment extends BaseFragment {
 		return view;
 	}
 
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		unbinder.unbind();
+	}
+
 	public int getCurrentDayTab() {
 		DateTime now = DateTime.now();
 		Timber.d("Current day is: %s", now.dayOfWeek().getAsText());

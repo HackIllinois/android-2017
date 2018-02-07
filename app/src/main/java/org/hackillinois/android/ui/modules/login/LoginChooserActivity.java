@@ -11,12 +11,17 @@ import android.widget.TextView;
 
 import org.hackillinois.android.R;
 import org.hackillinois.android.helper.Settings;
+import org.hackillinois.android.ui.MainActivity;
 import org.hackillinois.android.ui.base.BaseActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.palaima.debugdrawer.actions.ActionsModule;
+import io.palaima.debugdrawer.actions.ButtonAction;
+import timber.log.Timber;
 
 public class LoginChooserActivity extends BaseActivity {
+	public static final String FINISH_ACTIVITY = "FINISH_ACTIVITY_LOGIN_CHOOSER";
 	private Settings settings;
 	private boolean isHacker = true;
 	private TextView lastSelection = null;
@@ -30,18 +35,24 @@ public class LoginChooserActivity extends BaseActivity {
 		ButterKnife.bind(this);
 		settings = Settings.getInstance(this);
 
+		ButtonAction skipLogin = new ButtonAction("Skip Login", () -> {
+			startActivity(new Intent(LoginChooserActivity.this, MainActivity.class));
+		});
+
+		enableDebug(new ActionsModule(skipLogin));
+
 		// Create receiver so we can finish() this activity elsewhere.
 		br = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 String action = intent.getAction();
-                if (action.equals("finish_activity")) {
+                if (action.equals(FINISH_ACTIVITY)) {
                     finish();
                 }
             }
         };
 
-        registerReceiver(br, new IntentFilter("finish_activity"));
+        registerReceiver(br, new IntentFilter(FINISH_ACTIVITY));
 	}
 
     @Override
@@ -76,6 +87,7 @@ public class LoginChooserActivity extends BaseActivity {
     @OnClick(R.id.login_next)
 	public void login() {
 		Intent nextActivity = null;
+		Timber.d("Logging in user as hacker: %b", isHacker);
 		settings.saveIsHacker(isHacker);
 		if (isHacker) {
 			nextActivity = new Intent(getApplicationContext(), GitHubLoginActivity.class);

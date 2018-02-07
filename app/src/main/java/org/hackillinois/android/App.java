@@ -13,6 +13,7 @@ import net.danlew.android.joda.JodaTimeAndroid;
 import org.hackillinois.android.api.HackIllinoisAPI;
 import org.hackillinois.android.helper.Utils;
 
+import io.palaima.debugdrawer.timber.data.LumberYard;
 import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -20,7 +21,6 @@ import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import timber.log.Timber;
-import timber.log.Timber.DebugTree;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 import static org.hackillinois.android.api.HackIllinoisAPI.SERVER_ADDRESS;
@@ -48,14 +48,21 @@ public class App extends MultiDexApplication {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+
 		CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
 				.setFontAttrId(R.attr.fontPath)
 				.build()
 		);
+
 		JodaTimeAndroid.init(this);
-		Timber.plant(new DebugTree());
+
 		Iconics.init(this);
 		Iconics.registerFont(new GoogleMaterial());
+
+		LumberYard lumberYard = LumberYard.getInstance(this);
+		lumberYard.cleanUp();
+		Timber.plant(lumberYard.tree());
+		Timber.plant(new Timber.DebugTree());
 	}
 
 	public Gson getGson() {

@@ -3,6 +3,7 @@ package org.hackillinois.android.ui.modules.announcement;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,7 +18,6 @@ import com.mikepenz.fastadapter.adapters.ItemAdapter;
 
 import org.hackillinois.android.R;
 import org.hackillinois.android.api.response.announcement.AnnouncementResponse;
-import org.hackillinois.android.item.AnnouncementItem;
 import org.hackillinois.android.ui.base.BaseFragment;
 
 import java.util.List;
@@ -31,17 +31,25 @@ import retrofit2.Response;
 
 public class AnnouncementFragment extends BaseFragment {
 	@BindView(R.id.announcements) RecyclerView announcements;
+	@BindView(R.id.announcement_refresh) SwipeRefreshLayout swipeRefresh;
 
 	private Unbinder unbinder;
 	private final ItemAdapter<AnnouncementItem> itemAdapter = new ItemAdapter<>();
 	private final FastAdapter<AnnouncementItem> fastAdapter = FastAdapter.with(itemAdapter);
 
 	@Override
+	public void onCreate(@Nullable Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		fetchAnnouncements();
+	}
+
+	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.layout_announcement, container, false);
 		unbinder = ButterKnife.bind(this, view);
 
-		fetchAnnouncements();
+		swipeRefresh.setOnRefreshListener(this::fetchAnnouncements);
 
 		//set our adapters to the RecyclerView
 		announcements.setAdapter(fastAdapter);
@@ -70,6 +78,12 @@ public class AnnouncementFragment extends BaseFragment {
 		unbinder.unbind();
 	}
 
+	public void stopRefreshing() {
+		if (swipeRefresh != null) {
+			swipeRefresh.setRefreshing(false);
+		}
+	}
+
 	public void fetchAnnouncements() {
 		getApi().getAnnouncements()
 				.enqueue(new Callback<AnnouncementResponse>() {
@@ -83,11 +97,12 @@ public class AnnouncementFragment extends BaseFragment {
 
 							itemAdapter.set(announcements);
 						}
+						stopRefreshing();
 					}
 
 					@Override
 					public void onFailure(Call<AnnouncementResponse> call, Throwable t) {
-
+						stopRefreshing();
 					}
 				});
 	}

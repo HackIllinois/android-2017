@@ -71,6 +71,16 @@ dependencies {
     implementation 'com.android.support:design:27.0.2'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
+    // Debug libraries
+    debugImplementation 'io.palaima.debugdrawer:debugdrawer:0.8.0'
+    implementation 'io.palaima.debugdrawer:debugdrawer-commons:0.8.0'
+    implementation 'io.palaima.debugdrawer:debugdrawer-okhttp3:0.8.0'
+    implementation 'io.palaima.debugdrawer:debugdrawer-scalpel:0.8.0'
+    implementation 'com.jakewharton.scalpel:scalpel:1.1.2'
+    implementation 'io.palaima.debugdrawer:debugdrawer-timber:0.8.0'
+    implementation 'io.palaima.debugdrawer:debugdrawer-actions:0.8.0'
+    releaseImplementation 'io.palaima.debugdrawer:debugdrawer-no-op:0.8.0'
+
     // Other libraries used
     implementation 'com.airbnb.android:lottie:2.5.0-beta3'
     implementation 'com.mikepenz:iconics-core:3.0.2@aar'
