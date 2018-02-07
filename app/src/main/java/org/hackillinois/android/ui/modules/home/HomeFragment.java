@@ -76,12 +76,6 @@ public class HomeFragment extends BaseFragment {
 	}
 
 	@Override
-	public void onResume() {
-		super.onResume();
-		fetchEvents();
-	}
-
-	@Override
 	public void onSaveInstanceState(@NonNull Bundle outState) {
 		super.onSaveInstanceState(outState);
 		fastAdapter.saveInstanceState(outState);

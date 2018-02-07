@@ -28,6 +28,7 @@ import butterknife.Unbinder;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import timber.log.Timber;
 
 public class AnnouncementFragment extends BaseFragment {
 	@BindView(R.id.announcements) RecyclerView announcements;
@@ -85,6 +86,7 @@ public class AnnouncementFragment extends BaseFragment {
 	}
 
 	public void fetchAnnouncements() {
+		Timber.d("Fetching new Announcements");
 		getApi().getAnnouncements()
 				.enqueue(new Callback<AnnouncementResponse>() {
 					@Override
