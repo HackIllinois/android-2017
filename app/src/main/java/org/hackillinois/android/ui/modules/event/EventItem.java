@@ -1,4 +1,4 @@
-package org.hackillinois.android.item;
+package org.hackillinois.android.ui.modules.event;
 
 import android.support.annotation.NonNull;
 import android.view.View;

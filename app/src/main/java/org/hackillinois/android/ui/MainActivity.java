@@ -17,6 +17,7 @@ import org.hackillinois.android.R;
 import org.hackillinois.android.ui.base.BaseActivity;
 import org.hackillinois.android.ui.modules.announcement.AnnouncementFragment;
 import org.hackillinois.android.ui.modules.home.HomeFragment;
+import org.hackillinois.android.ui.modules.login.LoginChooserActivity;
 import org.hackillinois.android.ui.modules.profile.ProfileFragment;
 import org.hackillinois.android.ui.modules.schedule.ScheduleFragment;
 
@@ -29,17 +30,18 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.genericToolbar) Toolbar toolbar;
 
     private FragmentManager fragmentManager;
-    private HomeFragment homeFragment;
-    private AnnouncementFragment announcementFragment;
-    private ProfileFragment profileFragment;
-    private ScheduleFragment scheduleFragment;
-
+    private final HomeFragment homeFragment = new HomeFragment();
+    private final AnnouncementFragment announcementFragment = new AnnouncementFragment();
+    private final ProfileFragment profileFragment = new ProfileFragment();
+    private final ScheduleFragment scheduleFragment = new ScheduleFragment();
+    private Fragment current = homeFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        enableDebug();
 
         setSupportActionBar(toolbar);
 
@@ -51,7 +53,6 @@ public class MainActivity extends BaseActivity {
 				R.string.close_drawer
 		);
 		drawerToggle.syncState();
-
 
         navigationView.setNavigationItemSelectedListener(item -> {
             switch(item.getItemId()) {
@@ -82,24 +83,35 @@ public class MainActivity extends BaseActivity {
         });
 
         // Kill LoginChooserActivity so user can't press back and get to it.
-        sendBroadcast(new Intent("finish_activity"));
-
-        homeFragment = new HomeFragment();
-        announcementFragment = new AnnouncementFragment();
-        profileFragment = new ProfileFragment();
-        scheduleFragment = new ScheduleFragment();
+        sendBroadcast(new Intent(LoginChooserActivity.FINISH_ACTIVITY));
 
         fragmentManager = getSupportFragmentManager();
 
-        fragmentManager.beginTransaction().replace(R.id.content_frame, homeFragment).commit();
+		if (savedInstanceState == null) {
+			fragmentManager.beginTransaction()
+					.add(R.id.content_frame, profileFragment)
+					.hide(profileFragment)
+					.add(R.id.content_frame, announcementFragment)
+					.hide(announcementFragment)
+					.add(R.id.content_frame, scheduleFragment)
+					.hide(scheduleFragment)
+					.add(R.id.content_frame, homeFragment)
+					.commit();
+		}
+
         getSupportActionBar().setTitle(getString(R.string.menu_home));
     }
 
-    private void swapFragments(Fragment fragment) {
-        // Delay fragment swapping for increased fluidity (we wait for drawer to close)
-        new Handler().postDelayed(() ->
-                fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit(),
-                200);
+    private void swapFragments(Fragment newFragment) {
+        // Delay newFragment swapping for increased fluidity (we wait for drawer to close)
+		new Handler().postDelayed(() -> {
+					fragmentManager.beginTransaction()
+							.hide(current)
+							.show(newFragment)
+							.commit();
+					current = newFragment;
+				},
+				200);
 
         drawerLayout.closeDrawer(GravityCompat.START);
     }

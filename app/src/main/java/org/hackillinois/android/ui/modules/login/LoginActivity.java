@@ -15,6 +15,8 @@ import org.hackillinois.android.ui.base.BaseActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.palaima.debugdrawer.actions.ActionsModule;
+import io.palaima.debugdrawer.actions.ButtonAction;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,15 +30,14 @@ public class LoginActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-
 		ButterKnife.bind(this);
+		enableDebug();
+
 		settings = Settings.getInstance(this);
 	}
 
 	@OnClick(R.id.sign_in)
 	public void signIn() {
-		startActivity(new Intent(LoginActivity.this, MainActivity.class));
-
 		String email = emailEditText.getText().toString();
 		String password = passwordEditText.getText().toString();
 		LoginRequest request = new LoginRequest(email, password);
@@ -46,7 +47,7 @@ public class LoginActivity extends BaseActivity {
 			public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
 				LoginResponse loginResponse = response.body();
 
-				if(loginResponse != null) {
+				if (loginResponse != null) {
 					String authKey = loginResponse.getLoginResponseData().getAuth();
 					settings.saveAuthKey(authKey);
 					startActivity(new Intent(LoginActivity.this, MainActivity.class));

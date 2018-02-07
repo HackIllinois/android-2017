@@ -92,7 +92,7 @@ public class SplashActivity extends BaseActivity {
 	}
 
 	private void moveOn(Context applicationContext, Class<?> activityClass) {
-		Timber.d("Moving to %s", activityClass.getName());
+		Timber.d("Moving to %s", activityClass.getSimpleName());
 		Intent i = new Intent(applicationContext, activityClass);
 		startActivity(i);
 		finish();

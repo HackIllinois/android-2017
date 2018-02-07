@@ -13,6 +13,7 @@ import net.glxn.qrgen.android.QRCode;
 
 import org.hackillinois.android.R;
 
+import java.util.Arrays;
 import java.util.Locale;
 
 public class Utils {
@@ -39,5 +40,11 @@ public class Utils {
 				.withSize(1024, 1024)
 				.withColor(ContextCompat.getColor(context, R.color.darkPurple), Color.TRANSPARENT)
 				.bitmap();
+	}
+
+	public static <T> T[] concat(T[] first, T[] second) {
+		T[] result = Arrays.copyOf(first, first.length + second.length);
+		System.arraycopy(second, 0, result, first.length, second.length);
+		return result;
 	}
 }
