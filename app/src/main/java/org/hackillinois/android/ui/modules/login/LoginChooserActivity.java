@@ -22,7 +22,6 @@ import timber.log.Timber;
 
 public class LoginChooserActivity extends BaseActivity {
 	public static final String FINISH_ACTIVITY = "FINISH_ACTIVITY_LOGIN_CHOOSER";
-	private Settings settings;
 	private boolean isHacker = true;
 	private TextView lastSelection = null;
 
@@ -33,7 +32,6 @@ public class LoginChooserActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login_chooser);
 		ButterKnife.bind(this);
-		settings = Settings.getInstance(this);
 
 		ButtonAction skipLogin = new ButtonAction("Skip Login", () -> {
 			startActivity(new Intent(LoginChooserActivity.this, MainActivity.class));
@@ -88,7 +86,7 @@ public class LoginChooserActivity extends BaseActivity {
 	public void login() {
 		Intent nextActivity = null;
 		Timber.d("Logging in user as hacker: %b", isHacker);
-		settings.saveIsHacker(isHacker);
+		Settings.get().saveIsHacker(isHacker);
 		if (isHacker) {
 			nextActivity = new Intent(getApplicationContext(), GitHubLoginActivity.class);
 		} else {

@@ -19,9 +19,9 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import timber.log.Timber;
 
 public class GitHubLoginActivity extends BaseActivity {
-	private Settings settings;
 	@BindView(R.id.github_webview) WebView githubWebview;
 
 	@SuppressLint("SetJavaScriptEnabled")
@@ -30,7 +30,6 @@ public class GitHubLoginActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_github_login);
 		ButterKnife.bind(this);
-		settings = Settings.getInstance(this);
 
 		githubWebview.getSettings().setJavaScriptEnabled(true); // required for github
 		githubWebview.setWebViewClient(new WebViewClient() {
@@ -56,10 +55,12 @@ public class GitHubLoginActivity extends BaseActivity {
 						LoginResponse loginResponse = response.body();
 						if (loginResponse != null) {
 							String authKey = loginResponse.getLoginResponseData().getAuth();
-							settings.saveAuthKey(authKey);
+							Settings.get().saveAuthKey(authKey);
+							Timber.i("Successfully authenticated user");
 							startActivity(new Intent(GitHubLoginActivity.this, MainActivity.class));
 							finish();
 						} else {
+							Timber.w("User authentication failed");
 							Toast.makeText(getApplicationContext(), R.string.failure, Toast.LENGTH_LONG).show();
 						}
 					}
@@ -67,6 +68,7 @@ public class GitHubLoginActivity extends BaseActivity {
 					@Override
 					public void onFailure(Call<LoginResponse> call, Throwable t) {
 						//todo handle error
+						Timber.w(t, "Failed to send user authentication request");
 					}
 				});
 	}

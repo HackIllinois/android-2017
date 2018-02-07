@@ -5,10 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="?actionBarSize"
     android:orientation="vertical"
     android:paddingEnd="41dp"
     android:paddingStart="41dp"
+    android:paddingTop="?actionBarSize"
     tools:context=".ui.modules.login.LoginActivity"
     tools:ignore="MissingPrefix">
 
@@ -76,12 +76,12 @@
 
     <Button
         android:id="@+id/sign_in"
+        fontPath="fonts/Roboto_Medium.ttf"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="61dp"
         android:background="@color/bluePurple"
         android:text="@string/sign_in"
-        fontPath="fonts/Roboto_Medium.ttf"
         android:textColor="@color/darkPurple"/>
 
 </LinearLayout>

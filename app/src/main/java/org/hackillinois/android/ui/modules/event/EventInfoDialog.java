@@ -14,6 +14,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import timber.log.Timber;
 
 public class EventInfoDialog extends Dialog {
 	private EventResponse.Event event;
@@ -51,6 +52,6 @@ public class EventInfoDialog extends Dialog {
 
 	@OnClick(R.id.event_star)
 	public void favoriteEvent() {
-
+		Timber.w("Event \"%s\" Should be starred", event.getName());
 	}
 }

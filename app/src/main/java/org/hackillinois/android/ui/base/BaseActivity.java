@@ -18,6 +18,7 @@ import io.palaima.debugdrawer.DebugDrawer;
 import io.palaima.debugdrawer.base.DebugModule;
 import io.palaima.debugdrawer.commons.BuildModule;
 import io.palaima.debugdrawer.commons.DeviceModule;
+import io.palaima.debugdrawer.logs.LogsModule;
 import io.palaima.debugdrawer.okhttp3.OkHttp3Module;
 import io.palaima.debugdrawer.scalpel.ScalpelModule;
 import io.palaima.debugdrawer.timber.TimberModule;
@@ -51,6 +52,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 				new ScalpelModule(this),
 				new TimberModule(),
 				new OkHttp3Module(getApp().getOkHttp()),
+				new LogsModule(),
 				new BuildModule(),
 				new DeviceModule()
 		};

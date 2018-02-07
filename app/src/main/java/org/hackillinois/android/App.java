@@ -7,10 +7,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.Iconics;
+import com.readystatesoftware.chuck.ChuckInterceptor;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
 import org.hackillinois.android.api.HackIllinoisAPI;
+import org.hackillinois.android.helper.Settings;
 import org.hackillinois.android.helper.Utils;
 
 import io.palaima.debugdrawer.timber.data.LumberYard;
@@ -59,6 +61,8 @@ public class App extends MultiDexApplication {
 		Iconics.init(this);
 		Iconics.registerFont(new GoogleMaterial());
 
+		Settings.initialize(this);
+
 		LumberYard lumberYard = LumberYard.getInstance(this);
 		lumberYard.cleanUp();
 		Timber.plant(lumberYard.tree());
@@ -74,9 +78,12 @@ public class App extends MultiDexApplication {
 			int cacheSize = 10 * 1024 * 1024; // 10 MB
 			Cache cache = new Cache(getCacheDir(), cacheSize);
 
-			okHttpClient = new OkHttpClient.Builder()
-					.addNetworkInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR)
-					.cache(cache)
+			OkHttpClient.Builder builder = new OkHttpClient.Builder()
+					.addNetworkInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR);
+			if (BuildConfig.DEBUG) {
+				builder.addNetworkInterceptor(new ChuckInterceptor(this).showNotification(false));
+			}
+			builder.cache(cache)
 					.build();
 		}
 
@@ -85,6 +92,7 @@ public class App extends MultiDexApplication {
 
 	public Retrofit getRetrofit() {
 		if (retrofit == null) {
+			Settings.get().
 			retrofit = new Retrofit.Builder()
 					.baseUrl(SERVER_ADDRESS)
 					.addConverterFactory(GsonConverterFactory.create(getGson()))

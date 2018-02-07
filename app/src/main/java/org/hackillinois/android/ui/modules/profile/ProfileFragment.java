@@ -24,7 +24,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ProfileFragment extends BaseFragment {
-	private Settings settings;
 	@BindView(R.id.qr_code) ImageView qrCodeImage;
 	@BindView(R.id.user_name) TextView userName;
 	@BindView(R.id.dietary_restrictions) TextView userDietaryRestrictions;
@@ -32,7 +31,6 @@ public class ProfileFragment extends BaseFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		settings = Settings.getInstance(getContext());
 	}
 
 	@Nullable
@@ -47,7 +45,7 @@ public class ProfileFragment extends BaseFragment {
 	}
 
 	private void setupQrCode() {
-		String auth = settings.getAuthString();
+		String auth = Settings.get().getAuthString();
 
 		getApi().getUserInfo(auth).enqueue(new Callback<UserResponse>() {
 			@Override
