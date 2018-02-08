@@ -72,7 +72,7 @@ public class EventItem extends AbstractItem<EventItem, EventItem.EventViewHolder
 			if (item.isStarrable()) {
 				eventStar.setVisibility(View.VISIBLE);
 			} else {
-				eventStar.setVisibility(View.GONE);
+				eventStar.setVisibility(View.INVISIBLE);
 			}
 		}
 

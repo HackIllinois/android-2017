@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.annimon.stream.Optional;
-import com.google.gson.Gson;
 
 import org.joda.time.DateTime;
 
@@ -79,5 +78,9 @@ public class Settings {
 
 	public boolean getIsHacker() {
 		return prefs.getBoolean(HACKER_PREF, false);
+	}
+
+	public void clear() {
+		prefs.edit().clear().apply();
 	}
 }
