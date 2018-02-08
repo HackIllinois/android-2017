@@ -31,6 +31,7 @@ public class GitHubLoginActivity extends BaseActivity {
 		setContentView(R.layout.activity_github_login);
 		ButterKnife.bind(this);
 
+		githubWebview.clearCache(true);
 		githubWebview.getSettings().setJavaScriptEnabled(true); // required for github
 		githubWebview.setWebViewClient(new WebViewClient() {
 			@Override

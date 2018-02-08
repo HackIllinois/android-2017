@@ -12,6 +12,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -85,6 +87,9 @@ public class ProfileFragment extends BaseFragment {
 	}
 
 	private void logOut() {
+		CookieSyncManager.createInstance(getContext());
+		CookieManager cookieManager = CookieManager.getInstance();
+		cookieManager.removeAllCookie();
 		Timber.i("Logging out current user!");
 		Settings.get().clear();
 		Intent i = new Intent(getContext(), LoginChooserActivity.class);
