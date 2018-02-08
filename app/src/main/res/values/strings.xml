@@ -35,4 +35,8 @@
     <string name="minute_title">M</string>
     <string name="second_title">S</string>
     <string name="day_title">D</string>
+    <string name="log_out">Log Out</string>
+    <string name="do_log_out">Are you sure you want to log out?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>
