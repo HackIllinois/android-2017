@@ -56,7 +56,8 @@ cache:
   - $HOME/.android/build-cache
 
 before_deploy:
-- ./gradlew publishRelease
+- echo "Checking if tag matches v.X.Y.Z"
+- if [[ $TRAVIS_TAG =~ v[0-9]+\.[0-9]+\.[0-9]+ ]] ; then ./gradlew publishRelease; fi
 - cd app/build/outputs/apk/release/; ls -la; md5sum hackillinois-*.apk > md5sum.txt;
   sha1sum hackillinois-*.apk > sha1sum.txt; cd -
 
