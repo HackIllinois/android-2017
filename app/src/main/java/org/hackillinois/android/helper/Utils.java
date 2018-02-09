@@ -8,13 +8,20 @@ import android.net.NetworkInfo;
 import android.support.v4.content.ContextCompat;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
+
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
 
 import net.glxn.qrgen.android.QRCode;
 
 import org.hackillinois.android.R;
+import org.hackillinois.android.api.response.event.EventResponse;
 
 import java.util.Arrays;
 import java.util.Locale;
+
+import timber.log.Timber;
 
 public class Utils {
 	public static boolean isNetworkAvailable(Context context) {
@@ -46,5 +53,37 @@ public class Utils {
 		T[] result = Arrays.copyOf(first, first.length + second.length);
 		System.arraycopy(second, 0, result, first.length, second.length);
 		return result;
+	}
+
+	public static void toggleEventStarred(ImageView star, EventResponse.Event event) {
+		setEventStarred(star, event, !Settings.get().getIsEventStarred(event.getId()));
+	}
+
+	public static void updateEventStarred(ImageView star, EventResponse.Event event) {
+		setEventStarred(star, event, Settings.get().getIsEventStarred(event.getId()));
+	}
+
+	public static void setEventStarred(ImageView star, EventResponse.Event event, boolean starred) {
+		GoogleMaterial.Icon icon;
+		if (starred) {
+			icon = GoogleMaterial.Icon.gmd_star;
+		} else {
+			icon = GoogleMaterial.Icon.gmd_star_border;
+		}
+
+		if (starred) {
+			Settings.get().saveEventIsStarred(event.getId());
+		} else {
+			Settings.get().saveEventIsNotStarred(event.getId());
+		}
+
+		Timber.i("Setting event %s id=%d to be starred=%b", event.getName(), event.getId(), starred);
+
+		star.setImageDrawable(
+				new IconicsDrawable(star.getContext())
+						.icon(icon)
+						.colorRes(R.color.bluePurple)
+						.actionBar()
+		);
 	}
 }

@@ -20,6 +20,7 @@ import com.mikepenz.fastadapter.listeners.ClickEventHook;
 
 import org.hackillinois.android.R;
 import org.hackillinois.android.api.response.event.EventResponse;
+import org.hackillinois.android.helper.Utils;
 import org.hackillinois.android.ui.base.BaseFragment;
 import org.hackillinois.android.ui.modules.event.EventInfoDialog;
 import org.hackillinois.android.ui.modules.event.EventItem;
@@ -67,7 +68,9 @@ public class ScheduleDayFragment extends BaseFragment {
 		activeEvents.setAdapter(fastAdapter);
 
 		fastAdapter.withOnClickListener((v, adapter, item, position) -> {
-			new EventInfoDialog(getContext(), item.getEvent()).show();
+			EventInfoDialog dialog = new EventInfoDialog(getContext(), item.getEvent());
+			dialog.setOnDismissListener(di -> Utils.updateEventStarred(ButterKnife.findById(v, R.id.event_star), item.getEvent()));
+			dialog.show();
 			return false;
 		});
 
@@ -82,9 +85,12 @@ public class ScheduleDayFragment extends BaseFragment {
 			}
 
 			@Override
-			public void onClick(View v, int position, FastAdapter<EventItem> fastAdapter, EventItem item) {
-				if(v.getId() == R.id.event_star) {
-					Timber.w("Event \"%s\" Should be starred", item.getEvent().getName());
+			public void onClick(View v, int position, FastAdapter<EventItem> fastAdapter, EventItem
+					item) {
+				if (v.getId() == R.id.event_star) {
+					Utils.toggleEventStarred((ImageView) v, item.getEvent());
+				} else {
+
 				}
 			}
 		});

@@ -65,8 +65,6 @@ public class ProfileFragment extends BaseFragment {
 				new IconicsDrawable(getContext())
 						.icon(GoogleMaterial.Icon.gmd_exit_to_app)
 						.colorRes(R.color.darkPurple)
-						.sizeDp(24)
-						.paddingDp(16)
 						.actionBar()
 		);
 	}
