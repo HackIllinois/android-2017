@@ -1,16 +1,31 @@
 apply plugin: 'com.android.application'
 apply plugin: 'groovyx.android'
+apply plugin: 'com.github.triplet.play'
 
 android {
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "hackillinois-v${variant.versionName}.apk"
+        }
+    }
+
+    playAccountConfigs {
+        defaultAccountConfig {
+            jsonFile = file('upload.json')
+        }
+    }
+
     compileSdkVersion 27
     defaultConfig {
-        applicationId "org.hackillinois.branding"
+        applicationId "org.hackillinois.androidapp"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 5
-        versionName "1.1.0"
+        versionCode 6
+        versionName "1.1.1"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
+
+        playAccountConfig = playAccountConfigs.defaultAccountConfig
     }
 
     signingConfigs {
@@ -66,7 +81,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     // Android Official
-    compile 'com.android.support:multidex:1.0.2'
+    implementation 'com.android.support:multidex:1.0.2'
     implementation 'com.android.support:appcompat-v7:27.0.2'
     implementation 'com.android.support:design:27.0.2'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -116,4 +131,10 @@ dependencies {
     }
     testImplementation 'cglib:cglib-nodep:3.1'
     testImplementation 'org.objenesis:objenesis:2.5'
+}
+
+play {
+    // ...
+    track = 'alpha'
+    uploadImages = true
 }
