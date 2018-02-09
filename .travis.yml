@@ -56,8 +56,6 @@ cache:
   - $HOME/.android/build-cache
 
 before_deploy:
-- echo "Checking if tag matches v.X.Y.Z"
-- if [[ $TRAVIS_TAG =~ v[0-9]+\.[0-9]+\.[0-9]+ ]] ; then ./gradlew publishRelease; fi
 - cd app/build/outputs/apk/release/; ls -la; md5sum hackillinois-*.apk > md5sum.txt;
   sha1sum hackillinois-*.apk > sha1sum.txt; cd -
 
@@ -67,6 +65,7 @@ deploy:
   api_key:
     secure: jloQf64uX6tlo6vchhMNhdEe4k7d60lKMQ3F/MA61ypAjqOp+b9nBUBBVxgCGAEZv7qak1ap8H/dfOUO1vVOePP+EnPcfvgxcXGv+unuHI/YaV80fPDH/1WZzNQASsbeAUrT0XfeRQ1iLtjtKtFSGIW+wC47S2zl9h1To/YO6f948ZjC/fCoU4YqCOvATQfhVmFPLhsjrAee9ntJGzhoGgrNLaw1wly819AcVk2weCMg9aVIDQ65D449CD9zgfjoGyerJ6S8mpGcLdh/F6jIqDGpDy6P4VAS5RJKKSst0Thgj5w4X2awKwCWDWPVlowrWJje2FxI4NjFQTk1Ffu7YvU2V/APZ2j5kJui8fTSmz2tjJIIl2RZsX14VgDcyLMKsRjohyQfb8lBBa0qfvnDulqgpQVeN6T20oI9r/UmnxCK+beWf8Q9B9BQt9t8KBDjAvIw1LKvBS0aiTuZiqTLhC9LA3bOXePg/j05UjusGOSopyh8x3uAkDIBgBdQRHMUyOtlZi/H/Exc2zDqgX+zNtXF2GgE+A2M4B22uXW29Ngo2S6soVo+/2zyBRZ8Z7+11Pi3KqaO3VP8SV90+Y6K/fSc8HOTG/Ipmj633iUO/JaHWgFEoGtLVwIcpSaLuysp/x989krw6G8rz5aQz2n6ESbWkTn3aq5NXVxOo0KG86c=
   file_glob: true
+  name: $TRAVIS_TAG
   file:
   - app/build/outputs/apk/release/hackillinois-*.apk
   - app/build/outputs/apk/release/md5sum.txt
@@ -80,3 +79,7 @@ notifications:
     on_success: change
     on_failure: always
     on_start: never
+
+after_deploy:
+- echo "Checking if tag matches v.X.Y.Z"
+- if [[ $TRAVIS_TAG =~ v[0-9]+\.[0-9]+\.[0-9]+ ]] ; then ./gradlew publishRelease; fi
