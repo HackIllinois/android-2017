@@ -32,7 +32,7 @@ android:
 before_install:
 - openssl aes-256-cbc -K $encrypted_35876b0b90c9_key -iv $encrypted_35876b0b90c9_iv
   -in upload_config.tar.enc -out upload_config.tar -d
-- "Successfully decrypted files"
+- echo "Successfully decrypted files"
 - tar xvf upload_config.tar
 - mv upload.json app/upload.json
 - mv upload.keystore app/upload.keystore
