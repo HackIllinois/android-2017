@@ -1,69 +1,76 @@
-# http://docs.travis-ci.com/user/languages/android/
 language: android
 jdk: oraclejdk8
-sudo: required
+sudo: false
 
 env:
- global:
- - ANDROID_API=27
- - EMULATOR_API=22
- - ANDROID_BUILD_TOOLS=27.0.2
- - ADB_INSTALL_TIMEOUT=5 # minutes
- 
+  global:
+  - ANDROID_API=27
+  - EMULATOR_API=22
+  - ANDROID_BUILD_TOOLS=27.0.2
+  - ADB_INSTALL_TIMEOUT=5
+  - secure: fAMkVHaovl9EU3hIahuT9B4yquRQdsmw4FqyvH31LPi/q01Eu7891JwUlvaZeb2XEINB79sRA7aZld6rAeCKVOY6S3+f8K9r6poLk0Y7HjoUZ+8M20SIvR/hZ+Oc+RtU1BWQyTADTLR9uwZk/hD+w8GO6x6784jv29Md4kpRrn7Tl5Fe0YaTSc8wQmEc1B1DF8LcWAb+RB1HgmPyPGwAWTD1vFvWe15qGWGepM0OezypdUu805AUcrlIwKHy4b3YfYv0u1aQauXzseCMmN1RyWMMrksZZCysTUQDD9DPIgHSUxF9pY5dP9UXIxUNMJjXAib9NtG/viDELmW7ExK8f6YTIfC2wu4+U6K1EiEJ/wb/AA4gwgvjeyoISFZqb1l8yn/uJa2g9x3OIeMxeyBIwZsFab+yYbdNBs4OlJ+46pOjPpbOgztFn4/VCqzYnBUB816ZsbuGO3cDhjAJFgadQaegWAnJvwRw2ZGPUJopL9zgsN8oZlKbLmWSCmgGARVn39bH7WOr6OhwvSEJuKoSsXj4awm8+huqTLJ/aP7cfg4/mfLC9jduYIC0wmEDxjfDZZmC7G67lTVBpxOK7ZxS9tMG9iwXUjjlzCEFVhEgHB8kqGXewOUyZ2TmIC5d3pRMPARQK7D7zUXgqU0JP9LpU8nqwi39LbzOH6FpAj2SXkU=
+  - secure: bZFkz5/oXZD9X/VF1Ixe5dPlc+rqSLg1qqsS154UIx0yiEC9yF17UtlyfcXO1RrzJSlcoXbAxnu/0ZmcmAAcmHaNe4ohSVTDNIV00SJ5Gd1wWd4vVuSmi2VlRd/YjgDHTuO3RnzpKrUerbGaEQDxJpznV3XdpgIMQBf6fWu6Ed6b3a2tyySAAeOgLe+of9ox8kPn3+y0iCy3AnW/Wen9eyfynZpuOgnuiU3kB2pCEZsJx/xXv+gwHnUXgmVaDmwsHhFG57A3r31guKrcypCyNQZ5xuinVpO+sRZ0F9/Ns9U+BLlVfc0MfbiRUVWAkToGMqHMZzB4IADA8EzTiatQWjfx9q7qmdMRQbbSoheWQnLRjhw71XBEwADfXVtlelAYz4SHOWGzjisi7eMZi6uPIyWyXi2CjcLUtXyTb038kwQJViFMWm9m8E8Jg66jJeE1MzIeN9QVEt7lFXyqk6k1wN2GQZGTe2TrqJXfCbjdUriketQ3sziAAZiHYSBz2g+y4WAce3Vs6iPrhr2JMgCSPYAigXX2nFBD99D8pTjG/WSm8uVvLc7wHNNq1lihK6WFq+og6324siNDKMgt5nHDFc1qTXQC0NyB1ZOE330A7Semrabcg0LDZJ/8FDmGo48JuUEoDd5i3UAwBb9+0aJ9XLUpJunoxqdz2X9/qhSmztc=
+
 android:
   components:
-    - tools
-    - platform-tools
-    - tools # Upgrade again after upgrading platform-tools.
-
-    - build-tools-$ANDROID_BUILD_TOOLS
-    - android-$ANDROID_API
-    - android-$EMULATOR_API_LEVEL
-
-    - extra-google-m2repository
-    - extra-android-m2repository # for design library
-    - addon-google_apis-google-19 # google play services
-
-    - sys-img-armeabi-v7a-addon-google_apis-google-$ANDROID_API_LEVEL
-    - sys-img-armeabi-v7a-addon-google_apis-google-$EMULATOR_API_LEVEL
+  - tools
+  - platform-tools
+  - tools
+  - build-tools-$ANDROID_BUILD_TOOLS
+  - android-$ANDROID_API
+  - android-$EMULATOR_API_LEVEL
+  - extra-google-m2repository
+  - extra-android-m2repository
+  - addon-google_apis-google-19
+  - sys-img-armeabi-v7a-addon-google_apis-google-$ANDROID_API_LEVEL
+  - sys-img-armeabi-v7a-addon-google_apis-google-$EMULATOR_API_LEVEL
   licenses:
-    - 'android-sdk-preview-license-52d11cd2'
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
-
+  - android-sdk-preview-license-52d11cd2
+  - android-sdk-license-.+
+  - google-gdk-license-.+
 
 before_install:
-  - mkdir -p $ANDROID_HOME/licenses
-  - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > $ANDROID_HOME/licenses/android-sdk-license
-  - echo -e "d56f5187479451eabf01fb78af6dfcb131a6481e" >> $ANDROID_HOME/licenses/android-sdk-license
-  - echo -e "\n504667f4c0de7af1a06de9f4b1727b84351f2910" > $ANDROID_HOME/licenses/android-sdk-preview-license
-    - chmod +x gradlew
-    - ./gradlew dependencies || true
-
-#before_script:
-  # Create and start emulator
-#  - echo no | android create avd --force -n test -t android-$EMULATOR_API --abi armeabi-v7a
-#  - emulator -avd test -no-skin -no-audio -no-window &
-#  - android-wait-for-emulator
-#  - adb shell input keyevent 82 &
+- openssl aes-256-cbc -K $encrypted_35876b0b90c9_key -iv $encrypted_35876b0b90c9_iv
+  -in upload.keystore.enc -out app/upload.keystore -d
+- mkdir -p $ANDROID_HOME/licenses
+- echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > $ANDROID_HOME/licenses/android-sdk-license
+- echo -e "d56f5187479451eabf01fb78af6dfcb131a6481e" >> $ANDROID_HOME/licenses/android-sdk-license
+- echo -e "\n504667f4c0de7af1a06de9f4b1727b84351f2910" > $ANDROID_HOME/licenses/android-sdk-preview-license
+  - chmod +x gradlew - ./gradlew dependencies || true
 
 script:
-    - ./gradlew clean build connectedCheck -PdisablePreDex --stacktrace
-
+- ./gradlew clean build connectedCheck -PdisablePreDex --stacktrace
 
 before_cache:
-    - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-    - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-    - $HOME/.android/build-cache
+  - $HOME/.gradle/caches/
+  - $HOME/.gradle/wrapper/
+  - $HOME/.android/build-cache
+
+before_deploy:
+  - echo "Attempting to deploy. Here's a recursive view of all builds now"
+  - ls -lAR app/build/
+  - cd app/build/outputs/apk/release/; ls -la; md5sum app-release.apk > md5sum.txt; sha1sum app-release.apk > sha1sum.txt; cd -
+
+deploy:
+  skip_cleanup: true
+  provider: releases
+  api_key:
+    secure: jloQf64uX6tlo6vchhMNhdEe4k7d60lKMQ3F/MA61ypAjqOp+b9nBUBBVxgCGAEZv7qak1ap8H/dfOUO1vVOePP+EnPcfvgxcXGv+unuHI/YaV80fPDH/1WZzNQASsbeAUrT0XfeRQ1iLtjtKtFSGIW+wC47S2zl9h1To/YO6f948ZjC/fCoU4YqCOvATQfhVmFPLhsjrAee9ntJGzhoGgrNLaw1wly819AcVk2weCMg9aVIDQ65D449CD9zgfjoGyerJ6S8mpGcLdh/F6jIqDGpDy6P4VAS5RJKKSst0Thgj5w4X2awKwCWDWPVlowrWJje2FxI4NjFQTk1Ffu7YvU2V/APZ2j5kJui8fTSmz2tjJIIl2RZsX14VgDcyLMKsRjohyQfb8lBBa0qfvnDulqgpQVeN6T20oI9r/UmnxCK+beWf8Q9B9BQt9t8KBDjAvIw1LKvBS0aiTuZiqTLhC9LA3bOXePg/j05UjusGOSopyh8x3uAkDIBgBdQRHMUyOtlZi/H/Exc2zDqgX+zNtXF2GgE+A2M4B22uXW29Ngo2S6soVo+/2zyBRZ8Z7+11Pi3KqaO3VP8SV90+Y6K/fSc8HOTG/Ipmj633iUO/JaHWgFEoGtLVwIcpSaLuysp/x989krw6G8rz5aQz2n6ESbWkTn3aq5NXVxOo0KG86c=
+  file:
+    - app/build/outputs/apk/release/app-release.apk
+    - app/build/outputs/apk/release/md5sum.txt
+    - app/build/outputs/apk/release/sha1sum.txt
+  on:
+    repo: HackIllinois/android-2017
+    tags: true
 
 notifications:
   webhooks:
-    on_success: always
+    on_success: change
     on_failure: always
     on_start: never
-    email: false
