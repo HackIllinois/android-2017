@@ -2,7 +2,6 @@
 [![Build Status](https://travis-ci.org/HackIllinois/android-2017.svg?branch=master)](https://travis-ci.org/HackIllinois/android-2017)
 
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" alt="Download from Google Play" height="80">](https://play.google.com/store/apps/details/?id=org.hackillinois.androidapp)
-
 [<img src=".github/assets/direct-apk-download.png" alt="Direct apk download" height=80>](https://github.com/HackIllinois/android-2017/releases/latest)
 
 ## Development
