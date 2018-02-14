@@ -2,7 +2,9 @@ package org.hackillinois.android.service;
 
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
@@ -14,9 +16,9 @@ import com.evernote.android.job.util.support.PersistableBundleCompat;
 
 import org.hackillinois.android.R;
 import org.hackillinois.android.api.response.event.EventResponse;
+import org.hackillinois.android.ui.MainActivity;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
-import org.joda.time.ReadablePeriod;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -37,6 +39,10 @@ public class EventNotifierJob extends Job {
 		int eventId = (int) extras.getLong(EVENT_ID, 0);
 		DateTime startTime = DateTime.parse(extras.getString(EVENT_START_TIME, ""));
 
+		Intent notificationIntent = new Intent(getContext(), MainActivity.class);
+		notificationIntent.putExtra(MainActivity.SET_TAB, R.id.menu_schedule);
+		PendingIntent contentIntent = PendingIntent.getActivity(getContext(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
 		Timber.d("Sending notification for %s", eventName);
 		Notification notification = new NotificationCompat.Builder(getContext(), TAG)
 				.setSmallIcon(R.mipmap.ic_launcher)
@@ -46,10 +52,14 @@ public class EventNotifierJob extends Job {
 				.setWhen(startTime.getMillis())
 				.setVibrate(new long[]{1000, 1000})
 				.setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
+				.setContentIntent(contentIntent)
+				.setAutoCancel(true)
 				.build();
 
 		NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
-		notificationManager.notify(eventId, notification);
+		if (notificationManager != null) {
+			notificationManager.notify(eventId, notification);
+		}
 		return Result.SUCCESS;
 	}
 
@@ -58,8 +68,9 @@ public class EventNotifierJob extends Job {
 		Timber.d("Canceled reminder for '%s'", event.getName());
 	}
 
-	public static void scheduleReminder(EventResponse.Event event, ReadablePeriod timeBefore) {
-		if (event.getStartTime().minus(timeBefore).isBeforeNow()) {
+	public static void scheduleReminder(EventResponse.Event event, long millisBefore) {
+		DateTime timeToNotify = event.getStartTime().minus(millisBefore);
+		if (timeToNotify.isBeforeNow()) {
 			Timber.w("Reminder for event '%s' not scheduled because it is over.", event.getName());
 			return;
 		}
@@ -69,7 +80,6 @@ public class EventNotifierJob extends Job {
 		extras.putString(EVENT_START_TIME, event.getStartTime().toString());
 		extras.putLong(EVENT_ID, event.getId());
 
-		DateTime timeToNotify = event.getStartTime().minus(timeBefore);
 		long msUntilNotify = new Duration(DateTime.now(), timeToNotify).getMillis();
 		new JobRequest.Builder(getTag(event))
 				.setExtras(extras)

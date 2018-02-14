@@ -25,25 +25,26 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
-    @BindView(R.id.navigation) NavigationView navigationView;
-    @BindView(R.id.drawer) DrawerLayout drawerLayout;
-    @BindView(R.id.genericToolbar) Toolbar toolbar;
+	public static final String SET_TAB = "SET_TAB";
+	@BindView(R.id.navigation) NavigationView navigationView;
+	@BindView(R.id.drawer) DrawerLayout drawerLayout;
+	@BindView(R.id.genericToolbar) Toolbar toolbar;
 
-    private FragmentManager fragmentManager;
-    private final HomeFragment homeFragment = new HomeFragment();
-    private final AnnouncementFragment announcementFragment = new AnnouncementFragment();
-    private final ProfileFragment profileFragment = new ProfileFragment();
-    private final ScheduleFragment scheduleFragment = new ScheduleFragment();
-    private Fragment current = homeFragment;
+	private FragmentManager fragmentManager;
+	private final HomeFragment homeFragment = new HomeFragment();
+	private final AnnouncementFragment announcementFragment = new AnnouncementFragment();
+	private final ProfileFragment profileFragment = new ProfileFragment();
+	private final ScheduleFragment scheduleFragment = new ScheduleFragment();
+	private Fragment current = homeFragment;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-        enableDebug();
+	@Override
+	protected void onCreate(@Nullable Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		ButterKnife.bind(this);
+		enableDebug();
 
-        setSupportActionBar(toolbar);
+		setSupportActionBar(toolbar);
 
 		ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(
 				this,
@@ -54,38 +55,12 @@ public class MainActivity extends BaseActivity {
 		);
 		drawerToggle.syncState();
 
-        navigationView.setNavigationItemSelectedListener(item -> {
-            switch(item.getItemId()) {
-                case R.id.menu_home:
-                    swapFragments(homeFragment);
-                    getSupportActionBar().setTitle(getString(R.string.menu_home));
-                    break;
-                case R.id.menu_profile:
-                    swapFragments(profileFragment);
-                    getSupportActionBar().setTitle(getString(R.string.menu_profile));
-                    break;
-                case R.id.menu_notifications:
-                    swapFragments(announcementFragment);
-                    getSupportActionBar().setTitle(getString(R.string.menu_notifications));
-                    break;
-                case R.id.menu_schedule:
-                    swapFragments(scheduleFragment);
-                    getSupportActionBar().setTitle(getString(R.string.menu_schedule));
-                    break;
-                case R.id.menu_map:
-                    // TODO: Open Map app
-                    break;
-                default:
-                    break;
-            }
+		navigationView.setNavigationItemSelectedListener(item -> switchToMenuItem(item.getItemId()));
 
-            return false;
-        });
+		// Kill LoginChooserActivity so user can't press back and get to it.
+		sendBroadcast(new Intent(LoginChooserActivity.FINISH_ACTIVITY));
 
-        // Kill LoginChooserActivity so user can't press back and get to it.
-        sendBroadcast(new Intent(LoginChooserActivity.FINISH_ACTIVITY));
-
-        fragmentManager = getSupportFragmentManager();
+		fragmentManager = getSupportFragmentManager();
 
 		if (savedInstanceState == null) {
 			fragmentManager.beginTransaction()
@@ -99,11 +74,52 @@ public class MainActivity extends BaseActivity {
 					.commit();
 		}
 
-        getSupportActionBar().setTitle(getString(R.string.menu_home));
-    }
+		getSupportActionBar().setTitle(getString(R.string.menu_home));
+		onNewIntent(getIntent());
+	}
 
-    private void swapFragments(Fragment newFragment) {
-        // Delay newFragment swapping for increased fluidity (we wait for drawer to close)
+	private boolean switchToMenuItem(int itemId) {
+		switch (itemId) {
+			case R.id.menu_home:
+				swapFragments(homeFragment);
+				getSupportActionBar().setTitle(getString(R.string.menu_home));
+				break;
+			case R.id.menu_profile:
+				swapFragments(profileFragment);
+				getSupportActionBar().setTitle(getString(R.string.menu_profile));
+				break;
+			case R.id.menu_notifications:
+				swapFragments(announcementFragment);
+				getSupportActionBar().setTitle(getString(R.string.menu_notifications));
+				break;
+			case R.id.menu_schedule:
+				swapFragments(scheduleFragment);
+				getSupportActionBar().setTitle(getString(R.string.menu_schedule));
+				break;
+			case R.id.menu_map:
+				// TODO: Open Map app
+				break;
+			default:
+				return false;
+		}
+		return true;
+	}
+
+	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+		if (intent == null) {
+			return;
+		}
+
+		Bundle extras = intent.getExtras();
+		if (extras != null) {
+			switchToMenuItem(extras.getInt(SET_TAB, R.id.menu_home));
+		}
+	}
+
+	private void swapFragments(Fragment newFragment) {
+		// Delay newFragment swapping for increased fluidity (we wait for drawer to close)
 		new Handler().postDelayed(() -> {
 					fragmentManager.beginTransaction()
 							.hide(current)
@@ -113,17 +129,17 @@ public class MainActivity extends BaseActivity {
 				},
 				200);
 
-        drawerLayout.closeDrawer(GravityCompat.START);
-    }
+		drawerLayout.closeDrawer(GravityCompat.START);
+	}
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case android.R.id.home:
-                drawerLayout.openDrawer(GravityCompat.START);
-                return true;
-        }
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case android.R.id.home:
+				drawerLayout.openDrawer(GravityCompat.START);
+				return true;
+		}
 
-        return super.onOptionsItemSelected(item);
-    }
+		return super.onOptionsItemSelected(item);
+	}
 }

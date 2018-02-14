@@ -13,6 +13,8 @@ public class HackillinoisJobCreator implements JobCreator {
 	public Job create(@NonNull String tag) {
 		if (tag.contains(EventNotifierJob.TAG)) {
 			return new EventNotifierJob();
+		} else if (AnnouncementJob.TAG.equals(tag)) {
+			return new AnnouncementJob();
 		}
 
 		return null;

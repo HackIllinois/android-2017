@@ -18,10 +18,10 @@ import net.glxn.qrgen.android.QRCode;
 import org.hackillinois.android.R;
 import org.hackillinois.android.api.response.event.EventResponse;
 import org.hackillinois.android.service.EventNotifierJob;
-import org.joda.time.Minutes;
 
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import timber.log.Timber;
 
@@ -62,7 +62,7 @@ public class Utils {
 		setEventStarred(star, event, starred);
 
 		if (starred) {
-			EventNotifierJob.scheduleReminder(event, Minutes.minutes(15));
+			EventNotifierJob.scheduleReminder(event, TimeUnit.MINUTES.toMillis(15));
 		} else {
 			EventNotifierJob.cancelReminder(event);
 		}

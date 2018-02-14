@@ -18,7 +18,9 @@ import com.mikepenz.fastadapter.adapters.ItemAdapter;
 
 import org.hackillinois.android.R;
 import org.hackillinois.android.api.response.announcement.AnnouncementResponse;
+import org.hackillinois.android.helper.Settings;
 import org.hackillinois.android.ui.base.BaseFragment;
+import org.joda.time.DateTime;
 
 import java.util.List;
 
@@ -50,7 +52,11 @@ public class AnnouncementFragment extends BaseFragment {
 		View view = inflater.inflate(R.layout.layout_announcement, container, false);
 		unbinder = ButterKnife.bind(this, view);
 
-		swipeRefresh.setOnRefreshListener(this::fetchAnnouncements);
+		swipeRefresh.setOnRefreshListener(() -> {
+			Settings.get().saveLastNotificationFetch(DateTime.now());
+			fetchAnnouncements();
+		});
+		swipeRefresh.setColorSchemeResources(R.color.lightPink);
 
 		//set our adapters to the RecyclerView
 		announcements.setAdapter(fastAdapter);
