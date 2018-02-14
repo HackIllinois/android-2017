@@ -3,6 +3,8 @@ package org.hackillinois.android.ui.modules.login;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
@@ -32,6 +34,7 @@ public class GitHubLoginActivity extends BaseActivity {
 		ButterKnife.bind(this);
 
 		githubWebview.clearCache(true);
+		clearCookies();
 		githubWebview.getSettings().setJavaScriptEnabled(true); // required for github
 		githubWebview.setWebViewClient(new WebViewClient() {
 			@Override
@@ -46,6 +49,12 @@ public class GitHubLoginActivity extends BaseActivity {
 			}
 		});
 		githubWebview.loadUrl(HackIllinoisAPI.AUTH);
+	}
+
+	private void clearCookies() {
+		CookieSyncManager.createInstance(this);
+		CookieManager cookieManager = CookieManager.getInstance();
+		cookieManager.removeAllCookie();
 	}
 
 	private void authenticateUser(String code) {

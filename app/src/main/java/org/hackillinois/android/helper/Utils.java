@@ -17,6 +17,8 @@ import net.glxn.qrgen.android.QRCode;
 
 import org.hackillinois.android.R;
 import org.hackillinois.android.api.response.event.EventResponse;
+import org.hackillinois.android.service.EventNotifierJob;
+import org.joda.time.Minutes;
 
 import java.util.Arrays;
 import java.util.Locale;
@@ -56,7 +58,14 @@ public class Utils {
 	}
 
 	public static void toggleEventStarred(ImageView star, EventResponse.Event event) {
-		setEventStarred(star, event, !Settings.get().getIsEventStarred(event.getId()));
+		boolean starred = !Settings.get().getIsEventStarred(event.getId());
+		setEventStarred(star, event, starred);
+
+		if (starred) {
+			EventNotifierJob.scheduleReminder(event, Minutes.minutes(15));
+		} else {
+			EventNotifierJob.cancelReminder(event);
+		}
 	}
 
 	public static void updateEventStarred(ImageView star, EventResponse.Event event) {
@@ -67,13 +76,9 @@ public class Utils {
 		GoogleMaterial.Icon icon;
 		if (starred) {
 			icon = GoogleMaterial.Icon.gmd_star;
-		} else {
-			icon = GoogleMaterial.Icon.gmd_star_border;
-		}
-
-		if (starred) {
 			Settings.get().saveEventIsStarred(event.getId());
 		} else {
+			icon = GoogleMaterial.Icon.gmd_star_border;
 			Settings.get().saveEventIsNotStarred(event.getId());
 		}
 

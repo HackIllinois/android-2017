@@ -85,9 +85,6 @@ public class ProfileFragment extends BaseFragment {
 	}
 
 	private void logOut() {
-		CookieSyncManager.createInstance(getContext());
-		CookieManager cookieManager = CookieManager.getInstance();
-		cookieManager.removeAllCookie();
 		Timber.i("Logging out current user!");
 		Settings.get().clear();
 		Intent i = new Intent(getContext(), LoginChooserActivity.class);

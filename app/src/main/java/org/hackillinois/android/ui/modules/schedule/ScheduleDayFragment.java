@@ -1,5 +1,8 @@
 package org.hackillinois.android.ui.modules.schedule;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -85,12 +88,9 @@ public class ScheduleDayFragment extends BaseFragment {
 			}
 
 			@Override
-			public void onClick(View v, int position, FastAdapter<EventItem> fastAdapter, EventItem
-					item) {
+			public void onClick(View v, int position, FastAdapter<EventItem> fastAdapter, EventItem item) {
 				if (v.getId() == R.id.event_star) {
 					Utils.toggleEventStarred((ImageView) v, item.getEvent());
-				} else {
-
 				}
 			}
 		});

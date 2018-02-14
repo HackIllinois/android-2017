@@ -7,6 +7,7 @@ import com.annimon.stream.Optional;
 
 import org.joda.time.DateTime;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -45,18 +46,24 @@ public class Settings {
 	}
 
 	public void saveEventIsStarred(long eventId) {
-		Set<String> starredEvents = prefs.getStringSet(EVENT_STARRED_PREF, new HashSet<>());
-		starredEvents.add(String.valueOf(eventId));
+		Set<String> starredEvents = Collections.unmodifiableSet(prefs.getStringSet(EVENT_STARRED_PREF, new HashSet<>()));
+		// note starredEvents should *NOT* be modified
+
 		SharedPreferences.Editor prefsEditor = prefs.edit();
-		prefsEditor.putStringSet(EVENT_STARRED_PREF, starredEvents);
+		Set<String> newStarredEvents = new HashSet<>(starredEvents);
+		newStarredEvents.add(String.valueOf(eventId));
+		prefsEditor.putStringSet(EVENT_STARRED_PREF, newStarredEvents);
 		prefsEditor.apply();
 	}
 
 	public void saveEventIsNotStarred(long eventId) {
-		Set<String> starredEvents = prefs.getStringSet(EVENT_STARRED_PREF, new HashSet<>());
-		starredEvents.remove(String.valueOf(eventId));
+		Set<String> starredEvents = Collections.unmodifiableSet(prefs.getStringSet(EVENT_STARRED_PREF, new HashSet<>()));
+		// note starredEvents should *NOT* be modified
+
 		SharedPreferences.Editor prefsEditor = prefs.edit();
-		prefsEditor.putStringSet(EVENT_STARRED_PREF, starredEvents);
+		Set<String> newStarredEvents = new HashSet<>(starredEvents);
+		newStarredEvents.remove(String.valueOf(eventId));
+		prefsEditor.putStringSet(EVENT_STARRED_PREF, newStarredEvents);
 		prefsEditor.apply();
 	}
 
