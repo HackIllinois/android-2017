@@ -62,6 +62,7 @@ public class HomeFragment extends BaseFragment {
 		clock.setCountDownTo(getContext(), Settings.EVENT_START_TIME);
 
 		swipeRefresh.setOnRefreshListener(this::fetchEvents);
+		swipeRefresh.setColorSchemeResources(R.color.lightPink);
 
 		//set our adapters to the RecyclerView
 		activeEvents.setAdapter(fastAdapter);

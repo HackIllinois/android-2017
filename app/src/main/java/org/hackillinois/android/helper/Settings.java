@@ -20,6 +20,7 @@ public class Settings {
 	private static final String PREFS_NAME = "AppPrefs";
 	private static final String AUTH_PREF = "AUTH";
 	private static final String LAST_TIME_AUTH_PREF = "LAST_TIME_AUTH";
+	private static final String LAST_TIME_FETCH_NOTIFICATIONS = "LAST_TIME_FETCH_NOTIFICATIONS";
 	private static final String HACKER_PREF = "IS_HACKER";
 	private static final String EVENT_STARRED_PREF = "IS_STARRED";
 	private static Settings INSTANCE;
@@ -64,6 +65,20 @@ public class Settings {
 		Set<String> newStarredEvents = new HashSet<>(starredEvents);
 		newStarredEvents.remove(String.valueOf(eventId));
 		prefsEditor.putStringSet(EVENT_STARRED_PREF, newStarredEvents);
+		prefsEditor.apply();
+	}
+
+	public DateTime getLastNotificationFetch() {
+		if(!prefs.contains(LAST_TIME_FETCH_NOTIFICATIONS)) {
+			return DateTime.now();
+		}
+
+		return DateTime.parse(prefs.getString(LAST_TIME_FETCH_NOTIFICATIONS, null));
+	}
+
+	public void saveLastNotificationFetch(DateTime last) {
+		SharedPreferences.Editor prefsEditor = prefs.edit();
+		prefsEditor.putString(LAST_TIME_FETCH_NOTIFICATIONS, last.toString());
 		prefsEditor.apply();
 	}
 

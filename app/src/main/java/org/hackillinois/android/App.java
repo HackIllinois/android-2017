@@ -15,7 +15,10 @@ import net.danlew.android.joda.JodaTimeAndroid;
 import org.hackillinois.android.api.HackIllinoisAPI;
 import org.hackillinois.android.helper.Settings;
 import org.hackillinois.android.helper.Utils;
+import org.hackillinois.android.service.AnnouncementJob;
 import org.hackillinois.android.service.HackillinoisJobCreator;
+
+import java.util.concurrent.TimeUnit;
 
 import io.palaima.debugdrawer.timber.data.LumberYard;
 import okhttp3.Cache;
@@ -53,6 +56,7 @@ public class App extends MultiDexApplication {
 	public void onCreate() {
 		super.onCreate();
 		JobManager.create(this).addJobCreator(new HackillinoisJobCreator());
+		AnnouncementJob.scheduleAnnouncementFetcher(getApi(), TimeUnit.MINUTES.toMillis(15));
 
 		CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
 				.setFontAttrId(R.attr.fontPath)

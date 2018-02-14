@@ -1,8 +1,5 @@
 package org.hackillinois.android.ui.modules.schedule;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -66,6 +63,7 @@ public class ScheduleDayFragment extends BaseFragment {
 		unbinder = ButterKnife.bind(this, view);
 
 		swipeRefresh.setOnRefreshListener(this::fetchEvents);
+		swipeRefresh.setColorSchemeResources(R.color.lightPink);
 
 		//set our adapters to the RecyclerView
 		activeEvents.setAdapter(fastAdapter);

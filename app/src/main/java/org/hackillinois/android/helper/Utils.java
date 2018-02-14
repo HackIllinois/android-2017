@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -18,10 +19,10 @@ import net.glxn.qrgen.android.QRCode;
 import org.hackillinois.android.R;
 import org.hackillinois.android.api.response.event.EventResponse;
 import org.hackillinois.android.service.EventNotifierJob;
-import org.joda.time.Minutes;
 
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import timber.log.Timber;
 
@@ -62,7 +63,16 @@ public class Utils {
 		setEventStarred(star, event, starred);
 
 		if (starred) {
-			EventNotifierJob.scheduleReminder(event, Minutes.minutes(15));
+			TimeUnit timeUnit = TimeUnit.MINUTES;
+			long duration = 15;
+			EventNotifierJob.scheduleReminder(event, timeUnit.toMillis(duration));
+			String infoMessage = star.getContext().getString(
+					R.string.notified_before_event_starts,
+					duration,
+					timeUnit.toString().toLowerCase(),
+					event.getName()
+			);
+			Toast.makeText(star.getContext(), infoMessage, Toast.LENGTH_SHORT).show();
 		} else {
 			EventNotifierJob.cancelReminder(event);
 		}
