@@ -7,6 +7,10 @@ import com.annimon.stream.Optional;
 
 import org.joda.time.DateTime;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 
 public class Settings {
 	public static final DateTime EVENT_START_TIME = new DateTime("2018-02-23T16:00:00-0600"); //  = 2018-02-23T22:00:00+0000
@@ -16,7 +20,8 @@ public class Settings {
 	private static final String PREFS_NAME = "AppPrefs";
 	private static final String AUTH_PREF = "AUTH";
 	private static final String LAST_TIME_AUTH_PREF = "LAST_TIME_AUTH";
-	private static final String HACKER_PREF = "HACKER";
+	private static final String HACKER_PREF = "IS_HACKER";
+	private static final String EVENT_STARRED_PREF = "IS_STARRED";
 	private static Settings INSTANCE;
 
 	private final SharedPreferences prefs;
@@ -33,6 +38,33 @@ public class Settings {
 
 	public static Settings get() {
 		return INSTANCE;
+	}
+
+	public boolean getIsEventStarred(long eventId) {
+		Set<String> starredEvents = prefs.getStringSet(EVENT_STARRED_PREF, new HashSet<>());
+		return starredEvents.contains(String.valueOf(eventId));
+	}
+
+	public void saveEventIsStarred(long eventId) {
+		Set<String> starredEvents = Collections.unmodifiableSet(prefs.getStringSet(EVENT_STARRED_PREF, new HashSet<>()));
+		// note starredEvents should *NOT* be modified
+
+		SharedPreferences.Editor prefsEditor = prefs.edit();
+		Set<String> newStarredEvents = new HashSet<>(starredEvents);
+		newStarredEvents.add(String.valueOf(eventId));
+		prefsEditor.putStringSet(EVENT_STARRED_PREF, newStarredEvents);
+		prefsEditor.apply();
+	}
+
+	public void saveEventIsNotStarred(long eventId) {
+		Set<String> starredEvents = Collections.unmodifiableSet(prefs.getStringSet(EVENT_STARRED_PREF, new HashSet<>()));
+		// note starredEvents should *NOT* be modified
+
+		SharedPreferences.Editor prefsEditor = prefs.edit();
+		Set<String> newStarredEvents = new HashSet<>(starredEvents);
+		newStarredEvents.remove(String.valueOf(eventId));
+		prefsEditor.putStringSet(EVENT_STARRED_PREF, newStarredEvents);
+		prefsEditor.apply();
 	}
 
 	public void saveAuthKey(String auth) {

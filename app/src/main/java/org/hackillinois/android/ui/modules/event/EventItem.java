@@ -10,6 +10,7 @@ import com.mikepenz.fastadapter.items.AbstractItem;
 
 import org.hackillinois.android.R;
 import org.hackillinois.android.api.response.event.EventResponse;
+import org.hackillinois.android.helper.Utils;
 
 import java.util.List;
 
@@ -70,11 +71,13 @@ public class EventItem extends AbstractItem<EventItem, EventItem.EventViewHolder
 			String location = locations.size() > 0 ? String.valueOf(locations.get(0).getLocationId()) : "unknown";
 			eventLocation.setText("Location id:" + location);
 			if (item.isStarrable()) {
+				Utils.updateEventStarred(eventStar, item.getEvent());
 				eventStar.setVisibility(View.VISIBLE);
 			} else {
 				eventStar.setVisibility(View.INVISIBLE);
 			}
 		}
+
 
 		@Override
 		public void unbindView(EventItem item) {

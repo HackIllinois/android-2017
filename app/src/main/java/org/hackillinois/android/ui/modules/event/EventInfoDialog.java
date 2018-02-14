@@ -3,6 +3,8 @@ package org.hackillinois.android.ui.modules.event;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.hackillinois.android.R;
@@ -18,6 +20,7 @@ import timber.log.Timber;
 
 public class EventInfoDialog extends Dialog {
 	private EventResponse.Event event;
+	@BindView(R.id.event_star) ImageView eventStar;
 	@BindView(R.id.event_name) TextView eventName;
 	@BindView(R.id.event_location) TextView eventLocation;
 	@BindView(R.id.event_distance) TextView eventDistance;
@@ -43,6 +46,8 @@ public class EventInfoDialog extends Dialog {
 		eventLocation.setText(location);
 		eventDistance.setText("Building is far");
 		eventDescription.setText(event.getDescription());
+
+		Utils.updateEventStarred(eventStar, event);
 	}
 
 	@OnClick(R.id.event_info_close)
@@ -51,7 +56,8 @@ public class EventInfoDialog extends Dialog {
 	}
 
 	@OnClick(R.id.event_star)
-	public void favoriteEvent() {
+	public void favoriteEvent(View v) {
+		Utils.toggleEventStarred((ImageView) v, event);
 		Timber.w("Event \"%s\" Should be starred", event.getName());
 	}
 }
