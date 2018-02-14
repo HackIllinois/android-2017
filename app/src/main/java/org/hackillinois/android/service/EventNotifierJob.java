@@ -47,7 +47,7 @@ public class EventNotifierJob extends Job {
 		Notification notification = new NotificationCompat.Builder(getContext(), TAG)
 				.setSmallIcon(R.mipmap.ic_launcher)
 				.setContentTitle(eventName)
-				.setContentText(eventName + " starts at " + DTF.print(startTime))
+				.setContentText(getContext().getString(R.string.event_starts_at, eventName, DTF.print(startTime)))
 				.setTimeoutAfter(startTime.getMillis())
 				.setWhen(startTime.getMillis())
 				.setVibrate(new long[]{1000, 1000})
