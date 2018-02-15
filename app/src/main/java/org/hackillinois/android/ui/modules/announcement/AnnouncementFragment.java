@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,7 @@ import org.hackillinois.android.R;
 import org.hackillinois.android.api.response.announcement.AnnouncementResponse;
 import org.hackillinois.android.helper.Settings;
 import org.hackillinois.android.ui.base.BaseFragment;
+import org.hackillinois.android.ui.custom.EmptyRecyclerView;
 import org.joda.time.DateTime;
 
 import java.util.List;
@@ -31,8 +31,9 @@ import retrofit2.Response;
 import timber.log.Timber;
 
 public class AnnouncementFragment extends BaseFragment {
-	@BindView(R.id.announcements) RecyclerView announcements;
+	@BindView(R.id.announcements) EmptyRecyclerView announcements;
 	@BindView(R.id.announcement_refresh) SwipeRefreshLayout swipeRefresh;
+	@BindView(R.id.empty_view) View emptyView;
 
 	private Unbinder unbinder;
 	private final ItemAdapter<AnnouncementItem> itemAdapter = new ItemAdapter<>();
@@ -58,6 +59,7 @@ public class AnnouncementFragment extends BaseFragment {
 
 		//set our adapters to the RecyclerView
 		announcements.setAdapter(fastAdapter);
+		announcements.setEmptyView(emptyView);
 
 		return view;
 	}

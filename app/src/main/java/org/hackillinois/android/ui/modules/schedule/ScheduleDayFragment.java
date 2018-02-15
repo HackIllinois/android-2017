@@ -20,6 +20,7 @@ import org.hackillinois.android.R;
 import org.hackillinois.android.api.response.event.EventResponse;
 import org.hackillinois.android.helper.Utils;
 import org.hackillinois.android.ui.base.BaseFragment;
+import org.hackillinois.android.ui.custom.EmptyRecyclerView;
 import org.hackillinois.android.ui.modules.event.EventInfoDialog;
 import org.hackillinois.android.ui.modules.event.EventItem;
 
@@ -34,8 +35,9 @@ import retrofit2.Response;
 import timber.log.Timber;
 
 public class ScheduleDayFragment extends BaseFragment {
-	@BindView(R.id.active_events) RecyclerView activeEvents;
+	@BindView(R.id.active_events) EmptyRecyclerView activeEvents;
 	@BindView(R.id.schedule_refresh) SwipeRefreshLayout swipeRefresh;
+	@BindView(R.id.empty_view) View emptyView;
 	private Unbinder unbinder;
 
 	private final ItemAdapter<EventItem> itemAdapter = new ItemAdapter<>();
@@ -65,6 +67,7 @@ public class ScheduleDayFragment extends BaseFragment {
 
 		//set our adapters to the RecyclerView
 		activeEvents.setAdapter(fastAdapter);
+		activeEvents.setEmptyView(emptyView);
 
 		fastAdapter.withOnClickListener((v, adapter, item, position) -> {
 			EventInfoDialog dialog = new EventInfoDialog(getContext(), item.getEvent());

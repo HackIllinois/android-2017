@@ -22,6 +22,7 @@ import org.hackillinois.android.R;
 import org.hackillinois.android.api.response.event.EventResponse;
 import org.hackillinois.android.helper.Settings;
 import org.hackillinois.android.ui.base.BaseFragment;
+import org.hackillinois.android.ui.custom.EmptyRecyclerView;
 import org.hackillinois.android.ui.modules.event.EventInfoDialog;
 import org.hackillinois.android.ui.modules.event.EventItem;
 import org.joda.time.DateTime;
@@ -41,9 +42,10 @@ public class HomeFragment extends BaseFragment implements HomeClock.OnFinishList
 	@BindView(R.id.minute_animation) LottieAnimationView minutes;
 	@BindView(R.id.hour_animation) LottieAnimationView hours;
 	@BindView(R.id.day_animation) LottieAnimationView days;
-	@BindView(R.id.active_events) RecyclerView activeEvents;
+	@BindView(R.id.active_events) EmptyRecyclerView activeEvents;
 	@BindView(R.id.home_refresh) SwipeRefreshLayout swipeRefresh;
 	@BindView(R.id.countdownTitle) TextView countdownTitle;
+	@BindView(R.id.empty_view) View emptyView;
 
 	private static final int[] TITLE_IDS = new int[]{
 			R.string.hackillinois_starts_in,
@@ -76,6 +78,7 @@ public class HomeFragment extends BaseFragment implements HomeClock.OnFinishList
 
 		//set our adapters to the RecyclerView
 		activeEvents.setAdapter(fastAdapter);
+		activeEvents.setEmptyView(emptyView);
 
 		fastAdapter.withOnClickListener((v, adapter, item, position) -> {
 			new EventInfoDialog(v.getContext(), item.getEvent()).show();
