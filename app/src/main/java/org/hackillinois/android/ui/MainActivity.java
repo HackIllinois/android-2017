@@ -19,6 +19,7 @@ import android.widget.Toast;
 import org.hackillinois.android.R;
 import org.hackillinois.android.api.response.location.LocationResponse;
 import org.hackillinois.android.helper.Settings;
+import org.hackillinois.android.helper.Utils;
 import org.hackillinois.android.ui.base.BaseActivity;
 import org.hackillinois.android.ui.modules.announcement.AnnouncementFragment;
 import org.hackillinois.android.ui.modules.home.HomeFragment;
@@ -103,7 +104,7 @@ public class MainActivity extends BaseActivity {
 				getSupportActionBar().setTitle(getString(R.string.menu_schedule));
 				break;
 			case R.id.menu_map:
-				goToMaps();
+				Utils.goToMapApp(this);
 				break;
 			default:
 				return false;
@@ -147,35 +148,5 @@ public class MainActivity extends BaseActivity {
 		}
 
 		return super.onOptionsItemSelected(item);
-	}
-
-	private void goToMaps() {
-		Settings settings = Settings.get();
-		String json = settings.getLocations();
-
-		LocationResponse locations = getApp().getGson().fromJson(json, LocationResponse.class);
-
-		// Just get the first location's location to open up maps app.
-		double longitude = locations.getLocations()[0].getLongitude();
-		double latitude = locations.getLocations()[0].getLatitude();
-
-		if (longitude == 0) {
-			longitude = 40.1138; // Default location for ECEB
-		}
-
-		if (latitude == 0) {
-			latitude = -88.2249; // Default location for ECEB
-		}
-
-		Uri gmmIntentUri = Uri.parse("geo:" + latitude + "," + longitude + "?z=" + 18);
-		Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-		mapIntent.setPackage("com.google.android.apps.maps");
-
-		if (mapIntent.resolveActivity(getPackageManager()) != null) {
-			startActivity(mapIntent);
-		} else {
-			Toast.makeText(this,
-					"Google Maps not installed!", Toast.LENGTH_SHORT).show();
-		}
 	}
 }

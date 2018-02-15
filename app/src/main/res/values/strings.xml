@@ -29,7 +29,6 @@
     <string name="sunday">Sunday</string>
     <string name="saturday">Saturday</string>
     <string name="friday">Friday</string>
-    <string name="get_directions">Get Directions</string>
     <string name="announcement">ANNOUNCEMENT</string>
     <string name="hour_title">H</string>
     <string name="minute_title">M</string>
@@ -44,4 +43,5 @@
     <string name="hackillinois_starts_in">HackIllinois Starts In</string>
     <string name="hacking_starts_in">Hacking Starts In</string>
     <string name="hackillinois_ends_in">HackIllinois Ends In</string>
+    <string name="no_location">No location</string>
 </resources>

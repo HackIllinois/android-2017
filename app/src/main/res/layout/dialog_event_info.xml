@@ -57,63 +57,45 @@
             android:textStyle="normal"
             tools:text="Current Event Name"/>
 
-        <TextView
-            android:id="@+id/event_location"
-            fontPath="fonts/Roboto_Bold.ttf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:textColor="@color/darkPurple"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            tools:text="East Entrance, Siebel Center"/>
-
-        <TextView
-            android:id="@+id/event_distance"
-            fontPath="fonts/Roboto_Regular.ttf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:textColor="@color/darkPurple"
-            android:textSize="14sp"
-            android:textStyle="normal"
-            tools:text="~ 9 minute walk"/>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/event_description"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="28dp"
-        android:fontFamily="sans-serif"
-        android:textColor="@color/darkPurple"
-        android:textSize="13sp"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toTopOf="@+id/login_next"
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/event_summary_container"
-        tools:text="This event is the best event, like the best event, in the whole world. It’s the event of events and all events."/>
+        app:layout_constraintTop_toBottomOf="@id/event_summary_container">
 
-    <Button
-        android:id="@+id/login_next"
-        fontPath="fonts/Roboto_Medium.ttf"
+        <TextView
+            android:id="@+id/event_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="28dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="28dp"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/darkPurple"
+            android:textSize="24sp"
+            android:textStyle="normal"
+            tools:text="This event is the best event, like the best event, in the whole world. It’s the event of events and all events." />
+    </ScrollView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/event_buttons"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
         android:layout_marginEnd="28dp"
         android:layout_marginStart="28dp"
-        android:background="@color/bluePurple"
-        android:fontFamily="sans-serif-medium"
-        android:text="@string/get_directions"
-        android:textColor="@color/darkPurple"
-        android:textSize="14sp"
-        android:textStyle="normal"
+        android:layout_marginTop="8dp"
+        android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+        app:layout_constraintVertical_bias="1.0" />
 </android.support.constraint.ConstraintLayout>

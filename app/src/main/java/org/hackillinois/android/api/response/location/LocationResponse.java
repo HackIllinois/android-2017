@@ -9,12 +9,12 @@ public class LocationResponse {
     public Location[] getLocations() { return locations; }
 
     public static class Location {
-        @SerializedName("id") private int id;
+        @SerializedName("id") private long id;
         @SerializedName("name") private String name;
         @SerializedName("longitude") private double longitude;
         @SerializedName("latitude") private double latitude;
 
-        public int getId() {
+        public long getId() {
             return id;
         }
 

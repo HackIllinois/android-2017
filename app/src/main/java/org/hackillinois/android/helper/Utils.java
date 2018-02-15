@@ -1,10 +1,12 @@
 package org.hackillinois.android.helper;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.view.Window;
 import android.view.WindowManager;
@@ -18,6 +20,7 @@ import net.glxn.qrgen.android.QRCode;
 
 import org.hackillinois.android.R;
 import org.hackillinois.android.api.response.event.EventResponse;
+import org.hackillinois.android.api.response.location.LocationResponse;
 import org.hackillinois.android.service.EventNotifierJob;
 
 import java.util.Arrays;
@@ -100,5 +103,43 @@ public class Utils {
 						.colorRes(R.color.bluePurple)
 						.actionBar()
 		);
+	}
+
+	public static void goToMapApp(Context context) {
+		Settings settings = Settings.get();
+		String json = settings.getLocations();
+
+		LocationResponse locations = Settings.get().getGson().fromJson(json, LocationResponse.class);
+
+		// Just get the first location's location to open up maps app.
+		double longitude = locations.getLocations()[0].getLongitude();
+		double latitude = locations.getLocations()[0].getLatitude();
+
+		if (longitude == 0) {
+			longitude = 40.1138; // Default location for ECEB
+		}
+
+		if (latitude == 0) {
+			latitude = -88.2249; // Default location for ECEB
+		}
+
+		launchGoogleMaps(context, longitude, latitude);
+	}
+
+	public static void goToMapApp(Context context, double longitude, double latitude) {
+		launchGoogleMaps(context, longitude, latitude);
+	}
+
+	private static void launchGoogleMaps(Context context, double longitude, double latitude) {
+		Uri gmmIntentUri = Uri.parse("geo:" + latitude + "," + longitude + "?z=" + 18);
+		Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+		mapIntent.setPackage("com.google.android.apps.maps");
+
+		if (mapIntent.resolveActivity(context.getPackageManager()) != null) {
+			context.startActivity(mapIntent);
+		} else {
+			Toast.makeText(context,
+					"Google Maps not installed!", Toast.LENGTH_SHORT).show();
+		}
 	}
 }

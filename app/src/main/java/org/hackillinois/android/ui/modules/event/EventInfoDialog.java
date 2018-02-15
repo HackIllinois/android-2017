@@ -3,12 +3,20 @@ package org.hackillinois.android.ui.modules.event;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.annimon.stream.Stream;
+import com.mikepenz.fastadapter.FastAdapter;
+import com.mikepenz.fastadapter.adapters.ItemAdapter;
+
 import org.hackillinois.android.R;
 import org.hackillinois.android.api.response.event.EventResponse;
+import org.hackillinois.android.api.response.location.LocationResponse;
+import org.hackillinois.android.helper.Settings;
 import org.hackillinois.android.helper.Utils;
 
 import java.util.List;
@@ -19,12 +27,14 @@ import butterknife.OnClick;
 import timber.log.Timber;
 
 public class EventInfoDialog extends Dialog {
+	private final ItemAdapter<EventButtonItem> itemAdapter = new ItemAdapter<>();
+	private final FastAdapter<EventButtonItem> fastAdapter = FastAdapter.with(itemAdapter);
+
 	private EventResponse.Event event;
 	@BindView(R.id.event_star) ImageView eventStar;
 	@BindView(R.id.event_name) TextView eventName;
-	@BindView(R.id.event_location) TextView eventLocation;
-	@BindView(R.id.event_distance) TextView eventDistance;
 	@BindView(R.id.event_description) TextView eventDescription;
+	@BindView(R.id.event_buttons) RecyclerView eventButtons;
 
 	public EventInfoDialog(@NonNull Context context, EventResponse.Event event) {
 		super(context);
@@ -42,10 +52,23 @@ public class EventInfoDialog extends Dialog {
 
 		eventName.setText(event.getName());
 		List<EventResponse.Location> locations = event.getLocations();
-		String location = locations.size() > 0 ? String.valueOf(locations.get(0).getLocationId()) : "unknown";
-		eventLocation.setText(location);
-		eventDistance.setText("Building is far");
 		eventDescription.setText(event.getDescription());
+		eventButtons.setAdapter(fastAdapter);
+		eventButtons.setLayoutManager(new LinearLayoutManager(getContext()));
+		eventButtons.setHasFixedSize(true);
+
+		List<EventButtonItem> eventButtonItems = Stream.of(locations)
+				.map(EventButtonItem::new).toList();
+
+		itemAdapter.set(eventButtonItems);
+
+		fastAdapter.withOnClickListener((v, adapter, item, position) -> {
+			LocationResponse.Location loc = Settings.get().getLocationMap()
+					.get(item.getLocation().getLocationId());
+
+			Utils.goToMapApp(getContext(), loc.getLongitude(), loc.getLatitude());
+			return false;
+		});
 
 		Utils.updateEventStarred(eventStar, event);
 	}
