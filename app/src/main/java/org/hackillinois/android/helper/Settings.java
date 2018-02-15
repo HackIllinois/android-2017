@@ -3,13 +3,19 @@ package org.hackillinois.android.helper;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.annimon.stream.Collectors;
 import com.annimon.stream.Optional;
+import com.annimon.stream.Stream;
+import com.google.gson.Gson;
 
+import org.hackillinois.android.api.response.location.LocationResponse;
 import org.joda.time.DateTime;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Function;
 
 
 public class Settings {
@@ -26,10 +32,15 @@ public class Settings {
 	private static final String LOCATION_PREF = "LOCATION_JSON";
 	private static Settings INSTANCE;
 
+	private Gson gson;
+
 	private final SharedPreferences prefs;
+	private HashMap<Long, LocationResponse.Location> locationMap;
 
 	private Settings(Context context) {
 		prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+		locationMap = new HashMap<>();
+		gson = new Gson();
 	}
 
 	public static void initialize(Context context) {
@@ -134,9 +145,30 @@ public class Settings {
 
 	public void setLocations(String json) {
 		prefs.edit().putString(LOCATION_PREF, json).apply();
+		generateLocationMap(json);
 	}
 
 	public String getLocations() {
 		return prefs.getString(LOCATION_PREF, null);
+	}
+
+	public HashMap<Long, LocationResponse.Location> getLocationMap() {
+		return locationMap;
+	}
+
+	public Gson getGson() {
+		return gson;
+	}
+
+	public void setGson(Gson gson) {
+		this.gson = gson;
+	}
+
+	private void generateLocationMap(String json) {
+		LocationResponse location = gson.fromJson(json, LocationResponse.class);
+
+		for (LocationResponse.Location loc : location.getLocations()) {
+			locationMap.put(loc.getId(), loc);
+		}
 	}
 }

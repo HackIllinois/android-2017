@@ -73,19 +73,19 @@ public class EventResponse {
 	}
 
 	public static class Location {
-		@SerializedName("eventId") private Long eventId;
-		@SerializedName("id") private Long id;
-		@SerializedName("locationId") private Long locationId;
+		@SerializedName("eventId") private long eventId;
+		@SerializedName("id") private long id;
+		@SerializedName("locationId") private long locationId;
 
-		public Long getEventId() {
+		public long getEventId() {
 			return eventId;
 		}
 
-		public Long getId() {
+		public long getId() {
 			return id;
 		}
 
-		public Long getLocationId() {
+		public long getLocationId() {
 			return locationId;
 		}
 	}
