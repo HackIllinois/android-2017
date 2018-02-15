@@ -6,7 +6,7 @@
     <string name="menu_schedule">Schedule</string>
     <string name="menu_notifications">Notifications</string>
     <string name="menu_map">Map</string>
-    <string name="menu_profile">Profile</string>
+    <string name="menu_profile">Badge</string>
 
     <!-- Login Chooser -->
     <string name="i_am_a">I AM A</string>
