@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.annimon.stream.Collectors;
@@ -25,6 +26,7 @@ import org.hackillinois.android.ui.modules.event.EventInfoDialog;
 import org.hackillinois.android.ui.modules.event.EventItem;
 import org.joda.time.DateTime;
 
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -34,14 +36,21 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment implements HomeClock.OnFinishListener {
 	@BindView(R.id.second_animation) LottieAnimationView seconds;
 	@BindView(R.id.minute_animation) LottieAnimationView minutes;
 	@BindView(R.id.hour_animation) LottieAnimationView hours;
 	@BindView(R.id.day_animation) LottieAnimationView days;
 	@BindView(R.id.active_events) RecyclerView activeEvents;
 	@BindView(R.id.home_refresh) SwipeRefreshLayout swipeRefresh;
+	@BindView(R.id.countdownTitle) TextView countdownTitle;
 
+	private static final int[] TITLE_IDS = new int[]{
+			R.string.hackillinois_starts_in,
+			R.string.hacking_starts_in,
+			R.string.hacking_ends_in,
+			R.string.hackillinois_ends_in
+	};
 	private Unbinder unbinder;
 	private final ItemAdapter<EventItem> itemAdapter = new ItemAdapter<>();
 	private final FastAdapter<EventItem> fastAdapter = FastAdapter.with(itemAdapter);
@@ -59,7 +68,8 @@ public class HomeFragment extends BaseFragment {
 		unbinder = ButterKnife.bind(this, view);
 
 		clock = new HomeClock(seconds, minutes, hours, days);
-		clock.setCountDownTo(getContext(), Settings.EVENT_START_TIME);
+		List<DateTime> eventTimers = Arrays.asList(Settings.EVENT_START_TIME, Settings.HACKING_START_TIME, Settings.HACKING_END_TIME, Settings.EVENT_END_TIME);
+		clock.setCountDownTo(this, eventTimers);
 
 		swipeRefresh.setOnRefreshListener(this::fetchEvents);
 		swipeRefresh.setColorSchemeResources(R.color.lightPink);
@@ -126,4 +136,10 @@ public class HomeFragment extends BaseFragment {
 				});
 	}
 
+	@Override
+	public void onFinish(int timerIndex) {
+		if (timerIndex < TITLE_IDS.length) {
+			countdownTitle.setText(TITLE_IDS[timerIndex]);
+		}
+	}
 }

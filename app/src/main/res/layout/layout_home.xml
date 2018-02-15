@@ -8,13 +8,13 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/hackingEnds"
+        android:id="@+id/countdownTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="22dp"
         android:layout_marginTop="8dp"
         android:fontFamily="sans-serif"
-        android:text="@string/hacking_ends_in"
+        android:text="@string/hackillinois_starts_in"
         android:textColor="@color/darkPurple"
         android:textSize="24sp"
         android:textStyle="normal"/>
@@ -23,20 +23,20 @@
         android:id="@+id/clock_animation"
         android:layout_width="match_parent"
         android:layout_height="175dp"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp"
         android:layout_gravity="center_horizontal"
         android:baselineAligned="false"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
-        android:weightSum="4"
+        android:paddingEnd="16dp"
+        android:paddingStart="24dp"
+        android:weightSum="1"
         tools:ignore="MissingPrefix">
 
         <FrameLayout
             android:id="@+id/day_holder"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight=".22"
             android:orientation="horizontal">
 
             <com.airbnb.lottie.LottieAnimationView
@@ -44,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="start|center_vertical"
-                app:lottie_fileName="countdown.json"/>
+                app:lottie_fileName="countdown-60.json"/>
 
         </FrameLayout>
 
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
             android:fontFamily="sans-serif-light"
-            android:paddingStart="8dp"
+            android:padding="8dp"
             android:text="@string/day_title"
             android:textColor="@color/lightPink"
             android:textSize="21sp"
@@ -64,14 +64,14 @@
             android:id="@+id/hour_holder"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight=".22"
             android:orientation="horizontal">
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/hour_animation"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:lottie_fileName="countdown.json"/>
+                app:lottie_fileName="countdown-24.json"/>
 
         </FrameLayout>
 
@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
             android:fontFamily="sans-serif-light"
-            android:paddingStart="8dp"
+            android:padding="8dp"
             android:text="@string/hour_title"
             android:textColor="@color/lightPink"
             android:textSize="21sp"
@@ -91,14 +91,14 @@
             android:id="@+id/minute_holder"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight=".22"
             android:orientation="horizontal">
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/minute_animation"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:lottie_fileName="countdown.json"/>
+                app:lottie_fileName="countdown-60.json"/>
 
         </FrameLayout>
 
@@ -109,7 +109,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
             android:fontFamily="sans-serif-light"
-            android:paddingStart="8dp"
+            android:padding="8dp"
             android:text="@string/minute_title"
             android:textColor="@color/lightPink"
             android:textSize="21sp"
@@ -119,16 +119,14 @@
             android:id="@+id/second_holder"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight=".22"
             android:orientation="horizontal">
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/second_animation"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:lottie_autoPlay="true"
-                app:lottie_fileName="countdown.json"
-                app:lottie_loop="true"/>
+                app:lottie_fileName="countdown-60.json"/>
 
         </FrameLayout>
 
@@ -140,7 +138,7 @@
             android:layout_gravity="end|center_vertical"
             android:layout_marginEnd="16dp"
             android:fontFamily="sans-serif-light"
-            android:paddingStart="8dp"
+            android:padding="8dp"
             android:text="@string/second_title"
             android:textColor="@color/lightPink"
             android:textSize="21sp"
