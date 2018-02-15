@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,9 +58,6 @@ public class AnnouncementFragment extends BaseFragment {
 
 		//set our adapters to the RecyclerView
 		announcements.setAdapter(fastAdapter);
-
-		DividerItemDecoration divider = new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL);
-		announcements.addItemDecoration(divider);
 
 		return view;
 	}

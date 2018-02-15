@@ -82,9 +82,6 @@ public class HomeFragment extends BaseFragment implements HomeClock.OnFinishList
 			return false;
 		});
 
-		DividerItemDecoration divider = new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL);
-		activeEvents.addItemDecoration(divider);
-
 		return view;
 	}
 
