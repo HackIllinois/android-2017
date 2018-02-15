@@ -9,4 +9,5 @@
     <color name="darkPurple">#1C055E</color>
     <color name="bluePurple">#CCD9FC</color>
     <color name="lightPink">#FA5CB3</color>
+    <color name="splash_background">#11112f</color>
 </resources>
