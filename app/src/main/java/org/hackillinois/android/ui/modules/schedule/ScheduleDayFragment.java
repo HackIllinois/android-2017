@@ -127,7 +127,7 @@ public class ScheduleDayFragment extends BaseFragment {
 					public void onResponse(Call<EventResponse> call, Response<EventResponse> response) {
 						if (response != null && response.isSuccessful()) {
 							List<EventItem> events = Stream.of(response.body().getData())
-									.filter(value -> value.getStartTime().getDayOfWeek() == currentDay)
+									.filter(event -> event.getStartTime().getDayOfWeek() == currentDay)
 									.map(event -> new EventItem(event, true))
 									.collect(Collectors.toList());
 
