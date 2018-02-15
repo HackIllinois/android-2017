@@ -8,10 +8,15 @@
 
 **master** is under active development and should be considered *mostly* stable.
 
-**feature/<enhancement>** is where all new features and fixes are stored.
+**feature/_enhancement_** is where all new features and fixes are stored.
 
 All **releases** of the app will be tagged as **vX.Y.Z**
 
 
 
 Please [file an issue](https://github.com/HackIllinois/android-2017/issues/new) for any **bugs** or **features** you happen to find. All contributions are welcome.
+
+
+## Screenshots
+
+<img src="app/src/main/play/en-US/listing/phoneScreenshots/0.png" width="170"/> <img src="app/src/main/play/en-US/listing/phoneScreenshots/1.png" width="170"/> <img src="app/src/main/play/en-US/listing/phoneScreenshots/2.png" width="170"/> <img src="app/src/main/play/en-US/listing/phoneScreenshots/3.png" width="170"/> <img src="app/src/main/play/en-US/listing/phoneScreenshots/4.png" width="170"/>

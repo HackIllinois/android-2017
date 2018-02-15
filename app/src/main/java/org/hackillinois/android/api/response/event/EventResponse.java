@@ -8,16 +8,16 @@ import org.joda.time.DateTime;
 import java.util.List;
 
 public class EventResponse {
-    @SerializedName("data") private List<Event> mData;
-    @SerializedName("meta") private String meta;
+	@SerializedName("data") private List<Event> mData;
+	@SerializedName("meta") private String meta;
 
-    public List<Event> getData() {
-        return mData;
-    }
+	public List<Event> getData() {
+		return mData;
+	}
 
-    public String getMeta() {
-        return meta;
-    }
+	public String getMeta() {
+		return meta;
+	}
 
 	public static class Event {
 		@SerializedName("description") private String description;

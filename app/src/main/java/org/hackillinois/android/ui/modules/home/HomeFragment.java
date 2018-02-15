@@ -138,7 +138,7 @@ public class HomeFragment extends BaseFragment implements HomeClock.OnFinishList
 
 	@Override
 	public void onFinish(int timerIndex) {
-		if (timerIndex < TITLE_IDS.length) {
+		if (timerIndex < TITLE_IDS.length && countdownTitle != null) {
 			countdownTitle.setText(TITLE_IDS[timerIndex]);
 		}
 	}
