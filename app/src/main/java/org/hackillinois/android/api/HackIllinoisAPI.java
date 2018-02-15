@@ -2,6 +2,7 @@ package org.hackillinois.android.api;
 
 import org.hackillinois.android.api.response.announcement.AnnouncementResponse;
 import org.hackillinois.android.api.response.event.EventResponse;
+import org.hackillinois.android.api.response.location.LocationResponse;
 import org.hackillinois.android.api.response.login.LoginRequest;
 import org.hackillinois.android.api.response.login.LoginResponse;
 import org.hackillinois.android.api.response.user.AttendeeResponse;
@@ -47,4 +48,7 @@ public interface HackIllinoisAPI {
 
 	@GET("/v1/announcement/all")
 	Call<AnnouncementResponse> getAnnouncements();
+
+	@GET("/v1/event/location/all")
+	Call<LocationResponse> getLocations();
 }

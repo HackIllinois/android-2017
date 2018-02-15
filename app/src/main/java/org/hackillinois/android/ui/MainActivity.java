@@ -1,6 +1,7 @@
 package org.hackillinois.android.ui;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -11,9 +12,12 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 import org.hackillinois.android.R;
+import org.hackillinois.android.api.response.location.LocationResponse;
+import org.hackillinois.android.helper.Settings;
 import org.hackillinois.android.ui.base.BaseActivity;
 import org.hackillinois.android.ui.modules.announcement.AnnouncementFragment;
 import org.hackillinois.android.ui.modules.home.HomeFragment;
@@ -23,6 +27,7 @@ import org.hackillinois.android.ui.modules.schedule.ScheduleFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 public class MainActivity extends BaseActivity {
 	public static final String SET_TAB = "SET_TAB";
@@ -97,7 +102,7 @@ public class MainActivity extends BaseActivity {
 				getSupportActionBar().setTitle(getString(R.string.menu_schedule));
 				break;
 			case R.id.menu_map:
-				// TODO: Open Map app
+				goToMaps();
 				break;
 			default:
 				return false;
@@ -141,5 +146,29 @@ public class MainActivity extends BaseActivity {
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void goToMaps() {
+		Settings settings = Settings.get();
+		String json = settings.getLocations();
+
+		LocationResponse locations = getApp().getGson().fromJson(json, LocationResponse.class);
+
+		// Just get the first location's location to open up maps app.
+		double longitude = locations.getLocations()[0].getLongitude();
+		double latitude = locations.getLocations()[0].getLatitude();
+
+		if (longitude == 0) {
+			longitude = 40.1138; // Default location for ECEB
+		}
+
+		if (latitude == 0) {
+			latitude = -88.2249; // Default location for ECEB
+		}
+
+		Uri gmmIntentUri = Uri.parse("geo:" + latitude + "," + longitude);
+		Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+		mapIntent.setPackage("com.google.android.apps.maps");
+		startActivity(mapIntent);
 	}
 }

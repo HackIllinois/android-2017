@@ -23,6 +23,7 @@ public class Settings {
 	private static final String LAST_TIME_FETCH_NOTIFICATIONS = "LAST_TIME_FETCH_NOTIFICATIONS";
 	private static final String HACKER_PREF = "IS_HACKER";
 	private static final String EVENT_STARRED_PREF = "IS_STARRED";
+	private static final String LOCATION_PREF = "LOCATION_JSON";
 	private static Settings INSTANCE;
 
 	private final SharedPreferences prefs;
@@ -129,5 +130,13 @@ public class Settings {
 
 	public void clear() {
 		prefs.edit().clear().apply();
+	}
+
+	public void setLocations(String json) {
+		prefs.edit().putString(LOCATION_PREF, json).apply();
+	}
+
+	public String getLocations() {
+		return prefs.getString(LOCATION_PREF, null);
 	}
 }
