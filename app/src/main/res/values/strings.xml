@@ -41,4 +41,7 @@
     <string name="no">No</string>
     <string name="notified_before_event_starts">You will be notified %d %s before %s starts.</string>
     <string name="event_starts_at">%s starts at %s</string>
+    <string name="hackillinois_starts_in">HackIllinois Starts In</string>
+    <string name="hacking_starts_in">Hacking Starts In</string>
+    <string name="hackillinois_ends_in">HackIllinois Ends In</string>
 </resources>
