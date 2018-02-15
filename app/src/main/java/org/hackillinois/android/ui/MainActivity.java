@@ -166,7 +166,7 @@ public class MainActivity extends BaseActivity {
 			latitude = -88.2249; // Default location for ECEB
 		}
 
-		Uri gmmIntentUri = Uri.parse("geo:" + latitude + "," + longitude);
+		Uri gmmIntentUri = Uri.parse("geo:" + latitude + "," + longitude + "?z=" + 18);
 		Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
 		mapIntent.setPackage("com.google.android.apps.maps");
 		startActivity(mapIntent);
