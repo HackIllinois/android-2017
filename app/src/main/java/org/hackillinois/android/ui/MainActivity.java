@@ -14,6 +14,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import org.hackillinois.android.R;
 import org.hackillinois.android.api.response.location.LocationResponse;
@@ -169,6 +170,12 @@ public class MainActivity extends BaseActivity {
 		Uri gmmIntentUri = Uri.parse("geo:" + latitude + "," + longitude + "?z=" + 18);
 		Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
 		mapIntent.setPackage("com.google.android.apps.maps");
-		startActivity(mapIntent);
+
+		if (mapIntent.resolveActivity(getPackageManager()) != null) {
+			startActivity(mapIntent);
+		} else {
+			Toast.makeText(this,
+					"Google Maps not installed!", Toast.LENGTH_SHORT).show();
+		}
 	}
 }
