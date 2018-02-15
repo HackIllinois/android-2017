@@ -61,31 +61,31 @@ public class Utils {
 		return result;
 	}
 
-	public static void toggleEventStarred(ImageView star, EventResponse.Event event) {
+	public static void toggleEventStarred(Context context, ImageView star, EventResponse.Event event) {
 		boolean starred = !Settings.get().getIsEventStarred(event.getId());
-		setEventStarred(star, event, starred);
+		setEventStarred(context, star, event, starred);
 
 		if (starred) {
 			TimeUnit timeUnit = TimeUnit.MINUTES;
 			long duration = 15;
 			EventNotifierJob.scheduleReminder(event, timeUnit.toMillis(duration));
-			String infoMessage = star.getContext().getString(
+			String infoMessage = context.getString(
 					R.string.notified_before_event_starts,
 					duration,
 					timeUnit.toString().toLowerCase(),
 					event.getName()
 			);
-			Toast.makeText(star.getContext(), infoMessage, Toast.LENGTH_SHORT).show();
+			Toast.makeText(context, infoMessage, Toast.LENGTH_SHORT).show();
 		} else {
 			EventNotifierJob.cancelReminder(event);
 		}
 	}
 
-	public static void updateEventStarred(ImageView star, EventResponse.Event event) {
-		setEventStarred(star, event, Settings.get().getIsEventStarred(event.getId()));
+	public static void updateEventStarred(Context context, ImageView star, EventResponse.Event event) {
+		setEventStarred(context, star, event, Settings.get().getIsEventStarred(event.getId()));
 	}
 
-	public static void setEventStarred(ImageView star, EventResponse.Event event, boolean starred) {
+	public static void setEventStarred(Context context, ImageView star, EventResponse.Event event, boolean starred) {
 		GoogleMaterial.Icon icon;
 		if (starred) {
 			icon = GoogleMaterial.Icon.gmd_star;
@@ -98,7 +98,7 @@ public class Utils {
 		Timber.i("Setting event %s id=%d to be starred=%b", event.getName(), event.getId(), starred);
 
 		star.setImageDrawable(
-				new IconicsDrawable(star.getContext())
+				new IconicsDrawable(context)
 						.icon(icon)
 						.colorRes(R.color.bluePurple)
 						.actionBar()

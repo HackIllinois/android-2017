@@ -66,11 +66,11 @@ public class EventInfoDialog extends Dialog {
 			LocationResponse.Location loc = Settings.get().getLocationMap()
 					.get(item.getLocation().getLocationId());
 
-			Utils.goToMapApp(getContext(), loc.getLongitude(), loc.getLatitude());
+			Utils.goToMapApp(getContext().getApplicationContext(), loc.getLongitude(), loc.getLatitude());
 			return false;
 		});
 
-		Utils.updateEventStarred(eventStar, event);
+		Utils.updateEventStarred(getContext().getApplicationContext(), eventStar, event);
 	}
 
 	@OnClick(R.id.event_info_close)
@@ -80,7 +80,7 @@ public class EventInfoDialog extends Dialog {
 
 	@OnClick(R.id.event_star)
 	public void favoriteEvent(View v) {
-		Utils.toggleEventStarred((ImageView) v, event);
+		Utils.toggleEventStarred(getContext().getApplicationContext(), (ImageView) v, event);
 		Timber.w("Event \"%s\" Should be starred", event.getName());
 	}
 }

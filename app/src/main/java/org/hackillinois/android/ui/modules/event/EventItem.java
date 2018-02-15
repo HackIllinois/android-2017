@@ -94,7 +94,7 @@ public class EventItem extends AbstractItem<EventItem, EventItem.EventViewHolder
             }
 
             if (item.isStarrable()) {
-                Utils.updateEventStarred(eventStar, item.getEvent());
+                Utils.updateEventStarred(eventStar.getContext(), eventStar, item.getEvent());
                 eventStar.setVisibility(View.VISIBLE);
             } else {
                 eventStar.setVisibility(View.INVISIBLE);

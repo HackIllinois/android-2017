@@ -70,7 +70,7 @@ public class ScheduleDayFragment extends BaseFragment {
 
 		fastAdapter.withOnClickListener((v, adapter, item, position) -> {
 			EventInfoDialog dialog = new EventInfoDialog(getContext(), item.getEvent());
-			dialog.setOnDismissListener(di -> Utils.updateEventStarred(ButterKnife.findById(v, R.id.event_star), item.getEvent()));
+			dialog.setOnDismissListener(di -> Utils.updateEventStarred(getContext(), ButterKnife.findById(v, R.id.event_star), item.getEvent()));
 			dialog.show();
 			return false;
 		});
@@ -88,7 +88,7 @@ public class ScheduleDayFragment extends BaseFragment {
 			@Override
 			public void onClick(View v, int position, FastAdapter<EventItem> fastAdapter, EventItem item) {
 				if (v.getId() == R.id.event_star) {
-					Utils.toggleEventStarred((ImageView) v, item.getEvent());
+					Utils.toggleEventStarred(getContext(), (ImageView) v, item.getEvent());
 				}
 			}
 		});
