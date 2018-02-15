@@ -78,7 +78,7 @@ public class HomeFragment extends BaseFragment implements HomeClock.OnFinishList
 		activeEvents.setAdapter(fastAdapter);
 
 		fastAdapter.withOnClickListener((v, adapter, item, position) -> {
-			new EventInfoDialog(getContext(), item.getEvent()).show();
+			new EventInfoDialog(v.getContext(), item.getEvent()).show();
 			return false;
 		});
 
