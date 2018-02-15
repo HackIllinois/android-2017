@@ -3,6 +3,7 @@ package org.hackillinois.android.helper;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -49,10 +50,20 @@ public class Utils {
 
 	public static Bitmap getQRCodeBitmap(Context context, int id, String identifier) {
 		String qrFormattedString = String.format(Locale.US, "hackillinois://qrcode/user?id=%d&identifier=%s", id, identifier);
-		return QRCode.from(qrFormattedString)
-				.withSize(1024, 1024)
-				.withColor(ContextCompat.getColor(context, R.color.darkPurple), Color.TRANSPARENT)
-				.bitmap();
+		return removeTransparentBorder(
+				QRCode.from(qrFormattedString)
+						.withSize(1024, 1024)
+						.withColor(ContextCompat.getColor(context, R.color.darkPurple), Color.TRANSPARENT)
+						.bitmap(),
+				90
+		);
+	}
+
+	private static Bitmap removeTransparentBorder(Bitmap bmp, int borderSize) {
+		Bitmap bmpWithBorder = Bitmap.createBitmap(bmp.getWidth() - borderSize * 2, bmp.getHeight() - borderSize * 2, bmp.getConfig());
+		Canvas canvas = new Canvas(bmpWithBorder);
+		canvas.drawBitmap(bmp, - borderSize, - borderSize, null);
+		return bmpWithBorder;
 	}
 
 	public static <T> T[] concat(T[] first, T[] second) {
