@@ -39,6 +39,7 @@ public class ProfileFragment extends BaseFragment {
 	@BindView(R.id.user_name) TextView userName;
 	@BindView(R.id.dietary_restrictions) TextView userDietaryRestrictions;
 	@BindView(R.id.profile_refresh) SwipeRefreshLayout swipeRefresh;
+	@BindView(R.id.profile_page_container) View view;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -89,7 +90,7 @@ public class ProfileFragment extends BaseFragment {
 
 	private void logOut() {
 		Timber.i("Logging out current user!");
-		Settings.get().clear();
+		Settings.get().clear(getContext());
 		Intent i = new Intent(getContext(), LoginChooserActivity.class);
 		startActivity(i);
 		getActivity().finish();
@@ -110,7 +111,7 @@ public class ProfileFragment extends BaseFragment {
 				if (response.body() != null) {
 					UserResponse.User data = response.body().getUserResponseData().getUser();
 
-					Bitmap qrCode = Utils.getQRCodeBitmap(getContext(), data.getId(), data.getEmail());
+					Bitmap qrCode = Utils.getQRCodeBitmap(getContext(), data.getId(), data.getEmail(), 1024);
 					qrCodeImage.setImageBitmap(qrCode);
 					userName.setText(data.getEmail()); // todo actually get name
 					userDietaryRestrictions.setText("Unknown dietary restrictions");
