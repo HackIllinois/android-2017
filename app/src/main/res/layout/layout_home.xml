@@ -162,13 +162,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.v7.widget.RecyclerView
+        <include layout="@layout/empty_list_view" />
+
+        <org.hackillinois.android.ui.custom.EmptyRecyclerView
             android:id="@+id/active_events"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="24dp"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             tools:listitem="@layout/event_list_item"/>
+
     </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>
