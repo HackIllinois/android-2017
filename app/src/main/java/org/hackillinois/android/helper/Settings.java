@@ -3,19 +3,17 @@ package org.hackillinois.android.helper;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.annimon.stream.Collectors;
 import com.annimon.stream.Optional;
-import com.annimon.stream.Stream;
 import com.google.gson.Gson;
 
 import org.hackillinois.android.api.response.location.LocationResponse;
 import org.joda.time.DateTime;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.function.Function;
 
 
 public class Settings {
@@ -81,7 +79,7 @@ public class Settings {
 	}
 
 	public DateTime getLastNotificationFetch() {
-		if(!prefs.contains(LAST_TIME_FETCH_NOTIFICATIONS)) {
+		if (!prefs.contains(LAST_TIME_FETCH_NOTIFICATIONS)) {
 			return DateTime.now();
 		}
 
@@ -139,8 +137,9 @@ public class Settings {
 		return prefs.getBoolean(HACKER_PREF, false);
 	}
 
-	public void clear() {
+	public void clear(Context context) {
 		prefs.edit().clear().apply();
+		clearCache(context);
 	}
 
 	public void setLocations(String json) {
@@ -169,6 +168,19 @@ public class Settings {
 
 		for (LocationResponse.Location loc : location.getLocations()) {
 			locationMap.put(loc.getId(), loc);
+		}
+	}
+
+	public static void clearCache(Context context) {
+		cleanDir(context.getCacheDir());
+	}
+
+	private static void cleanDir(File dir) {
+		long bytesDeleted = 0;
+		File[] files = dir.listFiles();
+
+		for (File file : files) {
+			file.delete();
 		}
 	}
 }

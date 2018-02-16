@@ -14,10 +14,12 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
-
-import net.glxn.qrgen.android.QRCode;
 
 import org.hackillinois.android.R;
 import org.hackillinois.android.api.response.event.EventResponse;
@@ -48,21 +50,38 @@ public class Utils {
 		window.setAttributes(lp);
 	}
 
-	public static Bitmap getQRCodeBitmap(Context context, int id, String identifier) {
+	public static Bitmap getQRCodeBitmap(Context context, int id, String identifier, int size) {
 		String qrFormattedString = String.format(Locale.US, "hackillinois://qrcode/user?id=%d&identifier=%s", id, identifier);
-		return removeTransparentBorder(
-				QRCode.from(qrFormattedString)
-						.withSize(1024, 1024)
-						.withColor(ContextCompat.getColor(context, R.color.darkPurple), Color.TRANSPARENT)
-						.bitmap(),
-				90
-		);
+		try {
+			BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+			BitMatrix bitMatrix = barcodeEncoder.encode(qrFormattedString, BarcodeFormat.QR_CODE, size, size);
+			return createBitmap(bitMatrix, ContextCompat.getColor(context, R.color.darkPurple), Color.TRANSPARENT);
+		} catch (WriterException e) {
+			Timber.wtf(e, "Failed to generate qrcode bitmap for %s", qrFormattedString);
+		}
+		return null;
+	}
+
+	public static Bitmap createBitmap(BitMatrix matrix, int primary, int background) {
+		int width = matrix.getWidth();
+		int height = matrix.getHeight();
+		int[] pixels = new int[width * height];
+		for (int y = 0; y < height; y++) {
+			int offset = y * width;
+			for (int x = 0; x < width; x++) {
+				pixels[offset + x] = matrix.get(x, y) ? primary : background;
+			}
+		}
+
+		Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+		bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
+		return bitmap;
 	}
 
 	private static Bitmap removeTransparentBorder(Bitmap bmp, int borderSize) {
 		Bitmap bmpWithBorder = Bitmap.createBitmap(bmp.getWidth() - borderSize * 2, bmp.getHeight() - borderSize * 2, bmp.getConfig());
 		Canvas canvas = new Canvas(bmpWithBorder);
-		canvas.drawBitmap(bmp, - borderSize, - borderSize, null);
+		canvas.drawBitmap(bmp, -borderSize, -borderSize, null);
 		return bmpWithBorder;
 	}
 

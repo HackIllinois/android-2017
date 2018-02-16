@@ -119,10 +119,8 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.6.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
 
-    // used in the past app
     implementation 'com.annimon:stream:1.1.9'
-    implementation 'com.github.kenglxn.QRGen:android:2.2.0'
-    implementation 'com.akexorcist:googledirectionlibrary:1.0.4' // todo possibly not needed
+    implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
 
     // test libraries
     // https://stackoverflow.com/questions/39186326/running-android-unit-tests-with-spock-framework
