@@ -1,8 +1,8 @@
-v1.1.5
+v1.1.6
 
-- Empty list placeholder
-- Cardview for list items
-- Cleaned up Badge (Profile) page
+- Events/Announcements are grouped by time
+- Lots of Design cleanup
+- Custom refresh view
 - Bug fixes
 
 Please submit any bugs you find
