@@ -111,7 +111,7 @@ public class ProfileFragment extends BaseFragment {
 				if (response.body() != null) {
 					UserResponse.User data = response.body().getUserResponseData().getUser();
 
-					Bitmap qrCode = Utils.getQRCodeBitmap(getContext(), data.getId(), data.getEmail(), 1024);
+					Bitmap qrCode = Utils.getQRCodeBitmap(getContext(), data.getId(), data.getEmail(), 512);
 					qrCodeImage.setImageBitmap(qrCode);
 					userName.setText(data.getEmail()); // todo actually get name
 					userDietaryRestrictions.setText("Unknown dietary restrictions");
