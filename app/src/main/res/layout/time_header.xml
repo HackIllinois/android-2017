@@ -10,12 +10,14 @@
     app:elevation="5dp">
 
     <TextView
+        fontPath="fonts/Roboto_Bold.ttf"
         android:id="@+id/section_time"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="sans-serif"
         android:textColor="@color/darkPurple"
         android:textSize="16sp"
@@ -23,5 +25,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         tools:text="2:00 AM"/>
 </android.support.constraint.ConstraintLayout>

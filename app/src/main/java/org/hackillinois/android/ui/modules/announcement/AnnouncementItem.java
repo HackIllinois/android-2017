@@ -18,14 +18,15 @@ import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
 import eu.davidea.flexibleadapter.items.ISectionable;
 
 public class AnnouncementItem extends AbstractFlexibleItem<AnnouncementItem.AnnouncementViewHolder> implements ISectionable<AnnouncementItem.AnnouncementViewHolder, TimeHeader> {
-	private static final DateTimeFormatter DTF = DateTimeFormat.forPattern("E h:00 a");
+	private static final DateTimeFormatter GROUP_DTF = DateTimeFormat.forPattern("E h:00 a");
+	private static final DateTimeFormatter DTF = DateTimeFormat.forPattern("h:mm a");
 	private final AnnouncementResponse.Announcement announcement;
 
 	private final TimeHeader timeHeader;
 
 	public AnnouncementItem(AnnouncementResponse.Announcement announcement) {
 		this.announcement = announcement;
-		timeHeader = new TimeHeader(DTF.print(announcement.getCreated()));
+		timeHeader = new TimeHeader(GROUP_DTF.print(announcement.getCreated()));
 	}
 
 	@Override

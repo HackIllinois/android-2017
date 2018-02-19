@@ -1,13 +1,9 @@
 package org.hackillinois.android.ui.modules.event;
 
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.mikepenz.fastadapter.FastAdapter;
-import com.mikepenz.fastadapter.items.AbstractItem;
 
 import org.hackillinois.android.R;
 import org.hackillinois.android.api.response.event.EventResponse;
@@ -18,64 +14,59 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import eu.davidea.flexibleadapter.FlexibleAdapter;
+import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
+import eu.davidea.viewholders.FlexibleViewHolder;
 
-public class EventButtonItem extends AbstractItem<EventButtonItem, EventButtonItem.EventButtonViewHolder> {
-    private static Gson gson = new Gson();
-    private final EventResponse.Location location;
+public class EventButtonItem extends AbstractFlexibleItem<EventButtonItem.EventButtonViewHolder> {
+	private static Gson gson = new Gson();
+	private final EventResponse.Location location;
 
-    public EventButtonItem(EventResponse.Location location) {
-        this.location = location;
-    }
+	public EventButtonItem(EventResponse.Location location) {
+		this.location = location;
+	}
 
-    @Override
-    public int getType() {
-        return R.id.event_dialog_button;
-    }
+	@Override
+	public boolean equals(Object o) {
+		return false;
+	}
 
+	@Override
+	public int getLayoutRes() {
+		return R.layout.dialog_event_info_button;
+	}
 
-    @Override
-    public int getLayoutRes() {
-        return R.layout.dialog_event_info_button;
-    }
+	@Override
+	public EventButtonViewHolder createViewHolder(View view, FlexibleAdapter adapter) {
+		return new EventButtonItem.EventButtonViewHolder(view, adapter);
+	}
 
-    @NonNull
-    @Override
-    public EventButtonItem.EventButtonViewHolder getViewHolder(View v) {
-        return new EventButtonItem.EventButtonViewHolder(v);
-    }
+	@Override
+	public void bindViewHolder(FlexibleAdapter adapter, EventButtonViewHolder holder, int position, List<Object> payloads) {
+		LocationResponse locations = gson.fromJson(Settings.get().getLocations(),
+				LocationResponse.class);
 
-    public EventResponse.Location getLocation() {
-        return location;
-    }
+		LocationResponse.Location[] locs = locations.getLocations();
 
-    public static class EventButtonViewHolder extends FastAdapter.ViewHolder<EventButtonItem> {
-        @BindView(R.id.event_dialog_button) Button buttonName;
+		for (LocationResponse.Location loc : locs) {
+			if (loc.getId() == location.getLocationId()) {
+				holder.buttonName.setText(loc.getName());
+				break;
+			}
+		}
+	}
 
-        public EventButtonViewHolder(View view) {
-            super(view);
-            ButterKnife.bind(this, view);
-        }
+	public EventResponse.Location getLocation() {
+		return location;
+	}
 
+	public static class EventButtonViewHolder extends FlexibleViewHolder {
+		@BindView(R.id.event_dialog_button) Button buttonName;
 
+		public EventButtonViewHolder(View view, FlexibleAdapter adapter) {
+			super(view, adapter);
+			ButterKnife.bind(this, view);
+		}
 
-        @Override
-        public void bindView(EventButtonItem item, List<Object> payloads) {
-            LocationResponse locations = gson.fromJson(Settings.get().getLocations(),
-                    LocationResponse.class);
-
-            LocationResponse.Location[] locs = locations.getLocations();
-
-            for (LocationResponse.Location loc : locs) {
-                if (loc.getId() == item.getLocation().getLocationId()) {
-                    buttonName.setText(loc.getName());
-                    break;
-                }
-            }
-        }
-
-        @Override
-        public void unbindView(EventButtonItem item) {
-            buttonName.setText(null);
-        }
-    }
+	}
 }

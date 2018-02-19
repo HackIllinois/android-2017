@@ -69,6 +69,20 @@ public class ScheduleDayFragment extends BaseFragment {
 	}
 
 	@Override
+	public void onSaveInstanceState(@NonNull Bundle outState) {
+		adapter.onSaveInstanceState(outState);
+		super.onSaveInstanceState(outState);
+	}
+
+	@Override
+	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		if (savedInstanceState != null) {
+			adapter.onRestoreInstanceState(savedInstanceState);
+		}
+	}
+
+	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
 		unbinder.unbind();
