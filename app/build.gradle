@@ -117,6 +117,7 @@ dependencies {
     implementation 'com.mikepenz:fastadapter:3.1.2@aar'
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
     implementation 'com.jakewharton:butterknife:8.6.0'
+    implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
 
     implementation 'com.annimon:stream:1.1.9'
