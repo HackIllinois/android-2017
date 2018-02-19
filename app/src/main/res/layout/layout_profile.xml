@@ -72,6 +72,18 @@
                     tools:text="No Dietary Restrictions"/>
             </LinearLayout>
 
+
+            <Button
+                android:id="@+id/event_checkin"
+                fontPath="fonts/Roboto_Medium.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bluePurple"
+                android:text="@string/check_in_hacker"
+                android:textColor="@color/darkPurple"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="55dp" />
+
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 </android.support.v4.widget.NestedScrollView>
