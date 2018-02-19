@@ -1,6 +1,8 @@
 
 package org.hackillinois.android.api.response.event;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 import org.joda.time.DateTime;
@@ -19,7 +21,7 @@ public class EventResponse {
 		return meta;
 	}
 
-	public static class Event {
+	public static class Event implements Comparable<Event> {
 		@SerializedName("description") private String description;
 		@SerializedName("endTime") private DateTime endTime;
 		@SerializedName("id") private long id;
@@ -69,6 +71,16 @@ public class EventResponse {
 		@Override
 		public int hashCode() {
 			return (int) (getId() ^ (getId() >>> 32));
+		}
+
+
+		@Override
+		public int compareTo(@NonNull Event other) {
+			int compared = getStartTime().compareTo(other.getStartTime());
+			if (compared == 0) {
+				return getName().compareTo(other.getName());
+			}
+			return compared;
 		}
 	}
 

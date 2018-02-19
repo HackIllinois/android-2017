@@ -1,6 +1,5 @@
 package org.hackillinois.android.ui.modules.announcement;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,6 +15,7 @@ import butterknife.ButterKnife;
 import eu.davidea.flexibleadapter.FlexibleAdapter;
 import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
 import eu.davidea.flexibleadapter.items.ISectionable;
+import eu.davidea.viewholders.FlexibleViewHolder;
 
 public class AnnouncementItem extends AbstractFlexibleItem<AnnouncementItem.AnnouncementViewHolder> implements ISectionable<AnnouncementItem.AnnouncementViewHolder, TimeHeader> {
 	private static final DateTimeFormatter GROUP_DTF = DateTimeFormat.forPattern("E h:00 a");
@@ -36,7 +36,7 @@ public class AnnouncementItem extends AbstractFlexibleItem<AnnouncementItem.Anno
 
 	@Override
 	public AnnouncementViewHolder createViewHolder(View view, FlexibleAdapter adapter) {
-		return new AnnouncementViewHolder(view);
+		return new AnnouncementViewHolder(view, adapter);
 	}
 
 	@Override
@@ -75,13 +75,14 @@ public class AnnouncementItem extends AbstractFlexibleItem<AnnouncementItem.Anno
 
 	}
 
-	public static class AnnouncementViewHolder extends RecyclerView.ViewHolder {
+	public static class AnnouncementViewHolder extends FlexibleViewHolder {
 		@BindView(R.id.notificationType) TextView notificationType;
 		@BindView(R.id.notificationTime) TextView notificationTime;
 		@BindView(R.id.notificationDescription) TextView notificationDescription;
 
-		public AnnouncementViewHolder(View view) {
-			super(view);
+
+		public AnnouncementViewHolder(View view, FlexibleAdapter adapter) {
+			super(view, adapter);
 			ButterKnife.bind(this, view);
 		}
 	}

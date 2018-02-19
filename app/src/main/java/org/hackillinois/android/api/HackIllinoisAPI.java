@@ -17,7 +17,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface HackIllinoisAPI {
-	String SERVER_ADDRESS = "http://api.test.hackillinois.org";
+	String SERVER_ADDRESS = "https://api.hackillinois.org";
 	String AUTH = SERVER_ADDRESS + "/v1/auth";
 
 
