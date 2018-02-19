@@ -61,6 +61,7 @@ public class SplashActivity extends BaseActivity {
 			DateTime lastTime = lastAuth.get();
 			int daysSinceLastAuth = Days.daysBetween(lastTime, DateTime.now()).getDays();
 			if (daysSinceLastAuth >= 7) { // too late, must re login
+				Settings.get().clear(this);
 				activityClass = LoginChooserActivity.class;
 			} else if (7 > daysSinceLastAuth && daysSinceLastAuth >= 4) { // re authenticate
 				Timber.d("Trying to reauthenticate user");
@@ -76,6 +77,7 @@ public class SplashActivity extends BaseActivity {
 									settings.saveAuthKey(authKey);
 								} else { // failed, must re login
 									Timber.i("Failed to obtain new authorization token");
+									Settings.get().clear(getApplicationContext());
 									activityClass = LoginChooserActivity.class;
 								}
 							}
