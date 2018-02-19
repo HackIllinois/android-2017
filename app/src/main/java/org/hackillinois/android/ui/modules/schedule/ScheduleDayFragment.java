@@ -60,8 +60,6 @@ public class ScheduleDayFragment extends BaseFragment {
 		Utils.attachHackIllinoisRefreshView(swipeRefresh, inflater);
 
 		//set our adapters to the RecyclerView
-		adapter.setStickyHeaders(true)
-				.setDisplayHeadersAtStartUp(true);
 		activeEvents.setAdapter(adapter);
 		activeEvents.setEmptyView(emptyView);
 
@@ -77,6 +75,11 @@ public class ScheduleDayFragment extends BaseFragment {
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+	}
+
+	@Override
+	public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+		super.onViewStateRestored(savedInstanceState);
 		if (savedInstanceState != null) {
 			adapter.onRestoreInstanceState(savedInstanceState);
 		}
@@ -109,8 +112,11 @@ public class ScheduleDayFragment extends BaseFragment {
 					@Override
 					public void onResponse(Call<EventResponse> call, Response<EventResponse> response) {
 						if (response != null && response.isSuccessful()) {
+
 							List<EventItem> events = Stream.of(response.body().getData())
 									.filter(event -> event.getStartTime().getDayOfWeek() == currentDay)
+									.sortBy(EventResponse.Event::getStartTime)
+									.sorted()
 									.map(event -> new EventItem(event, true, true))
 									.collect(Collectors.toList());
 

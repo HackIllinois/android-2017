@@ -57,8 +57,6 @@ public class AnnouncementFragment extends BaseFragment {
 		Utils.attachHackIllinoisRefreshView(swipeRefresh, inflater);
 
 		//set our adapters to the RecyclerView
-		adapter.setStickyHeaders(true)
-				.setDisplayHeadersAtStartUp(true);
 		announcements.setAdapter(adapter);
 		announcements.setEmptyView(emptyView);
 
@@ -98,8 +96,8 @@ public class AnnouncementFragment extends BaseFragment {
 					@Override
 					public void onResponse(Call<AnnouncementResponse> call, Response<AnnouncementResponse> response) {
 						if (response != null && response.isSuccessful()) {
-							//todo check sorting
 							List<AnnouncementItem> announcements = Stream.of(response.body().getAnnouncements())
+									.sorted()
 									.map(AnnouncementItem::new)
 									.toList();
 

@@ -54,11 +54,7 @@ public class TimeHeader extends AbstractHeaderItem<TimeHeader.TimeViewHolder> {
 		@BindView(R.id.section_time) TextView time;
 
 		public TimeViewHolder(View view, FlexibleAdapter adapter) {
-			this(view, adapter, true);
-		}
-
-		public TimeViewHolder(View view, FlexibleAdapter adapter, boolean stickyHeader) {
-			super(view, adapter, stickyHeader);
+			super(view, adapter);
 			ButterKnife.bind(this, view);
 		}
 	}

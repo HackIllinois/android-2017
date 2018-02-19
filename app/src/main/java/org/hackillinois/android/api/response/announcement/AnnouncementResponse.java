@@ -1,6 +1,8 @@
 
 package org.hackillinois.android.api.response.announcement;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 import org.joda.time.DateTime;
@@ -19,7 +21,7 @@ public class AnnouncementResponse {
 		return meta;
 	}
 
-	public static class Announcement {
+	public static class Announcement implements Comparable<Announcement> {
 		@SerializedName("created") private DateTime created;
 		@SerializedName("description") private String description;
 		@SerializedName("id") private long id;
@@ -39,6 +41,15 @@ public class AnnouncementResponse {
 
 		public String getTitle() {
 			return title;
+		}
+
+		@Override
+		public int compareTo(@NonNull Announcement other) {
+			int compared = other.getCreated().compareTo(getCreated()); // reverse
+			if (compared == 0) {
+				return getTitle().compareTo(other.getTitle());
+			}
+			return compared;
 		}
 	}
 }
