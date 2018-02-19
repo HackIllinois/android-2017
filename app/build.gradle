@@ -115,7 +115,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.10'
-    implementation 'com.mikepenz:fastadapter:3.1.2@aar'
     implementation 'eu.davidea:flexible-adapter:5.0.0-rc4'
     implementation 'eu.davidea:flexible-adapter-ui:1.0.0-b2'
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
