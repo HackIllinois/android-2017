@@ -82,6 +82,8 @@ public class AnnouncementJob extends Job {
 		new JobRequest.Builder(TAG)
 				.setRequiredNetworkType(JobRequest.NetworkType.CONNECTED)
 				.setPeriodic(frequency, TimeUnit.MINUTES.toMillis(5))
+				.setRequirementsEnforced(true)
+				.setUpdateCurrent(true)
 				.build()
 				.schedule();
 

@@ -84,6 +84,7 @@ public class EventNotifierJob extends Job {
 		new JobRequest.Builder(getTag(event))
 				.setExtras(extras)
 				.setExact(msUntilNotify)
+				.setUpdateCurrent(true)
 				.build()
 				.schedule();
 
