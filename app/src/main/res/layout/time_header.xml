@@ -7,11 +7,12 @@
     android:layout_height="wrap_content"
     android:background="@color/transparentMainBackground"
     android:minHeight="50dp"
-    app:elevation="5dp">
+    app:elevation="5dp"
+    tools:ignore="MissingPrefix">
 
     <TextView
-        fontPath="fonts/Roboto_Bold.ttf"
         android:id="@+id/section_time"
+        fontPath="fonts/Roboto_Bold.ttf"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
