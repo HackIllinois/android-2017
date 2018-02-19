@@ -3,17 +3,20 @@ package org.hackillinois.android.helper;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.support.v4.content.ContextCompat;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.dinuscxj.refresh.RecyclerRefreshLayout;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
@@ -25,11 +28,13 @@ import org.hackillinois.android.R;
 import org.hackillinois.android.api.response.event.EventResponse;
 import org.hackillinois.android.api.response.location.LocationResponse;
 import org.hackillinois.android.service.EventNotifierJob;
+import org.hackillinois.android.ui.custom.HackIllinoisRefreshView;
 
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import butterknife.ButterKnife;
 import timber.log.Timber;
 
 public class Utils {
@@ -78,11 +83,14 @@ public class Utils {
 		return bitmap;
 	}
 
-	private static Bitmap removeTransparentBorder(Bitmap bmp, int borderSize) {
-		Bitmap bmpWithBorder = Bitmap.createBitmap(bmp.getWidth() - borderSize * 2, bmp.getHeight() - borderSize * 2, bmp.getConfig());
-		Canvas canvas = new Canvas(bmpWithBorder);
-		canvas.drawBitmap(bmp, -borderSize, -borderSize, null);
-		return bmpWithBorder;
+	public static void attachHackIllinoisRefreshView(RecyclerRefreshLayout swipeRefresh, LayoutInflater inflater) {
+		swipeRefresh.setRefreshStyle(RecyclerRefreshLayout.RefreshStyle.FLOAT);
+		View root = inflater.inflate(R.layout.refresh_view, swipeRefresh);
+		HackIllinoisRefreshView refreshView = ButterKnife.findById(root, R.id.refresh_view);
+		if (refreshView.getParent() != null)
+			((ViewGroup) refreshView.getParent()).removeView(refreshView);
+
+		swipeRefresh.setRefreshView(refreshView, refreshView.getLayoutParams());
 	}
 
 	public static <T> T[] concat(T[] first, T[] second) {
