@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -12,65 +12,52 @@
     tools:context=".ui.modules.login.LoginActivity"
     tools:ignore="MissingPrefix">
 
+    <TextView
+        android:id="@+id/log_in"
+        fontPath="fonts/Roboto_Medium.ttf"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/log_in"
+        android:textColor="@color/pink"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <LinearLayout
+        android:id="@+id/login_info_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
         android:orientation="vertical"
-        android:paddingEnd="15dp"
-        android:paddingStart="15dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/log_in">
 
-        <TextView
-            fontPath="fonts/Roboto_Medium.ttf"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
-            android:text="@string/log_in"
-            android:textColor="@color/pink"
-            android:textSize="16sp"/>
-
-        <TextView
-            fontPath="fonts/Roboto_Regular.ttf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:text="@string/username"
-            android:textColor="@color/darkPurple"
-            android:textSize="14sp"
-            android:textStyle="normal"
-            />
 
         <android.support.v7.widget.AppCompatEditText
             android:id="@+id/login_email"
             fontPath="fonts/Roboto_Regular.ttf"
             android:layout_width="match_parent"
             android:layout_height="52dp"
+            android:hint="@string/username_hint"
             android:inputType="textEmailAddress"
             android:textColor="@color/darkPurple"
             android:textSize="14sp"
-            app:backgroundTint="@color/pink"
-            tools:text="username"/>
-
-        <TextView
-            fontPath="fonts/Roboto_Regular.ttf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:text="@string/password"
-            android:textColor="@color/darkPurple"
-            android:textSize="14sp"
-            android:textStyle="normal"
-            />
+            app:backgroundTint="@color/pink"/>
 
         <android.support.v7.widget.AppCompatEditText
             android:id="@+id/login_password"
             fontPath="fonts/Roboto_Regular.ttf"
             android:layout_width="match_parent"
             android:layout_height="52dp"
+            android:hint="@string/password_hint"
             android:inputType="textPassword"
             android:textColor="@color/darkPurple"
             android:textSize="14sp"
-            app:backgroundTint="@color/pink"
-            tools:text="password"/>
+            app:backgroundTint="@color/pink"/>
 
     </LinearLayout>
 
@@ -79,9 +66,12 @@
         fontPath="fonts/Roboto_Medium.ttf"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="61dp"
+        android:layout_marginTop="32dp"
         android:background="@color/bluePurple"
         android:text="@string/sign_in"
-        android:textColor="@color/darkPurple"/>
+        android:textColor="@color/darkPurple"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_info_holder"/>
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

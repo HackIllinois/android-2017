@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,29 +12,36 @@
     tools:context=".ui.modules.login.LoginChooserActivity"
     tools:ignore="MissingPrefix">
 
+    <TextView
+        android:id="@+id/i_am_a"
+        fontPath="fonts/Roboto_Medium.ttf"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/i_am_a"
+        android:textColor="@color/pink"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <LinearLayout
+        android:id="@+id/login_types"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:orientation="vertical"
-        android:paddingEnd="15dp"
-        android:paddingStart="15dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="58dp"
-            android:text="@string/i_am_a"
-            fontPath="fonts/Roboto_Medium.ttf"
-            android:textColor="@color/pink"
-            android:textSize="16sp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/i_am_a">
 
         <TextView
             android:id="@+id/login_hacker"
+            fontPath="fonts/Roboto_Regular.ttf"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:gravity="center"
             android:text="@string/hacker"
-            fontPath="fonts/Roboto_Regular.ttf"
             android:textAlignment="center"
             android:textColor="@color/darkPurple"
             android:textSize="14sp"/>
@@ -45,11 +53,11 @@
 
         <TextView
             android:id="@+id/login_mentor"
+            fontPath="fonts/Roboto_Regular.ttf"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:gravity="center"
             android:text="@string/mentor"
-            fontPath="fonts/Roboto_Regular.ttf"
             android:textAlignment="center"
             android:textColor="@color/darkPurple"
             android:textSize="14sp"/>
@@ -61,11 +69,11 @@
 
         <TextView
             android:id="@+id/login_staff"
+            fontPath="fonts/Roboto_Regular.ttf"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:gravity="center"
             android:text="@string/staff_member"
-            fontPath="fonts/Roboto_Regular.ttf"
             android:textAlignment="center"
             android:textColor="@color/darkPurple"
             android:textSize="14sp"/>
@@ -77,11 +85,11 @@
 
         <TextView
             android:id="@+id/login_volunteer"
+            fontPath="fonts/Roboto_Regular.ttf"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:gravity="center"
             android:text="@string/volunteer"
-            fontPath="fonts/Roboto_Regular.ttf"
             android:textAlignment="center"
             android:textColor="@color/darkPurple"
             android:textSize="14sp"/>
@@ -94,11 +102,18 @@
 
     <Button
         android:id="@+id/login_next"
+        fontPath="fonts/Roboto_Medium.ttf"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="61dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:background="@color/bluePurple"
         android:text="@string/next"
-        fontPath="fonts/Roboto_Medium.ttf"
-        android:textColor="@color/darkPurple"/>
-</LinearLayout>
+        android:textColor="@color/darkPurple"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_types"/>
+</android.support.constraint.ConstraintLayout>

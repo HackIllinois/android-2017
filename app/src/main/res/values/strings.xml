@@ -18,8 +18,6 @@
     <string name="happening_now">Happening now</string>
     <string name="hacking_ends_in">Hacking ends in:</string>
     <string name="log_in">LOG IN</string>
-    <string name="password">Password</string>
-    <string name="username">Username</string>
     <string name="sign_in">Sign In</string>
     <string name="failure">Failed!</string>
     <string name="normal_login_failed">Login attempt failed. Please try again</string>
@@ -40,8 +38,10 @@
     <string name="no">No</string>
     <string name="notified_before_event_starts">You will be notified %d %s before %s starts.</string>
     <string name="event_starts_at">%s starts at %s</string>
-    <string name="hackillinois_starts_in">HackIllinois Starts In</string>
-    <string name="hacking_starts_in">Hacking Starts In</string>
+    <string name="hackillinois_starts_in">HackIllinois Begins In</string>
+    <string name="hacking_starts_in">Hacking Begins In</string>
     <string name="hackillinois_ends_in">HackIllinois Ends In</string>
     <string name="no_location">No location</string>
+    <string name="username_hint">USERNAME</string>
+    <string name="password_hint">PASSWORD</string>
 </resources>
