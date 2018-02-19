@@ -12,8 +12,6 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 import com.dinuscxj.refresh.RecyclerRefreshLayout;
-import com.mikepenz.fastadapter.FastAdapter;
-import com.mikepenz.fastadapter.adapters.ItemAdapter;
 
 import org.hackillinois.android.R;
 import org.hackillinois.android.api.response.event.EventResponse;
@@ -21,7 +19,6 @@ import org.hackillinois.android.helper.Settings;
 import org.hackillinois.android.helper.Utils;
 import org.hackillinois.android.ui.base.BaseFragment;
 import org.hackillinois.android.ui.custom.EmptyRecyclerView;
-import org.hackillinois.android.ui.modules.event.EventInfoDialog;
 import org.hackillinois.android.ui.modules.event.EventItem;
 import org.joda.time.DateTime;
 
@@ -31,6 +28,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import eu.davidea.flexibleadapter.FlexibleAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -52,8 +50,7 @@ public class HomeFragment extends BaseFragment implements HomeClock.OnFinishList
 			R.string.hackillinois_ends_in
 	};
 	private Unbinder unbinder;
-	private final ItemAdapter<EventItem> itemAdapter = new ItemAdapter<>();
-	private final FastAdapter<EventItem> fastAdapter = FastAdapter.with(itemAdapter);
+	private final FlexibleAdapter<EventItem> adapter = new FlexibleAdapter<>(null);
 	private HomeClock clock;
 
 	@Override
@@ -75,27 +72,24 @@ public class HomeFragment extends BaseFragment implements HomeClock.OnFinishList
 		Utils.attachHackIllinoisRefreshView(swipeRefresh, inflater);
 
 		//set our adapters to the RecyclerView
-		activeEvents.setAdapter(fastAdapter);
+		activeEvents.setAdapter(adapter);
 		activeEvents.setEmptyView(emptyView);
-
-		fastAdapter.withOnClickListener((v, adapter, item, position) -> {
-			new EventInfoDialog(v.getContext(), item.getEvent()).show();
-			return false;
-		});
 
 		return view;
 	}
 
 	@Override
 	public void onSaveInstanceState(@NonNull Bundle outState) {
+		adapter.onSaveInstanceState(outState);
 		super.onSaveInstanceState(outState);
-		fastAdapter.saveInstanceState(outState);
 	}
 
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		fastAdapter.withSavedInstanceState(savedInstanceState);
+		if (savedInstanceState != null) {
+			adapter.onRestoreInstanceState(savedInstanceState);
+		}
 	}
 
 	@Override
@@ -122,7 +116,7 @@ public class HomeFragment extends BaseFragment implements HomeClock.OnFinishList
 									.map(EventItem::new)
 									.collect(Collectors.toList());
 
-							itemAdapter.set(events);
+							adapter.updateDataSet(events);
 						}
 						stopRefreshing();
 					}

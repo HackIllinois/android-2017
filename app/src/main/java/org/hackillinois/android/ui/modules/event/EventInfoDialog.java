@@ -10,8 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.annimon.stream.Stream;
-import com.mikepenz.fastadapter.FastAdapter;
-import com.mikepenz.fastadapter.adapters.ItemAdapter;
 
 import org.hackillinois.android.R;
 import org.hackillinois.android.api.response.event.EventResponse;
@@ -24,11 +22,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import eu.davidea.flexibleadapter.FlexibleAdapter;
 import timber.log.Timber;
 
 public class EventInfoDialog extends Dialog {
-	private final ItemAdapter<EventButtonItem> itemAdapter = new ItemAdapter<>();
-	private final FastAdapter<EventButtonItem> fastAdapter = FastAdapter.with(itemAdapter);
+	private final FlexibleAdapter<EventButtonItem> adapter = new FlexibleAdapter<>(null);
 
 	private EventResponse.Event event;
 	@BindView(R.id.event_star) ImageView eventStar;
@@ -53,21 +51,26 @@ public class EventInfoDialog extends Dialog {
 		eventName.setText(event.getName());
 		List<EventResponse.Location> locations = event.getLocations();
 		eventDescription.setText(event.getDescription());
-		eventButtons.setAdapter(fastAdapter);
+		eventButtons.setAdapter(adapter);
 		eventButtons.setLayoutManager(new LinearLayoutManager(getContext()));
 		eventButtons.setHasFixedSize(true);
 
 		List<EventButtonItem> eventButtonItems = Stream.of(locations)
 				.map(EventButtonItem::new).toList();
 
-		itemAdapter.set(eventButtonItems);
+		adapter.updateDataSet(eventButtonItems);
 
-		fastAdapter.withOnClickListener((v, adapter, item, position) -> {
-			LocationResponse.Location loc = Settings.get().getLocationMap()
-					.get(item.getLocation().getLocationId());
+		adapter.addListener(new FlexibleAdapter.OnItemClickListener() {
+			@Override
+			public boolean onItemClick(int position) {
+				EventButtonItem item = adapter.getItem(position);
 
-			Utils.goToMapApp(getContext().getApplicationContext(), loc.getLongitude(), loc.getLatitude());
-			return false;
+				LocationResponse.Location loc = Settings.get().getLocationMap()
+						.get(item.getLocation().getLocationId());
+
+				Utils.goToMapApp(getContext().getApplicationContext(), loc.getLongitude(), loc.getLatitude());
+				return false;
+			}
 		});
 
 		Utils.updateEventStarred(getContext().getApplicationContext(), eventStar, event);

@@ -5,6 +5,7 @@
     <color name="pink">#ED008C</color>
 
     <color name="mainBackground">#F2F5Fe</color>
+    <color name="transparentMainBackground">#AAF2F5Fe</color>
     <color name="white">#FFFFFF</color>
     <color name="darkPurple">#1C055E</color>
     <color name="bluePurple">#CCD9FC</color>
