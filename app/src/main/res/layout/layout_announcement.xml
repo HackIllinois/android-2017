@@ -8,10 +8,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        
+
         <include layout="@layout/empty_list_view"/>
 
         <org.hackillinois.android.ui.custom.EmptyRecyclerView
@@ -21,6 +21,6 @@
             android:paddingTop="24dp"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             tools:listitem="@layout/announcement_list_item"/>
-    </LinearLayout>
+    </FrameLayout>
 
 </android.support.v4.widget.SwipeRefreshLayout>
