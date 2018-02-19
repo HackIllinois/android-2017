@@ -7,11 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
 import com.dinuscxj.refresh.RecyclerRefreshLayout;
-import com.mikepenz.fastadapter.FastAdapter;
-import com.mikepenz.fastadapter.adapters.ItemAdapter;
 
 import org.hackillinois.android.R;
 import org.hackillinois.android.api.response.announcement.AnnouncementResponse;
@@ -26,6 +23,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import eu.davidea.flexibleadapter.FlexibleAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,8 +35,8 @@ public class AnnouncementFragment extends BaseFragment {
 	@BindView(R.id.empty_view) View emptyView;
 
 	private Unbinder unbinder;
-	private final ItemAdapter<AnnouncementItem> itemAdapter = new ItemAdapter<>();
-	private final FastAdapter<AnnouncementItem> fastAdapter = FastAdapter.with(itemAdapter);
+
+	private final FlexibleAdapter<AnnouncementItem> adapter = new FlexibleAdapter<>(null);
 
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,7 +57,9 @@ public class AnnouncementFragment extends BaseFragment {
 		Utils.attachHackIllinoisRefreshView(swipeRefresh, inflater);
 
 		//set our adapters to the RecyclerView
-		announcements.setAdapter(fastAdapter);
+		adapter.setStickyHeaders(true)
+				.setDisplayHeadersAtStartUp(true);
+		announcements.setAdapter(adapter);
 		announcements.setEmptyView(emptyView);
 
 		return view;
@@ -67,14 +67,16 @@ public class AnnouncementFragment extends BaseFragment {
 
 	@Override
 	public void onSaveInstanceState(@NonNull Bundle outState) {
+		adapter.onSaveInstanceState(outState);
 		super.onSaveInstanceState(outState);
-		fastAdapter.saveInstanceState(outState);
 	}
 
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		fastAdapter.withSavedInstanceState(savedInstanceState);
+		if (savedInstanceState != null) {
+			adapter.onRestoreInstanceState(savedInstanceState);
+		}
 	}
 
 	@Override
@@ -99,9 +101,9 @@ public class AnnouncementFragment extends BaseFragment {
 							//todo check sorting
 							List<AnnouncementItem> announcements = Stream.of(response.body().getAnnouncements())
 									.map(AnnouncementItem::new)
-									.collect(Collectors.toList());
+									.toList();
 
-							itemAdapter.set(announcements);
+							adapter.updateDataSet(announcements);
 						}
 						stopRefreshing();
 					}
