@@ -3,10 +3,6 @@ package org.hackillinois.android.ui.modules.home;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +11,14 @@ import android.widget.TextView;
 import com.airbnb.lottie.LottieAnimationView;
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
+import com.dinuscxj.refresh.RecyclerRefreshLayout;
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
 
 import org.hackillinois.android.R;
 import org.hackillinois.android.api.response.event.EventResponse;
 import org.hackillinois.android.helper.Settings;
+import org.hackillinois.android.helper.Utils;
 import org.hackillinois.android.ui.base.BaseFragment;
 import org.hackillinois.android.ui.custom.EmptyRecyclerView;
 import org.hackillinois.android.ui.modules.event.EventInfoDialog;
@@ -43,7 +41,7 @@ public class HomeFragment extends BaseFragment implements HomeClock.OnFinishList
 	@BindView(R.id.hour_animation) LottieAnimationView hours;
 	@BindView(R.id.day_animation) LottieAnimationView days;
 	@BindView(R.id.active_events) EmptyRecyclerView activeEvents;
-	@BindView(R.id.home_refresh) SwipeRefreshLayout swipeRefresh;
+	@BindView(R.id.home_refresh) RecyclerRefreshLayout swipeRefresh;
 	@BindView(R.id.countdownTitle) TextView countdownTitle;
 	@BindView(R.id.empty_view) View emptyView;
 
@@ -74,7 +72,7 @@ public class HomeFragment extends BaseFragment implements HomeClock.OnFinishList
 		clock.setCountDownTo(this, eventTimers);
 
 		swipeRefresh.setOnRefreshListener(this::fetchEvents);
-		swipeRefresh.setColorSchemeResources(R.color.lightPink);
+		Utils.attachHackIllinoisRefreshView(swipeRefresh, inflater);
 
 		//set our adapters to the RecyclerView
 		activeEvents.setAdapter(fastAdapter);

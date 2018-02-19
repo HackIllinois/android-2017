@@ -1,84 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout
+<android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/profile_refresh"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <android.support.v4.widget.NestedScrollView
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <android.support.v7.widget.CardView
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/profile_page_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="0dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:background="@color/white"
+            tools:ignore="MissingPrefix">
 
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/profile_page_container"
+            <ImageView
+                android:id="@+id/qr_code"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:background="@color/white"
-                tools:ignore="MissingPrefix">
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toTopOf="@id/profile_name_holder"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@tools:sample/avatars"/>
 
-                <ImageView
-                    android:id="@+id/qr_code"
-                    android:layout_width="match_parent"
+            <LinearLayout
+                android:id="@+id/profile_name_holder"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/qr_code">
+
+                <TextView
+                    android:id="@+id/user_name"
+                    fontPath="fonts/Roboto_Bold.ttf"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"
-                    app:layout_constraintBottom_toTopOf="@id/profile_name_holder"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@tools:sample/avatars"/>
+                    android:fontFamily="sans-serif"
+                    android:textColor="@color/darkPurple"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:text="JOHN DOE"/>
 
-                <LinearLayout
-                    android:id="@+id/profile_name_holder"
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/dietary_restrictions"
+                    fontPath="fonts/Roboto_Regular.ttf"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="32dp"
-                    android:layout_marginTop="16dp"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/qr_code">
+                    android:fontFamily="sans-serif"
+                    android:textColor="@color/lightPink"
+                    android:textSize="16sp"
+                    android:textStyle="normal"
+                    tools:text="No Dietary Restrictions"/>
+            </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/user_name"
-                        fontPath="fonts/Roboto_Bold.ttf"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif"
-                        android:textColor="@color/darkPurple"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        tools:text="JOHN DOE"/>
-
-                    <TextView
-                        android:id="@+id/dietary_restrictions"
-                        fontPath="fonts/Roboto_Regular.ttf"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif"
-                        android:textColor="@color/lightPink"
-                        android:textSize="16sp"
-                        android:textStyle="normal"
-                        tools:text="No Dietary Restrictions"/>
-                </LinearLayout>
-
-            </android.support.constraint.ConstraintLayout>
-        </android.support.v7.widget.CardView>
-    </android.support.v4.widget.NestedScrollView>
-</android.support.v4.widget.SwipeRefreshLayout>
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+</android.support.v4.widget.NestedScrollView>

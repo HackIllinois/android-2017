@@ -3,7 +3,6 @@ package org.hackillinois.android.ui.modules.schedule;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +11,7 @@ import android.widget.ImageView;
 
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
+import com.dinuscxj.refresh.RecyclerRefreshLayout;
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
 import com.mikepenz.fastadapter.listeners.ClickEventHook;
@@ -36,7 +36,7 @@ import timber.log.Timber;
 
 public class ScheduleDayFragment extends BaseFragment {
 	@BindView(R.id.active_events) EmptyRecyclerView activeEvents;
-	@BindView(R.id.schedule_refresh) SwipeRefreshLayout swipeRefresh;
+	@BindView(R.id.schedule_refresh) RecyclerRefreshLayout swipeRefresh;
 	@BindView(R.id.empty_view) View emptyView;
 	private Unbinder unbinder;
 
@@ -63,7 +63,7 @@ public class ScheduleDayFragment extends BaseFragment {
 		unbinder = ButterKnife.bind(this, view);
 
 		swipeRefresh.setOnRefreshListener(this::fetchEvents);
-		swipeRefresh.setColorSchemeResources(R.color.lightPink);
+		Utils.attachHackIllinoisRefreshView(swipeRefresh, inflater);
 
 		//set our adapters to the RecyclerView
 		activeEvents.setAdapter(fastAdapter);

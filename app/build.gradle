@@ -102,6 +102,7 @@ dependencies {
     releaseImplementation 'io.palaima.debugdrawer:debugdrawer-no-op:0.8.0'
 
     // Other libraries used
+    implementation 'com.dinuscxj:recyclerrefreshlayout:2.0.5'
     implementation 'com.evernote:android-job:1.2.4'
     implementation 'com.airbnb.android:lottie:2.5.0-beta3'
     implementation 'com.mikepenz:iconics-core:3.0.2@aar'

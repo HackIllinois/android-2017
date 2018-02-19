@@ -3,19 +3,20 @@ package org.hackillinois.android.ui.modules.announcement;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
+import com.dinuscxj.refresh.RecyclerRefreshLayout;
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
 
 import org.hackillinois.android.R;
 import org.hackillinois.android.api.response.announcement.AnnouncementResponse;
 import org.hackillinois.android.helper.Settings;
+import org.hackillinois.android.helper.Utils;
 import org.hackillinois.android.ui.base.BaseFragment;
 import org.hackillinois.android.ui.custom.EmptyRecyclerView;
 import org.joda.time.DateTime;
@@ -32,7 +33,7 @@ import timber.log.Timber;
 
 public class AnnouncementFragment extends BaseFragment {
 	@BindView(R.id.announcements) EmptyRecyclerView announcements;
-	@BindView(R.id.announcement_refresh) SwipeRefreshLayout swipeRefresh;
+	@BindView(R.id.announcement_refresh) RecyclerRefreshLayout swipeRefresh;
 	@BindView(R.id.empty_view) View emptyView;
 
 	private Unbinder unbinder;
@@ -55,7 +56,7 @@ public class AnnouncementFragment extends BaseFragment {
 			Settings.get().saveLastNotificationFetch(DateTime.now());
 			fetchAnnouncements();
 		});
-		swipeRefresh.setColorSchemeResources(R.color.lightPink);
+		Utils.attachHackIllinoisRefreshView(swipeRefresh, inflater);
 
 		//set our adapters to the RecyclerView
 		announcements.setAdapter(fastAdapter);

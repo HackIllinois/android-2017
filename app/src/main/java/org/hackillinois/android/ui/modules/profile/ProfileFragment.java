@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -38,7 +37,6 @@ public class ProfileFragment extends BaseFragment {
 	@BindView(R.id.qr_code) ImageView qrCodeImage;
 	@BindView(R.id.user_name) TextView userName;
 	@BindView(R.id.dietary_restrictions) TextView userDietaryRestrictions;
-	@BindView(R.id.profile_refresh) SwipeRefreshLayout swipeRefresh;
 	@BindView(R.id.profile_page_container) View view;
 
 	@Override
@@ -52,9 +50,6 @@ public class ProfileFragment extends BaseFragment {
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.layout_profile, container, false);
 		ButterKnife.bind(this, view);
-
-		swipeRefresh.setOnRefreshListener(this::setupQrCode);
-		swipeRefresh.setColorSchemeResources(R.color.lightPink);
 
 		setupQrCode();
 
@@ -96,12 +91,6 @@ public class ProfileFragment extends BaseFragment {
 		getActivity().finish();
 	}
 
-	public void stopRefreshing() {
-		if (swipeRefresh != null) {
-			swipeRefresh.setRefreshing(false);
-		}
-	}
-
 	private void setupQrCode() {
 		String auth = Settings.get().getAuthString();
 
@@ -118,13 +107,11 @@ public class ProfileFragment extends BaseFragment {
 				} else {
 					Toast.makeText(getContext(), "Couldn't load user info. Try again!", Toast.LENGTH_LONG).show();
 				}
-				stopRefreshing();
 			}
 
 			@Override
 			public void onFailure(Call<UserResponse> call, Throwable t) {
 				Toast.makeText(getContext(), "Couldn't load user info. Try again!", Toast.LENGTH_LONG).show();
-				stopRefreshing();
 			}
 		});
 	}
