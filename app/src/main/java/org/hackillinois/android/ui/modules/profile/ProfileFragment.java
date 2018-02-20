@@ -3,6 +3,7 @@ package org.hackillinois.android.ui.modules.profile;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -30,7 +31,6 @@ import org.hackillinois.android.helper.Utils;
 import org.hackillinois.android.ui.base.BaseFragment;
 import org.hackillinois.android.ui.modules.login.LoginChooserActivity;
 
-import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindView;
@@ -95,33 +95,47 @@ public class ProfileFragment extends BaseFragment {
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-		if (result != null) {
-			if (result.getContents() == null) {
-				Toast.makeText(getContext(), "Scan failed", Toast.LENGTH_LONG).show();
-			} else {
-				int id = Integer.valueOf(result.getContents());
-				Call<TrackingResponse> call = getApi().getTracking(Settings.get().getAuthString(), String.valueOf(id));
-				TrackingResponse response = null;
-				try {
-					response = call.execute().body();
-				} catch (IOException e) {
-					System.out.println(e.getMessage());
-				}
-				if (response.getError() == null) {
-					Toast.makeText(getContext(), "Hacker successfully checked in!", Toast.LENGTH_LONG).show();
-				} else {
-					TrackingResponse.Error error = response.getError();
-					if (error.getStatus() == 403) {
-						Toast.makeText(getContext(), "Unauthorized", Toast.LENGTH_LONG).show();
-					} else if (error.getStatus() == 400) {
-						Toast.makeText(getContext(), "Already checked in", Toast.LENGTH_LONG).show();
-					}
-				}
-			}
-
-		} else {
+		if (result == null) {
 			super.onActivityResult(requestCode, resultCode, data);
+			return;
 		}
+
+		if (result.getContents() == null) {
+			Toast.makeText(getContext(), "Scan failed", Toast.LENGTH_SHORT).show();
+			return;
+		}
+
+		Uri userBadge = Uri.parse(result.getContents());
+		String textId = userBadge.getQueryParameter("id");
+		String identifier = userBadge.getQueryParameter("identifier");
+		if (textId == null) {
+			Toast.makeText(getContext(), "Failed to scan any id", Toast.LENGTH_SHORT).show();
+		}
+
+		int id = Integer.valueOf(textId);
+
+		getApi().getTracking(Settings.get().getAuthString(), id)
+				.enqueue(new Callback<TrackingResponse>() {
+					@Override
+					public void onResponse(Call<TrackingResponse> call, Response<TrackingResponse> response) {
+						if (response != null && response.isSuccessful()) {
+							TrackingResponse track = response.body();
+							if (track.getError() == null) {
+								Toast.makeText(getContext(), identifier + " successfully checked in!", Toast.LENGTH_LONG).show();
+							} else {
+								Toast.makeText(getContext(), "Failed to check in " + identifier, Toast.LENGTH_LONG).show();
+								Timber.d("Failed to check in User %s", track.getError().getMessage());
+							}
+						} else if (response.code() == 400) {
+							Toast.makeText(getContext(), "Already checked in " + identifier, Toast.LENGTH_LONG).show();
+						}
+					}
+
+					@Override
+					public void onFailure(Call<TrackingResponse> call, Throwable t) {
+						Timber.w(t, "Failed to finish request to check in %s(%d)", identifier, id);
+					}
+				});
 	}
 
 	private void logOut() {

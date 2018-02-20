@@ -41,8 +41,8 @@ public interface HackIllinoisAPI {
 	@GET("/v1/event/")
 	Call<EventResponse> getEvents();
 
-	@GET("/v1/tracking/{trackid}")
-	Call<TrackingResponse> getTracking(@Header("Authorization") String auth, @Path("trackID") String trackID);
+	@GET("/v1/tracking/{trackID}")
+	Call<TrackingResponse> getTracking(@Header("Authorization") String auth, @Path("trackID") int trackID);
 
 	@GET("/v1/announcement/all")
 	Call<AnnouncementResponse> getAnnouncements(
