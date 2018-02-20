@@ -64,12 +64,10 @@ public class HomeFragment extends BaseFragment implements HomeClock.OnFinishList
 		View view = inflater.inflate(R.layout.layout_home, container, false);
 		unbinder = ButterKnife.bind(this, view);
 
-		clock = new HomeClock(seconds, minutes, hours, days);
-		List<DateTime> eventTimers = Arrays.asList(Settings.EVENT_START_TIME, Settings.HACKING_START_TIME, Settings.HACKING_END_TIME, Settings.EVENT_END_TIME);
-		clock.setCountDownTo(this, eventTimers);
-
 		swipeRefresh.setOnRefreshListener(this::fetchEvents);
 		Utils.attachHackIllinoisRefreshView(swipeRefresh, inflater);
+
+		sync();
 
 		//set our adapters to the RecyclerView
 		activeEvents.setAdapter(adapter);
@@ -102,6 +100,13 @@ public class HomeFragment extends BaseFragment implements HomeClock.OnFinishList
 		if (swipeRefresh != null) {
 			swipeRefresh.setRefreshing(false);
 		}
+	}
+
+	public void sync() {
+		fetchEvents();
+		clock = new HomeClock(seconds, minutes, hours, days);
+		List<DateTime> eventTimers = Arrays.asList(Settings.EVENT_START_TIME, Settings.HACKING_START_TIME, Settings.HACKING_END_TIME, Settings.EVENT_END_TIME);
+		clock.setCountDownTo(this, eventTimers);
 	}
 
 	public void fetchEvents() {

@@ -11,14 +11,16 @@
         android:id="@+id/event_info_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="28dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="8dp"
         android:padding="16dp"
         app:ico_color="@color/pink"
         app:ico_icon="gmd-close"
         app:ico_size="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/event_summary_container"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="@+id/event_summary_container"/>
 
     <ImageView
         android:id="@+id/event_star"
@@ -35,67 +37,76 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/event_summary_container"/>
 
-    <LinearLayout
+    <android.support.v7.widget.LinearLayoutCompat
         android:id="@+id/event_summary_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toStartOf="@+id/event_info_close"
         app:layout_constraintStart_toEndOf="@id/event_star"
-        app:layout_constraintTop_toTopOf="@id/event_info_close">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/event_name"
             fontPath="fonts/Roboto_Regular.ttf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
             android:textColor="@color/darkPurple"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:textStyle="normal"
             tools:text="Current Event Name"/>
 
-    </LinearLayout>
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/event_duration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/darkPurple"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            tools:text="2:00 PM - 3:00 PM"/>
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="match_parent"
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/description_holder"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_margin="32dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/event_summary_container">
 
-        <TextView
-            android:id="@+id/event_description"
+        <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="28dp"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="28dp"
-            android:fontFamily="sans-serif"
-            android:textColor="@color/darkPurple"
-            android:textSize="24sp"
-            android:textStyle="normal"
-            tools:text="This event is the best event, like the best event, in the whole world. It’s the event of events and all events." />
-    </ScrollView>
+            android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/event_buttons"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="8dp"
-        android:overScrollMode="never"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
-        app:layout_constraintVertical_bias="1.0" />
+            <TextView
+                android:id="@+id/event_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:minHeight="100dp"
+                android:textColor="@color/darkPurple"
+                android:textSize="20sp"
+                android:textStyle="normal"
+                tools:text="This event is the best event, like the best event, in the whole world. It’s the event of events and all events."/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/event_buttons"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="16dp"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                tools:listitem="@layout/dialog_event_info_button"/>
+
+        </android.support.v7.widget.LinearLayoutCompat>
+    </android.support.v4.widget.NestedScrollView>
+
 </android.support.constraint.ConstraintLayout>
