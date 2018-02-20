@@ -18,20 +18,19 @@
         android:textSize="16sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="@+id/clock_animation"
-        app:layout_constraintStart_toStartOf="@+id/clock_animation"/>
+        app:layout_constraintStart_toStartOf="@+id/clock_animation"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <LinearLayout
         android:id="@+id/clock_animation"
         android:layout_width="match_parent"
         android:layout_height="175dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:baselineAligned="false"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
-        android:paddingEnd="16dp"
-        android:paddingStart="24dp"
+        android:paddingEnd="0dp"
+        android:paddingStart="28dp"
         android:weightSum="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +41,7 @@
             android:id="@+id/day_holder"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".22"
+            android:layout_weight=".25"
             android:orientation="horizontal">
 
             <com.airbnb.lottie.LottieAnimationView
@@ -55,7 +54,7 @@
         </FrameLayout>
 
         <TextView
-            fontPath="fonts/Roboto_Light.ttf"
+            fontPath="fonts/Roboto_Regular.ttf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
@@ -70,7 +69,7 @@
             android:id="@+id/hour_holder"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".22"
+            android:layout_weight=".25"
             android:orientation="horizontal">
 
             <com.airbnb.lottie.LottieAnimationView
@@ -82,7 +81,7 @@
         </FrameLayout>
 
         <TextView
-            fontPath="fonts/Roboto_Light.ttf"
+            fontPath="fonts/Roboto_Regular.ttf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
@@ -97,7 +96,7 @@
             android:id="@+id/minute_holder"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".22"
+            android:layout_weight=".25"
             android:orientation="horizontal">
 
             <com.airbnb.lottie.LottieAnimationView
@@ -110,7 +109,7 @@
 
 
         <TextView
-            fontPath="fonts/Roboto_Light.ttf"
+            fontPath="fonts/Roboto_Regular.ttf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
@@ -125,7 +124,7 @@
             android:id="@+id/second_holder"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight=".22"
+            android:layout_weight=".25"
             android:orientation="horizontal">
 
             <com.airbnb.lottie.LottieAnimationView
@@ -138,7 +137,7 @@
 
 
         <TextView
-            fontPath="fonts/Roboto_Light.ttf"
+            fontPath="fonts/Roboto_Regular.ttf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
