@@ -89,6 +89,7 @@ public class MainActivity extends BaseActivity {
 		switch (itemId) {
 			case R.id.menu_home:
 				swapFragments(homeFragment);
+				homeFragment.sync();
 				getSupportActionBar().setTitle(getString(R.string.menu_home));
 				break;
 			case R.id.menu_profile:
@@ -123,6 +124,12 @@ public class MainActivity extends BaseActivity {
 		if (extras != null) {
 			switchToMenuItem(extras.getInt(SET_TAB, R.id.menu_home));
 		}
+	}
+
+	@Override
+	protected void onResumeFragments() {
+		super.onResumeFragments();
+		homeFragment.sync();
 	}
 
 	private void swapFragments(Fragment newFragment) {

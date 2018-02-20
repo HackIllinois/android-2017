@@ -3,6 +3,8 @@ v1.1.6
 - Events/Announcements are grouped by time
 - Lots of Design cleanup
 - Custom refresh view
+- Cleanup Event info dialogs
+- QR Code scanning
 - Bug fixes
 
 Please submit any bugs you find

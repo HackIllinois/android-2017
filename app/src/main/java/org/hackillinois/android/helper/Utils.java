@@ -51,7 +51,7 @@ public class Utils {
 		WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 		lp.copyFrom(window.getAttributes());
 		lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-		lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+		lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
 		window.setAttributes(lp);
 	}
 
