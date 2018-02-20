@@ -25,6 +25,7 @@ import com.mikepenz.iconics.IconicsDrawable;
 
 import org.hackillinois.android.R;
 import org.hackillinois.android.api.response.qrcode.TrackingResponse;
+import org.hackillinois.android.api.response.user.AttendeeResponse;
 import org.hackillinois.android.api.response.user.UserResponse;
 import org.hackillinois.android.helper.Settings;
 import org.hackillinois.android.helper.Utils;
@@ -147,9 +148,7 @@ public class ProfileFragment extends BaseFragment {
 	}
 
 	private void setupQrCode() {
-		String auth = Settings.get().getAuthString();
-
-		getApi().getUserInfo(auth).enqueue(new Callback<UserResponse>() {
+		getApi().getUserInfo(Settings.get().getAuthString()).enqueue(new Callback<UserResponse>() {
 			@Override
 			public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
 				if (response.body() != null) {
@@ -157,17 +156,22 @@ public class ProfileFragment extends BaseFragment {
 
 					// Lets staff or admin check in people
 					List<UserResponse.Roles> roles = response.body().getUserResponseData().getRoles();
-					checkInButton.setVisibility(View.INVISIBLE);
 					for (UserResponse.Roles role : roles) {
 						if (role.getRole().equals("ADMIN") || role.getRole().equals("STAFF") || role.getRole().equals("VOLUNTEER")) {
 							checkInButton.setVisibility(View.VISIBLE);
+						} else if (role.getRole().equals("ATTENDEE")) {
+							setupAttendeeInfo();
 						}
 					}
 
-					Bitmap qrCode = Utils.getQRCodeBitmap(getContext(), data.getId(), data.getEmail(), 512);
+					String identifier = data.getGithubHandle();
+					if (identifier == null) {
+						identifier = data.getEmail();
+					}
+					Bitmap qrCode = Utils.getQRCodeBitmap(getContext(), data.getId(), identifier, 512);
 					qrCodeImage.setImageBitmap(qrCode);
-					userName.setText(data.getEmail()); // todo actually get name
-					userDietaryRestrictions.setText("Unknown dietary restrictions");
+					userName.setText(identifier); // todo actually get name
+					userDietaryRestrictions.setText(getDietDisplayText("unknown"));
 				} else {
 					Toast.makeText(getContext(), "Couldn't load user info. Try again!", Toast.LENGTH_LONG).show();
 				}
@@ -178,6 +182,40 @@ public class ProfileFragment extends BaseFragment {
 				Toast.makeText(getContext(), "Couldn't load user info. Try again!", Toast.LENGTH_LONG).show();
 			}
 		});
+	}
+
+	private void setupAttendeeInfo() {
+		getApi().getAttendeeInfo(Settings.get().getAuthString()).enqueue(new Callback<AttendeeResponse>() {
+			@Override
+			public void onResponse(Call<AttendeeResponse> call, Response<AttendeeResponse> response) {
+				if (response != null && response.isSuccessful()) {
+
+					AttendeeResponse.UserInfoData data = response.body().getUserInfoData();
+					userName.setText(data.getFirstname() + " " + data.getLastname());
+					userDietaryRestrictions.setText(getDietDisplayText(data.getDiet()));
+				}
+			}
+
+			@Override
+			public void onFailure(Call<AttendeeResponse> call, Throwable t) {
+				Timber.w(t, "Failed to set up attendee info");
+			}
+		});
+	}
+
+	public String getDietDisplayText(String diet) {
+		switch (diet) {
+			case "NONE":
+				return "NO DIETARY RESTRICTIONS";
+			case "VEGETARIAN":
+				return "VEGETARIAN";
+			case "VEGAN":
+				return "VEGAN";
+			case "GLUTEN_FREE":
+				return "GLUTEN FREE";
+			default:
+				return "Unknown dietary restrictions";
+		}
 	}
 
 	@OnClick(R.id.event_checkin)
