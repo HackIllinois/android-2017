@@ -34,7 +34,12 @@ public class SplashActivity extends BaseActivity {
 	@BindView(R.id.splash_anim) GifImageView splash;
 	private final Handler handler = new Handler();
 	private Class<?> activityClass = LoginChooserActivity.class;
-	private final Runnable moveOn = this::moveOn;
+	private boolean isAppVisible = true;
+	private boolean readyToMoveOn = false;
+	private final Runnable prepareForMove = () -> {
+		readyToMoveOn = true;
+		if (isAppVisible) moveOn();
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +102,7 @@ public class SplashActivity extends BaseActivity {
 		try {
 			GifDrawable gif = new GifDrawable(getResources(), R.drawable.appanimation);
 			int duration = gif.getDuration();
-			handler.postDelayed(moveOn, duration);
+			handler.postDelayed(prepareForMove, duration);
 			Timber.d("Splash Screen Displayed");
 		} catch (IOException e) {
 			Timber.d("Failed to display splash Screen");
@@ -121,9 +126,25 @@ public class SplashActivity extends BaseActivity {
 		});
 	}
 
+	@Override
+	protected void onPause() {
+		super.onPause();
+		isAppVisible = false;
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		isAppVisible = true;
+		if (readyToMoveOn) {
+			moveOn();
+		}
+	}
+
 	private void moveOn() {
 		Timber.d("Moving to %s", activityClass.getSimpleName());
 		Intent i = new Intent(this, activityClass);
+		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(i);
 		finish();
 	}
@@ -132,7 +153,6 @@ public class SplashActivity extends BaseActivity {
 	public void skipSplash() {
 		if (BuildConfig.DEBUG) {
 			Timber.i("Skipping splash screen");
-			handler.removeCallbacks(moveOn);
 			moveOn();
 		}
 	}
