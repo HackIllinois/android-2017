@@ -105,7 +105,7 @@ public class AttendeeResponse {
 		@SerializedName("interests") private String interests;
 		@SerializedName("isNovice") private boolean isnovice;
 		@SerializedName("isPrivate") private boolean isprivate;
-		@SerializedName("hasLightningInterest") private boolean haslightninginterest;
+		@SerializedName("hasLightningInterest") private int haslightninginterest;
 		@SerializedName("phoneNumber") private String phonenumber;
 		@SerializedName("userId") private int userid;
 		@SerializedName("id") private int id;
@@ -178,7 +178,7 @@ public class AttendeeResponse {
 			return isprivate;
 		}
 
-		public boolean getHaslightninginterest() {
+		public int getHaslightninginterest() {
 			return haslightninginterest;
 		}
 
