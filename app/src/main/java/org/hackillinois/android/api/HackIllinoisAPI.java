@@ -1,11 +1,15 @@
 package org.hackillinois.android.api;
 
+import org.hackillinois.android.api.response.announcement.AnnouncementRequest;
 import org.hackillinois.android.api.response.announcement.AnnouncementResponse;
+import org.hackillinois.android.api.response.announcement.AnnouncementStartResponse;
 import org.hackillinois.android.api.response.event.EventResponse;
 import org.hackillinois.android.api.response.location.LocationResponse;
 import org.hackillinois.android.api.response.login.LoginRequest;
 import org.hackillinois.android.api.response.login.LoginResponse;
 import org.hackillinois.android.api.response.qrcode.TrackingResponse;
+import org.hackillinois.android.api.response.tracking.TrackingRequest;
+import org.hackillinois.android.api.response.tracking.TrackingStartResponse;
 import org.hackillinois.android.api.response.user.AttendeeResponse;
 import org.hackillinois.android.api.response.user.UserResponse;
 import org.joda.time.DateTime;
@@ -25,6 +29,12 @@ public interface HackIllinoisAPI {
 
 	@POST("/v1/auth")
 	Call<LoginResponse> verifyUser(@Body LoginRequest request);
+
+	@POST("/v1/tracking/")
+	Call<TrackingStartResponse> startTracking(@Header("Authorization") String auth, @Body TrackingRequest request);
+
+	@POST("/v1/announcement")
+	Call<AnnouncementStartResponse> makeAnnouncement(@Header("Authorization") String auth, @Body AnnouncementRequest request);
 
 	@GET("/v1/registration/attendee")
 	Call<AttendeeResponse> getAttendeeInfo(@Header("Authorization") String auth);

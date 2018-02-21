@@ -49,6 +49,7 @@
         <activity
             android:name=".ui.modules.login.LoginActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ui.modules.admin.AdminToolsActivity" />
     </application>
 
 </manifest>

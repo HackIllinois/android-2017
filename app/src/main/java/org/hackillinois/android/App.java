@@ -39,17 +39,13 @@ public class App extends MultiDexApplication {
 	private OkHttpClient okHttpClient;
 	private final Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = chain -> {
 		Response originalResponse = chain.proceed(chain.request());
-		if (Utils.isNetworkAvailable(getApplicationContext())) {
-			int maxAge = 60 * 5; // read from cache for 5 minute
-			return originalResponse.newBuilder()
-					.header("Cache-Control", "public, max-age=" + maxAge)
-					.build();
-		} else {
+		if (!Utils.isNetworkAvailable(getApplicationContext())) {
 			int maxStale = 60 * 60 * 24 * 7; // tolerate 1-week stale
 			return originalResponse.newBuilder()
 					.header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
 					.build();
 		}
+		return originalResponse;
 	};
 
 	@Override

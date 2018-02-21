@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/announcement_title_h"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/announcement_title"/>
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/announcement_description_h"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/announcement_description"/>
+
+    <Button
+        android:id="@+id/make_announcement"
+        fontPath="fonts/Roboto_Medium.ttf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@color/bluePurple"
+        android:text="@string/launch_announcement"
+        android:textColor="@color/darkPurple"/>
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/event_name_h"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/event_name"/>
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/event_duration_h"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/event_duration_in_minutes"/>
+
+    <Button
+        android:id="@+id/start_tracking"
+        fontPath="fonts/Roboto_Medium.ttf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@color/bluePurple"
+        android:text="@string/start_tracking_event"
+        android:textColor="@color/darkPurple"/>
+
+
+</LinearLayout>
