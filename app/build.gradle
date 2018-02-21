@@ -100,6 +100,7 @@ dependencies {
     implementation 'io.palaima.debugdrawer:debugdrawer-timber:0.8.0'
     implementation 'io.palaima.debugdrawer:debugdrawer-actions:0.8.0'
     releaseImplementation 'io.palaima.debugdrawer:debugdrawer-no-op:0.8.0'
+    debugImplementation 'com.balsikandar.android:crashreporter:1.0.9'
 
     // Other libraries used
     implementation 'com.dinuscxj:recyclerrefreshlayout:2.0.5'

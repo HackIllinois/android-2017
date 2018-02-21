@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import org.hackillinois.android.R;
-import org.hackillinois.android.api.response.APIErrorResonse;
 import org.hackillinois.android.api.response.announcement.AnnouncementRequest;
 import org.hackillinois.android.api.response.announcement.AnnouncementStartResponse;
 import org.hackillinois.android.api.response.tracking.TrackingRequest;
@@ -15,13 +14,11 @@ import org.hackillinois.android.api.response.tracking.TrackingStartResponse;
 import org.hackillinois.android.helper.Settings;
 import org.hackillinois.android.ui.base.BaseActivity;
 
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,6 +43,11 @@ public class AdminToolsActivity extends BaseActivity {
 
 	@OnClick(R.id.make_announcement)
 	public void makeAnnouncement() {
+		if (hasEmptyText(announcementTitle, announcementDescription)) {
+			Toast.makeText(this, "Text must not be empty", Toast.LENGTH_SHORT).show();
+			return;
+		}
+
 		String title = announcementTitle.getText().toString();
 		String description = announcementDescription.getText().toString();
 		AnnouncementRequest request = new AnnouncementRequest(title, description);
@@ -72,6 +74,11 @@ public class AdminToolsActivity extends BaseActivity {
 
 	@OnClick(R.id.start_tracking)
 	public void startTracking() {
+		if (hasEmptyText(eventName, eventDuration)) {
+			Toast.makeText(this, "Text must not be empty", Toast.LENGTH_SHORT).show();
+			return;
+		}
+
 		String name = eventName.getText().toString();
 		int minutes = Integer.valueOf(eventDuration.getText().toString());
 		TrackingRequest request = new TrackingRequest(name, TimeUnit.MINUTES.toSeconds(minutes));
@@ -94,6 +101,15 @@ public class AdminToolsActivity extends BaseActivity {
 				Toast.makeText(getApplicationContext(), "Failed because " + t.getMessage(), Toast.LENGTH_SHORT).show();
 			}
 		});
+	}
+
+	private boolean hasEmptyText(AppCompatEditText... texts) {
+		for (AppCompatEditText text : texts) {
+			if (text.getText().length() == 0) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 

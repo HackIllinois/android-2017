@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:ignore="MissingPrefix">
 
     <android.support.v7.widget.AppCompatEditText
         android:id="@+id/announcement_title_h"
@@ -36,7 +39,8 @@
         android:id="@+id/event_duration_h"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/event_duration_in_minutes"/>
+        android:hint="@string/event_duration_in_minutes"
+        android:inputType="number"/>
 
     <Button
         android:id="@+id/start_tracking"
