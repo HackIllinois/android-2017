@@ -158,7 +158,6 @@ public class ProfileFragment extends BaseFragment {
 
 					// Lets staff or admin check in people, let admin launch admin tools
 					List<UserResponse.Roles> roles = response.body().getUserResponseData().getRoles();
-					checkInButton.setVisibility(View.INVISIBLE);
 					launchAdminToolsButton.setVisibility(View.INVISIBLE);
 					for (UserResponse.Roles role : roles) {
 						if (role.getRole().equals("ADMIN") || role.getRole().equals("STAFF") || role.getRole().equals("VOLUNTEER")) {
@@ -166,8 +165,6 @@ public class ProfileFragment extends BaseFragment {
 						} else if (role.getRole().equals("ATTENDEE")) {
 							setupAttendeeInfo();
 						}
-
-						checkInButton.setVisibility(View.VISIBLE);
 
 						if (role.getRole().equals("ADMIN")) {
 							launchAdminToolsButton.setVisibility(View.VISIBLE);

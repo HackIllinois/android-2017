@@ -41,6 +41,7 @@ public class AdminToolsActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_admin_tools);
 		ButterKnife.bind(this);
+		enableDebug();
 	}
 
 	@OnClick(R.id.make_announcement)
