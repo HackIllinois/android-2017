@@ -13,7 +13,6 @@ import org.joda.time.DateTime;
 import org.joda.time.Period;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import timber.log.Timber;
 
@@ -81,30 +80,34 @@ public class HomeClock {
 
 		Context context = secondAnimation.getContext();
 
-		LottieComposition.Factory.fromAssetFileName(context, COUNTDOWN_24_JSON, composition -> {
-			Period diff = new Period(DateTime.now(), time);
-			hours = diff.getHours();
-			hourAnimation.setFrame(numberToFrame(hours));
-		});
+		try {
+			LottieComposition.Factory.fromAssetFileName(context, COUNTDOWN_24_JSON, composition -> {
+				Period diff = new Period(DateTime.now(), time);
+				hours = diff.getHours();
+				hourAnimation.setFrame(numberToFrame(hours));
+			});
 
-		LottieComposition.Factory.fromAssetFileName(context, COUNTDOWN_60_JSON, composition -> {
-			Period diff = new Period(DateTime.now(), time);
-			seconds = diff.getSeconds();
-			minutes = diff.getMinutes();
-			days = diff.getDays() + 7 * diff.getWeeks();
+			LottieComposition.Factory.fromAssetFileName(context, COUNTDOWN_60_JSON, composition -> {
+				Period diff = new Period(DateTime.now(), time);
+				seconds = diff.getSeconds();
+				minutes = diff.getMinutes();
+				days = diff.getDays() + 7 * diff.getWeeks();
 
-			secondAnimation.setFrame(numberToFrame(seconds));
-			minuteAnimation.setFrame(numberToFrame(minutes));
-			daysAnimation.setFrame(numberToFrame(days));
+				secondAnimation.setFrame(numberToFrame(seconds));
+				minuteAnimation.setFrame(numberToFrame(minutes));
+				daysAnimation.setFrame(numberToFrame(days));
 
-			if (isLastLoop()) {
-				secondAnimation.setRepeatCount(0);
-			} else {
-				secondAnimation.setRepeatMode(LottieDrawable.INFINITE);
-				secondAnimation.setRepeatCount(LottieDrawable.INFINITE);
-			}
-			secondAnimation.resumeAnimation();
-		});
+				if (isLastLoop()) {
+					secondAnimation.setRepeatCount(0);
+				} else {
+					secondAnimation.setRepeatMode(LottieDrawable.INFINITE);
+					secondAnimation.setRepeatCount(LottieDrawable.INFINITE);
+				}
+				secondAnimation.resumeAnimation();
+			});
+		} catch (Exception e) {
+			Timber.wtf(e, "Couldn't play animation");
+		}
 	}
 
 	private void playNext() {
@@ -138,7 +141,9 @@ public class HomeClock {
 
 			@Override
 			public void onAnimationEnd(Animator animator) {
-				activeTimers.remove(0);
+				if (activeTimers.size() > 1) {
+					activeTimers.remove(0);
+				}
 				++finishedTimers;
 				if (onFinishListener != null) {
 					onFinishListener.onFinish(finishedTimers);

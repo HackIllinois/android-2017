@@ -45,4 +45,10 @@
     <string name="username_hint">USERNAME</string>
     <string name="password_hint">PASSWORD</string>
     <string name="check_in_hacker">Check In Hacker</string>
+    <string name="announcement_title">Announcement Title</string>
+    <string name="announcement_description">Announcement Description</string>
+    <string name="event_name">Event Name</string>
+    <string name="event_duration_in_minutes">Event Duration (in minutes)</string>
+    <string name="launch_announcement">Launch Announcement</string>
+    <string name="start_tracking_event">Start tracking event</string>
 </resources>
