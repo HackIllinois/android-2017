@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <EditText
+        android:id="@+id/announcement_title_h"
+        android:hint="Announcement Title"/>
+    <EditText
+        android:id="@+id/announcement_description_h"
+        android:hint="Announcement Description"/>
+    <Button
+        android:id="@+id/make_announcement"
+        fontPath="fonts/Roboto_Medium.ttf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@color/bluePurple"
+        android:text="@string/check_in_hacker"
+        android:textColor="@color/darkPurple"
+        android:visibility="gone"/>
+    <EditText
+        android:id="@+id/event_name_h"
+        android:hint="Event Name"/>
+    <EditText
+        android:id="@+id/event_duration_h"
+        android:hint="Event Duration (in minutes)"/>
+    <Button
+        android:id="@+id/start_tracking"
+        fontPath="fonts/Roboto_Medium.ttf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@color/bluePurple"
+        android:text="@string/check_in_hacker"
+        android:textColor="@color/darkPurple"
+        android:visibility="gone"/>
+
+
+</LinearLayout>

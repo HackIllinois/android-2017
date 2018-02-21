@@ -29,6 +29,7 @@ import org.hackillinois.android.api.response.user.UserResponse;
 import org.hackillinois.android.helper.Settings;
 import org.hackillinois.android.helper.Utils;
 import org.hackillinois.android.ui.base.BaseFragment;
+import org.hackillinois.android.ui.modules.admin.AdminToolsActivity;
 import org.hackillinois.android.ui.modules.login.LoginChooserActivity;
 
 import java.util.List;
@@ -47,6 +48,7 @@ public class ProfileFragment extends BaseFragment {
 	@BindView(R.id.dietary_restrictions) TextView userDietaryRestrictions;
 	@BindView(R.id.profile_page_container) View view;
 	@BindView(R.id.event_checkin) Button checkInButton;
+	@BindView(R.id.admin_tools) Button launchAdminToolsButton;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -155,14 +157,20 @@ public class ProfileFragment extends BaseFragment {
 				if (response.body() != null) {
 					UserResponse.User data = response.body().getUserResponseData().getUser();
 
-					// Lets staff or admin check in people
+					// Lets staff or admin check in people, let admin launch admin tools
 					List<UserResponse.Roles> roles = response.body().getUserResponseData().getRoles();
 					checkInButton.setVisibility(View.INVISIBLE);
+					launchAdminToolsButton.setVisibility(View.INVISIBLE);
 					for (UserResponse.Roles role : roles) {
 						if (role.getRole().equals("ADMIN") || role.getRole().equals("STAFF") || role.getRole().equals("VOLUNTEER")) {
-							checkInButton.setVisibility(View.VISIBLE);
-						}
+                            checkInButton.setVisibility(View.VISIBLE);
+                        }
+                        if (role.getRole().equals("ADMIN")) {
+						    launchAdminToolsButton.setVisibility(View.VISIBLE);
+                        }
+
 					}
+
 
 					Bitmap qrCode = Utils.getQRCodeBitmap(getContext(), data.getId(), data.getEmail(), 512);
 					qrCodeImage.setImageBitmap(qrCode);
@@ -184,4 +192,10 @@ public class ProfileFragment extends BaseFragment {
 	public void startScan() {
 		IntentIntegrator.forSupportFragment(this).initiateScan();
 	}
+
+	@OnClick(R.id.admin_tools)
+    public void goToAdminTools() {
+	    Intent intent = new Intent(getActivity(), AdminToolsActivity.class);
+	    startActivity(intent);
+    }
 }
