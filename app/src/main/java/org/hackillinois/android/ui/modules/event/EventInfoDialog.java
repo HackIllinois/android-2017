@@ -7,9 +7,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.annimon.stream.Stream;
 
+import org.hackillinois.android.App;
 import org.hackillinois.android.R;
 import org.hackillinois.android.api.response.event.EventResponse;
 import org.hackillinois.android.api.response.location.LocationResponse;
@@ -70,7 +72,13 @@ public class EventInfoDialog extends Dialog {
 			LocationResponse.Location loc = Settings.get().getLocationMap()
 					.get(item.getLocation().getLocationId());
 
-			Utils.goToMapApp(getContext().getApplicationContext(), loc.getLongitude(), loc.getLatitude());
+			if (loc != null) {
+				Utils.goToMapApp(getContext().getApplicationContext(), loc.getLongitude(), loc.getLatitude());
+			} else {
+				Toast.makeText(getContext(), "Location data not found. Restart the app.", Toast.LENGTH_SHORT).show();
+				Timber.d("Unable to find location data.");
+			}
+
 			return false;
 		});
 

@@ -13,6 +13,7 @@ import org.hackillinois.android.R;
 import org.hackillinois.android.api.response.location.LocationResponse;
 import org.hackillinois.android.api.response.login.LoginResponse;
 import org.hackillinois.android.helper.Settings;
+import org.hackillinois.android.helper.Utils;
 import org.hackillinois.android.ui.base.BaseActivity;
 import org.hackillinois.android.ui.modules.login.LoginChooserActivity;
 import org.joda.time.DateTime;
@@ -56,6 +57,8 @@ public class SplashActivity extends BaseActivity {
 		Optional<DateTime> lastAuth = settings.getLastAuth();
 		Timber.d("User last auth: %s", lastAuth.map(DateTime::toString).orElse("Never"));
 
+		Utils.fetchLocation(getApi());
+
 		if (settings.getIsHacker() && settings.getAuthKey().isPresent()) { // don't need to refresh these
 			Timber.d("User is a logged in hacker");
 			activityClass = MainActivity.class;
@@ -97,8 +100,6 @@ public class SplashActivity extends BaseActivity {
 			}
 		}
 
-		fetchLocation();
-
 		try {
 			GifDrawable gif = new GifDrawable(getResources(), R.drawable.appanimation);
 			int duration = gif.getDuration();
@@ -108,22 +109,6 @@ public class SplashActivity extends BaseActivity {
 			Timber.d("Failed to display splash Screen");
 			moveOn();
 		}
-	}
-
-	private void fetchLocation() {
-		getApp().getApi().getLocations().enqueue(new Callback<LocationResponse>() {
-			@Override
-			public void onResponse(Call<LocationResponse> call, Response<LocationResponse> response) {
-				if (response != null && response.isSuccessful()) {
-					Settings.get().setLocations(getApp().getGson().toJson(response.body()));
-				}
-			}
-
-			@Override
-			public void onFailure(Call<LocationResponse> call, Throwable t) {
-				Timber.d("Failed to fetch location");
-			}
-		});
 	}
 
 	@Override

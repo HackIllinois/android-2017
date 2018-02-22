@@ -25,6 +25,7 @@ import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 
 import org.hackillinois.android.R;
+import org.hackillinois.android.api.HackIllinoisAPI;
 import org.hackillinois.android.api.response.event.EventResponse;
 import org.hackillinois.android.api.response.location.LocationResponse;
 import org.hackillinois.android.service.EventNotifierJob;
@@ -35,6 +36,9 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import timber.log.Timber;
 
 public class Utils {
@@ -150,15 +154,12 @@ public class Utils {
 		LocationResponse locations = Settings.get().getGson().fromJson(json, LocationResponse.class);
 
 		// Just get the first location's location to open up maps app.
-		double longitude = locations.getLocations()[0].getLongitude();
-		double latitude = locations.getLocations()[0].getLatitude();
+		double longitude = 40.1138; // Default location for ECEB
+		double latitude = -88.2249; // Default location for ECEB
 
-		if (longitude == 0) {
-			longitude = 40.1138; // Default location for ECEB
-		}
-
-		if (latitude == 0) {
-			latitude = -88.2249; // Default location for ECEB
+		if (locations.getLocations() != null && locations.getLocations().length > 0) {
+			longitude = locations.getLocations()[0].getLongitude();
+			latitude = locations.getLocations()[0].getLatitude();
 		}
 
 		launchGoogleMaps(context, longitude, latitude);
@@ -179,5 +180,22 @@ public class Utils {
 			Toast.makeText(context,
 					"Google Maps not installed!", Toast.LENGTH_SHORT).show();
 		}
+	}
+
+	public static void fetchLocation(HackIllinoisAPI api) {
+		Timber.d("Fetching Locations");
+		api.getLocations().enqueue(new Callback<LocationResponse>() {
+			@Override
+			public void onResponse(Call<LocationResponse> call, Response<LocationResponse> response) {
+				if (response != null && response.isSuccessful()) {
+					Settings.get().setLocations(Settings.get().getGson().toJson(response.body()));
+				}
+			}
+
+			@Override
+			public void onFailure(Call<LocationResponse> call, Throwable t) {
+				Timber.d("Failed to fetch location");
+			}
+		});
 	}
 }

@@ -148,7 +148,7 @@ public class Settings {
 	}
 
 	public String getLocations() {
-		return prefs.getString(LOCATION_PREF, null);
+		return prefs.getString(LOCATION_PREF, "");
 	}
 
 	public HashMap<Long, LocationResponse.Location> getLocationMap() {

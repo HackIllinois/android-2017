@@ -29,6 +29,9 @@ import org.hackillinois.android.ui.modules.schedule.ScheduleFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import timber.log.Timber;
 
 public class MainActivity extends BaseActivity {
@@ -47,6 +50,7 @@ public class MainActivity extends BaseActivity {
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Utils.fetchLocation(getApi());
 		setContentView(R.layout.activity_main);
 		ButterKnife.bind(this);
 		enableDebug();
