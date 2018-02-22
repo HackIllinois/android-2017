@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">@color/colorPrimaryDark</color>
-    <color name="colorPrimaryDark">#801C055E</color>
+    <color name="colorPrimaryDark">#514186</color>
     <color name="pink">#ED008C</color>
 
     <color name="mainBackground">#F2F5Fe</color>
