@@ -111,8 +111,10 @@ public class ProfileFragment extends BaseFragment {
 		Uri userBadge = Uri.parse(result.getContents());
 		String textId = userBadge.getQueryParameter("id");
 		String identifier = userBadge.getQueryParameter("identifier");
+		Timber.d("Scanning in user %s as %s", textId, identifier);
 		if (textId == null) {
 			Toast.makeText(getContext(), "Failed to scan any id", Toast.LENGTH_SHORT).show();
+			return;
 		}
 
 		int id = Integer.valueOf(textId);
