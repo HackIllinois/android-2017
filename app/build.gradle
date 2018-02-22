@@ -20,8 +20,8 @@ android {
         applicationId "org.hackillinois.androidapp"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 12
-        versionName "1.1.7"
+        versionCode 13
+        versionName "1.1.8"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
 

@@ -81,14 +81,15 @@ public class HomeClock {
 		Context context = secondAnimation.getContext();
 
 		try {
+			DateTime now = DateTime.now();
 			LottieComposition.Factory.fromAssetFileName(context, COUNTDOWN_24_JSON, composition -> {
-				Period diff = new Period(DateTime.now(), time);
+				Period diff = new Period(now, time);
 				hours = diff.getHours();
 				hourAnimation.setFrame(numberToFrame(hours));
 			});
 
 			LottieComposition.Factory.fromAssetFileName(context, COUNTDOWN_60_JSON, composition -> {
-				Period diff = new Period(DateTime.now(), time);
+				Period diff = new Period(now, time);
 				seconds = diff.getSeconds();
 				minutes = diff.getMinutes();
 				days = diff.getDays() + 7 * diff.getWeeks();
@@ -141,7 +142,7 @@ public class HomeClock {
 
 			@Override
 			public void onAnimationEnd(Animator animator) {
-				if (activeTimers.size() > 1) {
+				if (activeTimers.size() > 0) {
 					activeTimers.remove(0);
 				}
 				++finishedTimers;
@@ -159,6 +160,7 @@ public class HomeClock {
 			public void onAnimationRepeat(Animator animator) {
 				int almostLastFrame = (numberToFrame(0) + numberToFrame(1)) / 2;
 				if (hourAnimation.getFrame() < almostLastFrame && minuteAnimation.getFrame() < almostLastFrame && days >= 1) {
+					Timber.d("Settings min frame to days of %d", days);
 					--days;
 					hours += 24;
 					daysAnimation.setMinFrame(numberToFrame(days));
@@ -166,6 +168,7 @@ public class HomeClock {
 				}
 
 				if (minuteAnimation.getFrame() < almostLastFrame && hours >= 1) {
+					Timber.d("Settings min frame to hours of %d", hours);
 					--hours;
 					minutes += 60;
 					hourAnimation.setMinFrame(numberToFrame(hours));
@@ -174,6 +177,7 @@ public class HomeClock {
 
 				if (minutes >= 1) {
 					--minutes;
+					Timber.d("Settings min frame to minutes of %d", minutes);
 					minuteAnimation.setMinFrame(numberToFrame(minutes));
 					minuteAnimation.resumeAnimation();
 				}
