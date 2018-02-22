@@ -8,7 +8,6 @@ import android.view.WindowManager;
 
 import com.annimon.stream.Optional;
 
-import org.hackillinois.android.BuildConfig;
 import org.hackillinois.android.R;
 import org.hackillinois.android.api.response.location.LocationResponse;
 import org.hackillinois.android.api.response.login.LoginResponse;
@@ -129,16 +128,13 @@ public class SplashActivity extends BaseActivity {
 	private void moveOn() {
 		Timber.d("Moving to %s", activityClass.getSimpleName());
 		Intent i = new Intent(this, activityClass);
-		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(i);
 		finish();
 	}
 
 	@OnClick(R.id.splash_anim)
 	public void skipSplash() {
-		if (BuildConfig.DEBUG) {
-			Timber.i("Skipping splash screen");
-			moveOn();
-		}
+		Timber.i("Skipping splash screen");
+		moveOn();
 	}
 }
