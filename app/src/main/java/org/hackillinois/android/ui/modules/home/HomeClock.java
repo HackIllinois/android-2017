@@ -19,6 +19,7 @@ public class HomeClock {
 
 		void onFinish(int timerIndex);
 	}
+
 	private CountDownTimer timer;
 	private static final float SECONDS_SPEED_RATIO = 2f;//1f / (2.0f);
 
@@ -31,6 +32,7 @@ public class HomeClock {
 	private final LottieAnimationView minuteAnimation;
 	private final LottieAnimationView hourAnimation;
 	private final LottieAnimationView daysAnimation;
+
 	public HomeClock(
 			LottieAnimationView secondAnimation,
 			LottieAnimationView minuteAnimation,
@@ -71,7 +73,7 @@ public class HomeClock {
 	}
 
 	public void onPause() {
-		if(timer != null) {
+		if (timer != null) {
 			timer.cancel();
 		}
 	}
@@ -81,7 +83,14 @@ public class HomeClock {
 		minuteAnimation.invalidate();
 		hourAnimation.invalidate();
 		daysAnimation.invalidate();
-		if(timer != null) {
+		Period diff;
+		if (activeTimers.size() > 0) {
+			diff = new Period(DateTime.now(), activeTimers.get(0));
+		} else {
+			diff = Period.ZERO;
+		}
+		setAllFrames(diff);
+		if (timer != null) {
 			timer.start();
 		}
 	}
@@ -91,6 +100,8 @@ public class HomeClock {
 			DateTime nextTimer = activeTimers.get(0);
 			Timber.d("Going to next active timer %s", nextTimer);
 			setCountdownView(nextTimer);
+		} else {
+			setAllFrames(Period.ZERO);
 		}
 	}
 
@@ -99,11 +110,7 @@ public class HomeClock {
 			return;
 		}
 
-		Period diff = new Period(DateTime.now(), time);
-		secondAnimation.setFrame(numberToFrame(diff.getSeconds()));
-		minuteAnimation.setFrame(numberToFrame(diff.getMinutes()));
-		hourAnimation.setFrame(numberToFrame(diff.getHours()));
-		daysAnimation.setFrame(numberToFrame(diff.getDays() + 7 * diff.getWeeks()));
+		setAllFrames(new Period(DateTime.now(), time));
 
 		long millisUntilFinish = time.getMillis() - DateTime.now().getMillis();
 		timer = new CountDownTimer(millisUntilFinish, 1000) {
@@ -111,24 +118,38 @@ public class HomeClock {
 			public void onTick(long millisUntilFinished) {
 				Period diff = new Period(DateTime.now(), time);
 				int seconds = diff.getSeconds();
-				int hours = diff.getHours();
 				int minutes = diff.getMinutes();
+				int hours = diff.getHours();
 				int days = diff.getDays() + 7 * diff.getWeeks();
 				tickSecond(seconds, minutes, hours, days);
 			}
 
 			@Override
 			public void onFinish() {
-				if (onFinishListener != null) {
-					++finishedTimers;
-					onFinishListener.onFinish(finishedTimers);
-					if (activeTimers.size() > 0) {
-						activeTimers.remove(0);
-						playNext();
-					}
-				}
+				finishCurrentTimer();
+				cancel();
+				timer = null; // nothing can happen until a new timer is made
 			}
 		}.start();
+	}
+
+	private void finishCurrentTimer() {
+		Timber.d("Finished current timer");
+		if (onFinishListener != null) {
+			++finishedTimers;
+			onFinishListener.onFinish(finishedTimers);
+		}
+		if (activeTimers.size() > 0) {
+			activeTimers.remove(0);
+			playNext();
+		}
+	}
+
+	private void setAllFrames(Period diff) {
+		secondAnimation.setFrame(numberToFrame(diff.getSeconds()));
+		minuteAnimation.setFrame(numberToFrame(diff.getMinutes()));
+		hourAnimation.setFrame(numberToFrame(diff.getHours()));
+		daysAnimation.setFrame(numberToFrame(diff.getDays() + 7 * diff.getWeeks()));
 	}
 
 	private static int lastSecond = 0;
@@ -145,6 +166,11 @@ public class HomeClock {
 				secondAnimation.resumeAnimation();
 			}
 		} else {
+			if (seconds > lastSecond) {
+				Timber.d("Timer rolled over seconds==0, manually ticking minute");
+				tickMinute(seconds, minutes, hours, days);
+			}
+			secondAnimation.setFrame(numberToFrame(seconds));
 			secondAnimation.setMinAndMaxFrame(numberToFrame(seconds - 1), numberToFrame(seconds));
 			secondAnimation.resumeAnimation();
 		}
@@ -160,6 +186,7 @@ public class HomeClock {
 				minuteAnimation.resumeAnimation();
 			}
 		} else {
+			minuteAnimation.setFrame(numberToFrame(minutes));
 			minuteAnimation.setMinAndMaxFrame(numberToFrame(minutes - 1), numberToFrame(minutes));
 			minuteAnimation.resumeAnimation();
 		}
@@ -174,6 +201,7 @@ public class HomeClock {
 				hourAnimation.resumeAnimation();
 			}
 		} else {
+			hourAnimation.setFrame(numberToFrame(hours));
 			hourAnimation.setMinAndMaxFrame(numberToFrame(hours - 1), numberToFrame(hours));
 			hourAnimation.resumeAnimation();
 		}
@@ -183,6 +211,7 @@ public class HomeClock {
 		if (days == 0) {
 			daysAnimation.setFrame(numberToFrame(60));
 		} else {
+			daysAnimation.setFrame(numberToFrame(days));
 			daysAnimation.setMinAndMaxFrame(numberToFrame(days - 1), numberToFrame(days));
 			daysAnimation.resumeAnimation();
 		}

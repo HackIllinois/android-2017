@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Hackillinois</string>
+    <string name="app_name">HackIllinois</string>
 
     <!-- Navigation Menu -->
     <string name="menu_home">Home</string>
