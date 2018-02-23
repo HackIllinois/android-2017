@@ -158,7 +158,7 @@ public class Utils {
 		double longitude = 40.1138; // Default location for ECEB
 		double latitude = -88.2249; // Default location for ECEB
 
-		if (locations.getLocations() != null && locations.getLocations().length > 0) {
+		if (locations != null && locations.getLocations() != null && locations.getLocations().length > 0) {
 			longitude = locations.getLocations()[0].getLongitude();
 			latitude = locations.getLocations()[0].getLatitude();
 		}
@@ -173,14 +173,12 @@ public class Utils {
 	private static void launchGoogleMaps(Context context, double longitude, double latitude) {
 		Uri gmmIntentUri = Uri.parse("geo:" + latitude + "," + longitude + "?z=" + 18);
 		Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-		mapIntent.setPackage("com.google.android.apps.maps");
 
 		if (mapIntent.resolveActivity(context.getPackageManager()) != null) {
-			context.startActivity(mapIntent);
-		} else {
-			Toast.makeText(context,
-					"Google Maps not installed!", Toast.LENGTH_SHORT).show();
+			mapIntent.setPackage("com.google.android.apps.maps");
 		}
+
+		context.startActivity(mapIntent);
 	}
 
 	public static void fetchLocation(HackIllinoisAPI api) {
