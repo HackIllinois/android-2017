@@ -1,8 +1,8 @@
 HackIllinois 2018 Official App
 
-v1.1.9
-- Countdown now ticks
-- Added functionality for recruiters
+v1.1.10
+- Countdown now ticks and stays in sync
+- QR code and logout button are now pink
 - Bug fixes :)
 
 Please submit any bugs you find
