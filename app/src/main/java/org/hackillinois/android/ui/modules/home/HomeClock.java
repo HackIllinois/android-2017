@@ -113,7 +113,7 @@ public class HomeClock {
 		setAllFrames(new Period(DateTime.now(), time));
 
 		long millisUntilFinish = time.getMillis() - DateTime.now().getMillis();
-		timer = new CountDownTimer(millisUntilFinish, 1000) {
+		timer = new CountDownTimer(millisUntilFinish, 500) {
 			@Override
 			public void onTick(long millisUntilFinished) {
 				Period diff = new Period(DateTime.now(), time);
@@ -158,6 +158,7 @@ public class HomeClock {
 		if (lastSecond == seconds) { // because the timer doesn't assure this
 			return;
 		}
+
 		if (seconds == 0) {
 			tickMinute(seconds, minutes, hours, days);
 			secondAnimation.setFrame(numberToFrame(60));
@@ -166,10 +167,6 @@ public class HomeClock {
 				secondAnimation.resumeAnimation();
 			}
 		} else {
-			if (seconds > lastSecond) {
-				Timber.d("Timer rolled over seconds==0, manually ticking minute");
-				tickMinute(seconds, minutes, hours, days);
-			}
 			secondAnimation.setFrame(numberToFrame(seconds));
 			secondAnimation.setMinAndMaxFrame(numberToFrame(seconds - 1), numberToFrame(seconds));
 			secondAnimation.resumeAnimation();
