@@ -27,7 +27,7 @@ import timber.log.Timber;
 
 public class EventItem extends AbstractFlexibleItem<EventItem.EventViewHolder>
 		implements ISectionable<EventItem.EventViewHolder, StringHeader> {
-	private static final DateTimeFormatter DTF = DateTimeFormat.forPattern("h:00 a");
+	private static final DateTimeFormatter DTF = DateTimeFormat.forPattern("h:mm a");
 
 
 	private final EventResponse.Event event;

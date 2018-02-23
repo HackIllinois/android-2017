@@ -32,7 +32,6 @@ import eu.davidea.flexibleadapter.FlexibleAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import timber.log.Timber;
 
 public class HomeFragment extends BaseFragment implements HomeClock.OnFinishListener {
 	@BindView(R.id.second_animation) LottieAnimationView seconds;
@@ -113,6 +112,7 @@ public class HomeFragment extends BaseFragment implements HomeClock.OnFinishList
 
 	public void sync() {
 		fetchEvents();
+		clock.onResume();
 	}
 
 	@Override
