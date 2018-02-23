@@ -152,7 +152,7 @@ public class HomeClock {
 		daysAnimation.setFrame(numberToFrame(diff.getDays() + 7 * diff.getWeeks()));
 	}
 
-	private static int lastSecond = 0;
+	private int lastSecond = 0;
 
 	private void tickSecond(int seconds, int minutes, int hours, int days) {
 		if (lastSecond == seconds) { // because the timer doesn't assure this

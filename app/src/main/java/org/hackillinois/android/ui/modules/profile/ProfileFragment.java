@@ -24,7 +24,6 @@ import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 
 import org.hackillinois.android.R;
-import org.hackillinois.android.ui.modules.recruiter.RecruiterToolsActivity;
 import org.hackillinois.android.api.response.qrcode.TrackingResponse;
 import org.hackillinois.android.api.response.user.AttendeeResponse;
 import org.hackillinois.android.api.response.user.UserResponse;
@@ -33,6 +32,7 @@ import org.hackillinois.android.helper.Utils;
 import org.hackillinois.android.ui.base.BaseFragment;
 import org.hackillinois.android.ui.modules.admin.AdminToolsActivity;
 import org.hackillinois.android.ui.modules.login.LoginChooserActivity;
+import org.hackillinois.android.ui.modules.recruiter.RecruiterToolsActivity;
 
 import java.util.List;
 
@@ -77,7 +77,7 @@ public class ProfileFragment extends BaseFragment {
 		menu.findItem(R.id.profile_logout).setIcon(
 				new IconicsDrawable(getContext())
 						.icon(GoogleMaterial.Icon.gmd_exit_to_app)
-						.colorRes(R.color.darkPurple)
+						.colorRes(R.color.lightPink)
 						.actionBar()
 		);
 	}

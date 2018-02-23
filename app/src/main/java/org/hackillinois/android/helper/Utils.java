@@ -65,7 +65,7 @@ public class Utils {
 		try {
 			BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
 			BitMatrix bitMatrix = barcodeEncoder.encode(qrFormattedString, BarcodeFormat.QR_CODE, size, size);
-			return createBitmap(bitMatrix, ContextCompat.getColor(context, R.color.darkPurple), Color.TRANSPARENT);
+			return createBitmap(bitMatrix, ContextCompat.getColor(context, R.color.lightPink), Color.TRANSPARENT);
 		} catch (WriterException e) {
 			Timber.wtf(e, "Failed to generate qrcode bitmap for %s", qrFormattedString);
 		}
