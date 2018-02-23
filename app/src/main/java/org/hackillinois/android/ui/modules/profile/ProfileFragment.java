@@ -24,6 +24,7 @@ import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 
 import org.hackillinois.android.R;
+import org.hackillinois.android.ui.modules.recruiter.RecruiterToolsActivity;
 import org.hackillinois.android.api.response.qrcode.TrackingResponse;
 import org.hackillinois.android.api.response.user.AttendeeResponse;
 import org.hackillinois.android.api.response.user.UserResponse;
@@ -49,6 +50,7 @@ public class ProfileFragment extends BaseFragment {
 	@BindView(R.id.dietary_restrictions) TextView userDietaryRestrictions;
 	@BindView(R.id.profile_page_container) View view;
 	@BindView(R.id.event_checkin) Button checkInButton;
+	@BindView(R.id.recruiter_tools) Button recruiterToolsButton;
 	@BindView(R.id.admin_tools) Button launchAdminToolsButton;
 
 	@Override
@@ -168,10 +170,13 @@ public class ProfileFragment extends BaseFragment {
 							setupAttendeeInfo();
 						}
 
+						if (role.getRole().equals("SPONSOR")) {
+							recruiterToolsButton.setVisibility(View.VISIBLE);
+						}
+
 						if (role.getRole().equals("ADMIN")) {
 							launchAdminToolsButton.setVisibility(View.VISIBLE);
 						}
-
 					}
 
 
@@ -237,6 +242,12 @@ public class ProfileFragment extends BaseFragment {
 	@OnClick(R.id.admin_tools)
 	public void goToAdminTools() {
 		Intent intent = new Intent(getActivity(), AdminToolsActivity.class);
+		startActivity(intent);
+	}
+
+	@OnClick(R.id.recruiter_tools)
+	public void goToRecruiterTools() {
+		Intent intent = new Intent(getActivity(), RecruiterToolsActivity.class);
 		startActivity(intent);
 	}
 }

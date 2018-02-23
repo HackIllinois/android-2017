@@ -17,16 +17,16 @@ import eu.davidea.flexibleadapter.items.AbstractFlexibleItem;
 import eu.davidea.flexibleadapter.items.ISectionable;
 import eu.davidea.viewholders.FlexibleViewHolder;
 
-public class AnnouncementItem extends AbstractFlexibleItem<AnnouncementItem.AnnouncementViewHolder> implements ISectionable<AnnouncementItem.AnnouncementViewHolder, TimeHeader> {
+public class AnnouncementItem extends AbstractFlexibleItem<AnnouncementItem.AnnouncementViewHolder> implements ISectionable<AnnouncementItem.AnnouncementViewHolder, StringHeader> {
 	private static final DateTimeFormatter GROUP_DTF = DateTimeFormat.forPattern("E h:00 a");
 	private static final DateTimeFormatter DTF = DateTimeFormat.forPattern("h:mm a");
 	private final AnnouncementResponse.Announcement announcement;
 
-	private final TimeHeader timeHeader;
+	private final StringHeader stringHeader;
 
 	public AnnouncementItem(AnnouncementResponse.Announcement announcement) {
 		this.announcement = announcement;
-		timeHeader = new TimeHeader(GROUP_DTF.print(announcement.getCreated()));
+		stringHeader = new StringHeader(GROUP_DTF.print(announcement.getCreated()));
 	}
 
 	@Override
@@ -66,12 +66,12 @@ public class AnnouncementItem extends AbstractFlexibleItem<AnnouncementItem.Anno
 	}
 
 	@Override
-	public TimeHeader getHeader() {
-		return timeHeader;
+	public StringHeader getHeader() {
+		return stringHeader;
 	}
 
 	@Override
-	public void setHeader(TimeHeader header) {
+	public void setHeader(StringHeader header) {
 
 	}
 

@@ -10,7 +10,7 @@ import org.hackillinois.android.api.response.event.EventResponse;
 import org.hackillinois.android.api.response.location.LocationResponse;
 import org.hackillinois.android.helper.Settings;
 import org.hackillinois.android.helper.Utils;
-import org.hackillinois.android.ui.modules.announcement.TimeHeader;
+import org.hackillinois.android.ui.modules.announcement.StringHeader;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -26,12 +26,12 @@ import eu.davidea.viewholders.FlexibleViewHolder;
 import timber.log.Timber;
 
 public class EventItem extends AbstractFlexibleItem<EventItem.EventViewHolder>
-		implements ISectionable<EventItem.EventViewHolder, TimeHeader> {
+		implements ISectionable<EventItem.EventViewHolder, StringHeader> {
 	private static final DateTimeFormatter DTF = DateTimeFormat.forPattern("h:00 a");
 
 
 	private final EventResponse.Event event;
-	private final TimeHeader timeHeader;
+	private final StringHeader stringHeader;
 	private boolean isStarrable;
 
 	public EventItem(EventResponse.Event event) {
@@ -42,9 +42,9 @@ public class EventItem extends AbstractFlexibleItem<EventItem.EventViewHolder>
 		this.event = event;
 		this.isStarrable = isStarrable;
 		if (isGroupable) {
-			timeHeader = new TimeHeader(DTF.print(event.getStartTime()));
+			stringHeader = new StringHeader(DTF.print(event.getStartTime()));
 		} else {
-			timeHeader = null;
+			stringHeader = null;
 		}
 	}
 
@@ -114,12 +114,12 @@ public class EventItem extends AbstractFlexibleItem<EventItem.EventViewHolder>
 	}
 
 	@Override
-	public TimeHeader getHeader() {
-		return timeHeader;
+	public StringHeader getHeader() {
+		return stringHeader;
 	}
 
 	@Override
-	public void setHeader(TimeHeader header) {
+	public void setHeader(StringHeader header) {
 
 	}
 

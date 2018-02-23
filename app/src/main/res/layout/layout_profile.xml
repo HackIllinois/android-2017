@@ -93,6 +93,18 @@
             android:textColor="@color/darkPurple"
             android:visibility="gone"/>
 
+
+        <Button
+            android:id="@+id/recruiter_tools"
+            fontPath="fonts/Roboto_Medium.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@color/bluePurple"
+            android:text="@string/open_recruiter_tools"
+            android:textColor="@color/darkPurple"
+            android:visibility="gone"/>
+
         <Button
             android:id="@+id/admin_tools"
             fontPath="fonts/Roboto_Medium.ttf"
@@ -100,7 +112,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:background="@color/bluePurple"
-            android:text="Launch Admin Tools"
+            android:text="@string/launch_admin_tools"
             android:textColor="@color/darkPurple"
             android:visibility="gone"/>
 
