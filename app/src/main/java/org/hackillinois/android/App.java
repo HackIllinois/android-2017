@@ -12,6 +12,7 @@ import com.readystatesoftware.chuck.ChuckInterceptor;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
+import org.hackillinois.android.api.BooleanTypeAdapter;
 import org.hackillinois.android.api.HackIllinoisAPI;
 import org.hackillinois.android.helper.Settings;
 import org.hackillinois.android.helper.Utils;
@@ -33,7 +34,9 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import static org.hackillinois.android.api.HackIllinoisAPI.SERVER_ADDRESS;
 
 public class App extends MultiDexApplication {
-	private static final Gson gson = Converters.registerDateTime(new GsonBuilder()).create();
+	private static final Gson gson = Converters.registerDateTime(
+			new GsonBuilder().registerTypeAdapter(boolean.class, new BooleanTypeAdapter())
+	).create();
 	private static HackIllinoisAPI api;
 	private static Retrofit retrofit;
 	private static OkHttpClient okHttpClient;

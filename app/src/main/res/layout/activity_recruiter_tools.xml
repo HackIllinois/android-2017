@@ -1,109 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nestedScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="org.hackillinois.android.ui.modules.recruiter.RecruiterToolsActivity">
 
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/nestedScrollView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        <android.support.v7.widget.CardView
+            android:id="@+id/application_holder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:padding="8dp"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="16dp">
-
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/user_id"
-                fontPath="fonts/Roboto_Medium.ttf"
-                android:layout_width="0dp"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:hint="User Id"
-                android:inputType="number"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                android:layout_margin="16dp">
 
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/comment"
-                fontPath="fonts/Roboto_Medium.ttf"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_marginBottom="8dp"
-                android:hint="Add a comment"
-                android:inputType="text|textMultiLine"
-                android:minHeight="200dp"
-                android:textAlignment="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/user_id"/>
-
-            <android.support.v7.widget.LinearLayoutCompat
-                android:id="@+id/linearLayoutCompat"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/comment">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/user_id"
+                    fontPath="fonts/Roboto_Medium.ttf"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Favorite this applicant"/>
+                    android:layout_margin="8dp"
+                    android:hint="@string/user_id"
+                    android:inputType="number"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
-                <android.support.v7.widget.SwitchCompat
-                    android:id="@+id/favorite_user"
-                    android:layout_width="wrap_content"
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/comment"
+                    fontPath="fonts/Roboto_Medium.ttf"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"/>
-            </android.support.v7.widget.LinearLayoutCompat>
+                    android:layout_margin="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:hint="@string/add_a_comment"
+                    android:inputType="text|textMultiLine"
+                    android:minHeight="150dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/user_id"/>
 
-            <Button
-                android:id="@+id/submit_application"
-                fontPath="fonts/Roboto_Medium.ttf"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/bluePurple"
-                android:text="@string/submit_application"
-                android:textColor="@color/darkPurple"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat"
-                tools:ignore="MissingPrefix"/>
+                <android.support.v7.widget.LinearLayoutCompat
+                    android:id="@+id/linearLayoutCompat"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/comment">
 
-        </android.support.constraint.ConstraintLayout>
-    </android.support.v4.widget.NestedScrollView>
+                    <android.support.v7.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:text="@string/favorite_this_applicant"/>
 
-    <Button
-        android:id="@+id/start_new_application"
-        fontPath="fonts/Roboto_Medium.ttf"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/bluePurple"
-        android:text="@string/start_new_application"
-        android:textColor="@color/darkPurple"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nestedScrollView"
-        tools:ignore="MissingPrefix"/>
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/favorite_user"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"/>
+                </android.support.v7.widget.LinearLayoutCompat>
 
-</android.support.constraint.ConstraintLayout>
+                <android.support.v7.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat">
+
+                    <Button
+                        android:id="@+id/cancel_application"
+                        fontPath="fonts/Roboto_Medium.ttf"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:layout_weight="1"
+                        android:background="@color/bluePurple"
+                        android:text="@string/cancel_application"
+                        android:textColor="@color/darkPurple"
+                        tools:ignore="MissingPrefix"/>
+
+                    <Button
+                        android:id="@+id/submit_application"
+                        fontPath="fonts/Roboto_Medium.ttf"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:layout_weight="1"
+                        android:background="@color/bluePurple"
+                        android:text="@string/submit_application"
+                        android:textColor="@color/darkPurple"
+                        tools:ignore="MissingPrefix"/>
+
+                </android.support.v7.widget.LinearLayoutCompat>
+
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
+
+        <Button
+            android:id="@+id/start_new_application"
+            fontPath="fonts/Roboto_Medium.ttf"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/bluePurple"
+            android:text="@string/start_new_application"
+            android:textColor="@color/darkPurple"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/application_holder"
+            tools:ignore="MissingPrefix"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v4.widget.NestedScrollView>
