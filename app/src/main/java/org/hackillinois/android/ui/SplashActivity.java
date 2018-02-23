@@ -9,7 +9,6 @@ import android.view.WindowManager;
 import com.annimon.stream.Optional;
 
 import org.hackillinois.android.R;
-import org.hackillinois.android.api.response.location.LocationResponse;
 import org.hackillinois.android.api.response.login.LoginResponse;
 import org.hackillinois.android.helper.Settings;
 import org.hackillinois.android.helper.Utils;
@@ -44,14 +43,14 @@ public class SplashActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
 		setContentView(R.layout.activity_splash);
 		ButterKnife.bind(this);
 
 		Settings settings = Settings.get();
 
-		Window window = getWindow();
-		window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-		window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 
 		Optional<DateTime> lastAuth = settings.getLastAuth();
 		Timber.d("User last auth: %s", lastAuth.map(DateTime::toString).orElse("Never"));

@@ -32,6 +32,7 @@ import eu.davidea.flexibleadapter.FlexibleAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import timber.log.Timber;
 
 public class HomeFragment extends BaseFragment implements HomeClock.OnFinishListener {
 	@BindView(R.id.second_animation) LottieAnimationView seconds;
@@ -43,6 +44,12 @@ public class HomeFragment extends BaseFragment implements HomeClock.OnFinishList
 	@BindView(R.id.countdownTitle) TextView countdownTitle;
 	@BindView(R.id.empty_view) View emptyView;
 
+	private static final List<DateTime> EVENT_TIMERS = Arrays.asList(
+			Settings.EVENT_START_TIME,
+			Settings.HACKING_START_TIME,
+			Settings.HACKING_END_TIME,
+			Settings.EVENT_END_TIME
+	);
 	private static final int[] TITLE_IDS = new int[]{
 			R.string.hackillinois_starts_in,
 			R.string.hacking_starts_in,
@@ -67,6 +74,8 @@ public class HomeFragment extends BaseFragment implements HomeClock.OnFinishList
 		swipeRefresh.setOnRefreshListener(this::fetchEvents);
 		Utils.attachHackIllinoisRefreshView(swipeRefresh, inflater);
 
+		clock = new HomeClock(seconds, minutes, hours, days);
+		clock.setCountDownTo(this, EVENT_TIMERS);
 		sync();
 
 		//set our adapters to the RecyclerView
@@ -104,9 +113,18 @@ public class HomeFragment extends BaseFragment implements HomeClock.OnFinishList
 
 	public void sync() {
 		fetchEvents();
-		clock = new HomeClock(seconds, minutes, hours, days);
-		List<DateTime> eventTimers = Arrays.asList(Settings.EVENT_START_TIME, Settings.HACKING_START_TIME, Settings.HACKING_END_TIME, Settings.EVENT_END_TIME);
-		clock.setCountDownTo(this, eventTimers);
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		clock.onPause();
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		clock.onResume();
 	}
 
 	public void fetchEvents() {
