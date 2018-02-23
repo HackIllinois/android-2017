@@ -137,6 +137,6 @@ dependencies {
 
 play {
     // ...
-    track = 'alpha'
+    track = 'beta'
     uploadImages = true
 }
