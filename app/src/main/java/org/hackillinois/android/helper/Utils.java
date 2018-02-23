@@ -24,6 +24,7 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 
+import org.hackillinois.android.App;
 import org.hackillinois.android.R;
 import org.hackillinois.android.api.HackIllinoisAPI;
 import org.hackillinois.android.api.response.event.EventResponse;
@@ -151,7 +152,7 @@ public class Utils {
 		Settings settings = Settings.get();
 		String json = settings.getLocations();
 
-		LocationResponse locations = Settings.get().getGson().fromJson(json, LocationResponse.class);
+		LocationResponse locations = App.getGson().fromJson(json, LocationResponse.class);
 
 		// Just get the first location's location to open up maps app.
 		double longitude = 40.1138; // Default location for ECEB
@@ -188,7 +189,7 @@ public class Utils {
 			@Override
 			public void onResponse(Call<LocationResponse> call, Response<LocationResponse> response) {
 				if (response != null && response.isSuccessful()) {
-					Settings.get().setLocations(Settings.get().getGson().toJson(response.body()));
+					Settings.get().setLocations(App.getGson().toJson(response.body()));
 				}
 			}
 

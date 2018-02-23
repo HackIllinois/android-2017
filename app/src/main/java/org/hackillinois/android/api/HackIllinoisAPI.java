@@ -8,9 +8,10 @@ import org.hackillinois.android.api.response.location.LocationResponse;
 import org.hackillinois.android.api.response.login.LoginRequest;
 import org.hackillinois.android.api.response.login.LoginResponse;
 import org.hackillinois.android.api.response.qrcode.TrackingResponse;
+import org.hackillinois.android.api.response.recruiter.RecruiterInterestMultipleResponse;
 import org.hackillinois.android.api.response.recruiter.RecruiterInterestRequestExisting;
 import org.hackillinois.android.api.response.recruiter.RecruiterInterestRequestNew;
-import org.hackillinois.android.api.response.recruiter.RecruiterInterestResponse;
+import org.hackillinois.android.api.response.recruiter.RecruiterInterestSingleResponse;
 import org.hackillinois.android.api.response.tracking.TrackingRequest;
 import org.hackillinois.android.api.response.tracking.TrackingStartResponse;
 import org.hackillinois.android.api.response.user.AttendeeResponse;
@@ -59,13 +60,13 @@ public interface HackIllinoisAPI {
 	Call<TrackingResponse> getTracking(@Header("Authorization") String auth, @Path("trackID") int trackID);
 
 	@POST("/v1/recruiter/interest")
-	Call<RecruiterInterestResponse> addInterest(@Header("Authorization") String auth, @Body RecruiterInterestRequestNew request);
+	Call<RecruiterInterestSingleResponse> addInterest(@Header("Authorization") String auth, @Body RecruiterInterestRequestNew request);
 
 	@GET("/v1/recruiter/interest/all")
-	Call<RecruiterInterestResponse> getInterests(@Header("Authorization") String auth);
+	Call<RecruiterInterestMultipleResponse> getInterests(@Header("Authorization") String auth);
 
 	@PUT("/v1/recruiter/interest/{appID}")
-	Call<RecruiterInterestResponse> putInterest(
+	Call<RecruiterInterestSingleResponse> putInterest(
 			@Header("Authorization") String auth,
 			@Path("appID") long appID,
 			@Body RecruiterInterestRequestExisting request
