@@ -16,6 +16,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <!-- Todo needs https://github.com/palaima/DebugDrawer/issues/78 to be fixed -->
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -33,6 +34,7 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
@@ -49,7 +51,10 @@
         <activity
             android:name=".ui.modules.login.LoginActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.modules.admin.AdminToolsActivity" />
+        <activity android:name=".ui.modules.admin.AdminToolsActivity"/>
+        <activity android:name=".ui.modules.recruiter.RecruiterToolsActivity"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

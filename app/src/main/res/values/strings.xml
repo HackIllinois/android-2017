@@ -51,4 +51,8 @@
     <string name="event_duration_in_minutes">Event Duration (in minutes)</string>
     <string name="launch_announcement">Launch Announcement</string>
     <string name="start_tracking_event">Start tracking event</string>
+    <string name="open_recruiter_tools">Open Recruiter Tools</string>
+    <string name="launch_admin_tools">Launch Admin Tools</string>
+    <string name="start_new_application">Scan New Applicant</string>
+    <string name="submit_application">Submit Application</string>
 </resources>

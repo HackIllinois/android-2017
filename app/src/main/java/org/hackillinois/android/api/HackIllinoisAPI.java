@@ -8,6 +8,9 @@ import org.hackillinois.android.api.response.location.LocationResponse;
 import org.hackillinois.android.api.response.login.LoginRequest;
 import org.hackillinois.android.api.response.login.LoginResponse;
 import org.hackillinois.android.api.response.qrcode.TrackingResponse;
+import org.hackillinois.android.api.response.recruiter.RecruiterInterestRequestExisting;
+import org.hackillinois.android.api.response.recruiter.RecruiterInterestRequestNew;
+import org.hackillinois.android.api.response.recruiter.RecruiterInterestResponse;
 import org.hackillinois.android.api.response.tracking.TrackingRequest;
 import org.hackillinois.android.api.response.tracking.TrackingStartResponse;
 import org.hackillinois.android.api.response.user.AttendeeResponse;
@@ -19,6 +22,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -29,9 +33,6 @@ public interface HackIllinoisAPI {
 
 	@POST("/v1/auth")
 	Call<LoginResponse> verifyUser(@Body LoginRequest request);
-
-	@POST("/v1/tracking/")
-	Call<TrackingStartResponse> startTracking(@Header("Authorization") String auth, @Body TrackingRequest request);
 
 	@POST("/v1/announcement")
 	Call<AnnouncementStartResponse> makeAnnouncement(@Header("Authorization") String auth, @Body AnnouncementRequest request);
@@ -51,8 +52,24 @@ public interface HackIllinoisAPI {
 	@GET("/v1/event/")
 	Call<EventResponse> getEvents();
 
+	@POST("/v1/tracking/")
+	Call<TrackingStartResponse> startTracking(@Header("Authorization") String auth, @Body TrackingRequest request);
+
 	@GET("/v1/tracking/{trackID}")
 	Call<TrackingResponse> getTracking(@Header("Authorization") String auth, @Path("trackID") int trackID);
+
+	@POST("/v1/recruiter/interest")
+	Call<RecruiterInterestResponse> addInterest(@Header("Authorization") String auth, @Body RecruiterInterestRequestNew request);
+
+	@GET("/v1/recruiter/interest/all")
+	Call<RecruiterInterestResponse> getInterests(@Header("Authorization") String auth);
+
+	@PUT("/v1/recruiter/interest/{appID}")
+	Call<RecruiterInterestResponse> putInterest(
+			@Header("Authorization") String auth,
+			@Path("appID") long appID,
+			@Body RecruiterInterestRequestExisting request
+	);
 
 	@GET("/v1/announcement/all")
 	Call<AnnouncementResponse> getAnnouncements(

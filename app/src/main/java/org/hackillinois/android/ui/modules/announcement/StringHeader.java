@@ -13,10 +13,10 @@ import eu.davidea.flexibleadapter.FlexibleAdapter;
 import eu.davidea.flexibleadapter.items.AbstractHeaderItem;
 import eu.davidea.viewholders.FlexibleViewHolder;
 
-public class TimeHeader extends AbstractHeaderItem<TimeHeader.TimeViewHolder> {
+public class StringHeader extends AbstractHeaderItem<StringHeader.TimeViewHolder> {
 	private final String timeSection;
 
-	public TimeHeader(String timeSection) {
+	public StringHeader(String timeSection) {
 		this.timeSection = timeSection;
 	}
 
@@ -25,7 +25,7 @@ public class TimeHeader extends AbstractHeaderItem<TimeHeader.TimeViewHolder> {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 
-		TimeHeader that = (TimeHeader) o;
+		StringHeader that = (StringHeader) o;
 
 		return timeSection.equals(that.timeSection);
 	}
@@ -41,12 +41,12 @@ public class TimeHeader extends AbstractHeaderItem<TimeHeader.TimeViewHolder> {
 	}
 
 	@Override
-	public TimeHeader.TimeViewHolder createViewHolder(View view, FlexibleAdapter adapter) {
+	public StringHeader.TimeViewHolder createViewHolder(View view, FlexibleAdapter adapter) {
 		return new TimeViewHolder(view, adapter);
 	}
 
 	@Override
-	public void bindViewHolder(FlexibleAdapter adapter, TimeHeader.TimeViewHolder holder, int position, List payloads) {
+	public void bindViewHolder(FlexibleAdapter adapter, StringHeader.TimeViewHolder holder, int position, List payloads) {
 		holder.time.setText(timeSection);
 	}
 
