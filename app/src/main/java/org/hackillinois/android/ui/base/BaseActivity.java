@@ -70,7 +70,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 	}
 
 	public HackIllinoisAPI getApi() {
-		return getApp().getApi();
+		return App.getApi();
 	}
 
 	public App getApp() {
@@ -80,7 +80,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 	public void reportIfError(ResponseBody errorBody) {
 		if (errorBody != null) {
 			try {
-				APIErrorResonse error = getApp().getGson().fromJson(errorBody.string(), APIErrorResonse.class);
+				APIErrorResonse error = App.getGson().fromJson(errorBody.string(), APIErrorResonse.class);
 				Toast.makeText(getApplicationContext(), "Failed because " + error.getError().getMessage(), Toast.LENGTH_SHORT).show();
 			} catch (IOException e) {
 				Timber.wtf(e, "Failed to display error");

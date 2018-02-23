@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import com.annimon.stream.Optional;
 import com.google.gson.Gson;
 
+import org.hackillinois.android.App;
 import org.hackillinois.android.api.response.location.LocationResponse;
 import org.joda.time.DateTime;
 
@@ -30,15 +31,12 @@ public class Settings {
 	private static final String LOCATION_PREF = "LOCATION_JSON";
 	private static Settings INSTANCE;
 
-	private Gson gson;
-
 	private final SharedPreferences prefs;
 	private HashMap<Long, LocationResponse.Location> locationMap;
 
 	private Settings(Context context) {
 		prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
 		locationMap = new HashMap<>();
-		gson = new Gson();
 	}
 
 	public static void initialize(Context context) {
@@ -155,16 +153,8 @@ public class Settings {
 		return locationMap;
 	}
 
-	public Gson getGson() {
-		return gson;
-	}
-
-	public void setGson(Gson gson) {
-		this.gson = gson;
-	}
-
 	private void generateLocationMap(String json) {
-		LocationResponse location = gson.fromJson(json, LocationResponse.class);
+		LocationResponse location = App.getGson().fromJson(json, LocationResponse.class);
 
 		for (LocationResponse.Location loc : location.getLocations()) {
 			locationMap.put(loc.getId(), loc);
@@ -176,7 +166,6 @@ public class Settings {
 	}
 
 	private static void cleanDir(File dir) {
-		long bytesDeleted = 0;
 		File[] files = dir.listFiles();
 
 		for (File file : files) {

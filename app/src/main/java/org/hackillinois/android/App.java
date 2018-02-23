@@ -33,10 +33,10 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import static org.hackillinois.android.api.HackIllinoisAPI.SERVER_ADDRESS;
 
 public class App extends MultiDexApplication {
-	private final Gson gson = Converters.registerDateTime(new GsonBuilder()).create();
-	private HackIllinoisAPI api;
-	private Retrofit retrofit;
-	private OkHttpClient okHttpClient;
+	private static final Gson gson = Converters.registerDateTime(new GsonBuilder()).create();
+	private static HackIllinoisAPI api;
+	private static Retrofit retrofit;
+	private static OkHttpClient okHttpClient;
 	private final Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = chain -> {
 		Response originalResponse = chain.proceed(chain.request());
 		if (!Utils.isNetworkAvailable(getApplicationContext())) {
@@ -51,6 +51,7 @@ public class App extends MultiDexApplication {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		getOkHttp(); // don't move this
 		JobManager.create(this).addJobCreator(new HackillinoisJobCreator());
 		AnnouncementJob.scheduleAnnouncementFetcher(getApi(), TimeUnit.MINUTES.toMillis(15));
 
@@ -72,7 +73,7 @@ public class App extends MultiDexApplication {
 		Timber.plant(new Timber.DebugTree());
 	}
 
-	public Gson getGson() {
+	public static Gson getGson() {
 		return gson;
 	}
 
@@ -93,21 +94,21 @@ public class App extends MultiDexApplication {
 		return okHttpClient;
 	}
 
-	public Retrofit getRetrofit() {
+	public static Retrofit getRetrofit(OkHttpClient client) {
 		if (retrofit == null) {
 			retrofit = new Retrofit.Builder()
 					.baseUrl(SERVER_ADDRESS)
 					.addConverterFactory(GsonConverterFactory.create(getGson()))
-					.client(getOkHttp())
+					.client(client)
 					.build();
 		}
 
 		return retrofit;
 	}
 
-	public HackIllinoisAPI getApi() {
+	public static HackIllinoisAPI getApi() {
 		if (api == null) {
-			api = getRetrofit().create(HackIllinoisAPI.class);
+			api = getRetrofit(okHttpClient).create(HackIllinoisAPI.class);
 		}
 
 		return api;
