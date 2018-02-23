@@ -1,7 +1,6 @@
 package org.hackillinois.android.ui;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -12,13 +11,9 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import org.hackillinois.android.R;
-import org.hackillinois.android.api.response.location.LocationResponse;
-import org.hackillinois.android.helper.Settings;
 import org.hackillinois.android.helper.Utils;
 import org.hackillinois.android.ui.base.BaseActivity;
 import org.hackillinois.android.ui.modules.announcement.AnnouncementFragment;
@@ -29,9 +24,6 @@ import org.hackillinois.android.ui.modules.schedule.ScheduleFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import timber.log.Timber;
 
 public class MainActivity extends BaseActivity {
@@ -74,6 +66,12 @@ public class MainActivity extends BaseActivity {
 		fragmentManager = getSupportFragmentManager();
 
 		if (savedInstanceState == null) {
+			fragmentManager.beginTransaction()
+					.remove(profileFragment)
+					.remove(announcementFragment)
+					.remove(scheduleFragment)
+					.remove(homeFragment)
+					.commitNow();
 			fragmentManager.beginTransaction()
 					.add(R.id.content_frame, profileFragment)
 					.hide(profileFragment)
@@ -128,12 +126,6 @@ public class MainActivity extends BaseActivity {
 		if (extras != null) {
 			switchToMenuItem(extras.getInt(SET_TAB, R.id.menu_home));
 		}
-	}
-
-	@Override
-	protected void onResumeFragments() {
-		super.onResumeFragments();
-		homeFragment.sync();
 	}
 
 	private void swapFragments(Fragment newFragment) {
